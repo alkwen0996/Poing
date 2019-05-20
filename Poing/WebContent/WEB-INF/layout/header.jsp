@@ -1,31 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-	<!-- <link rel="stylesheet" type="text/css" href="https://www.poing.co.kr/css/app.css?v=1557742885314" > -->
-	<style>
-	
-	<%@include file="/css/style.css" %>
-	</style>
-	<script type="text/javascript" src="/js/jquery-3.4.1.js"></script>
-	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/main.js"></script>
-	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/popup.js"></script>
-	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/slider.js"></script>
-	<meta charset="UTF-8">
-	<title>
-	        포잉		
-	</title>
-</head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-<body class="vsc-initialized">
-
-<!-- body wrap -->
-<div id="wrap" class="">
-<!-- header -->
 <div id="header">
 <!-- navgation -->
 <div id="nav_wrap_shading"></div>
@@ -364,3 +339,4 @@
 </div>
 <!-- //navgation -->
 </div>
+ 

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="footer_wrap">
 	<div id="footer">
 		<img class="logo" src="http://c1.poing.co.kr/original/images/logo.png">
@@ -42,10 +41,3 @@
 		</div>
 	</div>
 </div>
-<jsp:include page="/WEB-INF/layout/popup_wrap.jspf"></jsp:include>
-</div> <!-- wrap end -->
-
-<jsp:include page="/WEB-INF/layout/script.jspf"></jsp:include>
-
-</body>
-</html>

@@ -9595,7 +9595,7 @@ window.fbAsyncInit = function() {
   }
 
   function K(t) {
-      e.suppressDeprecationWarnings === !1 && "undefined" != typeof console && console.warn && console.warn("Deprecation warning: " + t)
+      //e.suppressDeprecationWarnings === !1 && "undefined" != typeof console && console.warn && console.warn("Deprecation warning: " + t)
   }
 
   function B(e, t) {

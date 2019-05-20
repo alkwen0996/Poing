@@ -60,12 +60,12 @@
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   
-  <jsp-config>
+  <!-- <jsp-config>
   	<jsp-property-group>
   		<url-pattern>/WEB-INF/view/*</url-pattern>
   		<include-prelude>/WEB-INF/layout/header.jspf</include-prelude>
   		<include-coda>/WEB-INF/layout/footer.jspf</include-coda>
   	</jsp-property-group>
-  </jsp-config>
+  </jsp-config> -->
   
 </web-app>

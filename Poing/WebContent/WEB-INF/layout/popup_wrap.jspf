@@ -18,9 +18,9 @@
 						</form>
 						<p class="forgot">비밀번호가 기억나지 않으세요? <a>재설정하기</a></p>
 
-						<div id="naverIdLogin"><a id="naverIdLogin_loginButton" href="#"><img
+						<!-- <div id="naverIdLogin"><a id="naverIdLogin_loginButton" href="#"><img
 									src="https://static.nid.naver.com/oauth/big_g.PNG?version=js-2.0.0" height="48"></a></div>
-						<button type="button" class="facebook">페이스북 로그인</button>
+						<button type="button" class="facebook">페이스북 로그인</button> -->
 						<hr>
 						<button type="button" class="change">회원가입</button>
 					</div>
@@ -29,8 +29,8 @@
 						<p class="subtitle">가입 유형을 선택해주세요.</p>
 						<hr>
 
-						<button type="button" class="naver">네이버로 간편하게 가입하기</button>
-						<button type="button" class="facebook">페이스북로 간편하게 가입하기</button>
+						<!-- <button type="button" class="naver">네이버로 간편하게 가입하기</button>
+						<button type="button" class="facebook">페이스북로 간편하게 가입하기</button> -->
 						<button type="button" class="email">이메일로 가입하기</button>
 						<hr>
 						<p class="already">이미 회원이신가요?</p>
@@ -88,7 +88,7 @@
 						type: 'email'
 					});
 				});
-				$("#sign .join>.naver").click(function () {
+				/* $("#sign .join>.naver").click(function () {
 					$("#naverIdLogin img").click();
 				});
 				// 페이스북 로그인/회원가입
@@ -184,7 +184,7 @@
 							scope: 'public_profile, email, user_birthday'
 						}
 					);
-				});
+				}); */
 
 				// 탭 전환
 				$("#sign div>.change").click(function () {
@@ -193,7 +193,7 @@
 					$("#sign>.body").css('height', $target.attr('height'));
 				});
 			</script>
-			<script>
+			<!-- <script>
 				var naverLogin = new naver.LoginWithNaverId({
 					clientId: "WqrKgZxyoy5yJvHux6qe",
 					//callbackUrl: "http://poing.sanghyeok.mypoing.com/sign/naver",
@@ -206,7 +206,7 @@
 					}
 				});
 				naverLogin.init();
-			</script>
+			</script> -->
 		</div>
 	</div>
 

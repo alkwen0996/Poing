@@ -1,0 +1,31 @@
+package poing.main;
+
+
+import java.io.PrintStream;
+
+import org.omg.CORBA.ORB;
+
+import com.sun.corba.se.impl.activation.CommandHandler;
+
+public class DisplayMainHandler implements CommandHandler
+{
+
+	@Override
+	public String getCommandName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void printCommandHelp(PrintStream arg0, boolean arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean processCommand(String[] arg0, ORB arg1, PrintStream arg2) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

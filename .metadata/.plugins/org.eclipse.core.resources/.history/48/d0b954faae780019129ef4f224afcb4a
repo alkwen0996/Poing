@@ -1,0 +1,12 @@
+
+.ui-helper-reset,
+.ui-menu {
+    outline: 0;
+    list-style: none
+}
+
+.ui-button,
+.ui-spinner,
+.ui-spinner-input {
+    vertical-align: middle
+}

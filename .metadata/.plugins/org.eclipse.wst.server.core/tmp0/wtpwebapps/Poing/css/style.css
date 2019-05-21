@@ -1,4 +1,3 @@
-@charset "UTF-8";
 
 .ui-helper-reset,
 .ui-menu {
@@ -4508,9 +4507,9 @@ div#header {
   margin-left: 14px
 }
 
-#banner.product>.inner_wrap>.inner>.body>.summary>.value:after {
-  content: '��'
-}
+/* #banner.product>.inner_wrap>.inner>.body>.summary>.value:after {
+  content: '원'
+} */
 
 #banner.restaurant_detail>.background {
   position: absolute;

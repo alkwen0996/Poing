@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/app.css?v=1557742885314'>
 	<style>
-		<%@include file="/css/style.css" %> 
+		<%@include file="/css/style.css" %>
 	</style>
 	<script type="text/javascript" 
         src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
@@ -22,13 +23,8 @@
 <!-- body wrap -->
 <div id="wrap" class="">
 	<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
-	바디<br>
-	바디<br>
-	바디<br>
-	바디<br>
-	바디<br>
-	바디<br>
-	바디<br>
+	
+	
 	<!-- header -->
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	

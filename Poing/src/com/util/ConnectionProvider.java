@@ -9,11 +9,20 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class ConnectionProvider {
-	public static Connection getConnection() throws NamingException, SQLException
+	public static Connection getConnection() throws SQLException
 	{
-		Context initContext = new InitialContext();
-		Context envContext  = (Context)initContext.lookup("java:/comp/env");
-		DataSource ds = (DataSource)envContext.lookup("jdbc/myoracle");
+		Context initContext;
+		Context envContext;
+		DataSource ds = null;
+
+		try {
+			initContext = new InitialContext();
+			envContext = (Context)initContext.lookup("java:/comp/env");
+			ds = (DataSource)envContext.lookup("jdbc/myoracle");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Connection conn = ds.getConnection();
 		return conn;
 	}

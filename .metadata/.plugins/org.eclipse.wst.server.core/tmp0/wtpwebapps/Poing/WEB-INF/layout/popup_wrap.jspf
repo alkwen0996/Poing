@@ -61,7 +61,7 @@
 						return false;
 					}
 					$.ajax({
-						url: '/user/login',
+						url: '/Poing/user/login.do',
 						type: 'POST',
 						data: {
 							login_id: this.email.value,
@@ -84,7 +84,7 @@
 				});
 				// 이메일 회원가입
 				$("#sign .join>.email").click(function () {
-					post_to_url('/user/join', {
+					post_to_url('/user/join.do', {
 						type: 'email'
 					});
 				});

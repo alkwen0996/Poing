@@ -16526,4 +16526,13 @@ jQuery(function(t) {
   }
 });
 var ratingText = {};
-ratingText[9] = "완벽 그 자체! 환상적이에요.", ratingText[8] = "오랫동안 기억에 남을 만한 곳이에요.", ratingText[7] = "인상적이네요. 꼭 추천하고 싶어요.", ratingText[6] = "평균 이상! 한 번 쯤은 다시 올 것 같아요.", ratingText[5] = "보통이에요. 이 정도면 괜찮네요.", ratingText[4] = "다 괜찮은데 뭔가 조금 아쉬워요!", ratingText[3] = "평균 이하! 이 정도 레스토랑은 어디에나 있죠.", ratingText[2] = "맛, 분위기, 서비스...전체적으로 다 별로예요!", ratingText[1] = "실망이에요. 집에서 먹는게 나을 뻔 했어요.", ratingText[0] = "노 코멘트. 두 번 다시 오고 싶지 않아요.";
+ratingText[9] = "완벽 그 자체! 환상적이에요.", 
+ratingText[8] = "오랫동안 기억에 남을 만한 곳이에요.", 
+ratingText[7] = "인상적이네요. 꼭 추천하고 싶어요.", 
+ratingText[6] = "평균 이상! 한 번 쯤은 다시 올 것 같아요.", 
+ratingText[5] = "보통이에요. 이 정도면 괜찮네요.", 
+ratingText[4] = "다 괜찮은데 뭔가 조금 아쉬워요!", 
+ratingText[3] = "평균 이하! 이 정도 레스토랑은 어디에나 있죠.", 
+ratingText[2] = "맛, 분위기, 서비스...전체적으로 다 별로예요!",
+ratingText[1] = "실망이에요. 집에서 먹는게 나을 뻔 했어요.", 
+ratingText[0] = "노 코멘트. 두 번 다시 오고 싶지 않아요.";

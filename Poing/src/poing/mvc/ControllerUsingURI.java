@@ -68,7 +68,6 @@ public class ControllerUsingURI extends HttpServlet{
 		String viewPage = null;
 		try {
 			viewPage = handler.process(request, response);
-			System.out.println("viewpage: " + viewPage);
 		}
 		catch (Exception e) {
 			throw new ServletException(e);
@@ -76,6 +75,7 @@ public class ControllerUsingURI extends HttpServlet{
 		if(viewPage != null) {
 			String prefix = "/WEB-INF/view/";
 			viewPage = prefix+viewPage+".jsp";
+			System.out.println("viewpage: " + viewPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 		}

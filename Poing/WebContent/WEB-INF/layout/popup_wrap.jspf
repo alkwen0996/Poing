@@ -61,7 +61,7 @@
 						return false;
 					}
 					$.ajax({
-						url: '/user/login',
+						url: '/Poing/user/login.do',
 						type: 'POST',
 						data: {
 							login_id: this.email.value,
@@ -395,3 +395,12 @@
 		}
 	</script>
 </div>
+
+
+
+
+
+
+
+
+

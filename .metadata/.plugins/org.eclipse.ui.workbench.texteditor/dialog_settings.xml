@@ -9,12 +9,18 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="이메일" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="이메일"/>
+			<item value="$(&quot;#sign .join&gt;.email&quot;).click(function "/>
+			<item value="&#x09;&#x09;&#x09;&#x09;$(&quot;#sign .join&gt;.email&quot;).click(function () {"/>
+			<item value="poing"/>
+			<item value="facebook-jssdk"/>
+			<item value="na"/>
 			<item value="jquery: K,"/>
 			<item value="naver"/>
 			<item value="face"/>
@@ -24,14 +30,9 @@
 			<item value="    var naverLogin = new naver"/>
 			<item value="    var naverLogin = new naver.LoginWithNaverId("/>
 			<item value="--&gt;"/>
-			<item value="naverIdLogin_loginButton"/>
-			<item value="Popup_wrap"/>
-			<item value="popup"/>
-			<item value="z."/>
-			<item value="z"/>
-			<item value="nav_account"/>
 		</list>
 		<list key="replacehistory">
+			<item value="point"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

@@ -2358,7 +2358,8 @@ $(document).ready(function(){
 							food_types: $("#nav_genre ul input:not(#food_all):checked").map(function() { return $(this).val(); }).get().join(','), 
 							key: $("#nav_search>input").val()
 					   },
-					   reset:['food_detail_types', 'price_description', 'additional_info', 'table_styles', 'liquors', 'parking', 'order_rule', 'theme_childe_sub3', 'theme_childe_url', 'r_num', 'page']});
+					   reset:['food_detail_types', 'price_description', 'additional_info', 'table_styles', 'liquors', 
+					   'parking', 'order_rule', 'theme_childe_sub3', 'theme_childe_url', 'r_num', 'page']});
 	});
 	// box button click
 	$("#nav_container>.search.sel>.box>button").click(function(){

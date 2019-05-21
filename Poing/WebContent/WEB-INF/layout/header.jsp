@@ -9,30 +9,22 @@
 <div id="nav_container" class="">
     <div id="nav_shading" class="shading_bg scroll_enable"></div>
     <!-- logo section -->
-    <a id="nav_logo" href="/seoul"><img class="logo" src="http://c1.poing.co.kr/original/images/logo.png"></a>
+    <a id="nav_logo" href="/Poing/main.do"><img class="logo" src="http://c1.poing.co.kr/original/images/logo.png"></a>
 
-                    <div id="nav_city">
-            <span>서울 / 수도권</span>
-            <i class="icon"></i>
-            <ul>
-                    
-                    <li data-city="seoul" data-enable="true">서울 / 수도권</li>
-                    
-                    <li data-city="busan" data-enable="true">부산</li>
-                    
-                    <li data-city="jeju" data-enable="true">제주</li>
-                    
-                    <li data-city="daegu" data-enable="true">대구</li>
-                    
-                    <li data-city="daejeon" data-enable="true">대전 / 세종</li>
-                    
-                    <li data-city="gwangju" data-enable="true">광주</li>
-                    
-                    <li data-city="jeonju" data-enable="false">전주</li>
-                    
-                    <li data-city="ulsan" data-enable="false">울산</li>
-                                    </ul>	
-        </div>
+    <div id="nav_city">
+		<span>서울 / 수도권</span>
+		<i class="icon"></i>
+		<ul>
+			<li data-city="seoul" data-enable="true">서울 / 수도권</li>
+			<li data-city="busan" data-enable="true">부산</li>
+			<li data-city="jeju" data-enable="true">제주</li>
+			<li data-city="daegu" data-enable="true">대구</li>
+			<li data-city="daejeon" data-enable="true">대전 / 세종</li>
+			<li data-city="gwangju" data-enable="true">광주</li>
+			<li data-city="jeonju" data-enable="false">전주</li>
+			<li data-city="ulsan" data-enable="false">울산</li>
+		</ul>	
+	</div>
 
         <!-- area search section -->
         <div id="nav_area" class="search sel">

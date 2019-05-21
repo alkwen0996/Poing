@@ -84,7 +84,7 @@
 				});
 				// 이메일 회원가입
 				$("#sign .join>.email").click(function () {
-					post_to_url('/user/join', {
+					post_to_url('/Poing/user/join.do', {
 						type: 'email'
 					});
 				});

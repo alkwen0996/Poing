@@ -60,14 +60,14 @@
             <hr>
             <input type="checkbox" name="agree_1" id="agree_1" required=""><label for="agree_1">만 14세 이상입니다. <span>(필수)</span></label>
             <input type="checkbox" name="agree_2" id="agree_2" required=""><label for="agree_2">이용약관 <span>(필수)</span></label>
-            <iframe src="/static/tos.html"></iframe>
+            <iframe src="/Poing/static/tos.html"></iframe>
             
             <input type="checkbox" name="agree_3" id="agree_3" required=""><label for="agree_3">개인정보취급방침 <span>(필수)</span></label>
-            <iframe src="/static/privacy.html"></iframe>
+            <iframe src="/Poing/static/privacy.html"></iframe>
             
             <input type="checkbox" name="agree_4" id="agree_4" data-target="marketing"><label for="agree_4">제 3자 마케팅 활용 동의 <span class="optional">(선택)</span></label>
             <p>매장(레스토랑)의 각종 혜택 및 할인 이벤트 정보를 받아보세요.</p>
-            <iframe src="/static/3-party.mkt.agree.html"></iframe>
+            <iframe src="/Poing/static/3-party.mkt.agree.html"></iframe>
 
             <input type="checkbox" id="agree_all_event"><label for="agree_all_event">이벤트 알림 서비스 <span class="optional">(선택)</span></label>
             <p>미식가를 위한 각종 혜택 및 프로모션 정보를 받아보세요.</p>
@@ -148,7 +148,7 @@
 
                     };
                 $.ajax({
-            url: '/user/joinrequest',
+            url: '/Poing/user/join.do',
             type: 'POST',
             data: params,
             success: function(res) {
@@ -257,7 +257,7 @@
     $("#join_form input[name=email]").blur(function() {
         if(this.checkValidity()) {
             $.ajax({
-                url: '/user/checkEmailDuple',
+                url: '/user/checkEmailDuple.do',
                 method: 'GET',
                 data: {email: $(this).val()},
                 context: this,

@@ -56,7 +56,7 @@ public class ControllerUsingURI extends HttpServlet{
 
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command = request.getRequestURI();
-		System.out.println("command: "+command);
+		System.out.println("request: "+command);
 		if (command.indexOf(request.getContextPath()) == 0) {
 			command = command.substring(request.getContextPath().length());
 		}

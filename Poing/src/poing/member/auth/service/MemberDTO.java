@@ -2,14 +2,21 @@ package poing.member.auth.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class MemberDTO {
 	private int id;
+	private String email;
 	private String password;
 	private String name;
 	private String phone;
 	private Date birth;
+	private String gender;
 	private int point;
 	private String info;
 	private int level;
@@ -23,12 +30,13 @@ public class MemberDTO {
 	
 	
 	
+
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", password=" + password + ", name=" + name + ", phone=" + phone + ", birth="
-				+ birth + ", point=" + point + ", info=" + info + ", level=" + level + ", reviewCnt=" + reviewCnt
-				+ ", likeRestCnt=" + likeRestCnt + ", flowerCnt=" + flowerCnt + ", image=" + image + ", bascketCnt="
-				+ bascketCnt + ", noticeCnt=" + noticeCnt + "]";
+		return "MemberDTO [id=" + id + ", email=" + email + ", password=" + password + ", name=" + name + ", phone="
+				+ phone + ", birth=" + birth + ", point=" + point + ", info=" + info + ", level=" + level
+				+ ", reviewCnt=" + reviewCnt + ", likeRestCnt=" + likeRestCnt + ", flowerCnt=" + flowerCnt + ", image="
+				+ image + ", bascketCnt=" + bascketCnt + ", noticeCnt=" + noticeCnt + "]";
 	}
 
 	public MemberDTO() {
@@ -143,9 +151,27 @@ public class MemberDTO {
 		this.image = image;
 	}
 
-	public void convert(ResultSet rs) throws SQLException {
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public void convert_rs(ResultSet rs) throws SQLException {
 		this.id = rs.getInt("id");
+		this.email = rs.getString("email");
+		this.password = rs.getString("password");
 		this.name = rs.getString("name");
+		this.birth = rs.getDate("birth");
 		this.point = rs.getInt("point");
 		this.info = rs.getString("info");
 		this.level = rs.getInt("level");
@@ -154,6 +180,18 @@ public class MemberDTO {
 		this.flowerCnt = rs.getInt("flowerCnt");
 		this.bascketCnt = rs.getInt("bascketCnt");
 		this.noticeCnt = rs.getInt("noticeCnt");
+	}
+	public void convert_rquest(HttpServletRequest request) {
+		String birth_str = request.getParameter("birth1") + "/" + request.getParameter("birth2") + "/" + request.getParameter("birth3");
+		SimpleDateFormat format = new SimpleDateFormat();
+		
+		try {
+			Date birth = format.parse(birth_str);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public boolean checkPassword(String password) {

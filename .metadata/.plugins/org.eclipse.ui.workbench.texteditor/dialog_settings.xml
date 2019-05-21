@@ -9,36 +9,36 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="이메일" key="selection"/>
+		<item value="nav_logo" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="nav_logo"/>
+			<item value="getgen"/>
+			<item value="user/join.do"/>
+			<item value="user/join.douser/join.do"/>
+			<item value="join.do"/>
+			<item value="checkValidity"/>
+			<item value="checkEmailDuple"/>
+			<item value="checkEmailDuple\"/>
+			<item value="static1"/>
+			<item value="static"/>
+			<item value="이메일 회원가입"/>
+			<item value="/user/join"/>
+			<item value="&#x09;&#x09;&#x09;&#x09;&#x09;post_to_url(&apos;/user/join&apos;, {"/>
 			<item value="이메일"/>
 			<item value="$(&quot;#sign .join&gt;.email&quot;).click(function "/>
-			<item value="&#x09;&#x09;&#x09;&#x09;$(&quot;#sign .join&gt;.email&quot;).click(function () {"/>
-			<item value="poing"/>
-			<item value="facebook-jssdk"/>
-			<item value="na"/>
-			<item value="jquery: K,"/>
-			<item value="naver"/>
-			<item value="face"/>
-			<item value="fac"/>
-			<item value="naver.LoginWithNaverId"/>
-			<item value="    var naverLogin "/>
-			<item value="    var naverLogin = new naver"/>
-			<item value="    var naverLogin = new naver.LoginWithNaverId("/>
-			<item value="--&gt;"/>
 		</list>
 		<list key="replacehistory">
 			<item value="point"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="340" key="DIALOG_WIDTH"/>
-		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
-		<item value="454" key="DIALOG_HEIGHT"/>
+		<item value="288" key="DIALOG_WIDTH"/>
+		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|5|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
+		<item value="391" key="DIALOG_HEIGHT"/>
 		<item value="799" key="DIALOG_X_ORIGIN"/>
 		<item value="222" key="DIALOG_Y_ORIGIN"/>
 	</section>

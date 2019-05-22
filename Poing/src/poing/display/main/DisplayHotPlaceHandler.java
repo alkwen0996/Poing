@@ -5,13 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import poing.mvc.CommandHandler;
 
-public class DisplayMainHandler implements CommandHandler
-{
+public class DisplayHotPlaceHandler implements CommandHandler{
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("DisplayMainHandler process() called...");
-		return "main/main";
+		// TODO Auto-generated method stub
+		return "main/hotplace/seoul";
 	}
-
+	
 }

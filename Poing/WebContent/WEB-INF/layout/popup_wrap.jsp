@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <div id="popup_wrap">
 	<div id="popup" style="display: none; opacity: 1;">
 		<div class="shadow"></div>

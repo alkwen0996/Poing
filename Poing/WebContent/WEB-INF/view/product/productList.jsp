@@ -76,10 +76,10 @@ System.out.println("list.jsp");
 		<!-- header -->
 		<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	
-		<jsp:include page="/WEB-INF/layout/popup_wrap.jspf"></jsp:include>
+		<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 	<!-- wrap end -->
 
-	<jsp:include page="/WEB-INF/layout/script.jspf"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include>
 </div>
 </body>
 </html>

@@ -296,9 +296,9 @@
 	<!-- header -->
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	
-	<jsp:include page="/WEB-INF/layout/popup_wrap.jspf"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 </div> <!-- wrap end -->
 
-<jsp:include page="/WEB-INF/layout/script.jspf"></jsp:include>
+<jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include>
 </body>
 </html>

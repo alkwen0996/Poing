@@ -24,6 +24,7 @@
 <body class="vsc-initialized">
 <!-- body wrap -->
 <div id="wrap" class="">
+	<!-- header -->
 	<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 	
 	<div id="container" class="">
@@ -35,7 +36,7 @@
 							<div class="slider PoingSlider">
 								<div class="current slice" style="top: 0px; left: 0px;">
 									<div class="element  large awards first ">
-										<a href="/banner/theme/10432" class="image"
+										<a href="/Poing/theme/hotPlace" class="image"
 											style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471926035c38491bc1e84.png&quot;);">
 											<div class="shading"></div>
 											<div class="center">
@@ -706,16 +707,16 @@
 	
 	</script>
 			</div>
-			<!-- content_wrap -->
+			content_wrap
 
 		</div>
 	
-	<!-- header -->
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	
-	<jsp:include page="/WEB-INF/layout/popup_wrap.jspf"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
+	
 </div> <!-- wrap end -->
 
-<jsp:include page="/WEB-INF/layout/script.jspf"></jsp:include>
+<jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include>
 </body>
 </html>

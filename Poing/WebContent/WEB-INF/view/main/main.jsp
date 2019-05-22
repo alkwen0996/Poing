@@ -36,7 +36,7 @@
 							<div class="slider PoingSlider">
 								<div class="current slice" style="top: 0px; left: 0px;">
 									<div class="element  large awards first ">
-										<a href="/Poing/theme/hotPlace" class="image"
+										<a href="/Poing/theme/hotPlace.do?seoul" class="image"
 											style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471926035c38491bc1e84.png&quot;);">
 											<div class="shading"></div>
 											<div class="center">

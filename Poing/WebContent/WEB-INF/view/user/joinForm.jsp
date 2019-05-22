@@ -30,31 +30,38 @@
         <p class="title">회원가입</p>
 
         <p class="subtitle">정보입력</p>
-        <div class="basic">
-            <div>
-                                <input type="text" name="name" placeholder="이름" pattern=".{1,}" value="" required="">
-            </div>
-            <div>
-                                    <input type="email" name="email" placeholder="이메일" value="" required="">
-                            </div>
+		<div class="basic">
+			<div>
+				<input type="text" name="name" placeholder="이름" pattern=".{1,}"
+					value="" required="">
+			</div>
+			<div>
+				<input type="email" name="email" placeholder="이메일" value=""
+					required="">
+			</div>
+	
+			<p>생년월일과 성별 기입은 선택사항입니다. 개인화된 추천을 받으시려면 입력해주세요.</p>
+			<div class="birth divide">
+				<input type="number" name="birth1" min="1900" max="2017"
+					placeholder="생년 (4자)" value=""> <input type="number"
+					name="birth2" min="01" max="12" placeholder="월" value="">
+				<input type="number" name="birth3" min="01" max="31"
+					placeholder="일" value="">
+			</div>
+			<div class="gender divide">
+				<input type="radio" name="gender" value="male" id="gender_male"><label
+					for="gender_male">남자</label> <input type="radio" name="gender"
+					value="female" id="gender_female"><label
+					for="gender_female">여자</label>
+			</div>
+			<div class="password divide">
+				<input type="password" name="password" placeholder="비밀번호 (6자이상)"
+					pattern=".{6,}" required=""> <input type="password"
+					name="password2" placeholder="비밀번호 재확인" required="">
+			</div>
+		</div>
 
-            <p>생년월일과 성별 기입은 선택사항입니다. 개인화된 추천을 받으시려면 입력해주세요.</p>
-            <div class="birth divide">
-                                <input type="number" name="birth1" min="1900" max="2017" placeholder="생년 (4자)" value="">
-                <input type="number" name="birth2" min="01" max="12" placeholder="월" value="">
-                <input type="number" name="birth3" min="01" max="31" placeholder="일" value="">
-            </div>
-            <div class="gender divide">
-                                <input type="radio" name="gender" value="male" id="gender_male"><label for="gender_male">남자</label>
-                <input type="radio" name="gender" value="female" id="gender_female"><label for="gender_female">여자</label>
-            </div>
-                            <div class="password divide">
-                    <input type="password" name="password" placeholder="비밀번호 (6자이상)" pattern=".{6,}" required="">
-                    <input type="password" name="password2" placeholder="비밀번호 재확인" required="">
-                </div>
-                    </div>
-
-        <p class="subtitle">약관동의</p>
+		<p class="subtitle">약관동의</p>
         <div class="clause">
             <input type="checkbox" id="agree_all"><label for="agree_all">전체 이용약관에 동의합니다.</label>
             <hr>

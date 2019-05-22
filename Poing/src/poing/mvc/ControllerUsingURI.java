@@ -61,6 +61,7 @@ public class ControllerUsingURI extends HttpServlet{
 			command = command.substring(request.getContextPath().length());
 		}
 		System.out.println(command);
+			
 		CommandHandler handler = commandHandlerMap.get(command);
 		if (handler == null) {
 			handler = new NullHandler(); //404에러를 응답하는 핸들러 클래스

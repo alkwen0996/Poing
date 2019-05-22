@@ -6,6 +6,7 @@
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
 	<style>
 		<%@include file="/css/style.css" %>
+		<%@include file="/css/poing.slider.css" %>
 	</style>
 	
 	<script type="text/javascript" 
@@ -14,6 +15,8 @@
 		src="<%= request.getContextPath() %>/js/main.js"></script>
 	<script type="text/javascript"
 		src="<%= request.getContextPath() %>/js/slider.js"></script>
+	<script type="text/javascript" 
+		src="<%= request.getContextPath() %>/js/productDetailScript.js"></script>
 
 	<meta charset="UTF-8">
 	<title>
@@ -138,10 +141,10 @@
 		<div id="content_wrap">
 			<div id="content" class="detail info coupon">
 				<ul class="tab">
-					<li class="item ">
+					<li class="item selected">
 						<a href="/product/detail/5432?info">상세정보</a>
 					</li>
-					<li class="item selected">
+					<li class="item">
 						<a href="/product/detail/5432?photo">포토</a>
 					</li>
 					<li class="item ">
@@ -395,7 +398,6 @@
 		</div><!-- content_wrap -->
 		
 		</div><!-- container -->
-		<script type="text/javascript" src="<%= request.getContextPath() %>/js/productDetailScript.js"></script>
 		<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	
 		<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>

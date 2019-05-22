@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/layout/header.jsp=UTF-8
-encoding//WebContent/WEB-INF/layout/popup_wrap.jsp=UTF-8
+encoding//WebContent/WEB-INF/layout/popup_wrap_noLogin.jsp=UTF-8
 encoding/<project>=UTF-8

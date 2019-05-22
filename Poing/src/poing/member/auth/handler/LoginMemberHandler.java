@@ -31,19 +31,25 @@ public class LoginMemberHandler implements CommandHandler{
 		int memberID = loginMemberService.getMemberID(email);
 		if(memberID == 0)
 		{
-			System.out.println("ID가 존재하지 않습니다.");
-			return "main";
+			String error = "해당되는 유저정보가 없습니다.";
+			request.setAttribute("error", error);
+			request.setAttribute("result", false);
+			return "user/loginResult";
 		}
 		MemberDTO mdto = loginMemberService.selectMemberByID(memberID);
 		if(!mdto.checkPassword(password))
 		{
-			System.out.println("비밀번호가 일치하지 않습니다.");
-			return "main";
+			String error = "비밀번호를 확인 해주세요.";
+			request.setAttribute("error", error);
+			request.setAttribute("result", false);
+			return "user/loginResult";
 		}
 		System.out.println("no:" + mdto.getId());
 		System.out.println("이름:" + mdto.getName());
-		request.setAttribute("mdto", mdto);
-		return "main";
+		request.setAttribute("result", true);
+		request.getSession().setAttribute("authUser", mdto);
+
+		return "user/loginResult";
 	}
 
 }

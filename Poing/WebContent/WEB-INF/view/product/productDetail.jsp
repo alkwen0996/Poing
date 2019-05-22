@@ -15,8 +15,8 @@
 		src="<%= request.getContextPath() %>/js/main.js"></script>
 	<script type="text/javascript"
 		src="<%= request.getContextPath() %>/js/slider.js"></script>
-	<script type="text/javascript" 
-		src="<%= request.getContextPath() %>/js/productDetailScript.js"></script>
+	<%-- <script type="text/javascript" 
+		src="<%= request.getContextPath() %>/js/productDetailScript.js"></script> --%>
 
 	<meta charset="UTF-8">
 	<title>
@@ -46,90 +46,120 @@
 								찜하기<i class="icon heart large "></i>
 							</button>
 						</div>
-			
 						<div class="body">
 							<div class="slider_wrap PoingSlider_wrap">
-							<div id="slider" class="PoingSlider">
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="0" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173085bd26dbc0cb45.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -8.39538%;">
-                                <i class="image" data-index="1" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173045bd26db8f1e71.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice current" style="top: 0px; left: 407.641px;">
-                                <i class="image" data-index="2" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405172945bd26dae84334.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="3" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173135bd26dc159050.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="4" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173005bd26db482508.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="5" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405172975bd26db191c97.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="6" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405172885bd26da8c5d3c.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="7" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872015bceeae10ce31.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="8" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872155bceeaef6041a.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="9" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872435bceeb0be922c.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="10" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872305bceeafed0f38.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-													<div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                <i class="image" data-index="11" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872115bceeaeb3a9c4.png)" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-							</div>
-											</div>
+								<div id="slider" class="PoingSlider">
+									<div class="i_wrap slice current" style="top: 0px; left: 0%;">
+										<i class="image" data-index="0"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173085bd26dbc0cb45.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="1"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173045bd26db8f1e71.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100px;">
+										<i class="image" data-index="2"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405172945bd26dae84334.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="3"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173135bd26dc159050.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="4"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173005bd26db482508.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="5"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405172975bd26db191c97.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="6"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15405172885bd26da8c5d3c.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="7"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872015bceeae10ce31.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="8"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872155bceeaef6041a.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="9"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872435bceeb0be922c.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="10"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872305bceeafed0f38.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+									<div class="i_wrap slice" style="top: 0px; left: -100%;">
+										<i class="image" data-index="11"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODEw/15402872115bceeaeb3a9c4.png)"
+											title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+									</div>
+								</div>
 							</div>
 							<div class="price">
-			                    <div class="i_wrap ">
-			                    	<span class="main">18%</span><br>
-			                    	<span class="sub"> OFF</span>
-			                    </div>
-								<span class="reduced">45,000원</span><br>
-								<span class="original">55,000원</span>
+								<div class="i_wrap ">
+									<span class="main">18%</span><br> <span class="sub">
+										OFF</span>
+								</div>
+								<span class="reduced">45,000원</span><br> <span
+									class="original">55,000원</span>
 							</div>
-							<div id="left_time">남은시간 <span>9일 23:06:11</span></div>
+							<div id="left_time">
+								남은시간 <span>9일 23:06:11</span>
+							</div>
 							<div class="dropbox">
 								<div class="label">
-									<span class="text">옵션을 선택해주세요.</span>
-									<span class="i_wrap"><i class="icon arrow small red down"></i></span>
+									<span class="text">옵션을 선택해주세요.</span> <span class="i_wrap"><i
+										class="icon arrow small red down"></i></span>
 								</div>
 								<ul class="items" style="display: none;">
-		                            <li class="" data-id="17684" data-min="2" data-limit="5">
-										<span class="option"><span>1. 킨카 1인 코스 (6명 미만 예약 시)</span></span><span class="price">45,000원</span>
+									<li class="" data-id="17684" data-min="2" data-limit="5">
+										<span class="option"><span>1. 킨카 1인 코스 (6명 미만
+												예약 시)</span></span><span class="price">45,000원</span>
 									</li>
-		                            <li class="" data-id="17688" data-min="6" data-limit="10">
-										<span class="option"><span>2. 킨카 1인 코스 (6~10명 예약 시)</span></span><span class="price">45,000원</span>
+									<li class="" data-id="17688" data-min="6" data-limit="10">
+										<span class="option"><span>2. 킨카 1인 코스 (6~10명
+												예약 시)</span></span><span class="price">45,000원</span>
 									</li>
-		                            <li class="" data-id="17692" data-min="10" data-limit="30">
-										<span class="option"><span>3. 킨카 1인 코스 (10명 이상 예약 시)</span></span><span class="price">45,000원</span>
+									<li class="" data-id="17692" data-min="10" data-limit="30">
+										<span class="option"><span>3. 킨카 1인 코스 (10명 이상
+												예약 시)</span></span><span class="price">45,000원</span>
 									</li>
 								</ul>
 							</div>
 							<ul class="selected">
-								<li data-id="17684" data-min="2" data-limit="5">
-									<span class="name">1. 킨카 1인 코스 (6명 미만 예약 시)</span>
-									<span class="price">45,000원</span>
+								<li data-id="17684" data-min="2" data-limit="5"><span
+									class="name">1. 킨카 1인 코스 (6명 미만 예약 시)</span> <span
+									class="price">45,000원</span>
 									<div class="count_box">
 										<input type="text" value="2" disabled="">
-										<button type="button" class="increase"><i></i></button>
-										<button type="button" class="decrease"><i></i></button>
-									</div>
-									<span class="total">90,000원</span>
-									<button type="button" class="delete"></button>
-								</li>
+										<button type="button" class="increase">
+											<i></i>
+										</button>
+										<button type="button" class="decrease">
+											<i></i>
+										</button>
+									</div> <span class="total">90,000원</span>
+									<button type="button" class="delete"></button></li>
 							</ul>
 							<div class="summary">
-								<span class="label">총 합계</span>
-								<span class="value">0</span><span class="label">원</span>
+								<span class="label">총 합계</span> <span class="value">0</span><span
+									class="label">원</span>
 							</div>
 						</div>
 					</div>

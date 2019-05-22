@@ -10,7 +10,7 @@ public class DisplayHotPlaceHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		return "main/hotplace/seoul";
+		return "main/hotplace/hotplaceMain";
 	}
 	
 }

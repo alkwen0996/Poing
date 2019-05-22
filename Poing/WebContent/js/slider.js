@@ -80,7 +80,7 @@ PoingSlider.Create = function(argument)
 	}
 	else if($(option.selector).length <= 0)
 	{
-		console.error("[PoingSlider]", "selector should be exist.");
+		//console.error("[PoingSlider]", "selector should be exist.");
 		return null;
 	}
 

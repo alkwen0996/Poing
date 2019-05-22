@@ -29,7 +29,7 @@
 	<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 	
 	<!-- 만약 url주소에 seoul이 있으면 -->
-	<jsp:include page="/WEB-INF/view/main/hotplace/seoul.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/main/hotplace/seoul_hotplace.jsp"></jsp:include>
 
 		
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>

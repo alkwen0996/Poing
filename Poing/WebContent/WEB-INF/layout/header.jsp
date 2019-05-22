@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 
 <div id="header">
 <!-- navgation -->
@@ -611,11 +613,65 @@
 				</div>
 				<button type="button" id="nav_btn" class="search" tabindex="-1">검색</button>
 				<!-- account section -->
-				<div id="nav_account">
-					<div id="nav_guest">
-						<span id="nav_login">로그인</span> &nbsp;|&nbsp; <span id="nav_join">회원가입</span>
+				<c:if test="${empty authUser}">
+					<%
+						System.out.println("head empty mdto");
+					%>
+					<div id="nav_account">
+						<div id="nav_guest">
+							<span id="nav_login">로그인</span> &nbsp;|&nbsp; <span id="nav_join">회원가입</span>
+						</div>
 					</div>
-				</div>
+				</c:if>
+				<c:if test="${not empty authUser}">
+					<%
+						System.out.println("head not empty mdto");
+					%>
+					<div id="nav_account">
+						<div id="nav_user">
+							<div id="nav_cart" class="underline">
+								<div class="i_wrap">
+									<i class="icon cart"></i>
+								</div>
+							</div>
+							<div id="nav_notice" class="underline">
+								<div class="i_wrap">
+									<i class="icon notice"></i>
+								</div>
+								<div id="nav_notice_list" class="border_radius soft"
+									style="display: none;">
+									<div id="nav_notice_list_tab">
+										소식 <span> <span id="nav_mynews_btn" class="selected">
+												<span>내 소식</span>
+										</span> <span id="nav_poingnews_btn"> <span>포잉 알림</span>
+										</span>
+										</span>
+									</div>
+									<div id="nav_notice_list_content">
+										<div id="nav_mynews_list"></div>
+										<div id="nav_poingnews_list"></div>
+									</div>
+									<div id="nav_notice_list_all">모든 소식보기</div>
+								</div>
+							</div>
+							<div id="nav_profile" class="underline">
+								<div class="i_wrap">
+									<i class="profile_image border_radius circle"
+										style="background-image: url(http://c1.poing.co.kr/original/images/common/default_profile_162.png)"></i>
+									<div class="hover border_radius circle">MY</div>
+								</div>
+								<div id="nav_profile_list" class="border_radius soft">
+									<div class="item" data-link="/timeline/1520484">예약</div>
+									<div class="item" data-link="/timeline/1520484?coupon">티켓</div>
+									<div class="item" data-link="/timeline/1520484?payment">결제</div>
+									<div class="item" data-link="/timeline/1520484?friends">친구찾기</div>
+									<div class="item" data-link="/timeline/1520484?setting">설정</div>
+									<div id="nav_logout" class="item">로그아웃</div>
+								</div>
+							</div>
+						</div>
+					</div><!-- nav_account -->
+				</c:if>
 			</div>
 		</div>
 		<!-- menu section -->

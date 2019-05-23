@@ -3,9 +3,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%
-System.out.println("list.jsp");
-%>
 	<style>
 		<%@include file="/css/style.css" %>
 	</style>

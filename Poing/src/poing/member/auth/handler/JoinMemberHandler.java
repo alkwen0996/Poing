@@ -1,21 +1,22 @@
 package poing.member.auth.handler;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import poing.member.MemberDTO;
+import poing.member.auth.service.JoinMemberService;
 import poing.mvc.CommandHandler;
 
 
 public class JoinMemberHandler implements CommandHandler{
 
 	private static final String FORM_VIEW = "user/joinForm";
+	JoinMemberService joinMemberService = new JoinMemberService();
+	
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -39,54 +40,44 @@ public class JoinMemberHandler implements CommandHandler{
 		System.out.println("JoinMemberHandler processSubmit");
 		MemberDTO mdto = new MemberDTO();
 		
-		String memberid = request.getParameter("name");
-		LocalDate date = LocalDate.now();
-		String email = request.getParameter("email");
-		if (request.getParameter("birth1") != null) {
-			String b_year = request.getParameter("birth1");
-			String b_month = request.getParameter("birth2");
-			String b_day = request.getParameter("birth3");
-			
-			
-			date.of(b_year, b_month, b_day);
+		String name = request.getParameter("web_name");
+		String email = request.getParameter("login_id");
+		String birth = request.getParameter("birth");
+		if (birth != null) {
+			mdto.setM_birth(birth);
 		}
-		
-		
-		String gender = request.getParameter("gender");
 		String password = request.getParameter("password");
-		String confirm_password = request.getParameter("password2");
-
 		
 		
-		
-		String birth_str = request.getParameter("birth1") + "/" + request.getParameter("birth2") + "/" + request.getParameter("birth3");
-		SimpleDateFormat format = new SimpleDateFormat();
-		try {
-			mdto.setBirth(format.parse(birth_str));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		mdto.setM_name(name);
+		mdto.setM_nickname(name);
+		mdto.setM_email(email);
+		mdto.setM_pw(password);
+		String gender = null;
+		if((gender=request.getParameter("gender")) != null)
+		{
+			mdto.setM_gen(gender.equals("mail")?1:0); //남자라면1 아니라면 0			
 		}
-		mdto.setGender(gender);
-		mdto.setPassword(password);
 		
+		mdto.setRp_seq(3000);
 		System.out.println(mdto);
-		Map<String, Boolean> errors = new HashMap<>();
-		request.setAttribute("errors", errors);
-		if (memberid == null || memberid.isEmpty()) {
-			errors.put("id", Boolean.TRUE);
+		
+		boolean result = joinMemberService.joinMember(mdto);
+		JSONObject jsonData = new JSONObject();
+		jsonData.put("status", result);
+		request.setAttribute("jsonData", jsonData);
+
+		if(result)
+		{
+			System.out.println("Join success");
+			request.setAttribute("authUser", mdto);
+			return "user/joinResult";
 		}
-		if (password == null || password.isEmpty()) {
-			errors.put("password", Boolean.TRUE);
-		}
-		if (!errors.isEmpty()) {
-			return FORM_VIEW;
+		else
+		{
+			System.out.println("Join failed");
 		}
 		return FORM_VIEW;
-	
-		
-	}
-	private String trim(String str) {
-		return str == null ? null : str.trim();
 	}
 
 }

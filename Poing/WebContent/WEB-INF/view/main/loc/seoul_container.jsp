@@ -380,7 +380,7 @@
 		<div class="section realtime_review main slider">
 			<div class="title">실시간 리뷰</div>
 			<div class="body slider">
-				<a class="more" href="seoul/review">+ 전체보기</a>
+				<a class="more" href="/Poing/review.do">+ 전체보기</a>
 				<div class="slider_wrap PoingSlider_wrap">
 					<div class="slider PoingSlider">
 						<div class="current slice" style="top: 0px; left: 0px;">
@@ -916,6 +916,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="section rectangle main slider">
 			<div class="title">오래 기억에 남을, 포잉 어워즈</div>
 			<div class="body slider">

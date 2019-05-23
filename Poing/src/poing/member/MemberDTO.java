@@ -1,5 +1,6 @@
 package poing.member;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class MemberDTO {
@@ -7,7 +8,7 @@ public class MemberDTO {
 	private int m_no; /* 회원번호 */
 	private String m_name; /* 회원이름 */
 	private String m_tel; /* 전화번호 */
-	private Date m_birth; /* 생일 */
+	private String m_birth; /* 생일 */
 	private int m_gen; /* 성별 */
 	private String m_email; /* 이메일 */
 	private int m_level; /* 레벨 */
@@ -17,6 +18,18 @@ public class MemberDTO {
 	private String m_nickname; /* 예약자명 */
 	private String m_img; /* 프로필이미지 */
 	private int rp_seq; /* 레드포인트seq */
+
+	
+	
+	
+	@Override
+	public String toString() {
+		return "MemberDTO [m_no=" + m_no + ", m_name=" + m_name + ", m_tel=" + m_tel + ", m_birth=" + m_birth
+				+ ", m_gen=" + m_gen + ", m_email=" + m_email + ", m_level=" + m_level + ", m_selfintro=" + m_selfintro
+				+ ", m_id=" + m_id + ", m_pw=" + m_pw + ", m_nickname=" + m_nickname + ", m_img=" + m_img + ", rp_seq="
+				+ rp_seq + "]";
+	}
+
 
 	public int getM_no() {
 		return m_no;
@@ -48,12 +61,12 @@ public class MemberDTO {
 	}
 
 
-	public Date getM_birth() {
+	public String getM_birth() {
 		return m_birth;
 	}
 
 
-	public void setM_birth(Date m_birth) {
+	public void setM_birth(String m_birth) {
 		this.m_birth = m_birth;
 	}
 
@@ -153,9 +166,9 @@ public class MemberDTO {
 		this.m_name = null;
 		this.m_tel = null;
 		this.m_birth = null;
-		this.m_gen = 0;
+		this.m_gen = -1;
 		this.m_email = null;
-		this.m_level = 0;
+		this.m_level = 1;
 		this.m_selfintro = null;
 		this.m_id = null;
 		this.m_pw = null;

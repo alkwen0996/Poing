@@ -164,18 +164,18 @@
                     var login = {login_id: params.login_id, password: params.password, login_type: params.login_type, login_email: params.login_email};
 
                     $.ajax({
-                        url: '/user/login',
+                        url: '/Poing/user/login.do',
                         type: 'POST',
                         data: login,
                         success: function(res) {
                             var $settings = $("#join_form .clause input[data-target]:not(:checked)");
-
+							/* data-target 속성을 가진 input태그를 선택, 체크안된것들만 */
                             $settings.each(function() {
                                 var param = {};
                                 param[$(this).attr('data-target')] = 0;
 
                                 $.ajax({
-                                    url: '/user/notification',
+                                    url: '/Poing/user/notification.do',
                                     type: 'POST',
                                     data: param,
                                 });
@@ -189,7 +189,7 @@
                                         query[key] = 0;
 
                                         $.ajax({
-                                            url: '/user/notification',
+                                            url: '/Poing/user/notification.do',
                                             type: 'POST',
                                             data: query
                                         });
@@ -199,7 +199,7 @@
 
                             setTimeout(function() {
                                 if($.active == 0 || $.active == 5 || $.active == 4) {
-                                    location.href = '/';
+                                    location.href = '/Poing/main.do';
                                 }
                             }, 200);
                         }

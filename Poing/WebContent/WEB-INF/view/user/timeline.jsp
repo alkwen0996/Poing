@@ -17,7 +17,7 @@
 		src="<%= request.getContextPath() %>/js/slider.js"></script>
 	<meta charset="UTF-8">
 	<title>
-		Poing - <%= "아무개" %>님의 담벼락입니다.		
+		Poing - ${ mdto.m_name }님의 담벼락입니다.		
 	</title>
 </head>
 

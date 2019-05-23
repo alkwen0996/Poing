@@ -63,14 +63,12 @@ public class JoinMemberHandler implements CommandHandler{
 		System.out.println(mdto);
 		
 		boolean result = joinMemberService.joinMember(mdto);
-		JSONObject jsonData = new JSONObject();
-		jsonData.put("status", result);
-		request.setAttribute("jsonData", jsonData);
+		request.setAttribute("result", result);
 
 		if(result)
 		{
 			System.out.println("Join success");
-			request.setAttribute("authUser", mdto);
+			request.getSession().setAttribute("authUser", mdto);
 			return "user/joinResult";
 		}
 		else

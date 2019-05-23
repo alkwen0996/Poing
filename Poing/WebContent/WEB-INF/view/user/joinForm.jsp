@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/app.css?v=1557742885314'>
 	<style>
 		<%@include file="/css/style.css" %>
 	</style>
@@ -264,7 +263,7 @@
     $("#join_form input[name=email]").blur(function() {
         if(this.checkValidity()) {
             $.ajax({
-                url: '/user/checkEmailDuple.do',
+                url: '/Poing/user/checkEmailDuple.do',
                 method: 'GET',
                 data: {email: $(this).val()},
                 context: this,

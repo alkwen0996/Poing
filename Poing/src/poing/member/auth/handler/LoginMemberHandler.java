@@ -7,8 +7,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import poing.member.MemberDTO;
 import poing.member.auth.service.LoginMemberService;
-import poing.member.auth.service.MemberDTO;
 import poing.mvc.CommandHandler;
 
 public class LoginMemberHandler implements CommandHandler{
@@ -44,8 +44,8 @@ public class LoginMemberHandler implements CommandHandler{
 			request.setAttribute("result", false);
 			return "user/loginResult";
 		}
-		System.out.println("no:" + mdto.getId());
-		System.out.println("이름:" + mdto.getName());
+		System.out.println("no:" + mdto.getM_id());
+		System.out.println("이름:" + mdto.getM_name());
 		request.setAttribute("result", true);
 		request.getSession().setAttribute("authUser", mdto);
 

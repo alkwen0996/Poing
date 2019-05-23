@@ -5,13 +5,16 @@ import java.sql.SQLException;
 
 import com.util.ConnectionProvider;
 
+import poing.member.MemberDAO;
+import poing.member.MemberDTO;
+
 public class LoginMemberService {
 	MemberDAO mdao = new MemberDAO();
 	public int getMemberID(String email) {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			int memberID = mdao.selectID(conn, email);
+			int memberID = MemberDAO.selectID(conn, email);
 			return memberID ;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -1,16 +1,15 @@
 package poing.member.auth.handler;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import poing.member.auth.service.MemberDTO;
+import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
 
 
@@ -39,17 +38,26 @@ public class JoinMemberHandler implements CommandHandler{
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("JoinMemberHandler processSubmit");
 		MemberDTO mdto = new MemberDTO();
+		
 		String memberid = request.getParameter("name");
+		LocalDate date = LocalDate.now();
 		String email = request.getParameter("email");
-		String b_year = request.getParameter("birth1");
-		String b_month = request.getParameter("birth2");
-		String b_day = request.getParameter("birth3");
-		System.out.println(b_day + b_year + b_month);
+		if (request.getParameter("birth1") != null) {
+			String b_year = request.getParameter("birth1");
+			String b_month = request.getParameter("birth2");
+			String b_day = request.getParameter("birth3");
+			
+			
+			date.of(b_year, b_month, b_day);
+		}
+		
+		
 		String gender = request.getParameter("gender");
 		String password = request.getParameter("password");
 		String confirm_password = request.getParameter("password2");
-		mdto.setId(1);
-		mdto.setEmail(email);
+
+		
+		
 		
 		String birth_str = request.getParameter("birth1") + "/" + request.getParameter("birth2") + "/" + request.getParameter("birth3");
 		SimpleDateFormat format = new SimpleDateFormat();

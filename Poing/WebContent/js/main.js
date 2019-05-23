@@ -3004,11 +3004,11 @@
   }, typeof t === ke && (e.jQuery = e.$ = Z), Z
 });
 $.popup = function(p, o, e, t) {
-  $("#popup>.guide").load("/popup/" + p, o, function() {
+  //$("#popup>.guide").load("/popup/" + p, o, function() {
       $("body").addClass("popup_state"), $("#popup").css("display", "table").css("opacity", 1), $("#popup>.shadow, #popup *[data-close]").one("click", function() {
           $.popup.interval && (clearTimeout($.popup.interval), $("#popup .accept").click(), $.popup.interval = null), $("#popup").stop().hide(), $("body").removeClass("popup_state")
       }), e && $("#popup .accept").one("click", e), t && $("#popup .deny").one("click", t), $("#popup").trigger("loaded")
-  })
+  //})
 }, $.popup.interval = null, $.extend({
   parseQuery: function(p) {
       return (p || document.location.search).replace(/(^\?)/, "").split("&").map(function(p) {
@@ -16348,7 +16348,10 @@ function post_to_url(t, e, n) {
   i.setAttribute("method", n), i.setAttribute("action", t);
   for (var r in e) {
       var u = document.createElement("input");
-      u.setAttribute("type", "hidden"), u.setAttribute("name", r), u.setAttribute("value", e[r]), i.appendChild(u)
+      u.setAttribute("type", "hidden"), 
+      u.setAttribute("name", r), 
+      u.setAttribute("value", e[r]), 
+      i.appendChild(u)
   }
   document.body.appendChild(i), i.submit()
 }

@@ -2227,7 +2227,7 @@
 	});
 	$("#nav_profile>.i_wrap").on("click", function()
 	{
-		location.href = "/Poing/timeline.do";
+		location.href = "/Poing/timeline.do?id=<%= 1 %>";
 	});
 
 	$("#nav_profile_list>.item").on("click", function()

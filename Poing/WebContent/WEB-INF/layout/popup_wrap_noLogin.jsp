@@ -87,9 +87,10 @@
 				});
 				// 이메일 회원가입
 				$("#sign .join>.email").click(function () {
-					post_to_url('/Poing/user/join.do', {
+					/* post_to_url('/Poing/user/join.do', {
 						type: 'email'
-					});
+					}); */
+					location.href = "/Poing/user/join.do";
 				});
 				/* $("#sign .join>.naver").click(function () {
 					$("#naverIdLogin img").click();

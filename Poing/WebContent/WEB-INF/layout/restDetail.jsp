@@ -1,27 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <div id="scripts">
 <script>
-//(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga("create","UA-40354247-8","auto",{allowLinker:!0}),ga("require","linker"),ga("linker:autoLink",["mypoing.com"]),garef=document.referrer.split(/[\/\?]/),garef.length>1&&"m.poing.co.kr"===garef[2]&&ga("set","referrer","http://"+garef[5]+"."+garef[6]),delete garef,ga("send","pageview");
 
 var console=console||{"log":function(){}};
-
 (function (old) {
-    var dec = 0.12 .toLocaleString().charAt(1),
-        tho = dec === "." ? "," : ".";
+var dec = 0.12 .toLocaleString().charAt(1),
+tho = dec === "." ? "," : ".";
 
-    if (1000 .toLocaleString() !== "1,000.00") {
-        Number.prototype.toLocaleString = function () {
-           var neg = this < 0,
-               f = this.toFixed(2).slice(+neg);
-
-           return (neg ? "-" : "") 
-                  + f.slice(0,-3).replace(/(?=(?!^)(?:\d{3})+(?!\d))/g, tho) 
-                  + dec + f.slice(-2);
-        }
-    }
-})(Number.prototype.toLocaleString);
+if (1000 .toLocaleString() !== "1,000.00") {
+Number.prototype.toLocaleString = function () {
+var neg = this < 0, f=this.toFixed(2).slice(+neg); return (neg ? "-" : "" ) +
+	f.slice(0,-3).replace(/(?=(?!^)(?:\d{3})+(?!\d))/g, tho) + dec + f.slice(-2); } }
+	})(Number.prototype.toLocaleString);
 
 $(".review_wrap>.review>.write>textarea").on("keydown", function(e)
 {
@@ -260,9 +253,9 @@ var poing =
 		if(!params)
 			params = {};
 		
-		var lo = "서울 / 수도권";
+		var lo = "ìì¸ / ìëê¶";
 		if(lo)
-			params['lo'] = "서울 / 수도권";
+			params['lo'] = "ìì¸ / ìëê¶";
 
 		var query = $.param(params);
 		if(query.length > 0)
@@ -276,7 +269,7 @@ var poing =
 	},
 	restaurants:
 	{
-		// 레스토랑 찜하기
+		// ë ì¤í ë ì°íê¸°
 		favorite: function()
 		{
 			if(poing.account.checkLoginState() == true)
@@ -307,13 +300,13 @@ var poing =
 						{
 							btn.addClass('on')
 							    .children("i").addClass('on');
-							$.popup("confirm", {'text': "매장을 찜하셨습니다.", 'alert':true});
+							$.popup("confirm", {'text': "ë§¤ì¥ì ì°íì¨ìµëë¤.", 'alert':true});
 						}
 						else if(data.type == 'off')
 						{
 							btn.removeClass('on')
 							    .children("i").removeClass('on');
-							$.popup("confirm", {'text': "찜을 취소하셨습니다.", 'alert':true});
+							$.popup("confirm", {'text': "ì°ì ì·¨ìíì¨ìµëë¤.", 'alert':true});
 						}
 					}
 				});
@@ -334,7 +327,7 @@ var poing =
                 var idx = 0;
 
                 if(files.length + $list.children().length > 20) {
-                    $.popup("confirm", {'text': "사진 등록은 최대 20장까지 가능합니다.", single: true});
+                    $.popup("confirm", {'text': "ì¬ì§ ë±ë¡ì ìµë 20ì¥ê¹ì§ ê°ë¥í©ëë¤.", single: true});
                     return false;
                 }
             
@@ -364,7 +357,7 @@ var poing =
 			{
 				if(poing.reviews.isUploading == true)
 				{
-					noticePopupInit({message:"리뷰를 등록하고 있습니다.<br><br>잠시만 기다려주세요."});
+					noticePopupInit({message:"ë¦¬ë·°ë¥¼ ë±ë¡íê³  ììµëë¤.<br><br>ì ìë§ ê¸°ë¤ë ¤ì£¼ì¸ì."});
 				}
 
 				var id = $(this).data("id");
@@ -376,11 +369,11 @@ var poing =
 
 				if(grade == 0)
 				{
-					noticePopupInit({message:"평점을 꼭 매겨주세요!"});
+					noticePopupInit({message:"íì ì ê¼­ ë§¤ê²¨ì£¼ì¸ì!"});
 				}
 				else if(text.length < 30 && photo.length == 0)
 				{
-					noticePopupInit({message:"사진이 없다면 리뷰는<br><br>최소 30자 이상이어야 합니다."});
+					noticePopupInit({message:"ì¬ì§ì´ ìë¤ë©´ ë¦¬ë·°ë<br><br>ìµì 30ì ì´ìì´ì´ì¼ í©ëë¤."});
 				}
 				else
 				{
@@ -401,9 +394,9 @@ var poing =
 							if(res.data.error != null)
 							{
 								if(res.data.error.message == "to often")
-									noticePopupInit({message:"리뷰를 너무 자주 올리셨습니다.<br><br>1분 후 시도해주세요."});
+									noticePopupInit({message:"ë¦¬ë·°ë¥¼ ëë¬´ ìì£¼ ì¬ë¦¬ì¨ìµëë¤.<br><br>1ë¶ í ìëí´ì£¼ì¸ì."});
 								else if(res.data.error.message == "Not Found")
-									noticePopupInit({message:"매장을 찾을 수 없습니다."});
+									noticePopupInit({message:"ë§¤ì¥ì ì°¾ì ì ììµëë¤."});
 
 								poing.reviews.isUploading = false;
                                 poing.reviews.actions.temp.resume();
@@ -430,8 +423,8 @@ var poing =
 
                                             if(photo.length == reviewPhotoSendCount)
                                             {
-                                                ga('send', 'event', 'KPI', '[KPI]리뷰성공');
-                                                noticePopupInit({message:"리뷰가 등록되었습니다."});
+                                                ga('send', 'event', 'KPI', '[KPI]ë¦¬ë·°ì±ê³µ');
+                                                noticePopupInit({message:"ë¦¬ë·°ê° ë±ë¡ëììµëë¤."});
                                                 poing.reviews.actions.temp.delete();
                                                 poing.reviews.isUploading = false;
                                                 location.reload();
@@ -445,8 +438,8 @@ var poing =
 
 								if(photo.length == 0)
 								{
-									ga('send', 'event', 'KPI', '[KPI]리뷰성공');
-                                    noticePopupInit({message:"리뷰가 등록되었습니다."});
+									ga('send', 'event', 'KPI', '[KPI]ë¦¬ë·°ì±ê³µ');
+                                    noticePopupInit({message:"ë¦¬ë·°ê° ë±ë¡ëììµëë¤."});
                                     poing.reviews.actions.temp.delete();
 									poing.reviews.isUploading = false;
                                     window.onbeforeunload = null;
@@ -479,8 +472,8 @@ var poing =
 						var text_wrap = parent_review.children(".text");
 						var text = text_wrap.children("pre");
 						var textarea = $("<textarea>").addClass("border_radius soft").val(text.html());
-						var cancel_button = $("<button>").addClass("gray_fill border_radius soft").attr("data-type", "poing.reviews.actions.auth.modify_cancel").attr("data-id", id).html("취소하기");
-						var submit_button = $("<button>").addClass("red_fill border_radius soft").attr("data-type", "poing.reviews.actions.auth.modify_submit").attr("data-id", id).html("리뷰 수정하기");
+						var cancel_button = $("<button>").addClass("gray_fill border_radius soft").attr("data-type", "poing.reviews.actions.auth.modify_cancel").attr("data-id", id).html("ì·¨ìíê¸°");
+						var submit_button = $("<button>").addClass("red_fill border_radius soft").attr("data-type", "poing.reviews.actions.auth.modify_submit").attr("data-id", id).html("ë¦¬ë·° ìì íê¸°");
 
 						var action = parent_review.children(".action");
 
@@ -500,7 +493,7 @@ var poing =
 						{
 							$(newgrade[i]).addClass("active");
 						}
-						grade_wrap.children("span[data-id=review_modify]").attr("data-grade", grade_number).html(String(grade_number/20)+"점 - "+ratingText[grade_number/10 - 1]);
+						grade_wrap.children("span[data-id=review_modify]").attr("data-grade", grade_number).html(String(grade_number/20)+"ì  - "+ratingText[grade_number/10 - 1]);
 						newgrade.on("click", function()
 						{
 							var index = $(this).data("index");
@@ -514,7 +507,7 @@ var poing =
 								$(newgrade[i]).removeClass("active");
 							}
 
-							grade_wrap.children("span[data-id=review_modify]").attr("data-grade", (index+1)*10).html(String((index+1)/2)+"점 - "+ratingText[index]);
+							grade_wrap.children("span[data-id=review_modify]").attr("data-grade", (index+1)*10).html(String((index+1)/2)+"ì  - "+ratingText[index]);
 						});
 					}
 				},
@@ -579,9 +572,9 @@ var poing =
 							{
 								$(grade[i]).removeClass("active");
 							}
-							grade_wrap.children("span[data-id="+id+"]").html(String(newgrade_number/20)+"점");
+							grade_wrap.children("span[data-id="+id+"]").html(String(newgrade_number/20)+"ì ");
 							text.html(text_wrap.children("textarea").val());
-							noticePopupInit({message:"리뷰가 수정되었습니다."});
+							noticePopupInit({message:"ë¦¬ë·°ê° ìì ëììµëë¤."});
 
 							grade.show();
 							newgrade.remove();
@@ -590,7 +583,7 @@ var poing =
 								parent_review.children(".time").append("<br>");
 								parent_review.children(".time").append("<span>");
 							}
-							parent_review.children(".time").children("span").html("몇초 전 수정됨");
+							parent_review.children(".time").children("span").html("ëªì´ ì  ìì ë¨");
 							time_wrap.show();
 							text.show();
 							text_wrap.children("textarea, button").remove();
@@ -626,11 +619,11 @@ var poing =
                             .append( $("<button>", {class: "gray_fill border_radius soft edit",
                                                     'data-type': "poing.reviews.actions.auth.modify_cancel2",
                                                     'data-id': id,
-                                                    text: "취소하기"}))
+                                                    text: "ì·¨ìíê¸°"}))
                             .append( $("<button>", {class: "red_fill border_radius soft edit",
                                                     'data-type': "poing.reviews.actions.auth.modify_submit2",
                                                     'data-id': id,
-                                                    text: "리뷰 수정하기"}));
+                                                    text: "ë¦¬ë·° ìì íê¸°"}));
                         
                         review.find(".action, .time").hide();
 
@@ -646,13 +639,13 @@ var poing =
                                             $(this).removeClass('active');
                                     });
                                 
-                                $(this).siblings("span[data-id='review_modify']").data('grade', (idx+1)*10).text( String((idx+1)/2) + "점 - " + ratingText[idx] );
+                                $(this).siblings("span[data-id='review_modify']").data('grade', (idx+1)*10).text( String((idx+1)/2) + "ì  - " + ratingText[idx] );
                              })
                             .each(function(idx) {
                                 if(idx < grade/10) 
                                     $(this).addClass('active');
                             })
-                            .siblings("span[data-id='review_modify']").data('grade', grade).text( String(grade/20) + "점 - " + ratingText[grade/10 -1] );
+                            .siblings("span[data-id='review_modify']").data('grade', grade).text( String(grade/20) + "ì  - " + ratingText[grade/10 -1] );
 					}
 				},
 
@@ -692,7 +685,7 @@ var poing =
                         },
                         success: function(res) {
                             $(grade_wrap)
-                                .children("span").text( String(grade/20)+"점 " ).data('grade', grade)
+                                .children("span").text( String(grade/20)+"ì  " ).data('grade', grade)
                                 .siblings("i")
                                 .each(function() {
                                      if( $(this).data('index') < grade/10 )
@@ -704,13 +697,13 @@ var poing =
                                 .removeClass('editing')
                                 .html( text.replace(/[\n\r]/g, '<br>') )
                                 .css('max-height', text_wrap.get(0).scrollHeight);
-                            review.find(".time").addClass('edited').text("몇초 전");
-							noticePopupInit({message:"리뷰가 수정되었습니다."});
+                            review.find(".time").addClass('edited').text("ëªì´ ì ");
+							noticePopupInit({message:"ë¦¬ë·°ê° ìì ëììµëë¤."});
                         }
                     });
 				},
 
-				// 리뷰 삭제하기 : button에 리뷰 id 필요
+				// ë¦¬ë·° ì­ì íê¸° : buttonì ë¦¬ë·° id íì
 				remove: function()
 				{
 					if(poing.account.checkLoginState() == true)
@@ -718,7 +711,7 @@ var poing =
 						var id = $(this).data("id");
 
 						confirmPopupInit({
-							message:"리뷰를 삭제하시겠습니까?",
+							message:"ë¦¬ë·°ë¥¼ ì­ì íìê² ìµëê¹?",
 							ok:function() {
 								$.ajax({
 									url: "/review/ajaxremovereview",
@@ -729,12 +722,12 @@ var poing =
 									{
 										if(res.data == "true" || res.data == true)
 										{
-											noticePopupInit({message:'리뷰를 삭제하셨습니다.'});
+											noticePopupInit({message:'ë¦¬ë·°ë¥¼ ì­ì íì¨ìµëë¤.'});
 											location.reload(true);
 										}
 										else
 										{
-											noticePopupInit({message:'리뷰를 삭제하는데 실패하였습니다.'});
+											noticePopupInit({message:'ë¦¬ë·°ë¥¼ ì­ì íëë° ì¤í¨íììµëë¤.'});
 										}
 									}
 								});
@@ -745,7 +738,7 @@ var poing =
 			},
 			user:
 			{
-				// 리뷰 좋아요 : button, span에 data-id에 리뷰 id 필요
+				// ë¦¬ë·° ì¢ìì : button, spanì data-idì ë¦¬ë·° id íì
 				like: function()
 				{
 					if(poing.account.checkLoginState() == true)
@@ -780,7 +773,7 @@ var poing =
 									selector.children("i").addClass('on');
                                     selector.find("span:not(.text)").text(res.data.like_count);
 									$("span[data-type='poing.reviews.actions.user.like'][data-id="+$(this).data("id")+"]").html(res.data.like_count);
-									noticePopupInit({message: "리뷰를 좋아요 하셨습니다."});
+									noticePopupInit({message: "ë¦¬ë·°ë¥¼ ì¢ìì íì¨ìµëë¤."});
 								}
 								else if(res.status && $(this).hasClass("on"))
 								{
@@ -789,17 +782,17 @@ var poing =
 									selector.children("i").removeClass('on');
                                     selector.find("span:not(.text)").text(res.data.like_count);
 									$("span[data-type='poing.reviews.actions.user.like'][data-id="+$(this).data("id")+"]").html(res.data.like_count);
-									noticePopupInit({message: "좋아요를 취소하셨습니다."});
+									noticePopupInit({message: "ì¢ììë¥¼ ì·¨ìíì¨ìµëë¤."});
 								}
 								else
 								{
-									noticePopupInit({message: "리뷰를 좋아요 하는데 실패했습니다."});
+									noticePopupInit({message: "ë¦¬ë·°ë¥¼ ì¢ìì íëë° ì¤í¨íìµëë¤."});
 								}
 							}
 						});
 					}
 				},
-				// 리뷰 찜하기 : button, span에 data-id에 리뷰 id 필요
+				// ë¦¬ë·° ì°íê¸° : button, spanì data-idì ë¦¬ë·° id íì
 				favorite: function()
 				{
 					if(poing.account.checkLoginState() == true)
@@ -834,7 +827,7 @@ var poing =
 									selector.children("i").addClass('on');
                                     selector.find("span:not(.text)").text(res.data.selection_review_count);
 									$("span[data-type='poing.reviews.actions.user.favorite'][data-id="+$(this).data("id")+"]").html(res.data.selection_review_count);
-									$.popup("confirm", {'text': "리뷰를 찜하셨습니다.", 'alert':true});
+									$.popup("confirm", {'text': "ë¦¬ë·°ë¥¼ ì°íì¨ìµëë¤.", 'alert':true});
 								}
 								else if(res.status && $(this).hasClass("on"))
 								{
@@ -843,11 +836,11 @@ var poing =
 									selector.children("i").removeClass('on');
                                     selector.find("span:not(.text)").text(res.data.selection_review_count);
 									$("span[data-type='poing.reviews.actions.user.favorite'][data-id="+$(this).data("id")+"]").html(res.data.selection_review_count);
-									$.popup("confirm", {'text': "찜을 취소하셨습니다.", 'alert':true});
+									$.popup("confirm", {'text': "ì°ì ì·¨ìíì¨ìµëë¤.", 'alert':true});
 								}
 								else
 								{
-									$.popup("confirm", {'text': "리뷰를 찜하지 못했습니다.", 'alert':true});
+									$.popup("confirm", {'text': "ë¦¬ë·°ë¥¼ ì°íì§ ëª»íìµëë¤.", 'alert':true});
 								}
 							}
 						});
@@ -935,7 +928,7 @@ var poing =
                     var $review = $( $(this).closest(".review_detail")[0] || $(this).closest(".review")[0] );
                     
                     var meta = {
-                        title: $review.attr('data-place-name') + " | Poing 리뷰",
+                        title: $review.attr('data-place-name') + " | Poing ë¦¬ë·°",
                         url: location.origin + '/restaurant/detail/' + $review.attr('data-place') + '?review=' + $review.attr('data-id')
                     };
 
@@ -956,7 +949,7 @@ var poing =
                 }
             },
             temp: {
-                message: '작성중인 리뷰가 있습니다. 나가시겠습니까?',
+                message: 'ìì±ì¤ì¸ ë¦¬ë·°ê° ììµëë¤. ëê°ìê² ìµëê¹?',
                 isSaved: false,
                 isPaused: false,
                 saveInterval: 5000,
@@ -1015,7 +1008,7 @@ var poing =
                         return function() {};
                     }
 
-                    // 실시간 리뷰에서 저장된 리뷰와 현재 지역이 다를 경우, 지역 먼저 이동
+                    // ì¤ìê° ë¦¬ë·°ìì ì ì¥ë ë¦¬ë·°ì íì¬ ì§ì­ì´ ë¤ë¥¼ ê²½ì°, ì§ì­ ë¨¼ì  ì´ë
                     if(isReviewTab) {
                         if(current_state != data.state) {
                             window.onbeforeunload = null;
@@ -1028,7 +1021,7 @@ var poing =
                             $("#review_search").val(data.place_name);
                         }
                     } else {
-                        // 저장된 리뷰와 보고 있는 매장이 다를 경우, 저장된 데이터의 매장으로 이동
+                        // ì ì¥ë ë¦¬ë·°ì ë³´ê³  ìë ë§¤ì¥ì´ ë¤ë¥¼ ê²½ì°, ì ì¥ë ë°ì´í°ì ë§¤ì¥ì¼ë¡ ì´ë
                         if(!!data.place_id && data.place_id != $("[data-type='poing.reviews.upload']").data('id')) {
                             window.onbeforeunload = null;
                             location.href = "/restaurant/detail/" + data.place_id + "?review&load";
@@ -1055,7 +1048,7 @@ var poing =
 
 		comment:
 		{
-			// 리뷰 코멘트 보내기
+			// ë¦¬ë·° ì½ë©í¸ ë³´ë´ê¸°
 			isSending: false,
 			send: function()
 			{
@@ -1077,7 +1070,7 @@ var poing =
 							{
 								poing.reviews.comment.isSending = false;
 								$(".comment_write[data-id="+$(this).data("id")+"]>textarea").val("");
-								noticePopupInit({message:"댓글이 등록되었습니다."});
+								noticePopupInit({message:"ëê¸ì´ ë±ë¡ëììµëë¤."});
 
                                 var func = "reviewCommentPaging"+$(this).data("id");
                                 if( window[func] )
@@ -1086,7 +1079,7 @@ var poing =
 						});
 					}
 					else
-						noticePopupInit({message:"댓글이 전송 중입니다.<br><br>잠시만 기다려주세요."});
+						noticePopupInit({message:"ëê¸ì´ ì ì¡ ì¤ìëë¤.<br><br>ì ìë§ ê¸°ë¤ë ¤ì£¼ì¸ì."});
 				}
 			},
 			send2: function()
@@ -1116,14 +1109,14 @@ var poing =
 
                                 poing.reviews.comment.isSending = false;
                                 $(this).val("");
-								noticePopupInit({message:"댓글이 등록되었습니다!"});
+								noticePopupInit({message:"ëê¸ì´ ë±ë¡ëììµëë¤!"});
 							   
                                 poing.reviews.actions.user.loadComments.call( target.find(".action>.comment").get(0), true );
 							}
 						});
 					}
 					else
-						noticePopupInit({message:"댓글이 전송 중입니다.<br><br>잠시만 기다려주세요."});
+						noticePopupInit({message:"ëê¸ì´ ì ì¡ ì¤ìëë¤.<br><br>ì ìë§ ê¸°ë¤ë ¤ì£¼ì¸ì."});
 				}
 			},
 
@@ -1151,7 +1144,7 @@ var poing =
 								},
 								success: function(res)
 								{
-									noticePopupInit({message:'코멘트를 수정하셨습니다.'});
+									noticePopupInit({message:'ì½ë©í¸ë¥¼ ìì íì¨ìµëë¤.'});
                                     poing.reviews.actions.user.loadComments.call( $comment.closest(".review").find(".action>.comment").get(0), true );
 								}
 							});
@@ -1174,7 +1167,7 @@ var poing =
 					var id = $(this).data("id");
 
 					confirmPopupInit({
-						message:"댓글을 삭제하시겠습니까?",
+						message:"ëê¸ì ì­ì íìê² ìµëê¹?",
 						ok:$.proxy(function() {
 							$.ajax({
 								url: "/review/ajaxremovecomment",
@@ -1186,11 +1179,11 @@ var poing =
 								{
 									if(res.data == "true" || res.data == true)
 									{
-										noticePopupInit({message:'댓글이 삭제되었습니다.'});
+										noticePopupInit({message:'ëê¸ì´ ì­ì ëììµëë¤.'});
                                         poing.reviews.actions.user.loadComments.call( $(this).closest(".review").find(".action>.comment").get(0), true );
 									}
 									else
-										noticePopupInit({message:'댓글을 삭제하는데 실패하였습니다.'});
+										noticePopupInit({message:'ëê¸ì ì­ì íëë° ì¤í¨íììµëë¤.'});
 								}
 							});
 						}, this)
@@ -1205,7 +1198,7 @@ var poing =
 		add: function()
 		{
 			var id = $(this).data('id');
-			if(poing.account.checkLoginState("예약을 하시려면 로그인/회원가입이 필요합니다.<br><br>지금 로그인/회원가입을 하시겠습니까?"))
+			if(poing.account.checkLoginState("ìì½ì íìë ¤ë©´ ë¡ê·¸ì¸/íìê°ìì´ íìí©ëë¤.<br><br>ì§ê¸ ë¡ê·¸ì¸/íìê°ìì íìê² ìµëê¹?"))
 			{
 				$("#reserveShading").show();
 				place_id = id;
@@ -1216,7 +1209,7 @@ var poing =
 
 					for(var i = 0; i < data.data.place.food_types.length; i++)
 					{
-						info += " · " + data.data.place.food_types[i].title;
+						info += " Â· " + data.data.place.food_types[i].title;
 					}
 					reserve_popup_init(data.data.place.name, info, data.data.place.reservation_setting, data.data.place.id);
 					$("#pre-reserve").show();
@@ -1246,7 +1239,7 @@ var poing =
 				if(response.place.food_types)
 				{
 					for(var i = 0; i < response.place.food_types.length; i++)
-						data.info_str += " · " + response.place.food_types[i];
+						data.info_str += " Â· " + response.place.food_types[i];
 				}
 				
 				var temp = response.reservation_date.split(' ')[1].split(':');
@@ -1258,26 +1251,26 @@ var poing =
 
 				$("#pre-reserve").show();
 
-				// 인원 선택
+				// ì¸ì ì í
 				$("#reserve_person_count").text(data.personnel-1);
 				$("div.reserve-popup>div.box_list>div.box>.person_count>i.plus").trigger("click");
 
-				// 날짜 선택
+				// ë ì§ ì í
 				$('#calendar').datepicker('setDate', new Date(data.date));
 				$('.ui-datepicker-current-day').click();
 				$("div.reserve-popup>div.box_list>div.box>.date").addClass("first");
 
-				// 시간 선택
+				// ìê° ì í
 				$("#timetable>ul>li[data-time='" + data.time + "']").trigger('click');
 				$("div.reserve-popup>div.box_list>div.box>.time").addClass("first");
 
-				// 메세지
+				// ë©ì¸ì§
 				$("#reserve_comment").val(data.message);
 
-				// 팝업 타이틀 변경
-				$(".popup-title").eq(0).html("예약변경/취소")
+				// íì íì´í ë³ê²½
+				$(".popup-title").eq(0).html("ìì½ë³ê²½/ì·¨ì")
 
-				// 하단 버튼 변경
+				// íë¨ ë²í¼ ë³ê²½
 				$("#pre-reserve div.confirm-btn>button.reserve").hide();
 				$("#pre-reserve div.confirm-btn>button.edit").show();
 				$("#pre-reserve div.confirm-btn>button.cancel").show();
@@ -1290,7 +1283,7 @@ var poing =
 				var id = $(this).data("id");
 
 				confirmPopupInit({
-					message:"정말 예약 목록에서 삭제하시겠습니까?",
+					message:"ì ë§ ìì½ ëª©ë¡ìì ì­ì íìê² ìµëê¹?",
 					ok:$.proxy(function() {
 						$.ajax({
 							url: "/user/ajaxdisappearreservation",
@@ -1304,13 +1297,13 @@ var poing =
 							{
 								if(res.data == "true" || res.data == true)
 								{
-									noticePopupInit({message: "예약이 목록에서 삭제되었습니다."});
+									noticePopupInit({message: "ìì½ì´ ëª©ë¡ìì ì­ì ëììµëë¤."});
                                     $("#past_reservation>.reservation[data-id="+$(this).data("id")+"]").remove();
                                     location.reload();
 								}
 								else
 								{
-									noticePopupInit({message: "예약을 삭제하지 못했습니다."});
+									noticePopupInit({message: "ìì½ì ì­ì íì§ ëª»íìµëë¤."});
 								}
 							}
 						});
@@ -1329,7 +1322,7 @@ var poing =
 			{
 				if($(this).data("id") == "")
 				{
-					noticePopupInit({message:"삭제된 계정입니다."});
+					noticePopupInit({message:"ì­ì ë ê³ì ìëë¤."});
 					return;
 				}
 
@@ -1389,18 +1382,18 @@ var poing =
                             $("li[data-id='"+$(this).data("id")+"'] #follow").html(Number($("li[data-id='"+$(this).data("id")+"'] #follow").html())+1);
                             $("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']").addClass('on');
                             $("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']>i").addClass('on');
-                            noticePopupInit({message: "팔로우 하셨습니다."});
+                            noticePopupInit({message: "íë¡ì° íì¨ìµëë¤."});
                         } else if(res.status == true && $("button[data-type='poing.user.follow'][data-id="+$(this).data("id")+"]").hasClass("on")) {
                             $("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html())-1);
                             $("li[data-id='"+$(this).data("id")+"'] #follow").html(Number($("li[data-id='"+$(this).data("id")+"'] #follow").html())-1);
                             $("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']").removeClass('on');
                             $("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']>i").removeClass('on');
-                            noticePopupInit({message: "팔로우를 취소하셨습니다."});
+                            noticePopupInit({message: "íë¡ì°ë¥¼ ì·¨ìíì¨ìµëë¤."});
                         } else {
                             if(res.error.code == 510) {
-                                noticePopupInit({message: "인증정보가 만료되었습니다. 다시 로그인 해 주세요."});
+                                noticePopupInit({message: "ì¸ì¦ì ë³´ê° ë§ë£ëììµëë¤. ë¤ì ë¡ê·¸ì¸ í´ ì£¼ì¸ì."});
                             } else {
-                                noticePopupInit({message: "팔로우를 실패했습니다. 다시 시도 해 주세요."});
+                                noticePopupInit({message: "íë¡ì°ë¥¼ ì¤í¨íìµëë¤. ë¤ì ìë í´ ì£¼ì¸ì."});
                             }
                         }
 					}
@@ -1417,7 +1410,7 @@ var poing =
 		logout: function()
 		{
 			confirmPopupInit({
-				message: "정말로 로그아웃 하실건가요? :(",
+				message: "ì ë§ë¡ ë¡ê·¸ìì íì¤ê±´ê°ì? :(",
 				ok:function()
 				{
 					$.ajax({
@@ -1430,7 +1423,7 @@ var poing =
 				}
 			})
 		},
-		// 로그인 했는지 검사
+		// ë¡ê·¸ì¸ íëì§ ê²ì¬
 		checkLoginState: function(msg)
 		{
 							$('#nav_login').click();
@@ -1676,6 +1669,71 @@ $("body").on("click", " li", function(e)
 		$.proxy(eval(type), this)();
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $("#detail_slider").parent().on("selectstart", function()
 {
 	return false;
@@ -1710,6 +1768,34 @@ $("#detail_slider>.i_wrap>i").on("click", function()
 		location.search = "photo&slice=" + index;
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ie toLocaleString
 if (/\D/.test((1).toLocaleString())) {
@@ -2036,14 +2122,14 @@ $("#nav_mynews_list").on("click", ".item", function()
 		type == "like_comment")
 	{
 		if(additional == "" || target == "")
-			noticePopupInit({message:"해당 리뷰로 이동하는 도중<br><br>문제가 발생했습니다."});
+			noticePopupInit({message:"í´ë¹ ë¦¬ë·°ë¡ ì´ëíë ëì¤<br><br>ë¬¸ì ê° ë°ìíìµëë¤."});
 		else
 			location.href = "/restaurant/detail/"+additional+"?review="+target;
 	}
 	else if(type == "follow" || type == "fb_join")
 	{
 		if(target == "")
-			noticePopupInit({message:"해당 유저의 담벼락으로 이동하는 도중<br><br>문제가 발생했습니다."});
+			noticePopupInit({message:"í´ë¹ ì ì ì ë´ë²¼ë½ì¼ë¡ ì´ëíë ëì¤<br><br>ë¬¸ì ê° ë°ìíìµëë¤."});
 		else
 			location.href="/timeline/"+target;
 	}
@@ -2063,7 +2149,7 @@ $("#nav_poingnews_list").on("click", ".item", function()
 		type == "change_confirm_reservation" ||
 		type == "confirm_reservation" ||
 		type == "cancel_reservation"))
-		noticePopupInit({message:"해당 예약으로 이동하는 도중<br><br>문제가 발생했습니다."});
+		noticePopupInit({message:"í´ë¹ ìì½ì¼ë¡ ì´ëíë ëì¤<br><br>ë¬¸ì ê° ë°ìíìµëë¤."});
 	else
 		location.href="/timeline/";
 });
@@ -2119,7 +2205,7 @@ window.search = function(opt) {
 		order_rule: '',
 		theme_childe_sub3: '',
 		theme_childe_url: '',
-		r_num: 2921,
+		r_num: 413,
 		page: 1,
 		per_page: 12,
 	};
@@ -2159,7 +2245,7 @@ $(document).ready(function(){
 			location.href = "/"+$(this).attr('data-city');
 		else {
 			$("#nav_city>ul").hide();
-			alert("서비스 준비중입니다. 곧 다양한 혜택으로 찾아뵙겠습니다.");
+			alert("ìë¹ì¤ ì¤ë¹ì¤ìëë¤. ê³§ ë¤ìí ííì¼ë¡ ì°¾ìëµê² ìµëë¤.");
 		}
 	});
 	// toggle box
@@ -2192,7 +2278,7 @@ $(document).ready(function(){
         var hash = $(this).attr('id');
         var id = $(this).val();
 		var state = $(this).prop('checked');
-		var text = "지역 선택";
+		var text = "ì§ì­ ì í";
 
 		$("#nav_area>.box>.neighborhood input[id^="+hash+"]").prop('checked', state).parent().toggleClass('selected', state);
 
@@ -2220,7 +2306,7 @@ $(document).ready(function(){
             
             text = text.join(',');
             if(over)
-                text += "외 "+(query['place_area'].length-i)+"개";
+                text += "ì¸ "+(query['place_area'].length-i)+"ê°";
 		}
 		$("#nav_area>.input>.selected").text(text);
 		$(this).parent().toggleClass('selected', state);
@@ -2244,7 +2330,7 @@ $(document).ready(function(){
 		var hash = $(this).attr('id');
 		var id = $(this).val();
 		var name = $(this).siblings("label").text();
-		var text = "음식 종류 선택";
+		var text = "ìì ì¢ë¥ ì í";
 
 		if(state)
 			query['food_types'].push(id);
@@ -2271,7 +2357,7 @@ $(document).ready(function(){
             
             text = text.join(',');
             if(over)
-                text += "외 "+(query['food_types'].length-i)+"개";
+                text += "ì¸ "+(query['food_types'].length-i)+"ê°";
 
             $("#food_all").prop('checked', query['food_types'].length == foods_count)
                 .parent().toggleClass('selected', query['food_types'].length == foods_count);
@@ -2330,12 +2416,83 @@ $(document).ready(function(){
 	});
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).ready(function(){
 	shadingHideEvent("#reportShading", function()
 	{
 		$('#report_popup').hide();
 	});
-	// 클로즈 버튼
+	// í´ë¡ì¦ ë²í¼
 	$("#report_popup>i.close").click(function(){
 		$('#reportShading').click();
 	});
@@ -2366,7 +2523,7 @@ $(document).ready(function(){
 
 		type = type.join(',');
 		$.ajax({url:'/restaurant/report', type:'POST', data:{report:{id:id, type:type, detail:detail_info}} , success:
-			function() { noticePopupInit({message: "정보 수정 요청이 성공적으로 전송되었습니다."}) } });
+			function() { noticePopupInit({message: "ì ë³´ ìì  ìì²­ì´ ì±ê³µì ì¼ë¡ ì ì¡ëììµëë¤."}) } });
 
 		$('#reportShading').click();
 	});
@@ -2419,18 +2576,18 @@ $("#post-reserve div.confirm-btn button").click(function() {
 });
 $("#pre-reserve div.confirm-btn>button.reserve").click(function() {
 	// check form validation
-			if( $(".confirm_code>input.code").is(":visible") && $(".confirm_code>input.code").attr('done') !== 'true' ) // 인증 x
+			if( $(".confirm_code>input.code").is(":visible") && $(".confirm_code>input.code").attr('done') !== 'true' ) // ì¸ì¦ x
 		{
-			noticePopupInit({message:"휴대폰 인증을 해주세요."});
+			noticePopupInit({message:"í´ëí° ì¸ì¦ì í´ì£¼ì¸ì."});
 			return;
 		}
-    	if( $("#reserve_time").text() === "예약 불가" ) // 시간 선택 x
+    	if( $("#reserve_time").text() === "ìì½ ë¶ê°" ) // ìê° ì í x
 	{
-		noticePopupInit({message:"예약 불가능한 시간입니다."});
+		noticePopupInit({message:"ìì½ ë¶ê°ë¥í ìê°ìëë¤."});
 		return;
 	}
 
-	if($.trim($("#pre-reserve textarea").val())!="간단한 요청사항을 남겨주세요."){
+	if($.trim($("#pre-reserve textarea").val())!="ê°ë¨í ìì²­ì¬í­ì ë¨ê²¨ì£¼ì¸ì."){
 		$("#post-reserve div.comment span.value").html($("#pre-reserve textarea").val());	
 	}
 	$("#post-reserve .name .value").text($("#reserve_name").val());
@@ -2462,13 +2619,13 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function() {
 				$("#reserveShading").show();
 				$("#pre-reserve").hide();
 				$("#post-reserve").show();
-				ga('send', 'event', 'KPI', '[KPI]예약성공');
+				ga('send', 'event', 'KPI', '[KPI]ìì½ì±ê³µ');
 			}
 		}
 	});
 });
 
-// 예약 변경
+// ìì½ ë³ê²½
 $("#pre-reserve div.confirm-btn>button.edit").click(function() {
 	var time = $("#reserve_time").attr('time');
 
@@ -2488,17 +2645,17 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function() {
 			}
 			else if(res.data.reservation)
 			{
-				noticePopupInit({message:"예약이 정상적으로 변경되었습니다."});
+				noticePopupInit({message:"ìì½ì´ ì ìì ì¼ë¡ ë³ê²½ëììµëë¤."});
 				location.reload(true);
 			}
 		}
 	});
 	$("#reserveShading").click();
 });
-// 예약 취소
+// ìì½ ì·¨ì
 $("#pre-reserve div.confirm-btn>button.cancel").click(function() {
 	confirmPopupInit({
-		message: "예약을 취소하시겠습니까?",
+		message: "ìì½ì ì·¨ìíìê² ìµëê¹?",
 		ok: function()
 		{
 			$("#reserveShading").hide();
@@ -2514,7 +2671,7 @@ $("#pre-reserve div.confirm-btn>button.cancel").click(function() {
 					}
 					else if(res.data.reservation)
 					{
-						noticePopupInit({message:"예약이 정상적으로 취소되었습니다."});
+						noticePopupInit({message:"ìì½ì´ ì ìì ì¼ë¡ ì·¨ìëììµëë¤."});
 						location.reload(true);
 					}
 				}
@@ -2534,7 +2691,7 @@ $("div.reserve-popup>div.box_list>div.box>.person_count>i.minus").click(function
 	if( value > minimum_party_size)
 	{
 		target.text(--value);
-		$(".popup-row.comment span.count").text(value + "명");
+		$(".popup-row.comment span.count").text(value + "ëª");
 	}
 })
 $("div.reserve-popup>div.box_list>div.box>.person_count>i.plus").click(function() {
@@ -2543,9 +2700,9 @@ $("div.reserve-popup>div.box_list>div.box>.person_count>i.plus").click(function(
 	if( value < maximum_party_size)
 	{
 		target.text(++value);
-		$(".popup-row.comment span.count").text(value + "명");
+		$(".popup-row.comment span.count").text(value + "ëª");
 	} else
-		noticePopupInit({message:'예약 가능한 최대 인원입니다.'});
+		noticePopupInit({message:'ìì½ ê°ë¥í ìµë ì¸ììëë¤.'});
 })
 $("div.reserve-popup>div.box_list>div.box>.date").parent().click(function(e) {
 	e.stopPropagation();
@@ -2564,7 +2721,7 @@ $("#calendar").delegate(".ui-datepicker-header", "click", function(e){
 $("div.reserve-popup>div.box_list>div.box>.time").parent().click(function(e) {
 	e.stopPropagation();
 
-	if($(e.target).text() === "예약 불가")
+	if($(e.target).text() === "ìì½ ë¶ê°")
 		return;
 
 	$("#timetable").toggle();
@@ -2583,10 +2740,10 @@ $("#timetable").delegate("li", "click", function(e) {
 
     time[0] = Number(time[0]);
 	if(Number(time[0]) < 12) 
-		convert_time = "오전 ";
+		convert_time = "ì¤ì  ";
 	else if(Number(time[0]) >= 12) 
 	{
-		convert_time = "오후 ";
+		convert_time = "ì¤í ";
 		if(time[0]>=13)
 			time[0] -= 12;
 	}
@@ -2604,10 +2761,10 @@ var lastRequestParam = [];
 $("div.confirm>button.send").click(function() {
 	if(document.getElementById("reserve_name").value == "" || document.getElementById("reserve_phone").value == "")
 	{
-		noticePopupInit({message:'성함과 연락처는 꼭 적어주셔야 합니다.'});
+		noticePopupInit({message:'ì±í¨ê³¼ ì°ë½ì²ë ê¼­ ì ì´ì£¼ìì¼ í©ëë¤.'});
 		return;
     } else if('' == 'block') {
-        noticePopupInit({message:"이용이 제한된   휴대폰 번호이니 고객센터에 문의해주시기 바랍니다."});
+        noticePopupInit({message:"ì´ì©ì´ ì íë   í´ëí° ë²í¸ì´ë ê³ ê°ì¼í°ì ë¬¸ìí´ì£¼ìê¸° ë°ëëë¤."});
         isSendConfirm = 'block';
         return false;
     }
@@ -2625,7 +2782,7 @@ $("div.confirm>button.send").click(function() {
                 isSendConfirm = 'block';
                 noticePopupInit({message:response.error.message}); 
             } else {
-                noticePopupInit({message:"인증번호를 담은 문자가 발송되었습니다.<br><br>3분 이내에 올바르게 입력해주세요."});
+                noticePopupInit({message:"ì¸ì¦ë²í¸ë¥¼ ë´ì ë¬¸ìê° ë°ì¡ëììµëë¤.<br><br>3ë¶ ì´ë´ì ì¬ë°ë¥´ê² ìë ¥í´ì£¼ì¸ì."});
                 isSendConfirm = true;
 			    //$(".confirm_code>input.code").attr('id', response.data.user.id)
 		    }   
@@ -2638,16 +2795,16 @@ $("div.confirm>div.resend>span").click(function() {
 $("div.confirm>button.check").click(function() {
 	if(isSendConfirm === false)
 	{
-		noticePopupInit({message:'먼저 인증번호를 전송해주세요.'});
+		noticePopupInit({message:'ë¨¼ì  ì¸ì¦ë²í¸ë¥¼ ì ì¡í´ì£¼ì¸ì.'});
 		return;
     } else if(isSendConfirm === 'block'){
-        noticePopupInit({message:"이용이 제한된 휴대폰 번호이니 고객센터에 문의해주시기 바랍니다."});
+        noticePopupInit({message:"ì´ì©ì´ ì íë í´ëí° ë²í¸ì´ë ê³ ê°ì¼í°ì ë¬¸ìí´ì£¼ìê¸° ë°ëëë¤."});
         return;
     }
 
 	if($(".confirm_code>input.code").attr('done') === 'true')
 	{
-		noticePopupInit({message:"이미 인증하셨습니다."});
+		noticePopupInit({message:"ì´ë¯¸ ì¸ì¦íì¨ìµëë¤."});
 		return; 
 	}
 
@@ -2659,7 +2816,7 @@ $("div.confirm>button.check").click(function() {
 		data: { name:lastRequestParam['name'], phone:lastRequestParam['phone'], sms_code:lastRequestParam['sms_code'] },
 		success:function(response) {
             if(response.data == true) {
-                noticePopupInit({message:"계정에 번호가 등록되었습니다.<br><br>다음부터는 인증 없이 예약하실 수 있습니다."});
+                noticePopupInit({message:"ê³ì ì ë²í¸ê° ë±ë¡ëììµëë¤.<br><br>ë¤ìë¶í°ë ì¸ì¦ ìì´ ìì½íì¤ ì ììµëë¤."});
                 $(".confirm_code>input.code").attr('done', 'true');
                 $("div.popup-row.confirm").hide();
                 $("div#pre-reserve").css('height', '350px');
@@ -2668,7 +2825,7 @@ $("div.confirm>button.check").click(function() {
                 if(res.error.code == 504 || res.error.code == 505 || res.error.code == 506) {
                     noticePopupInit({message:res.error.message});
                 } else {
-                    noticePopupInit({message:"인증번호를 다시 한 번 확인해주세요!"});
+                    noticePopupInit({message:"ì¸ì¦ë²í¸ë¥¼ ë¤ì í ë² íì¸í´ì£¼ì¸ì!"});
                 }
             }
 		}
@@ -2722,8 +2879,8 @@ function reserve_popup_init(str, info, reserve_setting, id)
 		inline: true,
 		firstDay: 00,
 		showOtherMonths: true,
-		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+		dayNamesMin: ['ì¼', 'ì', 'í', 'ì', 'ëª©', 'ê¸', 'í '],
+		monthNames: [ "1ì", "2ì", "3ì", "4ì", "5ì", "6ì", "7ì", "8ì", "9ì", "10ì", "11ì", "12ì" ],
 		minDate: minDate,
 		maxDate: maxDate,
         dateFormat: 'yy-mm-dd',
@@ -2770,7 +2927,7 @@ function reserve_popup_init(str, info, reserve_setting, id)
 				var holi = Date.parse(reserve.holidays[i].split('.').join('/'));
 				if(selected_date === holi)
 				{
-					$("#pre-reserve #reserve_time").text("예약 불가");
+					$("#pre-reserve #reserve_time").text("ìì½ ë¶ê°");
 					isHoliday = true;
 				}
 			}
@@ -2804,7 +2961,7 @@ function reserve_popup_init(str, info, reserve_setting, id)
 
 					if(day_today && ((str[0] > now_hour) || (str[0] == now_hour && str[1] >= now_min)))
 					{
-						var noon = Number(str[0])<12? "오전":"오후";
+						var noon = Number(str[0])<12? "ì¤ì ":"ì¤í";
 
 						if(Number(str[0]) >= 13)
 							str[0] -= 12;
@@ -2813,7 +2970,7 @@ function reserve_popup_init(str, info, reserve_setting, id)
 					}
 					else if(!day_today)
 					{
-						var noon = Number(str[0])<12? "오전":"오후";
+						var noon = Number(str[0])<12? "ì¤ì ":"ì¤í";
 
 						if(Number(str[0]) >= 13)
 							str[0] -= 12;
@@ -2824,7 +2981,7 @@ function reserve_popup_init(str, info, reserve_setting, id)
 			}
 
 			if(th.length === 0)
-				$("#pre-reserve #reserve_time").text("예약 불가");
+				$("#pre-reserve #reserve_time").text("ìì½ ë¶ê°");
 
 			$("#timetable").empty().append(list);
 			$("#timetable li").eq(0).trigger("click");
@@ -2834,7 +2991,7 @@ function reserve_popup_init(str, info, reserve_setting, id)
 			$("#calendar").hide();
 			$("#calendar~i.select_arrow").removeClass("up");
 
-            var date_format = ((selected.getFullYear() % 100)+"년 ") + ((selected.getMonth() + 1)+"월 ") + (selected.getDate()+"일 ") + ("("+['일','월','화','수','목','금','토'][selected.getDay()]+")");
+            var date_format = ((selected.getFullYear() % 100)+"ë ") + ((selected.getMonth() + 1)+"ì ") + (selected.getDate()+"ì¼ ") + ("("+['ì¼','ì','í','ì','ëª©','ê¸','í '][selected.getDay()]+")");
 			$(".popup-row.comment span.date").text(date_format);
 		}
 	});
@@ -2842,30 +2999,34 @@ function reserve_popup_init(str, info, reserve_setting, id)
 
 </script>
 	<script>
-				$(function() {
-					$(".lazy").lazy({
-						threshold : 300,
-						effect : "fadeIn",
-						effectTime: 400,
-						afterLoad: function(e) {
-							e.removeClass('lazy');
-						}
+		$(function () {
+			$(".lazy").lazy({
+				threshold: 300,
+				effect: "fadeIn",
+				effectTime: 400,
+				afterLoad: function (e) {
+					e.removeClass('lazy');
+				}
+			});
+			setTimeout(function () {
+				$("body").scrollTo("+=1px").scrollTo("-=1px");
+			}, 50);
+		});
+
+		location.hash = '';
+		$(window).on('hashchange', function (e) {
+			e.preventDefault();
+
+			if (location.hash == '#login') {
+				if (poing.account.checkLoginState() == true)
+					noticePopupInit({
+						message: 'ì´ë¯¸ ë¡ê·¸ì¸íì¨ìµëë¤.'
 					});
-					setTimeout(function() { $("body").scrollTo("+=1px").scrollTo("-=1px"); }, 50);
-				});
 
-                location.hash = '';
-                $(window).on('hashchange', function(e) {
-                    e.preventDefault();
-
-                    if(location.hash == '#login') {
-                        if(poing.account.checkLoginState() == true) 
-                            noticePopupInit({message: '이미 로그인하셨습니다.'});
-
-                        var scroll = $(window).scrollTop();
-                        location.hash = '';
-                        $(window).scrollTop( scroll );
-                    }
-                });
-			</script>
+				var scroll = $(window).scrollTop();
+				location.hash = '';
+				$(window).scrollTop(scroll);
+			}
+		});
+	</script>
 </div>

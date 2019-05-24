@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div id="scripts">
-<script>
+	<script>
+
 	//(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga("create","UA-40354247-8","auto",{allowLinker:!0}),ga("require","linker"),ga("linker:autoLink",["mypoing.com"]),garef=document.referrer.split(/[\/\?]/),garef.length>1&&"m.poing.co.kr"===garef[2]&&ga("set","referrer","http://"+garef[5]+"."+garef[6]),delete garef,ga("send","pageview");
 
 	var console=console||{"log":function(){}};
@@ -1683,6 +1684,60 @@
 			$.proxy(eval(type), this)();
 			});
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$(function(){
 		$("#banner *").on("selectstart", function()
 				{
@@ -1857,6 +1912,60 @@
 		}, 1000);
 	})();
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//ie toLocaleString
 	if (/\D/.test((1).toLocaleString())) {
 		Number.prototype.toLocaleString = (function() {
@@ -2476,6 +2585,49 @@
 		});
 	});
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	$(document).ready(function(){
 		shadingHideEvent("#reserveShading.shading_bg", function()
 				{
@@ -2484,8 +2636,6 @@
 			$("#result").hide();
 				});
 	})
-
-
 	var minimum_party_size = 1;
 	var isSendConfirm = false;
 
@@ -2964,6 +3114,8 @@
 			}
 		});
 	}
+</script>
+<script>
 
 	$(function() {
 		$(".lazy").lazy({

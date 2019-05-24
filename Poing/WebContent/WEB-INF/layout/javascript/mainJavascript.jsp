@@ -1,3 +1,4 @@
+<%@page import="poing.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -2189,7 +2190,8 @@ $("#nav_profile").on("mouseover", function()
 });
 $("#nav_profile>.i_wrap").on("click", function()
 {
-	location.href = "/Poing/timeline.do?1/";
+	<% System.out.println("mainJavascript line 2193: " + session.getAttribute("authUser")); %>
+	location.href = "/Poing/timeline.do?id=${ authUser.m_no }";
 });
 
 $("#nav_profile_list>.item").on("click", function()

@@ -614,9 +614,6 @@
 				<button type="button" id="nav_btn" class="search" tabindex="-1">검색</button>
 				<!-- account section -->
 				<c:if test="${empty authUser}">
-					<%
-						System.out.println("head empty mdto");
-					%>
 					<div id="nav_account">
 						<div id="nav_guest">
 							<span id="nav_login">로그인</span> &nbsp;|&nbsp; <span id="nav_join">회원가입</span>
@@ -624,9 +621,6 @@
 					</div>
 				</c:if>
 				<c:if test="${not empty authUser}">
-					<%
-						System.out.println("head not empty mdto");
-					%>
 					<div id="nav_account">
 						<div id="nav_user">
 							<div id="nav_cart" class="underline">

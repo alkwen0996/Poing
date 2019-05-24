@@ -13,7 +13,6 @@ public class MemberDTO {
 	private String m_email; /* 이메일 */
 	private int m_level; /* 레벨 */
 	private String m_selfintro; /* 자기소개 */
-	private String m_id; /* 아이디 */
 	private String m_pw; /* 비밀번호 */
 	private String m_nickname; /* 예약자명 */
 	private String m_img; /* 프로필이미지 */
@@ -26,7 +25,7 @@ public class MemberDTO {
 	public String toString() {
 		return "MemberDTO [m_no=" + m_no + ", m_name=" + m_name + ", m_tel=" + m_tel + ", m_birth=" + m_birth
 				+ ", m_gen=" + m_gen + ", m_email=" + m_email + ", m_level=" + m_level + ", m_selfintro=" + m_selfintro
-				+ ", m_id=" + m_id + ", m_pw=" + m_pw + ", m_nickname=" + m_nickname + ", m_img=" + m_img + ", rp_seq="
+				+ ", m_pw=" + m_pw + ", m_nickname=" + m_nickname + ", m_img=" + m_img + ", rp_seq="
 				+ rp_seq + "]";
 	}
 
@@ -111,16 +110,6 @@ public class MemberDTO {
 	}
 
 
-	public String getM_id() {
-		return m_id;
-	}
-
-
-	public void setM_id(String m_id) {
-		this.m_id = m_id;
-	}
-
-
 	public String getM_pw() {
 		return m_pw;
 	}
@@ -170,7 +159,6 @@ public class MemberDTO {
 		this.m_email = null;
 		this.m_level = 1;
 		this.m_selfintro = null;
-		this.m_id = null;
 		this.m_pw = null;
 		this.m_nickname = null;
 		this.m_img = null;

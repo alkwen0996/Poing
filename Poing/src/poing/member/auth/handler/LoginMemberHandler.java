@@ -44,7 +44,7 @@ public class LoginMemberHandler implements CommandHandler{
 			request.setAttribute("result", false);
 			return "user/loginResult";
 		}
-		System.out.println("no:" + mdto.getM_id());
+		System.out.println("no:" + mdto.getM_no());
 		System.out.println("이름:" + mdto.getM_name());
 		request.setAttribute("result", true);
 		request.getSession().setAttribute("authUser", mdto);

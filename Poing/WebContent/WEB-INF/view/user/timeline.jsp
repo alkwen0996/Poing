@@ -1,3 +1,4 @@
+<%@page import="poing.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -73,19 +74,38 @@
 				</div>
 			</div>
 		</div>
+		<div id="content" class="mypage">
+			<ul class="tab">
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=reservation">예약</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=coupon">티켓</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=review">리뷰</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=restaurant">찜</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=social">소식</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=payment">결제</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=friends">친구찾기</a></li>
+				<li class="item "><a href="/Poing/timeline.do?id=1520484&tab=setting">설정</a></li>
+			</ul>
 		
-		<!-- 만약 내 담벼락이라면 -->
-		<!-- 만약 type이 null이거나  type=reservation라면 -->
+			<%
+			MemberDTO mdto = (MemberDTO)session.getAttribute("authUser");
+			System.out.println("timeline.jsp line80 : "+mdto);
+			%>
+			<!-- 만약 내 담벼락이라면 -->
+			<c:if test="${authUser.m_no eq param.id}">
+				<!-- 만약 type이 null이거나  type=reservation라면 -->
+				<c:if test="${ param.tab eq null || param.tab eq reservation}">		
+					<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation.jsp"></jsp:include>
+				</c:if>
 		
-		<!-- type=coupon 이라면-->
-		<!-- type=review 이라면-->
-		<!-- type=restaurant 이라면-->
-		<!-- type=social 이라면-->
-		<!-- type=payment 이라면-->
-		<!-- type=friends 이라면-->
-		<!-- type=setting 이라면-->
-
-		
+			<!-- tab=coupon 이라면-->
+			<!-- tab=review 이라면-->
+			<!-- tab=restaurant 이라면-->
+			<!-- tab=social 이라면-->
+			<!-- tab=payment 이라면-->
+			<!-- tab=friends 이라면-->
+			<!-- tab=setting 이라면-->
+			</c:if>
+			
 		
 		<!-- 만약 다른사람 담벼락이라면 -->
 		
@@ -101,7 +121,7 @@
 	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 		
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
-	
+	</div><!-- container -->
 
 </div> <!-- wrap end -->
 

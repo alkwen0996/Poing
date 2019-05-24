@@ -76,7 +76,7 @@
 		<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 	<!-- wrap end -->
 
-	<jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 </div>
 </body>
 </html>

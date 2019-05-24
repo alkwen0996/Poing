@@ -36,6 +36,6 @@
 
 </div> <!-- wrap end -->
 
-<jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/layout/javascript/mainJavascript.jsp"></jsp:include>
 </body>
 </html>

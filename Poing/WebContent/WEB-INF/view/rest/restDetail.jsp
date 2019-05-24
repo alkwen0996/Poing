@@ -630,7 +630,7 @@
 	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 
 	<%-- <jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include> --%>
-	<jsp:include page="/WEB-INF/layout/restDetail_script.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/javascript/restDetail.jsp"></jsp:include>
 </div>
 
 

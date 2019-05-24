@@ -105,6 +105,6 @@
 
 </div> <!-- wrap end -->
 
-<jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/layout/javascript/timeline_reserve.jsp"></jsp:include>
 </body>
 </html>

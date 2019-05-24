@@ -1396,11 +1396,11 @@
 		</div><!-- container end -->
 		
 		<!-- header -->
-		<jsp:include page="/WEB-INF/layout/script.jsp"/>
 		<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"/>
 	</div>
 		<!-- wrap end -->
 	<jsp:include page="/WEB-INF/layout/footer.jsp"/>
 	
+	<jsp:include page="/WEB-INF/layout/javascript/review.jsp"/>
 </body>
 </html>

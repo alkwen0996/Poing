@@ -4,318 +4,267 @@
 
 <div id="scripts">
 	<script>
-
-	//(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga("create","UA-40354247-8","auto",{allowLinker:!0}),ga("require","linker"),ga("linker:autoLink",["mypoing.com"]),garef=document.referrer.split(/[\/\?]/),garef.length>1&&"m.poing.co.kr"===garef[2]&&ga("set","referrer","http://"+garef[5]+"."+garef[6]),delete garef,ga("send","pageview");
-
-	var console=console||{"log":function(){}};
+	var console = console || {
+		"log": function () {}
+	};
 
 	(function (old) {
-		var dec = 0.12 .toLocaleString().charAt(1),
-		tho = dec === "." ? "," : ".";
+		var dec = 0.12.toLocaleString().charAt(1),
+			tho = dec === "." ? "," : ".";
 
 		if (1000 .toLocaleString() !== "1,000.00") {
 			Number.prototype.toLocaleString = function () {
 				var neg = this < 0,
-				f = this.toFixed(2).slice(+neg);
+					f = this.toFixed(2).slice(+neg);
 
-				return (neg ? "-" : "") 
-				+ f.slice(0,-3).replace(/(?=(?!^)(?:\d{3})+(?!\d))/g, tho) 
-				+ dec + f.slice(-2);
+				return (neg ? "-" : "") +
+					f.slice(0, -3).replace(/(?=(?!^)(?:\d{3})+(?!\d))/g, tho) +
+					dec + f.slice(-2);
 			}
 		}
 	})(Number.prototype.toLocaleString);
 
-	$(".review_wrap>.review>.write>textarea").on("keydown", function(e)
-			{
-		if(e.keyCode === 13)
-		{
+	$(".review_wrap>.review>.write>textarea").on("keydown", function (e) {
+		if (e.keyCode === 13) {
 			var text = $(this).val();
-			if(text.length > 0)
+			if (text.length > 0)
 				$.proxy(poing.reviews.comment.send2, this)(true);
 
 			return false;
 		}
-			});
-	$(".review > .body > .text").on("click", ">a", function() {
+	});
+	$(".review > .body > .text").on("click", ">a", function () {
 		var $context = $(this).parent();
 
 		$(this).remove();
-		$context.append( $context.attr('data-truncated').replace(/[\n\r]/g, '<br>'));
-		$context.attr('data-truncated', null); 
+		$context.append($context.attr('data-truncated').replace(/[\n\r]/g, '<br>'));
+		$context.attr('data-truncated', null);
 	});
-	$(".review .time:not(.loaded)").each(function(){
+	$(".review .time:not(.loaded)").each(function () {
 		$(this)
-		.addClass('loaded')
-		.text( moment($(this).text()).locale('ko').fromNow() )
-		.show();
+			.addClass('loaded')
+			.text(moment($(this).text()).locale('ko').fromNow())
+			.show();
 	});
 
-	$("body").on("beforeShow", ".shading_bg", function()
-			{
-		if($(this).is(":visible"))
-		{
+	$("body").on("beforeShow", ".shading_bg", function () {
+		if ($(this).is(":visible")) {
 			return;
 		}
 
-		if($(this).hasClass("with_nav"))
-		{
+		if ($(this).hasClass("with_nav")) {
 			$("#nav_wrap_shading").show();
 			$("#header").addClass("shading high");
 		}
 
-		if(!$(this).hasClass("scroll_enable"))
-		{
+		if (!$(this).hasClass("scroll_enable")) {
 			$("body").addClass("popup_state");
 
-			if(this.id != "nav_wrap_shading")
-			{
+			if (this.id != "nav_wrap_shading") {
 				var count = $("body").attr("data-count");
-				if(count == null || count <= 0)
-				{
+				if (count == null || count <= 0) {
 					count = 1;
-				}
-				else
-				{
+				} else {
 					count = parseInt(count) + 1;
 				}
 				$("body").attr("data-count", count);
 			}
 		}
-			});
+	});
 
-	$("body").on("beforeHide", ".shading_bg", function()
-			{
-		if(!$(this).is(":visible"))
-		{
+	$("body").on("beforeHide", ".shading_bg", function () {
+		if (!$(this).is(":visible")) {
 			return;
 		}
 
-		if($(this).hasClass("with_nav"))
-		{
+		if ($(this).hasClass("with_nav")) {
 			$("#nav_wrap_shading").hide();
 			$("#header").removeClass("shading high");
 		}
 
-		if(!$(this).hasClass("scroll_enable"))
-		{
+		if (!$(this).hasClass("scroll_enable")) {
 			var count = parseInt($("body").attr("data-count")) - 1;
 			$("body").attr("data-count", count);
-			if(count <= 0)
-			{
+			if (count <= 0) {
 				$("body").removeClass("popup_state");
 			}
 		}
-			});
+	});
 
-	$("body").on("beforeShow", ".confirmPopup", function()
-			{
+	$("body").on("beforeShow", ".confirmPopup", function () {
 		$("body").addClass("popup_state");
 
 		var count = $("body").attr("data-count");
-		if(count == null || count <= 0)
-		{
+		if (count == null || count <= 0) {
 			count = 1;
-		}
-		else
-		{
+		} else {
 			count = parseInt(count) + 1;
 		}
 		$("body").attr("data-count", count);
-			});
+	});
 
-	$("body").on("beforeHide", ".confirmPopup", function()
-			{
+	$("body").on("beforeHide", ".confirmPopup", function () {
 		var count = parseInt($("body").attr("data-count")) - 1;
 		$("body").attr("data-count", count);
-		if(count <= 0)
-		{
+		if (count <= 0) {
 			$("body").removeClass("popup_state");
 		}
-			});
+	});
 
-	function shadingHideEvent(selector, beforeFunc, afterFunc)
-	{
-		if($(selector).hasClass("with_nav"))
-		{
-			$("#nav_wrap_shading").on("click", function()
-					{
+	function shadingHideEvent(selector, beforeFunc, afterFunc) {
+		if ($(selector).hasClass("with_nav")) {
+			$("#nav_wrap_shading").on("click", function () {
 				$(selector).click();
-					});
+			});
 		}
 
-		if(typeof beforeFunc == "undefined")
-		{
-			beforeFunc = function() {};
+		if (typeof beforeFunc == "undefined") {
+			beforeFunc = function () {};
 		}
-		if(typeof afterFunc == "undefined")
-		{
-			afterFunc = function() {};
+		if (typeof afterFunc == "undefined") {
+			afterFunc = function () {};
 		}
-		$(document).on("keydown", function(e)
-				{
-			if(!inFocus && e.keyCode === 27)
-			{
+		$(document).on("keydown", function (e) {
+			if (!inFocus && e.keyCode === 27) {
 				$(selector).click();
 			}
-				});
-		$(selector).on("click", function()
-				{
+		});
+		$(selector).on("click", function () {
 			beforeFunc();
 			$(this).hide();
 			afterFunc();
-				});
+		});
 	}
 
-	$(".sort_wrap").on("selectstart", function()
-			{
+	$(".sort_wrap").on("selectstart", function () {
 		return false;
-			});
+	});
 
-	$("a[href='/timeline/']").on("click", function()
-			{
+	$("a[href='/timeline/']").on("click", function () {
 		return false;
-			});
+	});
 
 	var inFocus = false;
-	$("body").on("focus", "input, textarea", function()
-			{
+	$("body").on("focus", "input, textarea", function () {
 		inFocus = true;
-			});
+	});
 
-	$("body").on("blur", "input, textarea", function()
-			{
+	$("body").on("blur", "input, textarea", function () {
 		inFocus = false;
-			});
+	});
 
-	var ie = (function() {
+	var ie = (function () {
 		var undef,
-		v = 3,
-		div = document.createElement('div'),
-		all = div.getElementsByTagName('i');
+			v = 3,
+			div = document.createElement('div'),
+			all = div.getElementsByTagName('i');
 
-		while(
-				div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-				all[0]
+		while (
+			div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+			all[0]
 		);
 
 		return v > 4 ? v : undef;
 	}());
 
-	if(ie < 9)
-	{
-		$("i,div,span,a").each(function()
-				{
+	if (ie < 9) {
+		$("i,div,span,a").each(function () {
 			var img = $(this).css("background-image");
-			if(img != "none" && $(this).hasClass('nf') === false)
-			{
+			if (img != "none" && $(this).hasClass('nf') === false) {
 				img = img.substr(4, img.length - 5);
-				if($(this).css("filter") != "auto" && img.indexOf("/images/spiffygif_52x52.gif") == -1)
-				{
-					$(this).css("filter", $(this).css("filter")+" progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+img+",sizingMethod='scale')");
-				}
-				else if(img.indexOf("/images/recent_sheet.png") == -1 && img.indexOf("/images/user/gage_full.png") == -1 && img.indexOf("/images/user/gage_nofull.png") == -1 && img.indexOf("/images/checkbox.png") == -1 && img.indexOf("/images/spiffygif_52x52.gif") == -1)
-				{
-					$(this).css("filter", "progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+img+",sizingMethod='scale')");
+				if ($(this).css("filter") != "auto" && img.indexOf("/images/spiffygif_52x52.gif") == -1) {
+					$(this).css("filter", $(this).css("filter") + " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + img + ",sizingMethod='scale')");
+				} else if (img.indexOf("/images/recent_sheet.png") == -1 && img.indexOf("/images/user/gage_full.png") == -1 && img.indexOf("/images/user/gage_nofull.png") == -1 && img.indexOf("/images/checkbox.png") == -1 && img.indexOf("/images/spiffygif_52x52.gif") == -1) {
+					$(this).css("filter", "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + img + ",sizingMethod='scale')");
 				}
 			}
-				});
+		});
 	}
 
 
 
-	$(".dropbox>.label").on("click", function(e)
-			{
+	$(".dropbox>.label").on("click", function (e) {
 		e.stopPropagation();
 		$(this).parent().children(".items").toggle();
-		if($(this).children(".i_wrap").children(".arrow").hasClass("up"))
-		{
+		if ($(this).children(".i_wrap").children(".arrow").hasClass("up")) {
 			$(this).children(".i_wrap").children(".arrow").removeClass("up");
 			$(this).children(".i_wrap").children(".arrow").addClass("down");
-		}
-		else if($(this).children(".i_wrap").children(".arrow").hasClass("down"))
-		{
+		} else if ($(this).children(".i_wrap").children(".arrow").hasClass("down")) {
 			$(this).children(".i_wrap").children(".arrow").addClass("up");
 			$(this).children(".i_wrap").children(".arrow").removeClass("down");
 		}
-			});
+	});
 
-	$(".dropbox>.items>li").on("click", function()
-			{
+	$(".dropbox>.items>li").on("click", function () {
 		$(this).parents(".dropbox").children(".label").children(".i_wrap").children(".arrow").removeClass("up");
 		$(this).parents(".dropbox").children(".label").children(".i_wrap").children(".arrow").addClass("down");
-			});
+	});
 
-	$(".dropbox>.items").on("click", function(e)
-			{
+	$(".dropbox>.items").on("click", function (e) {
 		e.stopPropagation();
-			});
+	});
 
-	$(document).on("click", function(e)
-			{
+	$(document).on("click", function (e) {
 		$(".dropbox>.items").hide();
-			});
+	});
 
 
-	var poing =
-	{
-			move: function(uri, params) {
-				if(!params)
+	var poing = {
+			move: function (uri, params) {
+				if (!params)
 					params = {};
 
 				var lo = "서울 / 수도권";
-				if(lo)
+				if (lo)
 					params['lo'] = "서울 / 수도권";
 
 				var query = $.param(params);
-				if(query.length > 0)
+				if (query.length > 0)
 					location.href = uri + "?" + decodeURIComponent(query);
 				else
 					location.href = uri;
 			},
-			addEvent: function(selector, event, func)
-			{
-				$("body").on(event, " "+selector, func);
+			addEvent: function (selector, event, func) {
+				$("body").on(event, " " + selector, func);
 			},
-			restaurants:
-			{
+			restaurants: {
 				// 레스토랑 찜하기
-				favorite: function()
-				{
-					if(poing.account.checkLoginState() == true)
-					{
+				favorite: function () {
+					if (poing.account.checkLoginState() == true) {
 						var type = null;
 
-						if($(this).hasClass("on"))
+						if ($(this).hasClass("on"))
 							type = "off";
 						else
 							type = "on";
 
 						$.ajax({
 							url: "/restaurant/ajaxfavorite",
-							method:'post',
-							dataType:'json',
-							data:
-							{
-								"type":type,
-								"id":$(this).data("id")
+							method: 'post',
+							dataType: 'json',
+							data: {
+								"type": type,
+								"id": $(this).data("id")
 							},
 							//context:this,
-							success:function(res)
-							{
+							success: function (res) {
 								var data = $.parseQuery(this.data);
-								var btn = $("button[data-type='poing.restaurants.favorite'][data-id="+data.id+"]");
+								var btn = $("button[data-type='poing.restaurants.favorite'][data-id=" + data.id + "]");
 
-								if(data.type == 'on')
-								{
+								if (data.type == 'on') {
 									btn.addClass('on')
-									.children("i").addClass('on');
-									$.popup("confirm", {'text': "매장을 찜하셨습니다.", 'alert':true});
-								}
-								else if(data.type == 'off')
-								{
+										.children("i").addClass('on');
+									$.popup("confirm", {
+										'text': "매장을 찜하셨습니다.",
+										'alert': true
+									});
+								} else if (data.type == 'off') {
 									btn.removeClass('on')
-									.children("i").removeClass('on');
-									$.popup("confirm", {'text': "찜을 취소하셨습니다.", 'alert':true});
+										.children("i").removeClass('on');
+									$.popup("confirm", {
+										'text': "찜을 취소하셨습니다.",
+										'alert': true
+									});
 								}
 							}
 						});
@@ -323,34 +272,38 @@
 				}
 			},
 
-			reviews:
-			{
+			reviews: {
 				isUploading: false,
-				addImage: function() {
-					var $input = $( $(this).attr('data-target') );
+				addImage: function () {
+					var $input = $($(this).attr('data-target'));
 					var $list = $(this).siblings("ul.list");
 
-					$input.one("change", function() {
+					$input.one("change", function () {
 						var files = $input.prop('files');
 						var reader = new FileReader();
 						var idx = 0;
 
-						if(files.length + $list.children().length > 20) {
-							$.popup("confirm", {'text': "사진 등록은 최대 20장까지 가능합니다.", single: true});
+						if (files.length + $list.children().length > 20) {
+							$.popup("confirm", {
+								'text': "사진 등록은 최대 20장까지 가능합니다.",
+								single: true
+							});
 							return false;
 						}
 
 						function uploadDone() {
 							var $item = $("<li>");
 							$item.css('background-image', 'url(' + reader.result + ')');
-							$item.append($("<i>", {class: "icon remove"}));
+							$item.append($("<i>", {
+								class: "icon remove"
+							}));
 							$item.prop('files', files[idx]);
 
 							$list.append($item);
 
 							++idx;
-							if(idx < files.length) 
-								reader.readAsDataURL(files[idx]); 
+							if (idx < files.length)
+								reader.readAsDataURL(files[idx]);
 						}
 
 						reader.onloadend = uploadDone;
@@ -360,32 +313,30 @@
 
 					return false;
 				},
-				upload: function()
-				{
-					if(poing.account.checkLoginState() == true)
-					{
-						if(poing.reviews.isUploading == true)
-						{
-							noticePopupInit({message:"리뷰를 등록하고 있습니다.<br><br>잠시만 기다려주세요."});
+				upload: function () {
+					if (poing.account.checkLoginState() == true) {
+						if (poing.reviews.isUploading == true) {
+							noticePopupInit({
+								message: "리뷰를 등록하고 있습니다.<br><br>잠시만 기다려주세요."
+							});
 						}
 
 						var id = $(this).data("id");
 						var grade = eval($(this).data("grade")).data("grade");
 						var text = eval($(this).data("text")).val();
-						var photo = eval($(this).data("photo")).map(function() {
+						var photo = eval($(this).data("photo")).map(function () {
 							return $(this).prop('files');
 						}).get();
 
-						if(grade == 0)
-						{
-							noticePopupInit({message:"평점을 꼭 매겨주세요!"});
-						}
-						else if(text.length < 30 && photo.length == 0)
-						{
-							noticePopupInit({message:"사진이 없다면 리뷰는<br><br>최소 30자 이상이어야 합니다."});
-						}
-						else
-						{
+						if (grade == 0) {
+							noticePopupInit({
+								message: "평점을 꼭 매겨주세요!"
+							});
+						} else if (text.length < 30 && photo.length == 0) {
+							noticePopupInit({
+								message: "사진이 없다면 리뷰는<br><br>최소 30자 이상이어야 합니다."
+							});
+						} else {
 							poing.reviews.actions.temp.pause();
 							poing.reviews.isUploading = true;
 							$.ajax({
@@ -398,19 +349,20 @@
 									"text": text,
 									"photo_cnt": photo.length
 								},
-								success: function(res)
-								{
-									if(res.data.error != null)
-									{
-										if(res.data.error.message == "to often")
-											noticePopupInit({message:"리뷰를 너무 자주 올리셨습니다.<br><br>1분 후 시도해주세요."});
-										else if(res.data.error.message == "Not Found")
-											noticePopupInit({message:"매장을 찾을 수 없습니다."});
+								success: function (res) {
+									if (res.data.error != null) {
+										if (res.data.error.message == "to often")
+											noticePopupInit({
+												message: "리뷰를 너무 자주 올리셨습니다.<br><br>1분 후 시도해주세요."
+											});
+										else if (res.data.error.message == "Not Found")
+											noticePopupInit({
+												message: "매장을 찾을 수 없습니다."
+											});
 
 										poing.reviews.isUploading = false;
 										poing.reviews.actions.temp.resume();
-									} else if(res.data.review != null)
-									{
+									} else if (res.data.review != null) {
 										var reviewId = res.data.review.id;
 										var reviewPhotoSendCount = 0;
 
@@ -418,7 +370,7 @@
 											var form = new FormData();
 											form.append("id", reviewId);
 											form.append("image", photo[i]);
-											form.append("index", i+1);
+											form.append("index", i + 1);
 
 											$.ajax({
 												url: "/review/ajaxsendreviewphoto",
@@ -426,14 +378,14 @@
 												contentType: false,
 												processData: false,
 												data: form,
-												success: function(res)
-												{
+												success: function (res) {
 													reviewPhotoSendCount++;
 
-													if(photo.length == reviewPhotoSendCount)
-													{
+													if (photo.length == reviewPhotoSendCount) {
 														ga('send', 'event', 'KPI', '[KPI]리뷰성공');
-														noticePopupInit({message:"리뷰가 등록되었습니다."});
+														noticePopupInit({
+															message: "리뷰가 등록되었습니다."
+														});
 														poing.reviews.actions.temp.delete();
 														poing.reviews.isUploading = false;
 														location.reload();
@@ -445,10 +397,11 @@
 
 										callAPI(0);
 
-										if(photo.length == 0)
-										{
+										if (photo.length == 0) {
 											ga('send', 'event', 'KPI', '[KPI]리뷰성공');
-											noticePopupInit({message:"리뷰가 등록되었습니다."});
+											noticePopupInit({
+												message: "리뷰가 등록되었습니다."
+											});
 											poing.reviews.actions.temp.delete();
 											poing.reviews.isUploading = false;
 											window.onbeforeunload = null;
@@ -461,21 +414,17 @@
 					}
 				},
 
-				actions:
-				{
-					auth:
-					{
-						modify: function()
-						{
-							if(poing.account.checkLoginState() == true)
-							{
+				actions: {
+					auth: {
+						modify: function () {
+							if (poing.account.checkLoginState() == true) {
 								var id = $(this).data("id");
 
 								var parent_user = $(this).parents(".review_detail").children(".user");
 								var parent_review = $(this).parents(".review");
 
 								var grade_wrap = parent_user.children(".grade");
-								var grade = grade_wrap.children("[data-id="+id+"]");
+								var grade = grade_wrap.children("[data-id=" + id + "]");
 								var newgrade = "<i class='icon star medium odd ' data-id='review_modify' data-index='0' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='1' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='2' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='3' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='4' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='5' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='6' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='7' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='8' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='9' style='cursor:pointer'></i><span style='display:inline-block;vertical-align:super;' data-id='review_modify' data-grade='0'></span>";
 								var time_wrap = parent_review.children(".time");
 								var text_wrap = parent_review.children(".text");
@@ -496,40 +445,35 @@
 								text_wrap.append(cancel_button);
 								text_wrap.append(submit_button);
 
-								var grade_number = grade_wrap.children("span[data-id="+id+"]").data("grade");
+								var grade_number = grade_wrap.children("span[data-id=" + id + "]").data("grade");
 								newgrade = grade_wrap.children("i.star[data-id=review_modify]");
-								for(var i = 0; i < grade_number/10; i++)
-								{
+								for (var i = 0; i < grade_number / 10; i++) {
 									$(newgrade[i]).addClass("active");
 								}
-								grade_wrap.children("span[data-id=review_modify]").attr("data-grade", grade_number).html(String(grade_number/20)+"점 - "+ratingText[grade_number/10 - 1]);
-								newgrade.on("click", function()
-										{
+								grade_wrap.children("span[data-id=review_modify]").attr("data-grade", grade_number).html(String(grade_number / 20) + "점 - " + ratingText[grade_number / 10 - 1]);
+								newgrade.on("click", function () {
 									var index = $(this).data("index");
 
-									for(var i = 0; i <= index; i++)
-									{
+									for (var i = 0; i <= index; i++) {
 										$(newgrade[i]).addClass("active");
 									}
-									for(var i = index+1; i <= 9; i++)
-									{
+									for (var i = index + 1; i <= 9; i++) {
 										$(newgrade[i]).removeClass("active");
 									}
 
-									grade_wrap.children("span[data-id=review_modify]").attr("data-grade", (index+1)*10).html(String((index+1)/2)+"점 - "+ratingText[index]);
-										});
+									grade_wrap.children("span[data-id=review_modify]").attr("data-grade", (index + 1) * 10).html(String((index + 1) / 2) + "점 - " + ratingText[index]);
+								});
 							}
 						},
 
-						modify_cancel: function()
-						{
+						modify_cancel: function () {
 							var id = $(this).data("id");
 
 							var parent_user = $(this).parents(".review_detail").children(".user");
 							var parent_review = $(this).parents(".review");
 
 							var grade_wrap = parent_user.children(".grade");
-							var grade = grade_wrap.children("[data-id="+id+"]");
+							var grade = grade_wrap.children("[data-id=" + id + "]");
 							var newgrade = grade_wrap.children("[data-id=review_modify]");
 							var time_wrap = parent_review.children(".time");
 							var text_wrap = parent_review.children(".text");
@@ -545,15 +489,14 @@
 							action.show();
 						},
 
-						modify_submit: function()
-						{
+						modify_submit: function () {
 							var id = $(this).data("id");
 
 							var parent_user = $(this).parents(".review_detail").children(".user");
 							var parent_review = $(this).parents(".review");
 
 							var grade_wrap = parent_user.children(".grade");
-							var grade = grade_wrap.children("[data-id="+id+"]");
+							var grade = grade_wrap.children("[data-id=" + id + "]");
 							var newgrade = grade_wrap.children("[data-id=review_modify]");
 							var newgrade_number = grade_wrap.children("span[data-id=review_modify]").data("grade");
 							var time_wrap = parent_review.children(".time");
@@ -571,24 +514,22 @@
 									"grade": newgrade_number,
 									"text": text_wrap.children("textarea").val()
 								},
-								success: function(res)
-								{
-									for(var i = 0; i < newgrade_number/10; i++)
-									{
+								success: function (res) {
+									for (var i = 0; i < newgrade_number / 10; i++) {
 										$(grade[i]).addClass("active");
 									}
-									for(var i = newgrade_number/10; i < 10; i++)
-									{
+									for (var i = newgrade_number / 10; i < 10; i++) {
 										$(grade[i]).removeClass("active");
 									}
-									grade_wrap.children("span[data-id="+id+"]").html(String(newgrade_number/20)+"점");
+									grade_wrap.children("span[data-id=" + id + "]").html(String(newgrade_number / 20) + "점");
 									text.html(text_wrap.children("textarea").val());
-									noticePopupInit({message:"리뷰가 수정되었습니다."});
+									noticePopupInit({
+										message: "리뷰가 수정되었습니다."
+									});
 
 									grade.show();
 									newgrade.remove();
-									if(parent_review.children(".time").children("span").length == 0)
-									{
+									if (parent_review.children(".time").children("span").length == 0) {
 										parent_review.children(".time").append("<br>");
 										parent_review.children(".time").append("<span>");
 									}
@@ -600,66 +541,69 @@
 								}
 							});
 						},
-						modify2: function()
-						{
-							if(poing.account.checkLoginState() == true)
-							{
+						modify2: function () {
+							if (poing.account.checkLoginState() == true) {
 								var id = $(this).data("id");
 								var review = $(this).closest(".review");
 								var grade_wrap = review.find(".grade");
 								var grade = grade_wrap.find("span").data('grade');
 								var text_wrap = review.find(".body>.text");
 								var text = text_wrap
-								.clone()
-								.children("a")
-								.remove()
-								.end()
-								.html().replace(/[\n\r]/g, '').replace(/<br>/g, '\n').trim();
+									.clone()
+									.children("a")
+									.remove()
+									.end()
+									.html().replace(/[\n\r]/g, '').replace(/<br>/g, '\n').trim();
 
-								if(text_wrap.attr('data-truncated')) 
+								if (text_wrap.attr('data-truncated'))
 									text += text_wrap.attr('data-truncated');
 
 								grade_wrap.append("<i class='icon star medium odd ' data-id='review_modify' data-index='0' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='1' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='2' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='3' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='4' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='5' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='6' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='7' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='8' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='9' style='cursor:pointer'></i><span style='display:inline-block;vertical-align:super;' data-id='review_modify' data-grade='0'></span>")
-								.children(":not([data-id='review_modify'])").hide();
+									.children(":not([data-id='review_modify'])").hide();
 								text_wrap
-								.addClass('editing')
-								.append( $("<textarea>", {class: "border_radius soft edit",
-									text: text}))
-									.append( $("<button>", {class: "gray_fill border_radius soft edit",
+									.addClass('editing')
+									.append($("<textarea>", {
+										class: "border_radius soft edit",
+										text: text
+									}))
+									.append($("<button>", {
+										class: "gray_fill border_radius soft edit",
 										'data-type': "poing.reviews.actions.auth.modify_cancel2",
 										'data-id': id,
-										text: "취소하기"}))
-										.append( $("<button>", {class: "red_fill border_radius soft edit",
-											'data-type': "poing.reviews.actions.auth.modify_submit2",
-											'data-id': id,
-											text: "리뷰 수정하기"}));
+										text: "취소하기"
+									}))
+									.append($("<button>", {
+										class: "red_fill border_radius soft edit",
+										'data-type': "poing.reviews.actions.auth.modify_submit2",
+										'data-id': id,
+										text: "리뷰 수정하기"
+									}));
 
 								review.find(".action, .time").hide();
 
 								grade_wrap.children("[data-id='review_modify']")
-								.on("click", function() {
-									var idx = $(this).data("index");
+									.on("click", function () {
+										var idx = $(this).data("index");
 
-									$(this).siblings("i[data-id='review_modify']").andSelf()
-									.each(function() {
-										if( $(this).data('index') <= idx )
+										$(this).siblings("i[data-id='review_modify']").andSelf()
+											.each(function () {
+												if ($(this).data('index') <= idx)
+													$(this).addClass('active');
+												else
+													$(this).removeClass('active');
+											});
+
+										$(this).siblings("span[data-id='review_modify']").data('grade', (idx + 1) * 10).text(String((idx + 1) / 2) + "점 - " + ratingText[idx]);
+									})
+									.each(function (idx) {
+										if (idx < grade / 10)
 											$(this).addClass('active');
-										else
-											$(this).removeClass('active');
-									});
-
-									$(this).siblings("span[data-id='review_modify']").data('grade', (idx+1)*10).text( String((idx+1)/2) + "점 - " + ratingText[idx] );
-								})
-								.each(function(idx) {
-									if(idx < grade/10) 
-										$(this).addClass('active');
-								})
-								.siblings("span[data-id='review_modify']").data('grade', grade).text( String(grade/20) + "점 - " + ratingText[grade/10 -1] );
+									})
+									.siblings("span[data-id='review_modify']").data('grade', grade).text(String(grade / 20) + "점 - " + ratingText[grade / 10 - 1]);
 							}
 						},
 
-						modify_cancel2: function()
-						{	
+						modify_cancel2: function () {
 							var id = $(this).data("id");
 							var review = $(this).closest(".review");
 							var grade_wrap = review.find(".grade");
@@ -671,8 +615,7 @@
 							review.find(".action, .time").show();
 						},
 
-						modify_submit2: function()
-						{
+						modify_submit2: function () {
 							var id = $(this).data("id");
 							var review = $(this).closest(".review");
 							var grade_wrap = review.find(".grade");
@@ -681,7 +624,7 @@
 							var text = text_wrap.children("textarea").val();
 
 							grade_wrap.children().show()
-							.filter("[data-id='review_modify']").remove();
+								.filter("[data-id='review_modify']").remove();
 							review.find(".action, .time").show();
 
 							$.ajax({
@@ -692,51 +635,53 @@
 									grade: grade,
 									text: text
 								},
-								success: function(res) {
+								success: function (res) {
 									$(grade_wrap)
-									.children("span").text( String(grade/20)+"점 " ).data('grade', grade)
-									.siblings("i")
-									.each(function() {
-										if( $(this).data('index') < grade/10 )
-											$(this).addClass('active');
-										else
-											$(this).removeClass('active');
-									});
+										.children("span").text(String(grade / 20) + "점 ").data('grade', grade)
+										.siblings("i")
+										.each(function () {
+											if ($(this).data('index') < grade / 10)
+												$(this).addClass('active');
+											else
+												$(this).removeClass('active');
+										});
 									text_wrap.attr('data-truncated', null)
-									.removeClass('editing')
-									.html( text.replace(/[\n\r]/g, '<br>') )
-									.css('max-height', text_wrap.get(0).scrollHeight);
+										.removeClass('editing')
+										.html(text.replace(/[\n\r]/g, '<br>'))
+										.css('max-height', text_wrap.get(0).scrollHeight);
 									review.find(".time").addClass('edited').text("몇초 전");
-									noticePopupInit({message:"리뷰가 수정되었습니다."});
+									noticePopupInit({
+										message: "리뷰가 수정되었습니다."
+									});
 								}
 							});
 						},
 
 						// 리뷰 삭제하기 : button에 리뷰 id 필요
-						remove: function()
-						{
-							if(poing.account.checkLoginState() == true)
-							{
+						remove: function () {
+							if (poing.account.checkLoginState() == true) {
 								var id = $(this).data("id");
 
 								confirmPopupInit({
-									message:"리뷰를 삭제하시겠습니까?",
-									ok:function() {
+									message: "리뷰를 삭제하시겠습니까?",
+									ok: function () {
 										$.ajax({
 											url: "/review/ajaxremovereview",
 											method: "post",
 											dataType: "json",
-											data: {"id": id},
-											success: function(res)
-											{
-												if(res.data == "true" || res.data == true)
-												{
-													noticePopupInit({message:'리뷰를 삭제하셨습니다.'});
+											data: {
+												"id": id
+											},
+											success: function (res) {
+												if (res.data == "true" || res.data == true) {
+													noticePopupInit({
+														message: '리뷰를 삭제하셨습니다.'
+													});
 													location.reload(true);
-												}
-												else
-												{
-													noticePopupInit({message:'리뷰를 삭제하는데 실패하였습니다.'});
+												} else {
+													noticePopupInit({
+														message: '리뷰를 삭제하는데 실패하였습니다.'
+													});
 												}
 											}
 										});
@@ -745,126 +690,114 @@
 							}
 						}
 					},
-					user:
-					{
+					user: {
 						// 리뷰 좋아요 : button, span에 data-id에 리뷰 id 필요
-						like: function()
-						{
-							if(poing.account.checkLoginState() == true)
-							{
+						like: function () {
+							if (poing.account.checkLoginState() == true) {
 								var type = null;
 
-								if($(this).hasClass("on"))
-								{
+								if ($(this).hasClass("on")) {
 									type = "off";
-								}
-								else
-								{
+								} else {
 									type = "on";
 								}
 
 								$.ajax({
 									url: "/review/ajaxlike",
-									method:'post',
-									dataType:'json',
-									data:
-									{
-										"type":type,
-										"id":$(this).data("id")
+									method: 'post',
+									dataType: 'json',
+									data: {
+										"type": type,
+										"id": $(this).data("id")
 									},
-									context:this,
-									success:function(res)
-									{
-										if(res.status && !$(this).hasClass("on"))
-										{
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id="+$(this).data("id")+"]");
+									context: this,
+									success: function (res) {
+										if (res.status && !$(this).hasClass("on")) {
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id="+$(this).data("id")+"]").html(res.data.like_count);
-											noticePopupInit({message: "리뷰를 좋아요 하셨습니다."});
-										}
-										else if(res.status && $(this).hasClass("on"))
-										{
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id="+$(this).data("id")+"]");
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											noticePopupInit({
+												message: "리뷰를 좋아요 하셨습니다."
+											});
+										} else if (res.status && $(this).hasClass("on")) {
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id="+$(this).data("id")+"]").html(res.data.like_count);
-											noticePopupInit({message: "좋아요를 취소하셨습니다."});
-										}
-										else
-										{
-											noticePopupInit({message: "리뷰를 좋아요 하는데 실패했습니다."});
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											noticePopupInit({
+												message: "좋아요를 취소하셨습니다."
+											});
+										} else {
+											noticePopupInit({
+												message: "리뷰를 좋아요 하는데 실패했습니다."
+											});
 										}
 									}
 								});
 							}
 						},
 						// 리뷰 찜하기 : button, span에 data-id에 리뷰 id 필요
-						favorite: function()
-						{
-							if(poing.account.checkLoginState() == true)
-							{
+						favorite: function () {
+							if (poing.account.checkLoginState() == true) {
 								var type = null;
 
-								if($(this).hasClass("on"))
-								{
+								if ($(this).hasClass("on")) {
 									type = "off";
-								}
-								else
-								{
+								} else {
 									type = "on";
 								}
 
 								$.ajax({
 									url: "/review/ajaxfavorite",
-									method:'post',
-									dataType:'json',
-									data:
-									{
-										"type":type,
-										"id":$(this).data("id")
+									method: 'post',
+									dataType: 'json',
+									data: {
+										"type": type,
+										"id": $(this).data("id")
 									},
-									context:this,
-									success:function(res)
-									{
-										if(res.status && !$(this).hasClass("on"))
-										{
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id="+$(this).data("id")+"]");
+									context: this,
+									success: function (res) {
+										if (res.status && !$(this).hasClass("on")) {
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
 											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id="+$(this).data("id")+"]").html(res.data.selection_review_count);
-											$.popup("confirm", {'text': "리뷰를 찜하셨습니다.", 'alert':true});
-										}
-										else if(res.status && $(this).hasClass("on"))
-										{
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id="+$(this).data("id")+"]");
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.selection_review_count);
+											$.popup("confirm", {
+												'text': "리뷰를 찜하셨습니다.",
+												'alert': true
+											});
+										} else if (res.status && $(this).hasClass("on")) {
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
 											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id="+$(this).data("id")+"]").html(res.data.selection_review_count);
-											$.popup("confirm", {'text': "찜을 취소하셨습니다.", 'alert':true});
-										}
-										else
-										{
-											$.popup("confirm", {'text': "리뷰를 찜하지 못했습니다.", 'alert':true});
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.selection_review_count);
+											$.popup("confirm", {
+												'text': "찜을 취소하셨습니다.",
+												'alert': true
+											});
+										} else {
+											$.popup("confirm", {
+												'text': "리뷰를 찜하지 못했습니다.",
+												'alert': true
+											});
 										}
 									}
 								});
 							}
 						},
-						comment: function()
-						{
+						comment: function () {
 							var id = $(this).data("id");
 
 							$(this).toggleClass("on");
 							$(this).children("i").toggleClass("on");
-							$(this).parents(".review").children(".comment_list[data-id="+id+"]").toggleClass("on");
+							$(this).parents(".review").children(".comment_list[data-id=" + id + "]").toggleClass("on");
 						},
-						loadComments: function(forceUpdate)
-						{
+						loadComments: function (forceUpdate) {
 							var id = $(this).data("id");
 							var isOpen = !$(this).hasClass('on') || !!forceUpdate;
 							var list = $(this).closest(".review");
@@ -875,21 +808,23 @@
 							btn.children("i").toggleClass("on", isOpen);
 							list.children(".comment_list").toggleClass("on", isOpen);
 
-							if( isOpen ) {
+							if (isOpen) {
 								list.find(".comment_list>.comment").addClass('old');
 								$.ajax({
 									url: '/review/getComments',
 									type: 'POST',
-									data: {id: id},
-									success: function(res) {
+									data: {
+										id: id
+									},
+									success: function (res) {
 										res = $.parseJSON(res);
 
 										var review_id = $.parseQuery(this.data).id;
 										var review;
 										var target;
 
-										btn.find("span").text( res.length );
-										if(isPopup) {
+										btn.find("span").text(res.length);
+										if (isPopup) {
 											review = $(".review_detail[data-id='" + review_id + "'] > .review");
 											target = $(".comment_list[data-id='" + review_id + "']");
 										} else {
@@ -897,64 +832,68 @@
 											target = review.children(".comment_list");
 										}
 
-										if(res) {
-											target.parent(".review").find("button.comment>p>span").text( res.length );
-											for(var i = 0; i < res.length; ++i) {
+										if (res) {
+											target.parent(".review").find("button.comment>p>span").text(res.length);
+											for (var i = 0; i < res.length; ++i) {
 												res[i].me = (res[i].user_id == '');
-												var parse = new EJS({url: '/template/review_comment.ejs'}).render(res[i]);
+												var parse = new EJS({
+													url: '/template/review_comment.ejs'
+												}).render(res[i]);
 												target.append(parse);
 											}
 										}
-										review.find(".time:not(.loaded)").each(function(){
+										review.find(".time:not(.loaded)").each(function () {
 											$(this)
-											.addClass('loaded')
-											.text( moment($(this).text()).locale('ko').fromNow() )
-											.show();
+												.addClass('loaded')
+												.text(moment($(this).text()).locale('ko').fromNow())
+												.show();
 										});
 										target.children(".old").remove();
 									}
 								});
 							}
 						},
-						showLikers: function(){
-							$.popup("review_likers", {id: $(this).data('id')});
+						showLikers: function () {
+							$.popup("review_likers", {
+								id: $(this).data('id')
+							});
 						}
 					},
 					share: {
-						dropdown: function() {
+						dropdown: function () {
 							var $btn = $(this);
 							$btn.toggleClass('on');
 
 							var isShown = $(this).hasClass('on');
-							if(isShown) {
-								$(window).one("click", function() {
+							if (isShown) {
+								$(window).one("click", function () {
 									$btn.removeClass('on');
 								});
 							}
 						},
 
-						getReviewMetadata: function() {
-							var $review = $( $(this).closest(".review_detail")[0] || $(this).closest(".review")[0] );
+						getReviewMetadata: function () {
+							var $review = $($(this).closest(".review_detail")[0] || $(this).closest(".review")[0]);
 
 							var meta = {
-									title: $review.attr('data-place-name') + " | Poing 리뷰",
-									url: location.origin + '/restaurant/detail/' + $review.attr('data-place') + '?review=' + $review.attr('data-id')
+								title: $review.attr('data-place-name') + " | Poing 리뷰",
+								url: location.origin + '/restaurant/detail/' + $review.attr('data-place') + '?review=' + $review.attr('data-id')
 							};
 
 							return meta;
 						},
-						facebook: function() {
+						facebook: function () {
 							var meta = poing.reviews.actions.share.getReviewMetadata.call(this);
 
 							FB.ui({
-								method : "feed",
-								link : meta.url,
-								display : 'popup',
-							}, function(response){});
+								method: "feed",
+								link: meta.url,
+								display: 'popup',
+							}, function (response) {});
 						},
-						twitter: function() {
+						twitter: function () {
 							var meta = poing.reviews.actions.share.getReviewMetadata.call(this);
-							window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(meta.url)+'&text=' + encodeURIComponent(meta.title));
+							window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(meta.url) + '&text=' + encodeURIComponent(meta.title));
 						}
 					},
 					temp: {
@@ -964,40 +903,40 @@
 						saveInterval: 5000,
 						saveIntervalFunc: null,
 
-						pause: function() {
+						pause: function () {
 							poing.reviews.actions.temp.isPaused = true;
 							window.onbeforeunload = null;
 						},
-						resume: function() {
+						resume: function () {
 							poing.reviews.actions.temp.isPaused = false;
-							window.onbeforeunload = function() { 
+							window.onbeforeunload = function () {
 								return poing.reviews.actions.temp.message;
 							};
 						},
-						save: function(_el, _state, _place_id) {
+						save: function (_el, _state, _place_id) {
 							var $el = $(_el);
 							var state = _state;
 							var place_id = _place_id || null;
 							var $text = $el.find("textarea");
 							var $grade = $el.find(".grade > .detail");
 
-							$text.one("input", function() {
+							$text.one("input", function () {
 								poing.reviews.actions.temp.isSaved = true;
-								poing.reviews.actions.temp.saveIntervalFunc = setInterval(function() {
-									if(poing.reviews.actions.temp.isPaused) return;
+								poing.reviews.actions.temp.saveIntervalFunc = setInterval(function () {
+									if (poing.reviews.actions.temp.isPaused) return;
 
 									var savedObj = {
-											state: state,
-											grade: $grade.children(".active").length,
-											text: $text.val(),
-											place_name: $("#review_search").val() || $("#banner.restaurant_detail .title>.name").text().trim()
+										state: state,
+										grade: $grade.children(".active").length,
+										text: $text.val(),
+										place_name: $("#review_search").val() || $("#banner.restaurant_detail .title>.name").text().trim()
 									};
 
 									savedObj['place_id'] = place_id || $("[data-type='poing.reviews.upload']").data('id');
 									setCookie('tempreview', JSON.stringify(savedObj), 180);
 
 									$text.addClass('save');
-									setTimeout(function() {
+									setTimeout(function () {
 										$text.removeClass('save');
 									}, 1000);
 								}, poing.reviews.actions.temp.saveInterval);
@@ -1005,25 +944,25 @@
 								poing.reviews.actions.temp.resume();
 							});
 						},
-						load: function(el, isReviewTab) {
+						load: function (el, isReviewTab) {
 							var $el = $(el);
 							isReviewTab = isReviewTab || false;
 
 							var current_state = "seoul";
 							try {
 								var data = $.parseJSON(getCookie('tempreview'));
-							} catch(e) {
+							} catch (e) {
 								poing.reviews.actions.temp.delete();
-								return function() {};
+								return function () {};
 							}
 
 							// 실시간 리뷰에서 저장된 리뷰와 현재 지역이 다를 경우, 지역 먼저 이동
-							if(isReviewTab) {
-								if(current_state != data.state) {
+							if (isReviewTab) {
+								if (current_state != data.state) {
 									window.onbeforeunload = null;
 									location.href = "/" + data.state + "/review?load";
 								} else {
-									if(data.grade > 0)
+									if (data.grade > 0)
 										$el.find(".grade > .detail > i").eq(data.grade - 1).click();
 									$el.find("textarea").val(data.text);
 									$("[data-type='poing.reviews.upload']").data('id', data.place_id);
@@ -1031,12 +970,12 @@
 								}
 							} else {
 								// 저장된 리뷰와 보고 있는 매장이 다를 경우, 저장된 데이터의 매장으로 이동
-								if(!!data.place_id && data.place_id != $("[data-type='poing.reviews.upload']").data('id')) {
+								if (!!data.place_id && data.place_id != $("[data-type='poing.reviews.upload']").data('id')) {
 									window.onbeforeunload = null;
 									location.href = "/restaurant/detail/" + data.place_id + "?review&load";
 								} else {
-									setTimeout(function() {
-										if(data.grade > 0)
+									setTimeout(function () {
+										if (data.grade > 0)
 											$el.find(".grade > .detail > i").eq(data.grade - 1).click();
 										$el.find("textarea").val(data.text);
 									}, 0);
@@ -1045,9 +984,9 @@
 
 							$(".review.storage").remove();
 							$el.find("textarea").trigger("input");
-							return function() {};
+							return function () {};
 						},
-						delete: function() {
+						delete: function () {
 							clearInterval(poing.reviews.actions.temp.saveIntervalFunc);
 							setCookie('tempreview', null, -1);
 							$(".review.storage").remove();
@@ -1055,16 +994,12 @@
 					}
 				},
 
-				comment:
-				{
+				comment: {
 					// 리뷰 코멘트 보내기
 					isSending: false,
-					send: function()
-					{
-						if(poing.account.checkLoginState() == true)
-						{
-							if(poing.reviews.comment.isSending == false)
-							{
+					send: function () {
+						if (poing.account.checkLoginState() == true) {
+							if (poing.reviews.comment.isSending == false) {
 								poing.reviews.comment.isSending = true;
 								$.ajax({
 									url: '/review/ajaxsendreviewcomment',
@@ -1074,29 +1009,28 @@
 										id: $(this).data("id"),
 										text: $(this).val()
 									},
-									context:this,
-									success: function(res)
-									{
+									context: this,
+									success: function (res) {
 										poing.reviews.comment.isSending = false;
-										$(".comment_write[data-id="+$(this).data("id")+"]>textarea").val("");
-										noticePopupInit({message:"댓글이 등록되었습니다."});
+										$(".comment_write[data-id=" + $(this).data("id") + "]>textarea").val("");
+										noticePopupInit({
+											message: "댓글이 등록되었습니다."
+										});
 
-										var func = "reviewCommentPaging"+$(this).data("id");
-										if( window[func] )
+										var func = "reviewCommentPaging" + $(this).data("id");
+										if (window[func])
 											func(1);
 									}
 								});
-							}
-							else
-								noticePopupInit({message:"댓글이 전송 중입니다.<br><br>잠시만 기다려주세요."});
+							} else
+								noticePopupInit({
+									message: "댓글이 전송 중입니다.<br><br>잠시만 기다려주세요."
+								});
 						}
 					},
-					send2: function()
-					{
-						if(poing.account.checkLoginState() == true)
-						{
-							if(poing.reviews.comment.isSending == false)
-							{
+					send2: function () {
+						if (poing.account.checkLoginState() == true) {
+							if (poing.reviews.comment.isSending == false) {
 								poing.reviews.comment.isSending = true;
 								$.ajax({
 									url: '/review/ajaxsendreviewcomment',
@@ -1106,43 +1040,45 @@
 										id: $(this).data("id"),
 										text: $(this).val()
 									},
-									context:this,
-									success: function(res)
-									{
+									context: this,
+									success: function (res) {
 										var target;
 
-										if($(this).attr('data-target') == 'popup')
-											target = $(".review_detail[data-id="+$(this).data('id')+"]>.review");
-										else 
-											target = $(".review[data-id="+$(this).data('id')+"]");
+										if ($(this).attr('data-target') == 'popup')
+											target = $(".review_detail[data-id=" + $(this).data('id') + "]>.review");
+										else
+											target = $(".review[data-id=" + $(this).data('id') + "]");
 
 										poing.reviews.comment.isSending = false;
 										$(this).val("");
-										noticePopupInit({message:"댓글이 등록되었습니다!"});
+										noticePopupInit({
+											message: "댓글이 등록되었습니다!"
+										});
 
-										poing.reviews.actions.user.loadComments.call( target.find(".action>.comment").get(0), true );
+										poing.reviews.actions.user.loadComments.call(target.find(".action>.comment").get(0), true);
 									}
 								});
-							}
-							else
-								noticePopupInit({message:"댓글이 전송 중입니다.<br><br>잠시만 기다려주세요."});
+							} else
+								noticePopupInit({
+									message: "댓글이 전송 중입니다.<br><br>잠시만 기다려주세요."
+								});
 						}
 					},
 
-					modify: function()
-					{
-						if(poing.account.checkLoginState() == true)
-						{
+					modify: function () {
+						if (poing.account.checkLoginState() == true) {
 							var id = $(this).data("id");
 
 							var $comment = $(this).closest(".comment");
 							var $text = $comment.find(".text");
-							var $textarea = $("<textarea>", {text: $text.text()});
+							var $textarea = $("<textarea>", {
+								text: $text.text()
+							});
 
 							$text.replaceWith($textarea);
 
-							$textarea.on("keydown", function(e) {
-								if(e.keyCode == 13) { // enter
+							$textarea.on("keydown", function (e) {
+								if (e.keyCode == 13) { // enter
 									$.ajax({
 										url: "/review/ajaxmodifycomment",
 										method: "post",
@@ -1151,15 +1087,16 @@
 											"id": id,
 											"text": $textarea.val()
 										},
-										success: function(res)
-										{
-											noticePopupInit({message:'코멘트를 수정하셨습니다.'});
-											poing.reviews.actions.user.loadComments.call( $comment.closest(".review").find(".action>.comment").get(0), true );
+										success: function (res) {
+											noticePopupInit({
+												message: '코멘트를 수정하셨습니다.'
+											});
+											poing.reviews.actions.user.loadComments.call($comment.closest(".review").find(".action>.comment").get(0), true);
 										}
 									});
 
 									return false;
-								} else if(e.keyCode == 27) { // esc
+								} else if (e.keyCode == 27) { // esc
 									e.preventDefault();
 									$textarea.replaceWith($text);
 
@@ -1169,30 +1106,31 @@
 						}
 					},
 
-					remove: function()
-					{
-						if(poing.account.checkLoginState() == true)
-						{
+					remove: function () {
+						if (poing.account.checkLoginState() == true) {
 							var id = $(this).data("id");
 
 							confirmPopupInit({
-								message:"댓글을 삭제하시겠습니까?",
-								ok:$.proxy(function() {
+								message: "댓글을 삭제하시겠습니까?",
+								ok: $.proxy(function () {
 									$.ajax({
 										url: "/review/ajaxremovecomment",
 										method: "post",
 										dataType: "json",
-										data: {"id": id},
+										data: {
+											"id": id
+										},
 										context: this,
-										success: function(res)
-										{
-											if(res.data == "true" || res.data == true)
-											{
-												noticePopupInit({message:'댓글이 삭제되었습니다.'});
-												poing.reviews.actions.user.loadComments.call( $(this).closest(".review").find(".action>.comment").get(0), true );
-											}
-											else
-												noticePopupInit({message:'댓글을 삭제하는데 실패하였습니다.'});
+										success: function (res) {
+											if (res.data == "true" || res.data == true) {
+												noticePopupInit({
+													message: '댓글이 삭제되었습니다.'
+												});
+												poing.reviews.actions.user.loadComments.call($(this).closest(".review").find(".action>.comment").get(0), true);
+											} else
+												noticePopupInit({
+													message: '댓글을 삭제하는데 실패하였습니다.'
+												});
 										}
 									});
 								}, this)
@@ -1202,22 +1140,26 @@
 				}
 			},
 
-			reservation:
-			{
-				add: function()
-				{
+			reservation: {
+				add: function () {
 					var id = $(this).data('id');
-					if(poing.account.checkLoginState("예약을 하시려면 로그인/회원가입이 필요합니다.<br><br>지금 로그인/회원가입을 하시겠습니까?"))
-					{
+					if (poing.account.checkLoginState("예약을 하시려면 로그인/회원가입이 필요합니다.<br><br>지금 로그인/회원가입을 하시겠습니까?")) {
 						$("#reserveShading").show();
 						place_id = id;
-						$.ajax({url:'/restaurant/AjaxRestaurantInfo', method:"post", dataType:'json', data:{'id':id}, async:false}).success(function(data){
+						$.ajax({
+							url: '/restaurant/AjaxRestaurantInfo',
+							method: "post",
+							dataType: 'json',
+							data: {
+								'id': id
+							},
+							async: false
+						}).success(function (data) {
 							var info = "";
-							if(data.data.place.place_area != null) 
+							if (data.data.place.place_area != null)
 								info = data.data.place.place_area;
 
-							for(var i = 0; i < data.data.place.food_types.length; i++)
-							{
+							for (var i = 0; i < data.data.place.food_types.length; i++) {
 								info += " · " + data.data.place.food_types[i].title;
 							}
 							reserve_popup_init(data.data.place.name, info, data.data.place.reservation_setting, data.data.place.id);
@@ -1230,11 +1172,18 @@
 						});
 					}
 				},
-				edit: function()
-				{
+				edit: function () {
 					$("#reserveShading").show();
 					var id = $(this).data('id');
-					$.ajax({url:'/restaurant/AjaxReserveInfo', method:"post", dataType:'json', data:{'id':id}, async:false}).success(function(response){
+					$.ajax({
+						url: '/restaurant/AjaxReserveInfo',
+						method: "post",
+						dataType: 'json',
+						data: {
+							'id': id
+						},
+						async: false
+					}).success(function (response) {
 						response = response.data.reservation;
 
 						var data = {};
@@ -1245,9 +1194,8 @@
 						data.personnel = response.party_size;
 						data.date = response.reservation_date.split(' ')[0];
 						data.info_str = response.place.area;
-						if(response.place.food_types)
-						{
-							for(var i = 0; i < response.place.food_types.length; i++)
+						if (response.place.food_types) {
+							for (var i = 0; i < response.place.food_types.length; i++)
 								data.info_str += " · " + response.place.food_types[i];
 						}
 
@@ -1261,7 +1209,7 @@
 						$("#pre-reserve").show();
 
 						// 인원 선택
-						$("#reserve_person_count").text(data.personnel-1);
+						$("#reserve_person_count").text(data.personnel - 1);
 						$("div.reserve-popup>div.box_list>div.box>.person_count>i.plus").trigger("click");
 
 						// 날짜 선택
@@ -1285,15 +1233,13 @@
 						$("#pre-reserve div.confirm-btn>button.cancel").show();
 					});
 				},
-				disappear: function()
-				{
-					if(poing.account.checkLoginState() == true)
-					{
+				disappear: function () {
+					if (poing.account.checkLoginState() == true) {
 						var id = $(this).data("id");
 
 						confirmPopupInit({
-							message:"정말 예약 목록에서 삭제하시겠습니까?",
-							ok:$.proxy(function() {
+							message: "정말 예약 목록에서 삭제하시겠습니까?",
+							ok: $.proxy(function () {
 								$.ajax({
 									url: "/user/ajaxdisappearreservation",
 									method: "post",
@@ -1302,17 +1248,17 @@
 										"id": id
 									},
 									context: this,
-									success: function(res)
-									{
-										if(res.data == "true" || res.data == true)
-										{
-											noticePopupInit({message: "예약이 목록에서 삭제되었습니다."});
-											$("#past_reservation>.reservation[data-id="+$(this).data("id")+"]").remove();
+									success: function (res) {
+										if (res.data == "true" || res.data == true) {
+											noticePopupInit({
+												message: "예약이 목록에서 삭제되었습니다."
+											});
+											$("#past_reservation>.reservation[data-id=" + $(this).data("id") + "]").remove();
 											location.reload();
-										}
-										else
-										{
-											noticePopupInit({message: "예약을 삭제하지 못했습니다."});
+										} else {
+											noticePopupInit({
+												message: "예약을 삭제하지 못했습니다."
+											});
 										}
 									}
 								});
@@ -1322,27 +1268,22 @@
 				}
 			},
 
-			user:
-			{
+			user: {
 
-				follow: function()
-				{
-					if(poing.account.checkLoginState() == true)
-					{
-						if($(this).data("id") == "")
-						{
-							noticePopupInit({message:"삭제된 계정입니다."});
+				follow: function () {
+					if (poing.account.checkLoginState() == true) {
+						if ($(this).data("id") == "") {
+							noticePopupInit({
+								message: "삭제된 계정입니다."
+							});
 							return;
 						}
 
 						var status = null;
 
-						if($(this).hasClass("on"))
-						{
+						if ($(this).hasClass("on")) {
 							status = "stop";
-						}
-						else
-						{
+						} else {
 							status = "live";
 						}
 
@@ -1350,59 +1291,63 @@
 							url: "/user/ajaxfollow",
 							method: "post",
 							dataType: "json",
-							data:
-							{
-								"status":status,
-								"id":$(this).data("id")
+							data: {
+								"status": status,
+								"id": $(this).data("id")
 							},
-							context:this,
-							success:function(res)
-							{
-								if(res.status == true && !$("button[data-type='poing.user.follow'][data-id="+$(this).data("id")+"]").hasClass("on")) {
-									if($(".inner[data-type=following]>.item[data-id="+$(this).data("id")+"]").length == 0)
-									{
+							context: this,
+							success: function (res) {
+								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data("id") + "]").hasClass("on")) {
+									if ($(".inner[data-type=following]>.item[data-id=" + $(this).data("id") + "]").length == 0) {
 										$(".inner[data-type=following]>.item").removeClass("last");
 										$(".inner[data-type=following]").append(
-												$("<li>").addClass("item last").attr("data-id", $(this).data("id")).append(
-														$("<a>").addClass("i_wrap").attr("href", "/timeline/"+$(this).data("id")).html(
-																$("a.i_wrap[href='/timeline/"+$(this).data("id")+"']").html()
-														)
-												).append(
-														$("<div>").addClass("detail").append(
-																$("<div>").addClass("name").html(
-																		$(this).parent().children(".name").html()
-																)
-														).append(
-																$("<div>").addClass("info").html(
-																		$(this).parent().children(".info").html())
-														).append(
-																$("<button>").addClass("gray_red_fill border_radius soft on").attr("data-type", "poing.user.follow").attr("data-id", $(this).data("id")).append(
-																		$("<i>").addClass("icon follow on")
-																)
-														)
+											$("<li>").addClass("item last").attr("data-id", $(this).data("id")).append(
+												$("<a>").addClass("i_wrap").attr("href", "/timeline/" + $(this).data("id")).html(
+													$("a.i_wrap[href='/timeline/" + $(this).data("id") + "']").html()
 												)
+											).append(
+												$("<div>").addClass("detail").append(
+													$("<div>").addClass("name").html(
+														$(this).parent().children(".name").html()
+													)
+												).append(
+													$("<div>").addClass("info").html(
+														$(this).parent().children(".info").html())
+												).append(
+													$("<button>").addClass("gray_red_fill border_radius soft on").attr("data-type", "poing.user.follow").attr("data-id", $(this).data("id")).append(
+														$("<i>").addClass("icon follow on")
+													)
+												)
+											)
 										);
-										if($(".inner[data-type=following]>.item").length%2 == 0)
-										{
+										if ($(".inner[data-type=following]>.item").length % 2 == 0) {
 											$(".inner[data-type=following]").children(".item:nth-last-child(2)").addClass("last");
 										}
 									}
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html())+1);
-									$("li[data-id='"+$(this).data("id")+"'] #follow").html(Number($("li[data-id='"+$(this).data("id")+"'] #follow").html())+1);
-									$("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']").addClass('on');
-									$("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']>i").addClass('on');
-									noticePopupInit({message: "팔로우 하셨습니다."});
-								} else if(res.status == true && $("button[data-type='poing.user.follow'][data-id="+$(this).data("id")+"]").hasClass("on")) {
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html())-1);
-									$("li[data-id='"+$(this).data("id")+"'] #follow").html(Number($("li[data-id='"+$(this).data("id")+"'] #follow").html())-1);
-									$("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']").removeClass('on');
-									$("button[data-type='poing.user.follow'][data-id='"+$(this).data("id")+"']>i").removeClass('on');
-									noticePopupInit({message: "팔로우를 취소하셨습니다."});
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) + 1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) + 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass('on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass('on');
+									noticePopupInit({
+										message: "팔로우 하셨습니다."
+									});
+								} else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this).data("id") + "]").hasClass("on")) {
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) - 1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) - 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass('on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").removeClass('on');
+									noticePopupInit({
+										message: "팔로우를 취소하셨습니다."
+									});
 								} else {
-									if(res.error.code == 510) {
-										noticePopupInit({message: "인증정보가 만료되었습니다. 다시 로그인 해 주세요."});
+									if (res.error.code == 510) {
+										noticePopupInit({
+											message: "인증정보가 만료되었습니다. 다시 로그인 해 주세요."
+										});
 									} else {
-										noticePopupInit({message: "팔로우를 실패했습니다. 다시 시도 해 주세요."});
+										noticePopupInit({
+											message: "팔로우를 실패했습니다. 다시 시도 해 주세요."
+										});
 									}
 								}
 							}
@@ -1411,21 +1356,15 @@
 				}
 			},
 
-			account:
-			{
-				login:
-				{
-				},
-				logout: function()
-				{
+			account: {
+				login: {},
+				logout: function () {
 					confirmPopupInit({
 						message: "정말로 로그아웃 하실건가요? :(",
-						ok:function()
-						{
+						ok: function () {
 							$.ajax({
-								url:"/Poing/user/logout.do",
-								success:function()
-								{   
+								url: "/Poing/user/logout.do",
+								success: function () {
 									location.reload();
 								}
 							});
@@ -1445,35 +1384,28 @@
 					</c:if>
 				}
 			},
-
-			popup:
-			{
-				editorReviews: function()
-				{
+			popup: {
+				editorReviews: function () {
 					$("#editorReviewsPopupShading").show();
 					$("#editorReviewsPopup").show();
 				},
-				promotionPopup: function()
-				{
+				promotionPopup: function () {
 					$("#promotionPopupShading").show();
 					$("#promotionPopup").show();
 				},
-				mergePopup: function()
-				{
+				mergePopup: function () {
 					$("#account_shading.shading_bg").show();
 					$("#account-skip").hide();
 					$(".account-previous").hide();
 					accountPopupElement.className = "join-mergePhone";
 					accountPopupSelector.show();
 				},
-				follower: function()
-				{
+				follower: function () {
 					$("#followerPopupShading").show();
 					$("#followerPopup").show();
 				},
 				photoReviewViewerPopupSlider: null,
-				photoReviewViewerPopup: function()
-				{
+				photoReviewViewerPopup: function () {
 					var review_id = $(this).data("id");
 					var index = $(this).data("index");
 
@@ -1485,31 +1417,29 @@
 					$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider").html("");
 					$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").html("");
 
-					if(review_id != null && review_id != "")
-					{
+					if (review_id != null && review_id != "") {
 						$("#photoReviewViewerPopup>.section.photo").addClass("side");
 						$("#photoReviewViewerPopup>.section.review").show();
 						$("#photoReviewViewerPopup>.section.photo").css("width", "100%").css("width", "-=360px");
 						//$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav").css("width", "-=360px");
 
-						if($("#photoReviewViewerPopup").data("id") != review_id)
-						{
+						if ($("#photoReviewViewerPopup").data("id") != review_id) {
 							$("#photoReviewViewerPopup>.section.review>.inner").html("");
 							$.ajax({
 								url: "/review/ajaxrenderreview",
 								method: "get",
-								data: {"id" : review_id, popup: true},
-								success: function(res)
-								{
+								data: {
+									"id": review_id,
+									popup: true
+								},
+								success: function (res) {
 									$("#photoReviewViewerPopup>.section.review>.inner").html(res);
 								}
 							});
 						}
 
 						$("#photoReviewViewerPopup").data("id", review_id);
-					}
-					else
-					{
+					} else {
 						$("#photoReviewViewerPopup>.section.photo").removeClass("side");
 						$("#photoReviewViewerPopup>.section.review").hide();
 						$("#photoReviewViewerPopup>.section.photo").css("width", "100%");
@@ -1517,171 +1447,166 @@
 
 					var origin_selector = $(this).data("origin-selector");
 					$("#photoReviewViewerPopup>.section.photo>.origin").html("");
-					if(origin_selector != null && origin_selector != "")
-					{
+					if (origin_selector != null && origin_selector != "") {
 						var origin_index = 0;
-						$(origin_selector).each(function()
-								{
+						$(origin_selector).each(function () {
 							$("#photoReviewViewerPopup>.section.photo>.origin").append(
-									$("<a>").attr("href", $(this).attr("href")).attr("target", "_blank").attr("data-index", origin_index).html($(this).html())
+								$("<a>").attr("href", $(this).attr("href")).attr("target", "_blank").attr("data-index", origin_index).html($(this).html())
 							);
 							origin_index++;
-								});
+						});
 						$("#photoReviewViewerPopup>.section.photo>.origin>a").hide();
 					}
 
 					var image_selector = $(this).data("image-selector");
-					if(image_selector != null && image_selector != "")
-					{
+					if (image_selector != null && image_selector != "") {
 						var img_index = 0;
-						$(image_selector).each(function()
-								{
+						$(image_selector).each(function () {
 							var bg = $(this).css("background-image");
 							var thumbnail = $(this).css('background-image');
 
-							if($(this).attr('data-src'))
+							if ($(this).attr('data-src'))
 								thumbnail = 'url(' + $(this).attr('data-src') + ')';
-							if($(this).attr('data-origin'))
+							if ($(this).attr('data-origin'))
 								bg = 'url(' + $(this).attr('data-origin') + ')';
 
 							$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider").append(
 
-									$("<div>").addClass("i_wrap").attr("data-id", $(this).parent().data("id")).attr("data-index", img_index).append(
-											$("<i>").addClass("image").css("background-image", bg).css("filter", $(this).css("filter"))
-									)
+								$("<div>").addClass("i_wrap").attr("data-id", $(this).parent().data("id")).attr("data-index", img_index).append(
+									$("<i>").addClass("image").css("background-image", bg).css("filter", $(this).css("filter"))
+								)
 							);
 							$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").append(
-									$("<div>").addClass("i_wrap").attr("data-index", img_index).append(
-											$("<i>").addClass("image border_radius soft").css("background-image", thumbnail).css("filter", $(this).css("filter"))
-									)
+								$("<div>").addClass("i_wrap").attr("data-index", img_index).append(
+									$("<i>").addClass("image border_radius soft").css("background-image", thumbnail).css("filter", $(this).css("filter"))
+								)
 							);
 							img_index++;
-								});
+						});
 
 						poing.popup.photoReviewViewerPopupSlider = PoingSlider.Create({
 							selector: "#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider",
 							startSlice: parseInt(index),
 
-							afterCreate: function()
-							{
+							afterCreate: function () {
 								index = parseInt(index);
 								var nav_width = $("#photoReviewViewerPopup>.section.photo>.nav_wrap").width();
-								var count = parseInt(nav_width/68);
-								var scroll = parseInt(index/count)*count*68;
+								var count = parseInt(nav_width / 68);
+								var scroll = parseInt(index / count) * count * 68;
 
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index="+parseInt(index)+"]").addClass("selected");
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").css("left", "-"+scroll+"px");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index=" + parseInt(index) + "]").addClass("selected");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").css("left", "-" + scroll + "px");
 
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap").on("click", function()
-										{
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap").on("click", function () {
 									var index = $(this).data("index");
 									poing.popup.photoReviewViewerPopupSlider.slideTo(index);
 									$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap.selected").removeClass("selected");
 									$(this).addClass("selected");
-										});
+								});
 
 								$("#photoReviewViewerPopup>.section.photo>.origin>a").hide();
-								$("#photoReviewViewerPopup>.section.photo>.origin>a[data-index="+index+"]").show();
+								$("#photoReviewViewerPopup>.section.photo>.origin>a[data-index=" + index + "]").show();
 
-								if($("#photoReviewViewerPopup").hasClass('menu'))
-								{
+								if ($("#photoReviewViewerPopup").hasClass('menu')) {
 									var sb = $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap").offset().top; // drag bottom boundary
 									var st = sb - $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap").height(); // drag top boundary
 
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap.current>i").css('transform','scale(1.0)');
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap.current>i").css('transform', 'scale(1.0)');
 
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").draggable({axis:'y', containment: [0,st,0,sb], scroll:false,
-										drag:function(){
-											$(this).css('cursor','move');
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").draggable({
+										axis: 'y',
+										containment: [0, st, 0, sb],
+										scroll: false,
+										drag: function () {
+											$(this).css('cursor', 'move');
 										},
-										stop:function(){
-											$(this).css('cursor','zoom-out');
+										stop: function () {
+											$(this).css('cursor', 'zoom-out');
 										},
-										disabled: true});
+										disabled: true
+									});
 
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").click(function(){
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").click(function () {
 										var scale = $(this).css('transform');
 
-										if( scale === "matrix(1, 0, 0, 1, 0, 0)" ) // zoom-in
+										if (scale === "matrix(1, 0, 0, 1, 0, 0)") // zoom-in
 										{
-											$(this).css('transform','scale(2.0)');
+											$(this).css('transform', 'scale(2.0)');
 											$(this).draggable("enable");
-											$(this).css('cursor','zoom-out');
-										}else if( scale === "matrix(2, 0, 0, 2, 0, 0)" ) // zoom-out
+											$(this).css('cursor', 'zoom-out');
+										} else if (scale === "matrix(2, 0, 0, 2, 0, 0)") // zoom-out
 										{
-											$(this).css('transform','scale(1.0)');
+											$(this).css('transform', 'scale(1.0)');
 											$(this).draggable("disable");
 											$(this).css('top', 0);
 											$(this).css('left', 0);
-											$(this).css('cursor','zoom-in');
+											$(this).css('cursor', 'zoom-in');
 											$(this).removeClass('ui-state-disabled');
 										}
 									});
 								}
 							},
-							afterSlide: function()
-							{
+							afterSlide: function () {
 								var index = poing.popup.photoReviewViewerPopupSlider.getCurrentSliceIndex();
 								var nav_width = $("#photoReviewViewerPopup>.section.photo>.nav_wrap").width();
-								var count = parseInt(nav_width/68);
-								var scroll = parseInt(index/count)*count*68;
+								var count = parseInt(nav_width / 68);
+								var scroll = parseInt(index / count) * count * 68;
 
 								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap.selected").removeClass("selected");
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index="+index+"]").addClass("selected");
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").animate({left:-scroll}, 300);
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index=" + index + "]").addClass("selected");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").animate({
+									left: -scroll
+								}, 300);
 
 								$("#photoReviewViewerPopup>.section.photo>.origin>a").hide();
-								$("#photoReviewViewerPopup>.section.photo>.origin>a[data-index="+index+"]").show();
+								$("#photoReviewViewerPopup>.section.photo>.origin>a[data-index=" + index + "]").show();
 
-								var img_review_id = $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap[data-index="+index+"]").data("id");
+								var img_review_id = $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap[data-index=" + index + "]").data("id");
 
-								if(review_id != img_review_id && img_review_id != null && img_review_id != "")
-								{
+								if (review_id != img_review_id && img_review_id != null && img_review_id != "") {
 									review_id = img_review_id;
 
 									$.ajax({
 										url: "/review/ajaxrenderreview",
 										method: "get",
-										data: {"id" : img_review_id, popup: true},
-										success: function(res)
-										{
+										data: {
+											"id": img_review_id,
+											popup: true
+										},
+										success: function (res) {
 											$("#photoReviewViewerPopup>.section.review>.inner").html(res);
 										}
 									});
 								}
 
-								if($("#photoReviewViewerPopup").hasClass('menu'))
-								{
+								if ($("#photoReviewViewerPopup").hasClass('menu')) {
 									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("top", 0);
 									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("left", 0);
 									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("transform", 'scale(1.0)');
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css('cursor','zoom-in');
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css('cursor', 'zoom-in');
 								}
 							}
 						});
 					}
 				}
 			}
-	};
+			};
 
-	$("button").attr("tabindex", "-1");
-	$("body").on("click", " button", function(e)
-			{
-		var type = $(this).data("type") || '';
+			$("button").attr("tabindex", "-1");
+			$("body").on("click", " button", function (e) {
+				var type = $(this).data("type") || '';
 
-		if(!!type)
-		{
-			$(this).blur();
-			$.proxy(eval(type), this)();
-			return false;
-		}
+				if (!!type) {
+					$(this).blur();
+					$.proxy(eval(type), this)();
+					return false;
+				}
 			});
-	$("body").on("click", " li", function(e)
-			{
-		var type = $(this).data("type") || '';
+			$("body").on("click", " li", function (e) {
+				var type = $(this).data("type") || '';
 
-		if(type.indexOf('poing') > -1)
-			$.proxy(eval(type), this)();
+				if (type.indexOf('poing') > -1)
+					$.proxy(eval(type), this)();
 			});
 
 	
@@ -1961,6 +1886,14 @@
 	
 	
 	
+	
+
+
+
+
+
+
+
 	
 	
 	

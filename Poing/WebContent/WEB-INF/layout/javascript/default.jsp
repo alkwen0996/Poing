@@ -4,212 +4,216 @@
 
 <div id="scripts">
 	<script>
-	var console = console || {
-		"log": function () {}
-	};
+		var console = console || {
+			"log": function () {}
+		};
 
-	(function (old) {
-		var dec = 0.12.toLocaleString().charAt(1),
-			tho = dec === "." ? "," : ".";
+		(function (old) {
+			var dec = 0.12.toLocaleString().charAt(1),
+				tho = dec === "." ? "," : ".";
 
-		if (1000 .toLocaleString() !== "1,000.00") {
-			Number.prototype.toLocaleString = function () {
-				var neg = this < 0,
-					f = this.toFixed(2).slice(+neg);
+			if (1000 .toLocaleString() !== "1,000.00") {
+				Number.prototype.toLocaleString = function () {
+					var neg = this < 0,
+						f = this.toFixed(2).slice(+neg);
 
-				return (neg ? "-" : "") +
-					f.slice(0, -3).replace(/(?=(?!^)(?:\d{3})+(?!\d))/g, tho) +
-					dec + f.slice(-2);
+					return (neg ? "-" : "") +
+						f.slice(0, -3).replace(/(?=(?!^)(?:\d{3})+(?!\d))/g, tho) +
+						dec + f.slice(-2);
+				}
 			}
-		}
-	})(Number.prototype.toLocaleString);
+		})(Number.prototype.toLocaleString);
 
-	$(".review_wrap>.review>.write>textarea").on("keydown", function (e) {
-		if (e.keyCode === 13) {
-			var text = $(this).val();
-			if (text.length > 0)
-				$.proxy(poing.reviews.comment.send2, this)(true);
+		$(".review_wrap>.review>.write>textarea").on("keydown", function (e) {
+			if (e.keyCode === 13) {
+				var text = $(this).val();
+				if (text.length > 0)
+					$.proxy(poing.reviews.comment.send2, this)(true);
 
-			return false;
-		}
-	});
-	$(".review > .body > .text").on("click", ">a", function () {
-		var $context = $(this).parent();
+				return false;
+			}
+		});
+		$(".review > .body > .text").on("click", ">a", function () {
+			var $context = $(this).parent();
 
-		$(this).remove();
-		$context.append($context.attr('data-truncated').replace(/[\n\r]/g, '<br>'));
-		$context.attr('data-truncated', null);
-	});
-	$(".review .time:not(.loaded)").each(function () {
-		$(this)
-			.addClass('loaded')
-			.text(moment($(this).text()).locale('ko').fromNow())
-			.show();
-	});
+			$(this).remove();
+			$context.append($context.attr('data-truncated').replace(/[\n\r]/g, '<br>'));
+			$context.attr('data-truncated', null);
+		});
+		$(".review .time:not(.loaded)").each(function () {
+			$(this)
+				.addClass('loaded')
+				.text(moment($(this).text()).locale('ko').fromNow())
+				.show();
+		});
 
-	$("body").on("beforeShow", ".shading_bg", function () {
-		if ($(this).is(":visible")) {
-			return;
-		}
+		$("body").on("beforeShow", ".shading_bg", function () {
+			if ($(this).is(":visible")) {
+				return;
+			}
 
-		if ($(this).hasClass("with_nav")) {
-			$("#nav_wrap_shading").show();
-			$("#header").addClass("shading high");
-		}
+			if ($(this).hasClass("with_nav")) {
+				$("#nav_wrap_shading").show();
+				$("#header").addClass("shading high");
+			}
 
-		if (!$(this).hasClass("scroll_enable")) {
+			if (!$(this).hasClass("scroll_enable")) {
+				$("body").addClass("popup_state");
+
+				if (this.id != "nav_wrap_shading") {
+					var count = $("body").attr("data-count");
+					if (count == null || count <= 0) {
+						count = 1;
+					} else {
+						count = parseInt(count) + 1;
+					}
+					$("body").attr("data-count", count);
+				}
+			}
+		});
+
+		$("body").on("beforeHide", ".shading_bg", function () {
+			if (!$(this).is(":visible")) {
+				return;
+			}
+
+			if ($(this).hasClass("with_nav")) {
+				$("#nav_wrap_shading").hide();
+				$("#header").removeClass("shading high");
+			}
+
+			if (!$(this).hasClass("scroll_enable")) {
+				var count = parseInt($("body").attr("data-count")) - 1;
+				$("body").attr("data-count", count);
+				if (count <= 0) {
+					$("body").removeClass("popup_state");
+				}
+			}
+		});
+
+		$("body").on("beforeShow", ".confirmPopup", function () {
 			$("body").addClass("popup_state");
 
-			if (this.id != "nav_wrap_shading") {
-				var count = $("body").attr("data-count");
-				if (count == null || count <= 0) {
-					count = 1;
-				} else {
-					count = parseInt(count) + 1;
-				}
-				$("body").attr("data-count", count);
+			var count = $("body").attr("data-count");
+			if (count == null || count <= 0) {
+				count = 1;
+			} else {
+				count = parseInt(count) + 1;
 			}
-		}
-	});
+			$("body").attr("data-count", count);
+		});
 
-	$("body").on("beforeHide", ".shading_bg", function () {
-		if (!$(this).is(":visible")) {
-			return;
-		}
-
-		if ($(this).hasClass("with_nav")) {
-			$("#nav_wrap_shading").hide();
-			$("#header").removeClass("shading high");
-		}
-
-		if (!$(this).hasClass("scroll_enable")) {
+		$("body").on("beforeHide", ".confirmPopup", function () {
 			var count = parseInt($("body").attr("data-count")) - 1;
 			$("body").attr("data-count", count);
 			if (count <= 0) {
 				$("body").removeClass("popup_state");
 			}
-		}
-	});
+		});
 
-	$("body").on("beforeShow", ".confirmPopup", function () {
-		$("body").addClass("popup_state");
+		function shadingHideEvent(selector, beforeFunc, afterFunc) {
+			if ($(selector).hasClass("with_nav")) {
+				$("#nav_wrap_shading").on("click", function () {
+					$(selector).click();
+				});
+			}
 
-		var count = $("body").attr("data-count");
-		if (count == null || count <= 0) {
-			count = 1;
-		} else {
-			count = parseInt(count) + 1;
-		}
-		$("body").attr("data-count", count);
-	});
-
-	$("body").on("beforeHide", ".confirmPopup", function () {
-		var count = parseInt($("body").attr("data-count")) - 1;
-		$("body").attr("data-count", count);
-		if (count <= 0) {
-			$("body").removeClass("popup_state");
-		}
-	});
-
-	function shadingHideEvent(selector, beforeFunc, afterFunc) {
-		if ($(selector).hasClass("with_nav")) {
-			$("#nav_wrap_shading").on("click", function () {
-				$(selector).click();
+			if (typeof beforeFunc == "undefined") {
+				beforeFunc = function () {};
+			}
+			if (typeof afterFunc == "undefined") {
+				afterFunc = function () {};
+			}
+			$(document).on("keydown", function (e) {
+				if (!inFocus && e.keyCode === 27) {
+					$(selector).click();
+				}
+			});
+			$(selector).on("click", function () {
+				beforeFunc();
+				$(this).hide();
+				afterFunc();
 			});
 		}
 
-		if (typeof beforeFunc == "undefined") {
-			beforeFunc = function () {};
-		}
-		if (typeof afterFunc == "undefined") {
-			afterFunc = function () {};
-		}
-		$(document).on("keydown", function (e) {
-			if (!inFocus && e.keyCode === 27) {
-				$(selector).click();
-			}
+		$(".sort_wrap").on("selectstart", function () {
+			return false;
 		});
-		$(selector).on("click", function () {
-			beforeFunc();
-			$(this).hide();
-			afterFunc();
+
+		$("a[href='/timeline/']").on("click", function () {
+			return false;
 		});
-	}
 
-	$(".sort_wrap").on("selectstart", function () {
-		return false;
-	});
+		var inFocus = false;
+		$("body").on("focus", "input, textarea", function () {
+			inFocus = true;
+		});
 
-	$("a[href='/timeline/']").on("click", function () {
-		return false;
-	});
+		$("body").on("blur", "input, textarea", function () {
+			inFocus = false;
+		});
 
-	var inFocus = false;
-	$("body").on("focus", "input, textarea", function () {
-		inFocus = true;
-	});
+		var ie = (function () {
+			var undef,
+				v = 3,
+				div = document.createElement('div'),
+				all = div.getElementsByTagName('i');
 
-	$("body").on("blur", "input, textarea", function () {
-		inFocus = false;
-	});
+			while (
+				div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+				all[0]
+			);
 
-	var ie = (function () {
-		var undef,
-			v = 3,
-			div = document.createElement('div'),
-			all = div.getElementsByTagName('i');
+			return v > 4 ? v : undef;
+		}());
 
-		while (
-			div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-			all[0]
-		);
-
-		return v > 4 ? v : undef;
-	}());
-
-	if (ie < 9) {
-		$("i,div,span,a").each(function () {
-			var img = $(this).css("background-image");
-			if (img != "none" && $(this).hasClass('nf') === false) {
-				img = img.substr(4, img.length - 5);
-				if ($(this).css("filter") != "auto" && img.indexOf("/images/spiffygif_52x52.gif") == -1) {
-					$(this).css("filter", $(this).css("filter") + " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + img + ",sizingMethod='scale')");
-				} else if (img.indexOf("/images/recent_sheet.png") == -1 && img.indexOf("/images/user/gage_full.png") == -1 && img.indexOf("/images/user/gage_nofull.png") == -1 && img.indexOf("/images/checkbox.png") == -1 && img.indexOf("/images/spiffygif_52x52.gif") == -1) {
-					$(this).css("filter", "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + img + ",sizingMethod='scale')");
+		if (ie < 9) {
+			$("i,div,span,a").each(function () {
+				var img = $(this).css("background-image");
+				if (img != "none" && $(this).hasClass('nf') === false) {
+					img = img.substr(4, img.length - 5);
+					if ($(this).css("filter") != "auto" && img.indexOf("/images/spiffygif_52x52.gif") == -1) {
+						$(this).css("filter", $(this).css("filter") + " progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" +
+							img + ",sizingMethod='scale')");
+					} else if (img.indexOf("/images/recent_sheet.png") == -1 && img.indexOf("/images/user/gage_full.png") == -
+						1 && img.indexOf("/images/user/gage_nofull.png") == -1 && img.indexOf("/images/checkbox.png") == -1 && img
+						.indexOf("/images/spiffygif_52x52.gif") == -1) {
+						$(this).css("filter", "progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" + img +
+							",sizingMethod='scale')");
+					}
 				}
+			});
+		}
+
+
+
+		$(".dropbox>.label").on("click", function (e) {
+			e.stopPropagation();
+			$(this).parent().children(".items").toggle();
+			if ($(this).children(".i_wrap").children(".arrow").hasClass("up")) {
+				$(this).children(".i_wrap").children(".arrow").removeClass("up");
+				$(this).children(".i_wrap").children(".arrow").addClass("down");
+			} else if ($(this).children(".i_wrap").children(".arrow").hasClass("down")) {
+				$(this).children(".i_wrap").children(".arrow").addClass("up");
+				$(this).children(".i_wrap").children(".arrow").removeClass("down");
 			}
 		});
-	}
+
+		$(".dropbox>.items>li").on("click", function () {
+			$(this).parents(".dropbox").children(".label").children(".i_wrap").children(".arrow").removeClass("up");
+			$(this).parents(".dropbox").children(".label").children(".i_wrap").children(".arrow").addClass("down");
+		});
+
+		$(".dropbox>.items").on("click", function (e) {
+			e.stopPropagation();
+		});
+
+		$(document).on("click", function (e) {
+			$(".dropbox>.items").hide();
+		});
 
 
-
-	$(".dropbox>.label").on("click", function (e) {
-		e.stopPropagation();
-		$(this).parent().children(".items").toggle();
-		if ($(this).children(".i_wrap").children(".arrow").hasClass("up")) {
-			$(this).children(".i_wrap").children(".arrow").removeClass("up");
-			$(this).children(".i_wrap").children(".arrow").addClass("down");
-		} else if ($(this).children(".i_wrap").children(".arrow").hasClass("down")) {
-			$(this).children(".i_wrap").children(".arrow").addClass("up");
-			$(this).children(".i_wrap").children(".arrow").removeClass("down");
-		}
-	});
-
-	$(".dropbox>.items>li").on("click", function () {
-		$(this).parents(".dropbox").children(".label").children(".i_wrap").children(".arrow").removeClass("up");
-		$(this).parents(".dropbox").children(".label").children(".i_wrap").children(".arrow").addClass("down");
-	});
-
-	$(".dropbox>.items").on("click", function (e) {
-		e.stopPropagation();
-	});
-
-	$(document).on("click", function (e) {
-		$(".dropbox>.items").hide();
-	});
-
-
-	var poing = {
+		var poing = {
 			move: function (uri, params) {
 				if (!params)
 					params = {};
@@ -425,13 +429,16 @@
 
 								var grade_wrap = parent_user.children(".grade");
 								var grade = grade_wrap.children("[data-id=" + id + "]");
-								var newgrade = "<i class='icon star medium odd ' data-id='review_modify' data-index='0' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='1' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='2' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='3' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='4' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='5' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='6' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='7' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='8' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='9' style='cursor:pointer'></i><span style='display:inline-block;vertical-align:super;' data-id='review_modify' data-grade='0'></span>";
+								var newgrade =
+									"<i class='icon star medium odd ' data-id='review_modify' data-index='0' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='1' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='2' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='3' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='4' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='5' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='6' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='7' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='8' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='9' style='cursor:pointer'></i><span style='display:inline-block;vertical-align:super;' data-id='review_modify' data-grade='0'></span>";
 								var time_wrap = parent_review.children(".time");
 								var text_wrap = parent_review.children(".text");
 								var text = text_wrap.children("pre");
 								var textarea = $("<textarea>").addClass("border_radius soft").val(text.html());
-								var cancel_button = $("<button>").addClass("gray_fill border_radius soft").attr("data-type", "poing.reviews.actions.auth.modify_cancel").attr("data-id", id).html("취소하기");
-								var submit_button = $("<button>").addClass("red_fill border_radius soft").attr("data-type", "poing.reviews.actions.auth.modify_submit").attr("data-id", id).html("리뷰 수정하기");
+								var cancel_button = $("<button>").addClass("gray_fill border_radius soft").attr("data-type",
+									"poing.reviews.actions.auth.modify_cancel").attr("data-id", id).html("취소하기");
+								var submit_button = $("<button>").addClass("red_fill border_radius soft").attr("data-type",
+									"poing.reviews.actions.auth.modify_submit").attr("data-id", id).html("리뷰 수정하기");
 
 								var action = parent_review.children(".action");
 
@@ -450,7 +457,8 @@
 								for (var i = 0; i < grade_number / 10; i++) {
 									$(newgrade[i]).addClass("active");
 								}
-								grade_wrap.children("span[data-id=review_modify]").attr("data-grade", grade_number).html(String(grade_number / 20) + "점 - " + ratingText[grade_number / 10 - 1]);
+								grade_wrap.children("span[data-id=review_modify]").attr("data-grade", grade_number).html(String(
+									grade_number / 20) + "점 - " + ratingText[grade_number / 10 - 1]);
 								newgrade.on("click", function () {
 									var index = $(this).data("index");
 
@@ -461,7 +469,8 @@
 										$(newgrade[i]).removeClass("active");
 									}
 
-									grade_wrap.children("span[data-id=review_modify]").attr("data-grade", (index + 1) * 10).html(String((index + 1) / 2) + "점 - " + ratingText[index]);
+									grade_wrap.children("span[data-id=review_modify]").attr("data-grade", (index + 1) * 10).html(
+										String((index + 1) / 2) + "점 - " + ratingText[index]);
 								});
 							}
 						},
@@ -558,7 +567,9 @@
 								if (text_wrap.attr('data-truncated'))
 									text += text_wrap.attr('data-truncated');
 
-								grade_wrap.append("<i class='icon star medium odd ' data-id='review_modify' data-index='0' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='1' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='2' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='3' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='4' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='5' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='6' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='7' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='8' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='9' style='cursor:pointer'></i><span style='display:inline-block;vertical-align:super;' data-id='review_modify' data-grade='0'></span>")
+								grade_wrap.append(
+										"<i class='icon star medium odd ' data-id='review_modify' data-index='0' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='1' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='2' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='3' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='4' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='5' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='6' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='7' style='cursor:pointer'></i><i class='icon star medium odd ' data-id='review_modify' data-index='8' style='cursor:pointer'></i><i class='icon star medium even ' data-id='review_modify' data-index='9' style='cursor:pointer'></i><span style='display:inline-block;vertical-align:super;' data-id='review_modify' data-grade='0'></span>"
+										)
 									.children(":not([data-id='review_modify'])").hide();
 								text_wrap
 									.addClass('editing')
@@ -593,13 +604,15 @@
 													$(this).removeClass('active');
 											});
 
-										$(this).siblings("span[data-id='review_modify']").data('grade', (idx + 1) * 10).text(String((idx + 1) / 2) + "점 - " + ratingText[idx]);
+										$(this).siblings("span[data-id='review_modify']").data('grade', (idx + 1) * 10).text(String((
+											idx + 1) / 2) + "점 - " + ratingText[idx]);
 									})
 									.each(function (idx) {
 										if (idx < grade / 10)
 											$(this).addClass('active');
 									})
-									.siblings("span[data-id='review_modify']").data('grade', grade).text(String(grade / 20) + "점 - " + ratingText[grade / 10 - 1]);
+									.siblings("span[data-id='review_modify']").data('grade', grade).text(String(grade / 20) + "점 - " +
+										ratingText[grade / 10 - 1]);
 							}
 						},
 
@@ -713,20 +726,24 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this)
+												.data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]")
+												.html(res.data.like_count);
 											noticePopupInit({
 												message: "리뷰를 좋아요 하셨습니다."
 											});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this)
+												.data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]")
+												.html(res.data.like_count);
 											noticePopupInit({
 												message: "좋아요를 취소하셨습니다."
 											});
@@ -761,21 +778,25 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
+												this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
 											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.selection_review_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
+												"]").html(res.data.selection_review_count);
 											$.popup("confirm", {
 												'text': "리뷰를 찜하셨습니다.",
 												'alert': true
 											});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
+												this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
 											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.selection_review_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
+												"]").html(res.data.selection_review_count);
 											$.popup("confirm", {
 												'text': "찜을 취소하셨습니다.",
 												'alert': true
@@ -877,7 +898,8 @@
 
 							var meta = {
 								title: $review.attr('data-place-name') + " | Poing 리뷰",
-								url: location.origin + '/restaurant/detail/' + $review.attr('data-place') + '?review=' + $review.attr('data-id')
+								url: location.origin + '/restaurant/detail/' + $review.attr('data-place') + '?review=' + $review
+									.attr('data-id')
 							};
 
 							return meta;
@@ -893,7 +915,8 @@
 						},
 						twitter: function () {
 							var meta = poing.reviews.actions.share.getReviewMetadata.call(this);
-							window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(meta.url) + '&text=' + encodeURIComponent(meta.title));
+							window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(meta.url) + '&text=' +
+								encodeURIComponent(meta.title));
 						}
 					},
 					temp: {
@@ -929,7 +952,8 @@
 										state: state,
 										grade: $grade.children(".active").length,
 										text: $text.val(),
-										place_name: $("#review_search").val() || $("#banner.restaurant_detail .title>.name").text().trim()
+										place_name: $("#review_search").val() || $("#banner.restaurant_detail .title>.name")
+											.text().trim()
 									};
 
 									savedObj['place_id'] = place_id || $("[data-type='poing.reviews.upload']").data('id');
@@ -1091,7 +1115,8 @@
 											noticePopupInit({
 												message: '코멘트를 수정하셨습니다.'
 											});
-											poing.reviews.actions.user.loadComments.call($comment.closest(".review").find(".action>.comment").get(0), true);
+											poing.reviews.actions.user.loadComments.call($comment.closest(".review").find(
+												".action>.comment").get(0), true);
 										}
 									});
 
@@ -1126,7 +1151,8 @@
 												noticePopupInit({
 													message: '댓글이 삭제되었습니다.'
 												});
-												poing.reviews.actions.user.loadComments.call($(this).closest(".review").find(".action>.comment").get(0), true);
+												poing.reviews.actions.user.loadComments.call($(this).closest(".review").find(
+													".action>.comment").get(0), true);
 											} else
 												noticePopupInit({
 													message: '댓글을 삭제하는데 실패하였습니다.'
@@ -1162,7 +1188,8 @@
 							for (var i = 0; i < data.data.place.food_types.length; i++) {
 								info += " · " + data.data.place.food_types[i].title;
 							}
-							reserve_popup_init(data.data.place.name, info, data.data.place.reservation_setting, data.data.place.id);
+							reserve_popup_init(data.data.place.name, info, data.data.place.reservation_setting, data.data.place
+								.id);
 							$("#pre-reserve").show();
 							$('#calendar').datepicker('setDate', new Date());
 							$('.ui-datepicker-current-day').click(); // rapresent the current selected day
@@ -1297,7 +1324,8 @@
 							},
 							context: this,
 							success: function (res) {
-								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data("id") + "]").hasClass("on")) {
+								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data(
+										"id") + "]").hasClass("on")) {
 									if ($(".inner[data-type=following]>.item[data-id=" + $(this).data("id") + "]").length == 0) {
 										$(".inner[data-type=following]>.item").removeClass("last");
 										$(".inner[data-type=following]").append(
@@ -1314,7 +1342,8 @@
 													$("<div>").addClass("info").html(
 														$(this).parent().children(".info").html())
 												).append(
-													$("<button>").addClass("gray_red_fill border_radius soft on").attr("data-type", "poing.user.follow").attr("data-id", $(this).data("id")).append(
+													$("<button>").addClass("gray_red_fill border_radius soft on").attr("data-type",
+														"poing.user.follow").attr("data-id", $(this).data("id")).append(
 														$("<i>").addClass("icon follow on")
 													)
 												)
@@ -1324,18 +1353,27 @@
 											$(".inner[data-type=following]").children(".item:nth-last-child(2)").addClass("last");
 										}
 									}
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) + 1);
-									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) + 1);
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass('on');
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass('on');
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) +
+									1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this)
+										.data("id") + "'] #follow").html()) + 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass(
+										'on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass(
+										'on');
 									noticePopupInit({
 										message: "팔로우 하셨습니다."
 									});
-								} else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this).data("id") + "]").hasClass("on")) {
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) - 1);
-									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) - 1);
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass('on');
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").removeClass('on');
+								} else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this)
+										.data("id") + "]").hasClass("on")) {
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) -
+									1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this)
+										.data("id") + "'] #follow").html()) - 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass(
+										'on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i")
+										.removeClass('on');
 									noticePopupInit({
 										message: "팔로우를 취소하셨습니다."
 									});
@@ -1371,16 +1409,15 @@
 						}
 					})
 				},
-				// 로그인 했는지 검사
-				checkLoginState: function(msg)
-				{
-					<c:if test="${ authUser == null }">
+				checkLoginState: function (msg) {
+					//로그인했는지 검사
+					<c:if test = "${ authUser == null }">
 						$('#nav_login').click();
-						return false;
+						return false; 
 					</c:if>
-					
-					<c:if test="${ authUser != null }">
-						return true;
+
+					<c:if test = "${ authUser != null }">
+						return true; 
 					</c:if>
 				}
 			},
@@ -1451,7 +1488,8 @@
 						var origin_index = 0;
 						$(origin_selector).each(function () {
 							$("#photoReviewViewerPopup>.section.photo>.origin").append(
-								$("<a>").attr("href", $(this).attr("href")).attr("target", "_blank").attr("data-index", origin_index).html($(this).html())
+								$("<a>").attr("href", $(this).attr("href")).attr("target", "_blank").attr("data-index",
+									origin_index).html($(this).html())
 							);
 							origin_index++;
 						});
@@ -1472,13 +1510,15 @@
 
 							$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider").append(
 
-								$("<div>").addClass("i_wrap").attr("data-id", $(this).parent().data("id")).attr("data-index", img_index).append(
+								$("<div>").addClass("i_wrap").attr("data-id", $(this).parent().data("id")).attr("data-index",
+									img_index).append(
 									$("<i>").addClass("image").css("background-image", bg).css("filter", $(this).css("filter"))
 								)
 							);
 							$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").append(
 								$("<div>").addClass("i_wrap").attr("data-index", img_index).append(
-									$("<i>").addClass("image border_radius soft").css("background-image", thumbnail).css("filter", $(this).css("filter"))
+									$("<i>").addClass("image border_radius soft").css("background-image", thumbnail).css("filter",
+										$(this).css("filter"))
 								)
 							);
 							img_index++;
@@ -1494,13 +1534,17 @@
 								var count = parseInt(nav_width / 68);
 								var scroll = parseInt(index / count) * count * 68;
 
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index=" + parseInt(index) + "]").addClass("selected");
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").css("left", "-" + scroll + "px");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index=" + parseInt(
+									index) + "]").addClass("selected");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").css("left", "-" + scroll +
+									"px");
 
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap").on("click", function () {
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap").on("click",
+								function () {
 									var index = $(this).data("index");
 									poing.popup.photoReviewViewerPopupSlider.slideTo(index);
-									$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap.selected").removeClass("selected");
+									$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap.selected")
+										.removeClass("selected");
 									$(this).addClass("selected");
 								});
 
@@ -1508,10 +1552,13 @@
 								$("#photoReviewViewerPopup>.section.photo>.origin>a[data-index=" + index + "]").show();
 
 								if ($("#photoReviewViewerPopup").hasClass('menu')) {
-									var sb = $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap").offset().top; // drag bottom boundary
-									var st = sb - $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap").height(); // drag top boundary
+									var sb = $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap").offset()
+									.top; // drag bottom boundary
+									var st = sb - $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap")
+									.height(); // drag top boundary
 
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap.current>i").css('transform', 'scale(1.0)');
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap.current>i").css(
+										'transform', 'scale(1.0)');
 
 									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").draggable({
 										axis: 'y',
@@ -1552,8 +1599,10 @@
 								var count = parseInt(nav_width / 68);
 								var scroll = parseInt(index / count) * count * 68;
 
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap.selected").removeClass("selected");
-								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index=" + index + "]").addClass("selected");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap.selected").removeClass(
+									"selected");
+								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice>.i_wrap[data-index=" + index +
+									"]").addClass("selected");
 								$("#photoReviewViewerPopup>.section.photo>.nav_wrap>.nav>.slice").animate({
 									left: -scroll
 								}, 300);
@@ -1561,7 +1610,9 @@
 								$("#photoReviewViewerPopup>.section.photo>.origin>a").hide();
 								$("#photoReviewViewerPopup>.section.photo>.origin>a[data-index=" + index + "]").show();
 
-								var img_review_id = $("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap[data-index=" + index + "]").data("id");
+								var img_review_id = $(
+									"#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap[data-index=" + index +
+									"]").data("id");
 
 								if (review_id != img_review_id && img_review_id != null && img_review_id != "") {
 									review_id = img_review_id;
@@ -1582,711 +1633,857 @@
 								if ($("#photoReviewViewerPopup").hasClass('menu')) {
 									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("top", 0);
 									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("left", 0);
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("transform", 'scale(1.0)');
-									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css('cursor', 'zoom-in');
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css("transform",
+										'scale(1.0)');
+									$("#photoReviewViewerPopup>.section.photo>.slider_wrap>.slider>.i_wrap>i").css('cursor',
+										'zoom-in');
 								}
 							}
 						});
 					}
 				}
 			}
-			};
+		};
 
-			$("button").attr("tabindex", "-1");
-			$("body").on("click", " button", function (e) {
-				var type = $(this).data("type") || '';
+		$("button").attr("tabindex", "-1");
+		$("body").on("click", " button", function (e) {
+			var type = $(this).data("type") || '';
 
-				if (!!type) {
-					$(this).blur();
-					$.proxy(eval(type), this)();
-					return false;
-				}
-			});
-			$("body").on("click", " li", function (e) {
-				var type = $(this).data("type") || '';
-
-				if (type.indexOf('poing') > -1)
-					$.proxy(eval(type), this)();
-			});
-
-	
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	// ie toLocaleString
-	if (/\D/.test((1).toLocaleString())) {
-		Number.prototype.toLocaleString = (function () {
-			var _toLocale = Number.prototype.toLocaleString;
-			var _sep = /\./.test((1.1).toLocaleString()) ? '.' : ',';
-			var re = new RegExp('\\' + _sep + '\\d+$');
-
-			return function () {
-				if (parseInt(this) == this)
-					return _toLocale.call(this).replace(re, '');
-				return _toLocale.call(this);
+			if (!!type) {
+				$(this).blur();
+				$.proxy(eval(type), this)();
+				return false;
 			}
-		}());
-	}
-	// disable navigation select
-	$("#nav_wrap").on("selectstart", function () {
-		return false;
-	});
-
-	// search section
-	$("#nav_search>input").on("focus", function () {
-		$("#nav_search").addClass("focus");
-		$("#nav_search").siblings().removeClass('focus');
-		$("#nav_shading.shading_bg").show();
-	});
-	shadingHideEvent("#nav_shading.shading_bg", function () {
-		$("#nav_search>input").blur();
-		$("#nav_search").removeClass("focus");
-		$("#nav_search").children("img#nav_loader").hide();
-		$("#nav_container>.search.sel").removeClass('focus');
-		auto_complete_cursor = -1;
-	});
-
-	$("#nav_recommend>ul.keyword>li:not('.title')").on("click", function () {
-		location.href = "/seoul/restaurant/search?key2[key]=" + encodeURIComponent($(this).children("span.area")
-			.html());
-	});
-	$("#nav_recommend>ul.recent>li:not('.title')").on("click", function () {
-		location.href = "/restaurant/detail/" + $(this).attr('data-id');
-	});
-	$(function () {
-		var $list = $("#nav_recommend>ul.recent>li:not('.title')");
-		var $current = $("#nav_recommend>ul.recent>.title>div>.page");
-		var last = parseInt($("#nav_recommend>ul.recent>.title>div>span:not('.page')").text());
-
-		$("#nav_recommend>ul.recent>.title>div>i").on("click", function () {
-			var page = parseInt($current.text());
-
-			if ($(this).hasClass('prev') && page > 1)
-				--page;
-			else if ($(this).hasClass('next') && page < last)
-				++page;
-
-			$current.text(page);
-
-			var min = (page - 1) * 5;
-			var max = page * 5 - 1;
-			$list.filter(function (idx, el) {
-				$(el).toggle((idx >= min && idx <= max));
-			});
 		});
-		$("#nav_recommend>ul.recent>.title>div>i.prev").click();
-	});
+		$("body").on("click", " li", function (e) {
+			var type = $(this).data("type") || '';
 
-	var auto_complete_table = [];
-	var auto_complete_current = "";
-	var auto_complete_cursor = -1;
-	var auto_complete_prev = null;
+			if (type.indexOf('poing') > -1)
+				$.proxy(eval(type), this)();
+		});
 
-	$("#nav_search>input").on("keydown keyup", function (e) {
-		// enter key
-		if (e.keyCode === 13) {
-			if (e.type === "keydown") {
-				var item = $("#nav_auto_complete>ul>li.selected");
 
-				if (item.length == 1)
-					item.click();
-				else
-					$("#nav_btn").click();
-			}
+		//main.do일때
+		<c:if test="${ command eq '/main.do' }">
+			<% System.out.println("default.jsp line 1668: /main.do" ); %>
+			$("#banner").on("selectstart", function()
+			{
+			    return false;
+			});
+			function TriSlider(options) {
+			    var slider = $(options.selector);
+			    var pieces = slider.children(".pieces");
+			    var max = pieces.data('max');
+			    var fake_pieces = options.fake_pieces? options.fake_pieces:2;
+			    var width = 850;
+			    var start_point = -width * (fake_pieces-1);
+			    var start_index = options.start_index? options.start_index:0;
+			    var isSliding = false;
 
-			return false;
-		}
-		// up arrow key
-		if (e.keyCode === 38) {
-			if (e.type === "keydown") {
-				if ($("#nav_search").hasClass("auto_complete")) {
-					var list = $("#nav_auto_complete>ul>li");
+			    (function() {
+			        pieces.data('index', start_index);
+			        pieces.css('left', (-width*(start_index+1) + start_point)+'px');
+			    
+			        slider.find(".index>li").removeClass('current');
+			        slider.find(".index>li[data-id="+start_index+"]").addClass('current');
 
-					if (list.length > 0) {
-						if (auto_complete_cursor >= 0)
-							$(list[auto_complete_cursor]).removeClass("selected");
+			        pieces.show();
+			    })();
 
-						auto_complete_cursor--;
-						if (-2 >= auto_complete_cursor)
-							auto_complete_cursor = list.length - 1;
+			    var piece = slider.find(".piece"),
+			        first   = piece.filter(':first'),
+			        last    = piece.filter(':last');
 
-						if (auto_complete_cursor >= 0)
-							$(list[auto_complete_cursor]).addClass("selected");
-					}
+			    // 슬라이더가 0개임
+			    if(piece.length == 0) 
+			        return false;
+
+			    // 가짜 페이지들을 만들 때, 설정한 갯수가 진짜 페이지의 최대 갯수보다 많을 경우
+			    var rest = fake_pieces % piece.length;
+			    if(rest > 0) {
+			        first.before( piece.slice(-1 * rest).clone(true) );
+			        last.after( piece.slice(0, rest).clone(true) );
+			    }
+
+			    for(var i=0, len = Math.floor(fake_pieces / piece.length); i<len; ++i) {
+			        first.before( piece.clone(true) );
+			        last.after( piece.clone(true) );
+			    }
+
+			    var slide = function(add) {
+			        isSliding = true;
+			        var index = pieces.data('index');
+
+			        index += add;
+			        pieces.data('index', index);
+			        pieces.animate({left : (-width*(index+1) + start_point)+'px'}, 
+			            {'duration':300,
+			             'complete':function() {
+			                if(index == -1) { // attach to left
+			                    index = max - 1;
+			                    pieces.data('index', index);
+			                    pieces.css('left', (-width*(index+1) + start_point)+'px');
+			                } else if(index == max) { // attach to right
+			                    index = 0;
+			                    pieces.data('index', index);
+			                    pieces.css('left', (-width*(index+1) + start_point)+'px');
+			                }
+			                slider.find(".index>li").removeClass('current');
+			                slider.find(".index>li[data-id="+index+"]").addClass('current');
+
+			                if( options.complete )
+			                    options.complete( pieces.children(".piece").get(index+fake_pieces) );
+
+			                isSliding = false;
+			            }
+			        });
+			    }
+
+			    this.prev = function() {
+			        if(isSliding === false)
+			            slide(-1);
+			    };
+
+			    this.next = function() {
+			        if(isSliding === false)
+			            slide(1);
+			    };
+			    
+			    slider.find(".nav>.left").click(this.prev);
+			    slider.find(".nav>.right").click(this.next);
+
+			    if(options.duration > 0)
+			        setInterval(this.next, options.duration);
+			};
+			var TriSlider = new TriSlider({'selector':'#banner>.trislider'});
+		</c:if>
+		
+		//productDeatil.do일때 
+		<c:if test="${ command eq '/product/detail.do' }">
+			<% System.out.println("default.jsp line 1668: /product/detail.do" ); %>
+			<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
+		</c:if>
+
+		//restDeatil.do일때 
+		<c:if test="${ command eq '/rest/detail.do' }">
+			<% System.out.println("default.jsp line 1668: /rest/detail.do" ); %>
+			<jsp:include page="/WEB-INF/layout/javascript/restDetail.jsp"></jsp:include>
+		</c:if>
+		
+		//review페이지일때 review.jsp
+		<c:if test="${ command eq '/review.do' }">
+			<% System.out.println("default.jsp line 1668: /reivew.do" ); %>
+			<jsp:include page="/WEB-INF/layout/javascript/review.jsp"></jsp:include>
+		</c:if>
+
+
+		//timeline페이지일때 review.jsp
+		//여기서 coupon, payment, friend, setting의 경우 안의 값이 같음.
+		
+		<c:if test="${ command eq '/timeline.do' }">
+			<% System.out.println("default.jsp line 1668: /timeline.do" ); %>
+			<c:choose>
+				<c:when test="${ param.tab eq null || param.tab eq 'reservation' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_reserve.jsp"></jsp:include>
+				</c:when>
+
+				<c:when test="${ param.tab eq 'coupon' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_coupon.jsp"></jsp:include>
+				</c:when>
+
+				<c:when test="${ param.tab eq 'review' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_review.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'restaurant' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_like.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'alert' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_alert.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'payment' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_payment.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'friends' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_friends.jsp"></jsp:include>
+				</c:when>
+
+				<c:when test="${ param.tab eq 'setting' }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_setting.jsp"></jsp:include>
+				</c:when>
+				
+				<c:otherwise>
+					<% System.out.println("param 없음"); %>
+				</c:otherwise>
+			</c:choose>
+		</c:if>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// ie toLocaleString
+		if (/\D/.test((1).toLocaleString())) {
+			Number.prototype.toLocaleString = (function () {
+				var _toLocale = Number.prototype.toLocaleString;
+				var _sep = /\./.test((1.1).toLocaleString()) ? '.' : ',';
+				var re = new RegExp('\\' + _sep + '\\d+$');
+
+				return function () {
+					if (parseInt(this) == this)
+						return _toLocale.call(this).replace(re, '');
+					return _toLocale.call(this);
 				}
-			}
-
-			return false;
+			}());
 		}
-		// down arrow key
-		else if (e.keyCode === 40) {
-			if (e.type === "keydown") {
-				if ($("#nav_search").hasClass("auto_complete")) {
-					var list = $("#nav_auto_complete>ul>li");
-
-					if (list.length > 0) {
-						if (auto_complete_cursor >= 0)
-							$(list[auto_complete_cursor]).removeClass("selected");
-
-						auto_complete_cursor++;
-						if (list.length <= auto_complete_cursor)
-							auto_complete_cursor = -1;
-
-						if (auto_complete_cursor >= 0)
-							$(list[auto_complete_cursor]).addClass("selected");
-					}
-				}
-			}
-
+		// disable navigation select
+		$("#nav_wrap").on("selectstart", function () {
 			return false;
-		}
-		// other key
-		else {
-			if (auto_complete_current != $(this).val()) {
-				if (auto_complete_cursor >= 0) {
-					$($("#nav_auto_complete>ul>li")[auto_complete_cursor]).removeClass("selected");
-					auto_complete_cursor = -1;
+		});
+
+		// search section
+		$("#nav_search>input").on("focus", function () {
+			$("#nav_search").addClass("focus");
+			$("#nav_search").siblings().removeClass('focus');
+			$("#nav_shading.shading_bg").show();
+		});
+		shadingHideEvent("#nav_shading.shading_bg", function () {
+			$("#nav_search>input").blur();
+			$("#nav_search").removeClass("focus");
+			$("#nav_search").children("img#nav_loader").hide();
+			$("#nav_container>.search.sel").removeClass('focus');
+			auto_complete_cursor = -1;
+		});
+
+		$("#nav_recommend>ul.keyword>li:not('.title')").on("click", function () {
+			location.href = "/seoul/restaurant/search?key2[key]=" + encodeURIComponent($(this).children("span.area")
+				.html());
+		});
+		$("#nav_recommend>ul.recent>li:not('.title')").on("click", function () {
+			location.href = "/restaurant/detail/" + $(this).attr('data-id');
+		});
+		$(function () {
+			var $list = $("#nav_recommend>ul.recent>li:not('.title')");
+			var $current = $("#nav_recommend>ul.recent>.title>div>.page");
+			var last = parseInt($("#nav_recommend>ul.recent>.title>div>span:not('.page')").text());
+
+			$("#nav_recommend>ul.recent>.title>div>i").on("click", function () {
+				var page = parseInt($current.text());
+
+				if ($(this).hasClass('prev') && page > 1)
+					--page;
+				else if ($(this).hasClass('next') && page < last)
+					++page;
+
+				$current.text(page);
+
+				var min = (page - 1) * 5;
+				var max = page * 5 - 1;
+				$list.filter(function (idx, el) {
+					$(el).toggle((idx >= min && idx <= max));
+				});
+			});
+			$("#nav_recommend>ul.recent>.title>div>i.prev").click();
+		});
+
+		var auto_complete_table = [];
+		var auto_complete_current = "";
+		var auto_complete_cursor = -1;
+		var auto_complete_prev = null;
+
+		$("#nav_search>input").on("keydown keyup", function (e) {
+			// enter key
+			if (e.keyCode === 13) {
+				if (e.type === "keydown") {
+					var item = $("#nav_auto_complete>ul>li.selected");
+
+					if (item.length == 1)
+						item.click();
+					else
+						$("#nav_btn").click();
 				}
 
-				if ($(this).val().length > 0) {
-					if (typeof auto_complete_table[$(this).val()] == "undefined") {
-						//auto_complete_table[$(this).val()] = "waiting";
-						$("#nav_search").children("img#nav_loader").show();
+				return false;
+			}
+			// up arrow key
+			if (e.keyCode === 38) {
+				if (e.type === "keydown") {
+					if ($("#nav_search").hasClass("auto_complete")) {
+						var list = $("#nav_auto_complete>ul>li");
 
-						if (auto_complete_prev) {
-							auto_complete_prev.abort();
-							auto_complete_prev = null;
+						if (list.length > 0) {
+							if (auto_complete_cursor >= 0)
+								$(list[auto_complete_cursor]).removeClass("selected");
+
+							auto_complete_cursor--;
+							if (-2 >= auto_complete_cursor)
+								auto_complete_cursor = list.length - 1;
+
+							if (auto_complete_cursor >= 0)
+								$(list[auto_complete_cursor]).addClass("selected");
 						}
-						auto_complete_prev = $.ajax({
-							url: "/restaurant/ajaxSearch/" + encodeURIComponent($(this).val()),
-							method: "get",
-							dataType: "json",
-							success: function (response) {
-								if (response.status) {
-									auto_complete_table[response.meta.ac_keyword] = $("<ul>");
-									$.each(response.data.ac_keywords, function (e) {
-										var esc = response.meta.ac_keyword.replace(
-											/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-										if (this.name.search(esc) >= 0) {
-											var src = this.name;
-											var pos = this.name.search(esc);
+					}
+				}
 
-											this.name = src.slice(0, pos) +
-												"<span class='highlight'>" + response.meta
-												.ac_keyword + "</span>" + src.slice(pos +
-													response.meta.ac_keyword.length)
-										}
+				return false;
+			}
+			// down arrow key
+			else if (e.keyCode === 40) {
+				if (e.type === "keydown") {
+					if ($("#nav_search").hasClass("auto_complete")) {
+						var list = $("#nav_auto_complete>ul>li");
 
-										auto_complete_table[response.meta.ac_keyword].append(
-											$("<li>").addClass("border_radius soft")
-											.append(
-												$("<div>").addClass("name").html(this.name)
+						if (list.length > 0) {
+							if (auto_complete_cursor >= 0)
+								$(list[auto_complete_cursor]).removeClass("selected");
+
+							auto_complete_cursor++;
+							if (list.length <= auto_complete_cursor)
+								auto_complete_cursor = -1;
+
+							if (auto_complete_cursor >= 0)
+								$(list[auto_complete_cursor]).addClass("selected");
+						}
+					}
+				}
+
+				return false;
+			}
+			// other key
+			else {
+				if (auto_complete_current != $(this).val()) {
+					if (auto_complete_cursor >= 0) {
+						$($("#nav_auto_complete>ul>li")[auto_complete_cursor]).removeClass("selected");
+						auto_complete_cursor = -1;
+					}
+
+					if ($(this).val().length > 0) {
+						if (typeof auto_complete_table[$(this).val()] == "undefined") {
+							//auto_complete_table[$(this).val()] = "waiting";
+							$("#nav_search").children("img#nav_loader").show();
+
+							if (auto_complete_prev) {
+								auto_complete_prev.abort();
+								auto_complete_prev = null;
+							}
+							auto_complete_prev = $.ajax({
+								url: "/restaurant/ajaxSearch/" + encodeURIComponent($(this).val()),
+								method: "get",
+								dataType: "json",
+								success: function (response) {
+									if (response.status) {
+										auto_complete_table[response.meta.ac_keyword] = $("<ul>");
+										$.each(response.data.ac_keywords, function (e) {
+											var esc = response.meta.ac_keyword.replace(
+												/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+											if (this.name.search(esc) >= 0) {
+												var src = this.name;
+												var pos = this.name.search(esc);
+
+												this.name = src.slice(0, pos) +
+													"<span class='highlight'>" + response.meta
+													.ac_keyword + "</span>" + src.slice(pos +
+														response.meta.ac_keyword.length)
+											}
+
+											auto_complete_table[response.meta.ac_keyword].append(
+												$("<li>").addClass("border_radius soft")
+												.append(
+													$("<div>").addClass("name").html(this.name)
 												).append(
-												$("<div>").addClass("desc").html(this
-													.description)).attr("data-id", this.id)
-										);
-									});
-
-									if ($("#nav_search>input").val() == response.meta.ac_keyword) {
-										$("#nav_auto_complete").html("");
-										$("#nav_auto_complete").append(auto_complete_table[response
-											.meta.ac_keyword]);
-
-										$("#nav_auto_complete>ul>li").on("click", function () {
-											location.href = "/restaurant/detail/" + $(this)
-												.data("id");
+													$("<div>").addClass("desc").html(this
+														.description)).attr("data-id", this.id)
+											);
 										});
-										$("#nav_search").children("img#nav_loader").hide();
-										$("#nav_search").addClass("auto_complete");
+
+										if ($("#nav_search>input").val() == response.meta.ac_keyword) {
+											$("#nav_auto_complete").html("");
+											$("#nav_auto_complete").append(auto_complete_table[response
+												.meta.ac_keyword]);
+
+											$("#nav_auto_complete>ul>li").on("click", function () {
+												location.href = "/restaurant/detail/" + $(this)
+													.data("id");
+											});
+											$("#nav_search").children("img#nav_loader").hide();
+											$("#nav_search").addClass("auto_complete");
+										}
 									}
 								}
-							}
-						})
-					} else if (typeof auto_complete_table[$(this).val()] == "object") {
-						$("#nav_auto_complete").html("");
-						$("#nav_auto_complete").append(auto_complete_table[$(this).val()]);
+							})
+						} else if (typeof auto_complete_table[$(this).val()] == "object") {
+							$("#nav_auto_complete").html("");
+							$("#nav_auto_complete").append(auto_complete_table[$(this).val()]);
 
-						$("#nav_auto_complete>ul>li").on("click", function () {
-							location.href = "/restaurant/detail/" + $(this).data("id");
-						});
+							$("#nav_auto_complete>ul>li").on("click", function () {
+								location.href = "/restaurant/detail/" + $(this).data("id");
+							});
+							$("#nav_search").children("img#nav_loader").hide();
+							$("#nav_search").addClass("auto_complete");
+						}
+					} else {
 						$("#nav_search").children("img#nav_loader").hide();
-						$("#nav_search").addClass("auto_complete");
+						$("#nav_search").removeClass("auto_complete");
 					}
-				} else {
-					$("#nav_search").children("img#nav_loader").hide();
-					$("#nav_search").removeClass("auto_complete");
+
+					auto_complete_current = $(this).val();
 				}
-
-				auto_complete_current = $(this).val();
-			}
-		}
-	});
-
-	// notice section
-	$("#nav_notice>.i_wrap").on("click", function (e) {
-		if ($("#nav_mynews_list").html() == "")
-			$("#nav_mynews_btn").click();
-
-		e.stopPropagation();
-		$("#nav_notice_list").toggle();
-		$.ajax({
-			url: '/user/noticeCheck',
-			method: 'post',
-			dataType: 'json',
-			success: function (res) {
-				if (res.mynews.data == true && res.poing.data == true)
-					$("#nav_notice_count").hide();
 			}
 		});
 
-		$("#nav_notice>.i_wrap").unbind("click").on("click", function (e) {
+		// notice section
+		$("#nav_notice>.i_wrap").on("click", function (e) {
+			if ($("#nav_mynews_list").html() == "")
+				$("#nav_mynews_btn").click();
+
 			e.stopPropagation();
 			$("#nav_notice_list").toggle();
-		});
-	});
-	$("#nav_notice_list").on("click", function (e) {
-		e.stopPropagation();
-	});
-	$(document).on("click", function () {
-		$("#nav_notice_list").hide();
-	});
-
-	$("#nav_cart").on("click", function () {
-		location.href = "/pay";
-	});
-	$("#nav_mynews_btn").on("click", function () {
-		$("#nav_mynews_btn").addClass("selected");
-		$("#nav_poingnews_btn").removeClass("selected");
-		$("#nav_poingnews_list").hide();
-
-		if ($("#nav_mynews_list").html() == "") {
 			$.ajax({
-				url: '/user/UserNotice',
-				type: 'get',
+				url: '/user/noticeCheck',
+				method: 'post',
+				dataType: 'json',
 				success: function (res) {
-					res = $.parseJSON(res);
-
-					var el = new EJS({
-						url: '/template/UserNotice.ejs'
-					}).render({
-						notices: res
-					});
-					$("#nav_mynews_list").append(el).show()
-						.find(".logger").text(function () {
-							return moment($(this).text()).locale('ko').fromNow();
-						}).css('visibility', 'visible');
+					if (res.mynews.data == true && res.poing.data == true)
+						$("#nav_notice_count").hide();
 				}
 			});
-		} else
-			$("#nav_mynews_list").show();
-	});
 
-	$("#nav_poingnews_btn").on("click", function () {
-		$("#nav_poingnews_btn").addClass("selected");
-		$("#nav_mynews_btn").removeClass("selected");
-		$("#nav_mynews_list").hide();
-
-		if ($("#nav_poingnews_list").html() == "") {
-			$.ajax({
-				url: '/user/PoingNotice',
-				type: 'get',
-				success: function (res) {
-					res = $.parseJSON(res);
-
-					var el = new EJS({
-						url: '/template/PoingNotice.ejs'
-					}).render({
-						notices: res
-					});
-					$("#nav_poingnews_list").append(el).show()
-						.find(".logger").text(function () {
-							return moment($(this).text()).locale('ko').fromNow();
-						}).css('visibility', 'visible');
-				}
+			$("#nav_notice>.i_wrap").unbind("click").on("click", function (e) {
+				e.stopPropagation();
+				$("#nav_notice_list").toggle();
 			});
-		} else
-			$("#nav_poingnews_list").show();
-	});
-
-	$("#nav_mynews_list").on("click", ".item", function () {
-		var type = $(this).data("type");
-		var target = $(this).data("target");
-		var additional = $(this).data("additional");
-
-		if (type == "like_review" ||
-			type == "comment_review" ||
-			type == "selection_review" ||
-			type == "like_comment") {
-			if (additional == "" || target == "")
-				noticePopupInit({
-					message: "해당 리뷰로 이동하는 도중<br><br>문제가 발생했습니다."
-				});
-			else
-				location.href = "/restaurant/detail/" + additional + "?review=" + target;
-		} else if (type == "follow" || type == "fb_join") {
-			if (target == "")
-				noticePopupInit({
-					message: "해당 유저의 담벼락으로 이동하는 도중<br><br>문제가 발생했습니다."
-				});
-			else
-				location.href = "/timeline/" + target;
-		}
-	});
-
-	$("#nav_poingnews_list").on("click", ".item", function () {
-		var type = $(this).data("type");
-		var target = $(this).data("target");
-		var additional = $(this).data("additional");
-
-		if (type == 'write_review')
-			location.href = "/restaurant/detail/" + $(this).data('target') + "?review";
-		else if ((additional == "" && target == "") &&
-			(type == "accept_reservation" ||
-				type == "change_reservation" ||
-				type == "change_confirm_reservation" ||
-				type == "confirm_reservation" ||
-				type == "cancel_reservation"))
-			noticePopupInit({
-				message: "해당 예약으로 이동하는 도중<br><br>문제가 발생했습니다."
-			});
-		else
-			location.href = "/timeline/";
-	});
-
-	$("#nav_notice_list_all").on("click", function () {
-		location.href = "/timeline/?social";
-	});
-
-	// profile section
-	$("#nav_profile").on("mouseover", function () {
-		$("#nav_notice_list").hide();
-	});
-	$("#nav_profile>.i_wrap").on("click", function () {
-		location.href = "/timeline/";
-	});
-
-	$("#nav_profile_list>.item").on("click", function () {
-		var link = $(this).data("link");
-
-		if (typeof link == "string") {
-			location.href = link;
-		}
-	});
-
-	$("#nav_login").on("click", function () {
-		$.popup('sign', {
-			type: 'login'
 		});
-	});
-	$("#nav_join").on("click", function () {
-		$.popup('sign', {
-			type: 'join'
-		});
-	});
-	$("#nav_logout").on("click", function () {
-		poing.account.logout();
-	});
-
-	window.search = function (opt) {
-		var query = {
-			place_area: '',
-			food_types: '',
-			food_detail_types: '',
-			price_description: '',
-			additional_info: '',
-			table_styles: '',
-			liquors: '',
-			parking: '',
-			order_rule: '',
-			theme_childe_sub3: '',
-			theme_childe_url: '',
-			r_num: 2593,
-			page: 1,
-			per_page: 12,
-		};
-		var key2 = {
-			key: ""
-		};
-
-		opt = $.extend({
-			set: [],
-			reset: []
-		}, opt);
-
-		for (var i in query) {
-			if (!query[i] || opt['reset'].indexOf(i) > -1)
-				delete query[i];
-		}
-		for (var i in opt['set']) {
-			if (i === 'key')
-				key2['key'] = opt['set'][i];
-			else
-				query[i] = opt['set'][i];
-		}
-
-		var param = {
-			query: query
-		};
-		if (key2['key'].length > 0)
-			param['key2'] = key2;
-
-		location.href = "/seoul/restaurant/search?" + $.param(param);
-	}
-
-	/* search box */
-	$(document).ready(function () {
-		var query = {
-			'place_area': [],
-			'food_types': []
-		};
-
-		$(window).click(function () {
-			$("#nav_city>ul").hide();
-		});
-		$("#nav_city").click(function (e) {
-			$(this).children("ul").toggle();
+		$("#nav_notice_list").on("click", function (e) {
 			e.stopPropagation();
 		});
-		$("#nav_city>ul>li").mousedown(function () {
-			if ($(this).attr('data-enable') == 'true')
-				location.href = "/" + $(this).attr('data-city');
-			else {
+		$(document).on("click", function () {
+			$("#nav_notice_list").hide();
+		});
+
+		$("#nav_cart").on("click", function () {
+			location.href = "/pay";
+		});
+		$("#nav_mynews_btn").on("click", function () {
+			$("#nav_mynews_btn").addClass("selected");
+			$("#nav_poingnews_btn").removeClass("selected");
+			$("#nav_poingnews_list").hide();
+
+			if ($("#nav_mynews_list").html() == "") {
+				$.ajax({
+					url: '/user/UserNotice',
+					type: 'get',
+					success: function (res) {
+						res = $.parseJSON(res);
+
+						var el = new EJS({
+							url: '/template/UserNotice.ejs'
+						}).render({
+							notices: res
+						});
+						$("#nav_mynews_list").append(el).show()
+							.find(".logger").text(function () {
+								return moment($(this).text()).locale('ko').fromNow();
+							}).css('visibility', 'visible');
+					}
+				});
+			} else
+				$("#nav_mynews_list").show();
+		});
+
+		$("#nav_poingnews_btn").on("click", function () {
+			$("#nav_poingnews_btn").addClass("selected");
+			$("#nav_mynews_btn").removeClass("selected");
+			$("#nav_mynews_list").hide();
+
+			if ($("#nav_poingnews_list").html() == "") {
+				$.ajax({
+					url: '/user/PoingNotice',
+					type: 'get',
+					success: function (res) {
+						res = $.parseJSON(res);
+
+						var el = new EJS({
+							url: '/template/PoingNotice.ejs'
+						}).render({
+							notices: res
+						});
+						$("#nav_poingnews_list").append(el).show()
+							.find(".logger").text(function () {
+								return moment($(this).text()).locale('ko').fromNow();
+							}).css('visibility', 'visible');
+					}
+				});
+			} else
+				$("#nav_poingnews_list").show();
+		});
+
+		$("#nav_mynews_list").on("click", ".item", function () {
+			var type = $(this).data("type");
+			var target = $(this).data("target");
+			var additional = $(this).data("additional");
+
+			if (type == "like_review" ||
+				type == "comment_review" ||
+				type == "selection_review" ||
+				type == "like_comment") {
+				if (additional == "" || target == "")
+					noticePopupInit({
+						message: "해당 리뷰로 이동하는 도중<br><br>문제가 발생했습니다."
+					});
+				else
+					location.href = "/restaurant/detail/" + additional + "?review=" + target;
+			} else if (type == "follow" || type == "fb_join") {
+				if (target == "")
+					noticePopupInit({
+						message: "해당 유저의 담벼락으로 이동하는 도중<br><br>문제가 발생했습니다."
+					});
+				else
+					location.href = "/Poing/timeline.do/" + target;
+			}
+		});
+
+		$("#nav_poingnews_list").on("click", ".item", function () {
+			var type = $(this).data("type");
+			var target = $(this).data("target");
+			var additional = $(this).data("additional");
+
+			if (type == 'write_review')
+				location.href = "/restaurant/detail/" + $(this).data('target') + "?review";
+			else if ((additional == "" && target == "") &&
+				(type == "accept_reservation" ||
+					type == "change_reservation" ||
+					type == "change_confirm_reservation" ||
+					type == "confirm_reservation" ||
+					type == "cancel_reservation"))
+				noticePopupInit({
+					message: "해당 예약으로 이동하는 도중<br><br>문제가 발생했습니다."
+				});
+			else
+				location.href = "/Poing/timeline.do/";
+		});
+
+		$("#nav_notice_list_all").on("click", function () {
+			location.href = "/Poing/timeline.do?tab=alert";
+		});
+
+		// profile section
+		$("#nav_profile").on("mouseover", function () {
+			$("#nav_notice_list").hide();
+		});
+		$("#nav_profile>.i_wrap").on("click", function () {
+			location.href = "/Poing/timeline.do?id=${ authUser.m_no }";
+		});
+
+		$("#nav_profile_list>.item").on("click", function () {
+			var link = $(this).data("link");
+
+			if (typeof link == "string") {
+				location.href = link;
+			}
+		});
+
+		$("#nav_login").on("click", function () {
+			$.popup('sign', {
+				type: 'login'
+			});
+		});
+		$("#nav_join").on("click", function () {
+			$.popup('sign', {
+				type: 'join'
+			});
+		});
+		$("#nav_logout").on("click", function () {
+			poing.account.logout();
+		});
+
+		window.search = function (opt) {
+			var query = {
+				place_area: '',
+				food_types: '',
+				food_detail_types: '',
+				price_description: '',
+				additional_info: '',
+				table_styles: '',
+				liquors: '',
+				parking: '',
+				order_rule: '',
+				theme_childe_sub3: '',
+				theme_childe_url: '',
+				r_num: 2593,
+				page: 1,
+				per_page: 12,
+			};
+			var key2 = {
+				key: ""
+			};
+
+			opt = $.extend({
+				set: [],
+				reset: []
+			}, opt);
+
+			for (var i in query) {
+				if (!query[i] || opt['reset'].indexOf(i) > -1)
+					delete query[i];
+			}
+			for (var i in opt['set']) {
+				if (i === 'key')
+					key2['key'] = opt['set'][i];
+				else
+					query[i] = opt['set'][i];
+			}
+
+			var param = {
+				query: query
+			};
+			if (key2['key'].length > 0)
+				param['key2'] = key2;
+
+			location.href = "/seoul/restaurant/search?" + $.param(param);
+		}
+
+		/* search box */
+		$(document).ready(function () {
+			var query = {
+				'place_area': [],
+				'food_types': []
+			};
+
+			$(window).click(function () {
 				$("#nav_city>ul").hide();
-				alert("서비스 준비중입니다. 곧 다양한 혜택으로 찾아뵙겠습니다.");
+			});
+			$("#nav_city").click(function (e) {
+				$(this).children("ul").toggle();
+				e.stopPropagation();
+			});
+			$("#nav_city>ul>li").mousedown(function () {
+				if ($(this).attr('data-enable') == 'true')
+					location.href = "/" + $(this).attr('data-city');
+				else {
+					$("#nav_city>ul").hide();
+					alert("서비스 준비중입니다. 곧 다양한 혜택으로 찾아뵙겠습니다.");
+				}
+			});
+			// toggle box
+			$("#nav_container>.search.sel").click(function (e) {
+				$(this).addClass('focus').siblings().removeClass('focus');
+				$("#nav_shading.shading_bg").show();
+				e.stopPropagation();
+			}).on('click', '.box', function (e) {
+				e.stopPropagation();
+			});
+
+			// change district
+			$("#nav_area>.box>.district>li").click(function () {
+				var dist = $(this).data('dist');
+
+				$(this).addClass('selected').siblings().removeClass('selected');
+				$("#nav_area>.box>.neighborhood>ul[data-dist=" + dist + "]").addClass("selected").siblings()
+					.removeClass('selected');
+			});
+
+			// active area/genre checkbox
+			$("#nav_area>.box>.neighborhood>.content>li, #nav_genre>.box>.content>li").click(function (e) {
+				if (e.target.tagName === "LI")
+					$(this).children("input").click();
+			});
+
+
+			function GetFilterLable(id) {
+				return $("#nav_container input[id^=" + md5(id) + "]+label").eq(0).text();
 			}
-		});
-		// toggle box
-		$("#nav_container>.search.sel").click(function (e) {
-			$(this).addClass('focus').siblings().removeClass('focus');
-			$("#nav_shading.shading_bg").show();
-			e.stopPropagation();
-		}).on('click', '.box', function (e) {
-			e.stopPropagation();
-		});
+			$("#nav_area>.box>.neighborhood input").change(function () {
+				var title = $(this).next("label").text();
+				var hash = $(this).attr('id');
+				var id = $(this).val();
+				var state = $(this).prop('checked');
+				var text = "지역 선택";
 
-		// change district
-		$("#nav_area>.box>.district>li").click(function () {
-			var dist = $(this).data('dist');
+				$("#nav_area>.box>.neighborhood input[id^=" + hash + "]").prop('checked', state).parent()
+					.toggleClass('selected', state);
 
-			$(this).addClass('selected').siblings().removeClass('selected');
-			$("#nav_area>.box>.neighborhood>ul[data-dist=" + dist + "]").addClass("selected").siblings()
-				.removeClass('selected');
-		});
+				if (state)
+					query['place_area'].push(title);
+				else
+					query['place_area'].splice(query['place_area'].indexOf(title), 1);
 
-		// active area/genre checkbox
-		$("#nav_area>.box>.neighborhood>.content>li, #nav_genre>.box>.content>li").click(function (e) {
-			if (e.target.tagName === "LI")
-				$(this).children("input").click();
-		});
+				if (query['place_area'].length > 0) {
+					var over = false;
+					var len = 0;
+					text = [];
 
+					for (var i = 0; i < query['place_area'].length; ++i) {
+						var label = query['place_area'][i];
+						if (len + label.length < 8) {
+							text.push(label);
+							len += label.length;
+						} else {
+							over = true;
+							break;
+						}
+					}
 
-		function GetFilterLable(id) {
-			return $("#nav_container input[id^=" + md5(id) + "]+label").eq(0).text();
-		}
-		$("#nav_area>.box>.neighborhood input").change(function () {
-			var title = $(this).next("label").text();
-			var hash = $(this).attr('id');
-			var id = $(this).val();
-			var state = $(this).prop('checked');
-			var text = "지역 선택";
+					text = text.join(',');
+					if (over)
+						text += "외 " + (query['place_area'].length - i) + "개";
+				}
+				$("#nav_area>.input>.selected").text(text);
+				$(this).parent().toggleClass('selected', state);
+			});
 
-			$("#nav_area>.box>.neighborhood input[id^=" + hash + "]").prop('checked', state).parent()
-				.toggleClass('selected', state);
+			var foods_count = $("#nav_genre>.box>.foods input:not('#food_all')").length;
+			$("#food_all").change(function () {
+				var state = $(this).prop('checked');
+				var foods = $("#nav_genre>.box>.foods input:not('#food_all')");
 
-			if (state)
-				query['place_area'].push(title);
-			else
-				query['place_area'].splice(query['place_area'].indexOf(title), 1);
+				if (state)
+					foods = foods.filter(':not(:checked)');
+				else
+					foods = foods.filter(':checked');
 
-			if (query['place_area'].length > 0) {
-				var over = false;
-				var len = 0;
-				text = [];
+				foods.prop('checked', state).change();
+				$(this).parent().toggleClass('selected', state);
+			});
+			$("#nav_genre>.box>.foods input:not([id$=all])").change(function () {
+				var state = $(this).prop('checked');
+				var hash = $(this).attr('id');
+				var id = $(this).val();
+				var name = $(this).siblings("label").text();
+				var text = "음식 종류 선택";
 
-				for (var i = 0; i < query['place_area'].length; ++i) {
-					var label = query['place_area'][i];
-					if (len + label.length < 8) {
-						text.push(label);
-						len += label.length;
+				if (state)
+					query['food_types'].push(id);
+				else
+					query['food_types'].splice(query['food_types'].indexOf(id), 1);
+
+				if (query['food_types'].length > 0) {
+					var over = false;
+					var len = 0;
+					text = [];
+
+					for (var i = 0; i < query['food_types'].length; ++i) {
+						var label = $("#nav_container input[id^=" + md5(query['food_types'][i]) + "]+label")
+							.eq(0).text();
+
+						if (len + label.length < 8) {
+							text.push(label);
+							len += label.length;
+						} else {
+							over = true;
+							break;
+						}
+					}
+
+					text = text.join(',');
+					if (over)
+						text += "외 " + (query['food_types'].length - i) + "개";
+
+					$("#food_all").prop('checked', query['food_types'].length == foods_count)
+						.parent().toggleClass('selected', query['food_types'].length == foods_count);
+				}
+				$("#nav_genre>.input>.selected").text(text);
+				var section = $("#filter-sidebar .section.detail_genre").hide();
+				var detail_food = section.find(".filter-popup>.body>ul[data-genre='" + hash + "']");
+
+				if (detail_food.length > 0) {
+					if (state) {
+						detail_food.addClass('selected');
+						section.show();
 					} else {
-						over = true;
-						break;
+						detail_food.removeClass('selected');
+						detail_food.find("input").prop('checked', false).change();
 					}
 				}
-
-				text = text.join(',');
-				if (over)
-					text += "외 " + (query['place_area'].length - i) + "개";
-			}
-			$("#nav_area>.input>.selected").text(text);
-			$(this).parent().toggleClass('selected', state);
-		});
-
-		var foods_count = $("#nav_genre>.box>.foods input:not('#food_all')").length;
-		$("#food_all").change(function () {
-			var state = $(this).prop('checked');
-			var foods = $("#nav_genre>.box>.foods input:not('#food_all')");
-
-			if (state)
-				foods = foods.filter(':not(:checked)');
-			else
-				foods = foods.filter(':checked');
-
-			foods.prop('checked', state).change();
-			$(this).parent().toggleClass('selected', state);
-		});
-		$("#nav_genre>.box>.foods input:not([id$=all])").change(function () {
-			var state = $(this).prop('checked');
-			var hash = $(this).attr('id');
-			var id = $(this).val();
-			var name = $(this).siblings("label").text();
-			var text = "음식 종류 선택";
-
-			if (state)
-				query['food_types'].push(id);
-			else
-				query['food_types'].splice(query['food_types'].indexOf(id), 1);
-
-			if (query['food_types'].length > 0) {
-				var over = false;
-				var len = 0;
-				text = [];
-
-				for (var i = 0; i < query['food_types'].length; ++i) {
-					var label = $("#nav_container input[id^=" + md5(query['food_types'][i]) + "]+label")
-						.eq(0).text();
-
-					if (len + label.length < 8) {
-						text.push(label);
-						len += label.length;
-					} else {
-						over = true;
-						break;
-					}
-				}
-
-				text = text.join(',');
-				if (over)
-					text += "외 " + (query['food_types'].length - i) + "개";
-
-				$("#food_all").prop('checked', query['food_types'].length == foods_count)
-					.parent().toggleClass('selected', query['food_types'].length == foods_count);
-			}
-			$("#nav_genre>.input>.selected").text(text);
-			var section = $("#filter-sidebar .section.detail_genre").hide();
-			var detail_food = section.find(".filter-popup>.body>ul[data-genre='" + hash + "']");
-
-			if (detail_food.length > 0) {
-				if (state) {
-					detail_food.addClass('selected');
+				if (section.find(".filter-popup>.body>ul.selected").length > 0)
 					section.show();
-				} else {
-					detail_food.removeClass('selected');
-					detail_food.find("input").prop('checked', false).change();
-				}
-			}
-			if (section.find(".filter-popup>.body>ul.selected").length > 0)
-				section.show();
 
-			section.children(".filter-popup").attr('count', section.find(".filter-popup>.body>ul.selected")
-				.length);
+				section.children(".filter-popup").attr('count', section.find(".filter-popup>.body>ul.selected")
+					.length);
 
-			$(this).parent().toggleClass('selected', state);
-		});
-		// search button
-		$("#nav_btn").click(function () {
-			window.search({
-				set: {
-					place_area: $.unique($("#nav_area ul input:checked").map(function () {
-						return $(this).val();
-					}).get()).join(','),
-					food_types: $("#nav_genre ul input:not(#food_all):checked").map(function () {
-						return $(this).val();
-					}).get().join(','),
-					key: $("#nav_search>input").val()
-				},
-				reset: ['food_detail_types', 'price_description', 'additional_info',
-					'table_styles', 'liquors', 'parking', 'order_rule', 'theme_childe_sub3',
-					'theme_childe_url', 'r_num', 'page'
-				]
+				$(this).parent().toggleClass('selected', state);
 			});
-		});
-		// box button click
-		$("#nav_container>.search.sel>.box>button").click(function () {
-			$("#nav_shading.shading_bg").click();
-		});
-
-		// init state
-		$(function () {
-			$("#nav_area>.box>.district>li:first-child").click();
-			$("#nav_genre input:checked").change();
-
-			var checked =
-				$.unique($("#nav_area input:checked").map(function () {
-					return $(this).prop('checked', false)
-						.attr('id').substr(0, 32);
-				}).get());
-
-			$.each(checked, function () {
-				$("[id^=" + this + "]").eq(0).prop('checked', true).change();
-			});
-		});
-	});
-</script>
-<script>
-	$(function () {
-		$(".lazy").lazy({
-			threshold: 300,
-			effect: "fadeIn",
-			effectTime: 400,
-			afterLoad: function (e) {
-				e.removeClass('lazy');
-			}
-		});
-		setTimeout(function () {
-			$("body").scrollTo("+=1px").scrollTo("-=1px");
-		}, 50);
-	});
-
-	location.hash = '';
-	$(window).on('hashchange', function (e) {
-		e.preventDefault();
-
-		if (location.hash == '#login') {
-			if (poing.account.checkLoginState() == true)
-				noticePopupInit({
-					message: '이미 로그인하셨습니다.'
+			// search button
+			$("#nav_btn").click(function () {
+				window.search({
+					set: {
+						place_area: $.unique($("#nav_area ul input:checked").map(function () {
+							return $(this).val();
+						}).get()).join(','),
+						food_types: $("#nav_genre ul input:not(#food_all):checked").map(function () {
+							return $(this).val();
+						}).get().join(','),
+						key: $("#nav_search>input").val()
+					},
+					reset: ['food_detail_types', 'price_description', 'additional_info',
+						'table_styles', 'liquors', 'parking', 'order_rule', 'theme_childe_sub3',
+						'theme_childe_url', 'r_num', 'page'
+					]
 				});
+			});
+			// box button click
+			$("#nav_container>.search.sel>.box>button").click(function () {
+				$("#nav_shading.shading_bg").click();
+			});
 
-			var scroll = $(window).scrollTop();
-			location.hash = '';
-			$(window).scrollTop(scroll);
-		}
-	});
-</script>
+			// init state
+			$(function () {
+				$("#nav_area>.box>.district>li:first-child").click();
+				$("#nav_genre input:checked").change();
+
+				var checked =
+					$.unique($("#nav_area input:checked").map(function () {
+						return $(this).prop('checked', false)
+							.attr('id').substr(0, 32);
+					}).get());
+
+				$.each(checked, function () {
+					$("[id^=" + this + "]").eq(0).prop('checked', true).change();
+				});
+			});
+		});
+	</script>
+	<script>
+		$(function () {
+			$(".lazy").lazy({
+				threshold: 300,
+				effect: "fadeIn",
+				effectTime: 400,
+				afterLoad: function (e) {
+					e.removeClass('lazy');
+				}
+			});
+			setTimeout(function () {
+				$("body").scrollTo("+=1px").scrollTo("-=1px");
+			}, 50);
+		});
+
+		location.hash = '';
+		$(window).on('hashchange', function (e) {
+			e.preventDefault();
+
+			if (location.hash == '#login') {
+				if (poing.account.checkLoginState() == true)
+					noticePopupInit({
+						message: '이미 로그인하셨습니다.'
+					});
+
+				var scroll = $(window).scrollTop();
+				location.hash = '';
+				$(window).scrollTop(scroll);
+			}
+		});
+	</script>
 </div>

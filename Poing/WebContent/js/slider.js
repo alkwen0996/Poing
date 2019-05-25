@@ -14,7 +14,9 @@ function PoingSlider(argument)
 {
 	if(arguments.callee.caller != PoingSlider.Create)
 	{
-		console.error("[PoingSlider]", "should be created by only PoingSlider.Create");
+		console.error("[PoingSlider]", "should be created by only Po" +
+				"" +
+				"ingSlider.Create");
 		return null;
 	}
 

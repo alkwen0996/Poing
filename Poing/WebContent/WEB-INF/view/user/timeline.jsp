@@ -28,174 +28,269 @@
 	<!-- header -->
 	<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 
-		<div id="container" class="">
+	<div id="container" class="">
 			<!-- 상단에 배너가 있는 레이아웃 -->
-			<div id="banner_wrap">
+		<div id="banner_wrap">
 
-				<div id="banner" class="user">
-					<div class="i_wrap background">
-						<i class="image profile_image shading middle"
-							style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
-					</div>
-					<div class="i_wrap blur background">
-						<i class="image profile_image shading middle"
-							style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
-					</div>
-					<div class="inner_wrap">
-						<div class="inner">
-							<div id="change_user_image" class="user_image i_wrap">
-								<i class="image border_radius circle profile_image"
-									style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
-								<div class="shading border_radius circle"></div>
-								<div class="message border_radius circle">프로필 사진 바꾸기</div>
-							</div>
-							<div class="name">
-								<span>고지용</span>
-								<div class="point">4,000 P</div>
-								<i class="icon question"></i>
-							</div>
-							<div class="intro">안녕하세요</div>
-							<div class="level_text">LV.2 포잉에서 편리하게 예약하고 생생한 리뷰를 남겨보세요</div>
-							<div class="level_bar">
-								<i class="image" style="width: 54px; height: 100%;"></i>
-							</div>
-							<div class="level_qna">
-								<i class="icon question"></i>
-							</div>
-							<div class="info">
-								<a class="item" href="/timeline/1517256?reservation">예약 2</a> <a
-									class="item" href="/timeline/1517256?review">리뷰 1</a> <a
-									class="item" href="/timeline/1517256?restaurant">찜한 매장 1</a>
-								<button class="empty item" tabindex="-1">
-									<span>팔로워 3</span>
-								</button>
-							</div>
+			<div id="banner" class="user">
+				<div class="i_wrap background">
+					<i class="image profile_image shading middle"
+						style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
+				</div>
+				<div class="i_wrap blur background">
+					<i class="image profile_image shading middle"
+						style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
+				</div>
+				<div class="inner_wrap">
+					<div class="inner">
+						<div id="change_user_image" class="user_image i_wrap">
+							<i class="image border_radius circle profile_image"
+								style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
+							<div class="shading border_radius circle"></div>
+							<div class="message border_radius circle">프로필 사진 바꾸기</div>
+						</div>
+						<div class="name">
+							<span>고지용</span>
+							<div class="point">4,000 P</div>
+							<i class="icon question"></i>
+						</div>
+						<div class="intro">안녕하세요</div>
+						<div class="level_text">LV.2 포잉에서 편리하게 예약하고 생생한 리뷰를 남겨보세요</div>
+						<div class="level_bar">
+							<i class="image" style="width: 54px; height: 100%;"></i>
+						</div>
+						<div class="level_qna">
+							<i class="icon question"></i>
+						</div>
+						<div class="info">
+							<a class="item" href="/timeline/1517256?reservation">예약 2</a> <a
+								class="item" href="/timeline/1517256?review">리뷰 1</a> <a
+								class="item" href="/timeline/1517256?restaurant">찜한 매장 1</a>
+							<button class="empty item" tabindex="-1">
+								<span>팔로워 3</span>
+							</button>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div id="content_wrap">
-				<div id="content" class="mypage">
-					<c:choose>
-						<c:when test="${authUser.m_no eq param.id}">
-							<ul class="tab">
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=reservation">예약</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=coupon">티켓</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=review">리뷰</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=restaurant">찜</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=social">소식</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=payment">결제</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=friends">친구찾기</a></li>
-								<li class="item "><a
-									href="/Poing/timeline.do?id=${ param.id }&tab=setting">설정</a></li>
-							</ul>
-							<%MemberDTO mdto = (MemberDTO) session.getAttribute("authUser");
-							  System.out.println("timeline.jsp line80 : " + mdto);%>
-							<!-- 만약 tab이 null이거나  tab=reservation라면 -->
+		</div>
+		<div id="content_wrap">
+			<div id="content" class="mypage">
+			
+			<!-- 내담벼락의 경우 -->
+				<c:choose>
+					<c:when test="${authUser.m_no eq param.id}">
+						<ul class="tab">
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=reservation">예약</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=coupon">티켓</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=review">리뷰</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=restaurant">찜</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=alert">소식</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=payment">결제</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=friends">친구찾기</a></li>
+							<li class="item "><a
+								href="/Poing/timeline.do?id=${ param.id }&tab=setting">설정</a></li>
+						</ul>
+						<%MemberDTO mdto = (MemberDTO) session.getAttribute("authUser");
+						  System.out.println("timeline.jsp line80 : " + mdto);%>
+						<!--  -->
+						
+						<c:choose>
+							<c:when test="${ param.tab eq null || param.tab eq 'reservation'}">
+								<%-- <div id="reservation" class="body empty"> --%>
+								<c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'recent'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_Recent.jsp"></jsp:include>
+									</c:when>
+									
+									<c:otherwise>
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_Past.jsp"></jsp:include>
+									</c:otherwise>
+								</c:choose>
+								<%-- <div id="reservation" class="body empty"> end --%>
+							</c:when>
+
+							<%-- tab=coupon 이라면 --%>
 							
-							<c:choose>
-								<c:when test="${ param.tab eq null || param.tab eq 'reservation'}">
-									<%-- <div id="reservation" class="body empty"> --%>
-									<c:choose>
-										<c:when test="${ param.type eq null || param.type eq 'recent'}">
-											<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_recent.jsp"></jsp:include>
-										</c:when>
-										
-										<c:otherwise>
-											<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_past.jsp"></jsp:include>
-										</c:otherwise>
-									</c:choose>
-									<%-- <div id="reservation" class="body empty"> end --%>
-								</c:when>
-	
-								<%-- tab=coupon 이라면 --%>
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-									<%-- <div id="reservation" class="body empty"> --%>
-									<c:if test="${ param.type eq null || param.type eq 'recent'}">
+							<c:when test="${ param.tab eq 'coupon'}">
+								<%-- <div id="reservation" class="body empty"> --%>
+								<c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'all'}">
 										<jsp:include
-											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_recent.jsp"></jsp:include>
-									</c:if>
-									<c:if test="${ param.type eq 'past'}">
+											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Coupon_All.jsp"></jsp:include>
+									</c:when>
+									<c:when test="${ param.type eq 'useable'}">
 										<jsp:include
-											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_past.jsp"></jsp:include>
-									</c:if>
-									<%-- <div id="reservation" class="body empty"> end--%>
-								</c:when>
-								
-								<%-- tab=review 이라면--%>
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-								</c:when>
-								
-								<%-- tab=restaurant 이라면--%>
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-								</c:when>
-								
-								<%-- tab=social 이라면-->
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-								</c:when>
-								
-								<%-- tab=payment 이라면-->
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-								</c:when>
-								
-								<%-- tab=friends 이라면-->
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-								</c:when>
-								
-								<%-- tab=setting 이라면--%>
-								
-								<c:when test="${ param.tab eq null || param.tab eq 'coupon'}">
-								</c:when>
-								<c:otherwise> 
-								
-								
-								
-								</c:otherwise>
-							</c:choose>
+											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Coupon_Useable.jsp"></jsp:include>
+									</c:when>
+									<c:when test="${ param.type eq 'unuseable'}">
+										<jsp:include
+											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Coupon_UnUseable.jsp"></jsp:include>
+									</c:when>
+								</c:choose>
+								<%-- <div id="reservation" class="body empty"> end--%>
+							</c:when>
+							
+							<%-- tab=review 이라면--%>
+							
+							<c:when test="${ param.tab eq 'review'}">
+								<c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'write'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Write.jsp"></jsp:include>
+									</c:when>
+									
+									<c:otherwise>
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Like.jsp"></jsp:include>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+							
+							<%-- tab=restaurant 이라면--%>
+							
+							<c:when test="${ param.tab eq 'restaurant'}">
+								<c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'restaurant'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Restaurant_Like.jsp"></jsp:include>
+									</c:when>
+									
+									<c:otherwise>
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Coupon_Like.jsp"></jsp:include>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+							
+							<%-- tab=alert 이라면--%>
+							
+							<c:when test="${ param.tab eq 'alert'}">
+								<c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'my'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Alert_My.jsp"></jsp:include>
+									</c:when>
+									
+									<c:otherwise>
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Alert_Poing.jsp"></jsp:include>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+							
+							<%-- tab=payment 이라면  아직 미구현--%>
+							
+							<c:when test="${ param.tab eq 'payment'}">
+								<%-- <c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'my'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
+									</c:when>
+									
+									<c:otherwise>
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include>
+									</c:otherwise>
+								</c:choose> --%>
+							</c:when>
+							
+							<%-- tab=friends 이라면--%>
+							<c:when test="${ param.tab eq 'friends'}">
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Friend.jsp"></jsp:include>
+							</c:when>
+
+							<%-- tab=setting 이라면--%>
+
+							<c:when test="${ param.tab eq 'setting'}">
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Setting.jsp"></jsp:include>
+							</c:when>
+							<c:otherwise> 
+							
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					
+					
+					<%-- 님의 담벼락의 경우 --%>
+					
+					<c:otherwise>
+						<ul class="tab">
+							<li class="item "><a href="/Poing/timeline.do?id=${ param.id }&tab=review">리뷰</a></li>
+							<li class="item "><a href="/Poing/timeline.do?id=${ param.id }&tab=restaurant">매장</a></li>
+						</ul>
+						<c:choose>
+							<c:when test="${ param.tab eq null || param.tab eq 'review'}">
+								<c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'write'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Write.jsp"></jsp:include>
+									</c:when>
+									
+									<c:otherwise>
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Like.jsp"></jsp:include>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+
+							<%-- tab=restaurant 이라면 --%>
+							<c:when test="${ param.tab eq 'restaurant'}">
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Restaurant_Like.jsp"></jsp:include>
+							</c:when>
+							
+						</c:choose>
+					</c:otherwise>
+
+				</c:choose>
+			</div>
+			
+			<!-- content end -->
+
+			<!-- slide bar -->
+				<div id="sidebar_wrap" class="mypage">
+					<c:choose>
+					
+						<c:when test="${ param.tab eq 'setting' }">
+							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_OftenRequest.jsp"></jsp:include>
 						</c:when>
 						
-						<c:otherwise>
-							<ul class="tab">
-								<li class="item "><a href="/timeline/610979?review">리뷰</a></li>
-								<li class="item "><a href="/timeline/610979?restaurant">매장</a></li>
-							</ul>
-						</c:otherwise>
-
+						<c:when test="${ param.tab eq null || param.tab eq 'reservation' }">
+							<c:if test="${authUser.m_no eq param.id}">
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reservation.jsp"></jsp:include>
+							</c:if>
+						</c:when>
+						
+						<c:when test="${ param.tab eq 'coupon' || param.tab eq 'payment' || param.tab eq 'restaurant'}">
+							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Coupon.jsp"></jsp:include>
+						</c:when>
+						
+						<c:when test="${ param.tab eq 'review' || param.tab eq 'friends' }">
+							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reviewer.jsp"></jsp:include>
+						</c:when>
+						
+						<c:when test="${ param.tab eq 'alert' }">
+							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reviewer.jsp"></jsp:include>
+						</c:when>
+						
 					</c:choose>
-				</div>
-				
-				<!-- content end -->
-
-				<c:if test="${authUser.m_no eq param.id}">
-					<!-- 만약 내 담벼락이라면 -->
-					<c:if test="${ param.tab eq null || param.tab eq 'reservation'}">
-						<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Slidebar_Reservation.jsp"></jsp:include>
+					
+					<!-- 예약 리뷰 찜 소식 -->
+					<c:if test="${ param.tab eq null || param.tab eq 'reservation' || param.tab eq 'review' ||
+								 param.tab eq 'restaurant' || param.tab eq 'alert'}">
+						<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Restaurant.jsp"></jsp:include>
 					</c:if>
-				</c:if>
-			</div>
+					
+				</div><!-- slide bar end -->
 
-		</div>
-		<!-- container -->
+			</div><!-- content_wrap -->
 
-		<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
+	</div><!-- container -->
+		
+	
+	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	
 	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	
 </div> <!-- wrap end -->
 
-<jsp:include page="/WEB-INF/layout/javascript/timeline_reserve.jsp"></jsp:include>
 </body>
 </html>

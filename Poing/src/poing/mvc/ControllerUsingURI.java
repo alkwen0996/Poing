@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class ControllerUsingURI extends HttpServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Map<String, CommandHandler> commandHandlerMap = new HashMap<>();
 	
 	@Override
@@ -32,7 +36,6 @@ public class ControllerUsingURI extends HttpServlet{
 		String configFile = getInitParameter("configFile");
 		Properties prop = new Properties();
 		String configFilePrath = getServletContext().getRealPath(configFile);
-		System.out.println(configFile);
 		try(FileInputStream fis = new FileInputStream(configFilePrath))
 		{
 			prop.load(fis);
@@ -60,8 +63,8 @@ public class ControllerUsingURI extends HttpServlet{
 		if (command.indexOf(request.getContextPath()) == 0) {
 			command = command.substring(request.getContextPath().length());
 		}
-		System.out.println(command);
-			
+		System.out.println("ControllerUsingURL.java line 66 : " + command);
+		request.setAttribute("command", command);
 		CommandHandler handler = commandHandlerMap.get(command);
 		if (handler == null) {
 			handler = new NullHandler(); //404에러를 응답하는 핸들러 클래스

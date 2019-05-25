@@ -432,7 +432,7 @@
 	
 		<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 
-		<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	</div><!-- wrap end -->
 	
 </body>

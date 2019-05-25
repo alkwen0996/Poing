@@ -164,4 +164,17 @@
 				tabindex="-1">리스트에서 삭제</button>
 		</div>
 	</div>
+	
+	<!-- 
+	만약 데이터가 없다면 아래 blank div태그를 출력
+	<div class="blank">
+		<div class="i_wrap">
+			<i class="icon blank reservation"></i>
+		</div>
+		<div class="message">
+			예약이 없습니다.<br>지금 레스토랑에 예약해보시겠어요?
+		</div>
+		<button class="disable" onclick="" tabindex="-1"></button>
+	</div> -->
+	
 </div>

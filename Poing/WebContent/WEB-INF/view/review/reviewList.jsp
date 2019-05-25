@@ -1401,6 +1401,6 @@
 		<!-- wrap end -->
 	<jsp:include page="/WEB-INF/layout/footer.jsp"/>
 	
-	<jsp:include page="/WEB-INF/layout/javascript/review.jsp"/>
+	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"/>
 </body>
 </html>

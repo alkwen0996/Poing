@@ -20,7 +20,6 @@
 	        포잉		
 	</title>
 </head>
-
 <body class="vsc-initialized">
 <!-- body wrap -->
 <div id="wrap" class="">
@@ -36,6 +35,6 @@
 
 </div> <!-- wrap end -->
 
-<jsp:include page="/WEB-INF/layout/javascript/mainJavascript.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 </body>
 </html>

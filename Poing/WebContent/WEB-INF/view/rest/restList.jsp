@@ -48,7 +48,7 @@
 				<div class="result">
 					총 <span class="highlight"></span><%=size%>개가 검색되었습니다.
 				</div>
-
+`
 				<ul class="sort_order_spread">
 					<li class="selected" data-order="">에디터 추천순</li>
 					<li class="" data-order="average_grade">별점순</li>
@@ -64,7 +64,7 @@
 						<c:if test="${status.index % 3 eq 0 }">
 							<div class="element  medium first">
 						</c:if>
-						<a href="/Poing/restList/detail.do?rest_seq=${dto.rest_seq}"
+						<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}"
 							class="image"
 							data-src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg"
 							style="display: block; background-color: gray">
@@ -80,7 +80,7 @@
 							</div>
 							<div class="bottom">
 								<p class="coupon">티켓</p>
-								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc_seq}</span>
+								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc}</span>
 							</div>
 						</a>
 

@@ -1173,11 +1173,11 @@
 						$("#reserveShading").show();
 						place_id = id;
 						$.ajax({
-							url: '/restaurant/AjaxRestaurantInfo',
+							url: '/Poing/restaurant/AjaxRestaurantInfo.do',
 							method: "post",
 							dataType: 'json',
 							data: {
-								'id': id
+								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test
 							},
 							async: false
 						}).success(function (data) {

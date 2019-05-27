@@ -39,11 +39,11 @@ public class PopupHandler implements CommandHandler {
 				return "popup/followList_er_json";
 			}
 		}
-		/*else if (command.equals("/popup/follow.ejs.do")) {
-			return "popup/follow_ejs";
-		}*/
+		else if (command.equals("/restaurant/AjaxRestaurantInfo.do")) {
+			return "popup/rest_reserve";
+		}
 		else 
 			return null;
 	}
-	
+
 }

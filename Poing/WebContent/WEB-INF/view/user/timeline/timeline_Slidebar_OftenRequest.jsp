@@ -16,7 +16,7 @@
 	<script>
 		$(document).ready(function() {
 			$("#common_qna>ul>li, #common_qna>a").click(function() {
-				$.popup("qna");
+				$.popup("/Poing/popup/qna.do");
 			});
 		});
 	</script>

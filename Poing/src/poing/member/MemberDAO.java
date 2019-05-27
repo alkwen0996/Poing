@@ -41,10 +41,7 @@ public class MemberDAO {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				mdto = new MemberDTO();
-				mdto.setM_no(rs.getInt("m_no"));
-				mdto.setM_name(rs.getString("m_name"));
-				mdto.setM_pw(rs.getString("m_pw"));
+				mdto = new MemberDTO(rs);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

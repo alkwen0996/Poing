@@ -34,6 +34,7 @@
 </head>
 <% 
 	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("list");
+	System.out.println("restList.jsp list : " + list);
 	int size = list.size();
 %>
 <body>

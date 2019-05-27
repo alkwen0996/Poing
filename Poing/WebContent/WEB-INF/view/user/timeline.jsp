@@ -1,6 +1,10 @@
 <%@page import="poing.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	System.out.println("request mdto: "+request.getAttribute("mdto"));
+	System.out.println("session mdto: "+session.getAttribute("authUser"));
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -35,37 +39,55 @@
 			<div id="banner" class="user">
 				<div class="i_wrap background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
+						style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
 				</div>
 				<div class="i_wrap blur background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
+						style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
 				</div>
 				<div class="inner_wrap">
 					<div class="inner">
-						<div id="change_user_image" class="user_image i_wrap">
-							<i class="image border_radius circle profile_image"
-								style="width: 100%; height: 100%; background-image: url(http://c1.poing.co.kr/original/images/user/user_base.png)"></i>
-							<div class="shading border_radius circle"></div>
-							<div class="message border_radius circle">프로필 사진 바꾸기</div>
-						</div>
+						
+						<c:if test="${authUser.m_no eq mdto.m_no}" >
+							<div id="change_user_image" class="user_image i_wrap">
+								<i class="image border_radius circle profile_image"
+									style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+								<div class="shading border_radius circle"></div>
+								<div class="message border_radius circle">프로필 사진 바꾸기</div>
+							</div>
+						</c:if>
+
+						<c:if test="${authUser.m_no ne mdto.m_no}" >
+							<div id="user_image" class="user_image i_wrap">
+								<i class="image border_radius circle"
+									style="width:100%;height:100%;background-image:url(${ mdto.m_img })"></i>
+							</div>
+						</c:if>
+
 						<div class="name">
-							<span>고지용</span>
-							<div class="point">4,000 P</div>
-							<i class="icon question"></i>
-						</div>
-						<div class="intro">안녕하세요</div>
-						<div class="level_text">LV.2 포잉에서 편리하게 예약하고 생생한 리뷰를 남겨보세요</div>
+							<span>${ mdto.m_name }</span>
+							
+							<c:if test="${authUser.m_no eq mdto.m_no}" >
+								<div class="point">${ mdto.rp_seq } P</div>
+								<i class="icon question"></i>
+							</c:if>
+						</div><!-- name -->
+						<div class="intro">${ mdto.m_selfintro }</div>
+						<div class="level_text">LV.${ mdto.m_level }</div>
 						<div class="level_bar">
 							<i class="image" style="width: 54px; height: 100%;"></i>
 						</div>
-						<div class="level_qna">
-							<i class="icon question"></i>
-						</div>
+						
+						<c:if test="${authUser.m_no eq mdto.m_no}" >
+							<div class="level_qna">
+								<i class="icon question"></i>
+							</div>
+						</c:if>	
+						
 						<div class="info">
-							<a class="item" href="/timeline/1517256?reservation">예약 2</a> <a
-								class="item" href="/timeline/1517256?review">리뷰 1</a> <a
-								class="item" href="/timeline/1517256?restaurant">찜한 매장 1</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a> <a
+							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 1</a> <a
+							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 1</a>
 							<button class="empty item" tabindex="-1">
 								<span>팔로워 3</span>
 							</button>
@@ -79,25 +101,26 @@
 			
 			<!-- 내담벼락의 경우 -->
 				<c:choose>
-					<c:when test="${authUser.m_no eq param.id}">
+					<c:when test="${authUser.m_no eq mdto.m_no}">
 						<ul class="tab">
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=reservation">예약</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=coupon">티켓</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=review">리뷰</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=restaurant">찜</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=alert">소식</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=payment">결제</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=friends">친구찾기</a></li>
-							<li class="item "><a
-								href="/Poing/timeline.do?id=${ param.id }&tab=setting">설정</a></li>
+							<li class="reservation item"><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약</a></li>
+							<li class="coupon item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=coupon">티켓</a></li>
+							<li class="review item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰</a></li>
+							<li class="restaurant item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜</a></li>
+							<li class="alert item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
+							<li class="payment item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
+							<li class="friends item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li>
+							<li class="setting item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
+						
 						<%MemberDTO mdto = (MemberDTO) session.getAttribute("authUser");
 						  System.out.println("timeline.jsp line80 : " + mdto);%>
 						<!--  -->
@@ -215,8 +238,9 @@
 					
 					<c:otherwise>
 						<ul class="tab">
-							<li class="item "><a href="/Poing/timeline.do?id=${ param.id }&tab=review">리뷰</a></li>
-							<li class="item "><a href="/Poing/timeline.do?id=${ param.id }&tab=restaurant">매장</a></li>
+							<li class="review item "><a href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰</a></li>
+							<li class="restaurant item "><a href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">매장</a></li>
+							
 						</ul>
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'review'}">
@@ -241,7 +265,9 @@
 
 				</c:choose>
 			</div>
-			
+			<script>
+				$("ul.tab li.<%=request.getParameter("tab")%>").addClass("selected");
+			</script>
 			<!-- content end -->
 
 			<!-- slide bar -->
@@ -253,7 +279,7 @@
 						</c:when>
 						
 						<c:when test="${ param.tab eq null || param.tab eq 'reservation' }">
-							<c:if test="${authUser.m_no eq param.id}">
+							<c:if test="${authUser.m_no eq mdto.m_no}">
 								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reservation.jsp"></jsp:include>
 							</c:if>
 						</c:when>

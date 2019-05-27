@@ -57,6 +57,7 @@
   <servlet-mapping>
     <servlet-name>ControllerUsingURI</servlet-name>
     <url-pattern>*.do</url-pattern> 
+    <url-pattern>*.ejs</url-pattern> 
   </servlet-mapping>
   
 </web-app>

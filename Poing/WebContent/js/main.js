@@ -1680,19 +1680,37 @@
       global: {},
       add: function(e, t, n, r, i) {
           var o, s, a, u, l, c, f, p, d, h, g, m = ve.get(e);
-          if (m)
-              for (n.handler && (o = n, n = o.handler, i = o.selector), n.guid || (n.guid = Z.guid++), (u = m.events) || (u = m.events = {}), (s = m.handle) || (s = m.handle = function(t) {
-                      return typeof Z !== ke && Z.event.triggered !== t.type ? Z.event.dispatch.apply(e, arguments) : void 0
-                  }), t = (t || "").match(de) || [""], l = t.length; l--;) a = je.exec(t[l]) || [], d = g = a[1], h = (a[2] || "").split(".").sort(), d && (f = Z.event.special[d] || {}, d = (i ? f.delegateType : f.bindType) || d, f = Z.event.special[d] || {}, c = Z.extend({
-                  type: d,
-                  origType: g,
-                  data: r,
-                  handler: n,
-                  guid: n.guid,
-                  selector: i,
-                  needsContext: i && Z.expr.match.needsContext.test(i),
-                  namespace: h.join(".")
-              }, o), (p = u[d]) || (p = u[d] = [], p.delegateCount = 0, f.setup && f.setup.call(e, r, h, s) !== !1 || e.addEventListener && e.addEventListener(d, s, !1)), f.add && (f.add.call(e, c), c.handler.guid || (c.handler.guid = n.guid)), i ? p.splice(p.delegateCount++, 0, c) : p.push(c), Z.event.global[d] = !0)
+          if (m) 
+              for (n.handler && (o = n, n = o.handler, i = o.selector),
+            		  n.guid || (n.guid = Z.guid++), 
+            		  (u = m.events) || (u = m.events = {}), 
+            		  (s = m.handle) || (s = m.handle = function(t) {
+            			  return typeof Z !== ke && Z.event.triggered !== t.type ? Z.event.dispatch.apply(e, arguments) : void 0
+            		  }), 
+            		  t = (t || "").match(de) || [""], 
+            		  l = t.length; l--;)
+            	  
+            	  a = je.exec(t[l]) || [], d = g = a[1]; 
+            	  h = (a[2] || "").split(".").sort(), 
+            	  d && (f = Z.event.special[d] || {}, 	  
+            	  d = (i ? f.delegateType : f.bindType) || d, f = Z.event.special[d] || {}, 
+            	  c = Z.extend({
+	                  type: d,
+	                  origType: g,
+	                  data: r,
+	                  handler: n,
+	                  guid: n.guid,
+	                  selector: i,
+	                  needsContext: i && Z.expr.match.needsContext.test(i),
+	                  namespace: h.join(".")
+            	  	  }, o),
+            	  (p = u[d]) || (p = u[d] = [], 
+            			  p.delegateCount = 0, 
+            			  f.setup && f.setup.call(e, r, h, s) !== !1 || e.addEventListener && e.addEventListener(d, s, !1)), 
+            			  f.add && (f.add.call(e, c), 
+            			  c.handler.guid || (c.handler.guid = n.guid)), 
+            			  i ? p.splice(p.delegateCount++, 0, c) : p.push(c), 
+            			  Z.event.global[d] = !0)
       },
       remove: function(e, t, n, r, i) {
           var o, s, a, u, l, c, f, p, d, h, g, m = ve.hasData(e) && ve.get(e);
@@ -3003,19 +3021,26 @@
       return e.$ === Z && (e.$ = Rt), t && e.jQuery === Z && (e.jQuery = Pt), Z
   }, typeof t === ke && (e.jQuery = e.$ = Z), Z
 });
-$.popup = function(p, o, e, t) {
-  //$("#popup>.guide").load("/popup/" + p, o, function() {
-      $("body").addClass("popup_state"), $("#popup").css("display", "table").css("opacity", 1), $("#popup>.shadow, #popup *[data-close]").one("click", function() {
-          $.popup.interval && (clearTimeout($.popup.interval), $("#popup .accept").click(), $.popup.interval = null), $("#popup").stop().hide(), $("body").removeClass("popup_state")
-      }), e && $("#popup .accept").one("click", e), t && $("#popup .deny").one("click", t), $("#popup").trigger("loaded")
-  //})
+
+$.popup = function (p, o, e, t) {
+    $("#popup>.guide").load( p, o, function () {
+        $("body").addClass("popup_state"),
+        $("#popup").css("display", "table").css("opacity", 1), 
+        $("#popup>.shadow, #popup *[data-close]").one("click", function () {
+            $.popup.interval && (clearTimeout($.popup.interval), 
+            $("#popup .accept").click(), $.popup.interval = null), 
+            $("#popup").stop().hide(), $("body").removeClass("popup_state");
+        });
+        e && $("#popup .accept").one("click", e), t && $("#popup .deny").one("click", t), $("#popup").trigger("loaded");
+    });
 }, $.popup.interval = null, $.extend({
-  parseQuery: function(p) {
-      return (p || document.location.search).replace(/(^\?)/, "").split("&").map(function(p) {
-          return p = p.split("="), this[p[0]] = p[1], this
-      }.bind({}))[0]
-  }
+    parseQuery: function (p) {
+        return (p || document.location.search).replace(/(^\?)/, "").split("&").map(function (p) {
+            return p = p.split("="), this[p[0]] = p[1], this;
+        }.bind({}))[0];
+    }
 });
+
 ! function(t, e) {
   function i(e, i) {
       var n, o, a, r = e.nodeName.toLowerCase();
@@ -16443,7 +16468,7 @@ function PoingUploader(e) {
 }
 PoingUploader.Create = function(e) {
   var t = {
-          iframe_src: "/util/upload",
+          iframe_src: "/Poing/util/upload.do",
           form_id: "uploader",
           input_id: "file_selector",
           file_id: "uploaded_file",

@@ -11,7 +11,7 @@ public class RestListDTO {
 	private int rest_review_cnt; // number, -- 누적 리뷰 횟수 o
 	private int rest_view_cnt; // number, -- 누적 조회수  o
 	private double rest_starpoint; // number, -- 별점
-	private int rest_loc_seq; // number, --지역코드 o
+	private String rest_loc; // number, --지역코드 o
 	private int rest_tic_code; // number, --티켓코드 
 	private String rest_line_exp; // varchar2(100), -- 한줄설명
 	private String rest_alchol; // varchar2(100), -- 판매주류
@@ -76,11 +76,11 @@ public class RestListDTO {
 	public void setRest_starpoint(double d) {
 		this.rest_starpoint = d;
 	}
-	public int getRest_loc_seq() {
-		return rest_loc_seq;
+	public String getRest_loc() {
+		return rest_loc;
 	}
-	public void setRest_loc_seq(int rest_loc_seq) {
-		this.rest_loc_seq = rest_loc_seq;
+	public void setRest_loc(String rest_loc) {
+		this.rest_loc = rest_loc;
 	}
 	public int getRest_tic_code() {
 		return rest_tic_code;

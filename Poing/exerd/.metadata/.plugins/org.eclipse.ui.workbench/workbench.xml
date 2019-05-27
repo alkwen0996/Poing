@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="15" version="2.0">
+<workbench progressCount="17" version="2.0">
 <workbenchAdvisor/>
-<window height="768" maximized="true" minimized="true" width="1024" x="-1852" y="-8">
+<window height="1038" maximized="true" minimized="true" width="976" x="-8" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
 </perspectiveBar>
 <coolbarLayout locked="0">
 <coolItem id="group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="99" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="103" y="22"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="com.tomato.devkit.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="57" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="114" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="122" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
@@ -35,8 +35,8 @@
 <editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="poing_oracle.exerd" partName="poing_oracle.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/poing_oracle.exerd" title="poing_oracle.exerd" tooltip="PoingDB/poing_oracle.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/poing_oracle.exerd"/>
 </editor>
-<editor id="com.tomato.exerd.editor.DiagramEditor" name="sample.exerd" partName="sample.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/sample.exerd" title="sample.exerd" tooltip="PoingDB/sample.exerd" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/sample.exerd"/>
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="untitled.exerd" partName="untitled.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/untitled.exerd" title="untitled.exerd" tooltip="PoingDB/untitled.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/untitled.exerd"/>
 </editor>
 </editors>
 <views>
@@ -71,6 +71,11 @@
 </view>
 <view id="org.eclipse.ui.views.ContentOutline" partName="아웃라인">
 <viewState/>
+</view>
+<view id="org.eclipse.search.ui.views.SearchView" partName="검색">
+<viewState isPinned="false">
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
+</viewState>
 </view>
 <view id="org.eclipse.gef.ui.palette_view" partName="Palette">
 <viewState/>
@@ -108,6 +113,7 @@
 <view id="com.tomato.exerd.modelview3.ModelView3"/>
 <view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.pde.runtime.LogView"/>
+<view id="org.eclipse.search.ui.views.SearchView"/>
 <view id="com.tomato.exerd.ui.views.domain"/>
 <view id="com.tomato.exerd.validate.ui.ValidateView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
@@ -131,7 +137,7 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.11803278" ratioLeft="180" ratioRight="1345" relationship="2" relative="leftFolder"/>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@65bb85" ratio="0.5253353" ratioLeft="705" ratioRight="637" relationship="2" relative="org.eclipse.ui.editorss">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@65bb85" ratio="0.7198953" ratioLeft="550" ratioRight="214" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.tomato.exerd.ui.views.thumbnail" appearance="2" expanded="2">
 <page content="com.tomato.exerd.ui.views.thumbnail" label="썸네일"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -140,14 +146,16 @@
 </folder>
 </info>
 <info folder="true" part="rightFolder" ratio="0.249226" ratioLeft="161" ratioRight="485" relationship="4" relative="org.eclipse.ui.internal.ViewStack@65bb85">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
+<folder activePageID="com.tomato.exerd.modelview3.ModelView3" appearance="2" expanded="2">
 <page content="com.tomato.exerd.modelview3.ModelView3" label="모델"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="아웃라인"/>
 <page content="org.eclipse.pde.runtime.LogView" label="Error Log"/>
+<page content="org.eclipse.search.ui.views.SearchView" label="검색"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
 </presentation>
 </folder>
 </info>
@@ -179,66 +187,63 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/Poing.exerd"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/임시파일.exerd"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PoingDB/test"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/poing_oracle.exerd"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/test.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/ProjectPoing/untitled.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/sample.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/sample.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/untitled.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/poing_oracle.exerd"/>
 </editors>
-<item historyLabel="임시파일.exerd" index="1"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="임시파일.exerd" index="1"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="test" index="2">
-<position/>
-</item>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="test.exerd" index="4"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="임시파일.exerd" index="1"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="임시파일.exerd" index="1"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="untitled.exerd" index="5"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="Poing.exerd" index="0"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="untitled.exerd" index="5"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item historyLabel="poing_oracle.exerd" index="3"/>
-<item historyLabel="sample.exerd" index="6"/>
-<item active="true" historyLabel="poing_oracle.exerd" index="3"/>
+<item historyLabel="untitled.exerd" index="1"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="3"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="3"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="sample.exerd" index="3"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="0"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="5"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="5"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="5"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="5"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="5"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item historyLabel="poing_oracle.exerd" index="5"/>
+<item historyLabel="untitled.exerd" index="4"/>
+<item active="true" historyLabel="poing_oracle.exerd" index="5"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -256,6 +261,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="untitled.exerd" tooltip="PoingDB/untitled.exerd">
+<persistable path="/PoingDB/untitled.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="sample.exerd" tooltip="PoingDB/sample.exerd">
 <persistable path="/PoingDB/sample.exerd"/>
 </file>

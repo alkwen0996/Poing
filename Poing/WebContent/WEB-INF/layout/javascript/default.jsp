@@ -1819,6 +1819,60 @@
 					<% System.out.println("param 없음"); %>
 				</c:otherwise>
 			</c:choose>
+
+			<c:if test = "${authUser.m_no eq param.id}">
+				var uploader = PoingUploader.Create({
+					afterAddFile: function (file) {
+						$.ajax({
+							url: "/user/uploadprofileimage",
+							method: "post",
+							dataType: "json",
+							data: {
+								"image_type": file.file_type,
+								"image_data": file.file_data
+							},
+							success: function (res) {
+								if (res.status == true) {
+									$("i.profile_image").css("background-image", "url(" + "'data:" + file
+										.file_type + ";base64," + file.file_data + "')");
+									if (ie < 9) {
+										$("i.profile_image").css("filter",
+											"progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" +
+											"data:" + file.file_type + ";base64," + file.file_data +
+											", sizingMethod='scale')");
+										location.reload(true);
+									}
+									noticePopupInit({
+										message: "프로필 이미지가 변경되었습니다."
+									});
+								} else {
+									noticePopupInit({
+										message: "프로필 이미지가 업로드가 실패했습니다. 다시 시도해주세요."
+									});
+								}
+							}
+						});
+					}
+				});
+
+				$("#change_user_image").on("click", function () {
+					uploader.addFile();
+				});
+				$("#banner.user .level_qna").click(function () {
+					$.popup("/Poing/popup/level_qna.do");
+				});
+				$("#banner.user .name>.point, #banner.user .name>i").click(function () {
+					$.popup("/Poing/popup/point_history.do");
+				});
+			</c:if>
+			$("#banner .info>button.item").click(function () {
+				$.popup("/Poing/popup/follow.do", {
+					id: '${ mdto.m_no }',
+					'er': ${ 3 },
+					'ed': ${ 8 } /* follower, following숫자 */
+				});
+			});
+
 		</c:if>
 
 
@@ -2176,7 +2230,7 @@
 		});
 
 		$("#nav_notice_list_all").on("click", function () {
-			location.href = "/Poing/timeline.do?tab=alert";
+			location.href = "/Poing/timeline.do?id=${authUser.m_no}&tab=alert";
 		});
 
 		// profile section
@@ -2184,7 +2238,7 @@
 			$("#nav_notice_list").hide();
 		});
 		$("#nav_profile>.i_wrap").on("click", function () {
-			location.href = "/Poing/timeline.do?id=${ authUser.m_no }";
+			location.href = "/Poing/timeline.do?id=${authUser.m_no}";
 		});
 
 		$("#nav_profile_list>.item").on("click", function () {
@@ -2196,12 +2250,12 @@
 		});
 
 		$("#nav_login").on("click", function () {
-			$.popup('sign', {
+			$.popup('/Poing/popup/sign.do', {
 				type: 'login'
 			});
 		});
 		$("#nav_join").on("click", function () {
-			$.popup('sign', {
+			$.popup('/Poing/popup/sign.do', {
 				type: 'join'
 			});
 		});

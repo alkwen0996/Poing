@@ -65,6 +65,13 @@ public class ControllerUsingURI extends HttpServlet{
 		}
 		System.out.println("ControllerUsingURL.java line 66 : " + command);
 		request.setAttribute("command", command);
+		if (command.equals("/popup/follow.ejs")) { //ejs별도처리
+			System.out.println("/popup/follow");
+			String viewPage = "/WEB-INF/view/popup/follow";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
 		CommandHandler handler = commandHandlerMap.get(command);
 		if (handler == null) {
 			handler = new NullHandler(); //404에러를 응답하는 핸들러 클래스

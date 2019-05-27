@@ -1,11 +1,7 @@
 package poing.member.auth.handler;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONObject;
 
 import poing.member.MemberDTO;
 import poing.member.auth.service.JoinMemberService;

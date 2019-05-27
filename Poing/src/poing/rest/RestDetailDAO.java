@@ -31,7 +31,6 @@ public class RestDetailDAO {
 				rs.next();
 				dto.setRest_seq(rs.getInt("rest_seq"));
 				dto.setRest_name(rs.getString("rest_name"));
-				System.out.println(rs.getString("rest_name"));
 				dto.setRest_tel(rs.getString("rest_tel"));
 				dto.setRest_hour(rs.getString("rest_hour"));
 				dto.setRest_menu(rs.getString("rest_menu"));
@@ -39,7 +38,7 @@ public class RestDetailDAO {
 				dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
 				dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
 				dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
-				dto.setRest_loc_seq(rs.getInt("rest_loc_seq"));
+				dto.setRest_loc(rs.getString("rest_loc"));
 				dto.setRest_tic_code(rs.getInt("rest_tic_code"));
 				dto.setRest_line_exp(rs.getString("rest_line_exp"));
 				dto.setRest_alchol(rs.getString("rest_alchol"));

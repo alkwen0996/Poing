@@ -17,7 +17,6 @@ public class RestListDAO {
 	public RestListDAO() {}
 
 	public List<RestListDTO> selectdisplay(Connection conn){
-		System.out.println(1);
 		String sql = "select * from p_restaurant";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

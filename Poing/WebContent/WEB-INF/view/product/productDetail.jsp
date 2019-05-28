@@ -1,4 +1,4 @@
-<%@page import="poing.product.display.service.ProductDTO"%>
+<%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -18,8 +18,6 @@
 		src="<%= request.getContextPath() %>/js/main.js"></script>
 	<script type="text/javascript"
 		src="<%= request.getContextPath() %>/js/slider.js"></script>
-	<%-- <script type="text/javascript" 
-		src="<%= request.getContextPath() %>/js/productDetailScript.js"></script> --%>
 
 	<meta charset="UTF-8">
 	<title>
@@ -70,7 +68,7 @@
 							</div>
 							<div class="price">
 								<div class="i_wrap ">
-									<span class="main">일단보류...</span><br> <span class="sub">
+									<span class="main">할인</span><br> <span class="sub">
 										OFF</span>
 								</div>
 								<span class="reduced">${dto.discount }</span><br> <span
@@ -89,6 +87,7 @@
 										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.discount }</span>
 									</li>
 								</ul>
+								
 							</div>
 							<ul class="selected">
 								<li data-id="17684" data-min="2" data-limit="5"><span
@@ -266,74 +265,78 @@
 				<button class="sidebar addCart border_radius soft" tabindex="-1">장바구니 담기</button>
 			
 				<script>
-					$("#sidebar_wrap>.buy").click(function(){
-						if(poing.account.checkLoginState()) {
-							var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
-							var options = [];
+		$("#sidebar_wrap>.buy").click(function(){
+			if(poing.account.checkLoginState()) {
+				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+				var options = [];
+
+				if(selected.length === 0) {
+					$.popup("/Poing/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
+					return;
+				}else{
+					$.popup("/Poing/popup/reserve_coupon.do?p_num=${param.p_num}");
+				}
+				for(var i=0; i<selected.length; ++i)
+				{
+					var op = selected.eq(i);
+					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+				}
+
+				$.ajax({
+					'url': "/pay/addCart.do",
+					'method': "POST",
+					'dataType': "JSON",
+					'data': {'options': options},
+					'success':function(response) {
+						if(response.status) {
+							$.popup("reserve_coupon", {'id':response.data.cart_id, 'mode':'buy'});
+						} else {
+                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
+                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
+                        }
+					}
+				});
+			}
+		});
+		$("#sidebar_wrap>.addCart").click(function(){
+			if(poing.account.checkLoginState()) {
+				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+				var options = [];
+
+				if(selected.length === 0) {
+					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
+					return;
+				}else{
+					
+				}
+
+				for(var i=0; i<selected.length; ++i)
+				{
+					var op = selected.eq(i);
+					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+				}
 			
-							if(selected.length === 0) {
-								$.popup("confirm", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
-								return;
-							}
-							for(var i=0; i<selected.length; ++i)
-							{
-								var op = selected.eq(i);
-								options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
-							}
-			
-							$.ajax({
-								'url': "/pay/addCart",
-								'method': "POST",
-								'dataType': "JSON",
-								'data': {'options': options},
-								'success':function(response) {
-									if(response.status) {
-										$.popup("reserve_coupon", {'id':response.data.cart_id, 'mode':'buy'});
-									} else {
-			                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
-			                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
-			                        }
-								}
-							});
-						}
-					});
-					$("#sidebar_wrap>.addCart").click(function(){
-						if(poing.account.checkLoginState()) {
-							var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
-							var options = [];
-			
-							if(selected.length === 0) {
-								$.popup("confirm", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
-								return;
-							}
-			
-							for(var i=0; i<selected.length; ++i)
-							{
-								var op = selected.eq(i);
-								options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
-							}
-						
-							$.ajax({
-								'url': "/pay/addCart",
-								'method': "POST",
-								'dataType': "JSON",
-								'data': {'options': options},
-								'success':function(response) {
-									if(response.status)
-									{
-			                            ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
-			                            $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
-			                                location.href="/pay/cart";
-			                            });
-									} else {
-			                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
-			                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
-			                        }
-								}
-							});
-						}
-					});
-				</script>
+				$.ajax({
+					'url': "/pay/addCart",
+					'method': "POST",
+					'dataType': "JSON",
+					'data': {'options': options},
+					'success':function(response) {
+						if(response.status)
+						{
+                            ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
+                            $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
+                                location.href="/pay/cart";
+                            });
+						} else {
+                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
+                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
+                        }
+					}
+				});
+			}
+		});
+	</script>
 				<div id="recommend_coupon" class="sidebar">
 				<div class="title">이 달의 추천 티켓</div>
 				<ul class="list">

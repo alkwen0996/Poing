@@ -39,8 +39,14 @@ public class PopupHandler implements CommandHandler {
 				return "popup/followList_er_json";
 			}
 		}
-		else if (command.equals("/restaurant/AjaxRestaurantInfo.do")) {
+		else if (command.equals("/popup/reserve_rest.do")) {
 			return "popup/rest_reserve";
+		}
+		else if (command.equals("/popup/reserve_coupon.do")) {
+			return "popup/reserve_coupon";
+		}
+		else if (command.equals("/popup/confirm.do")) {
+			return "popup/confirm";
 		}
 		else 
 			return null;

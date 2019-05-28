@@ -285,15 +285,15 @@
 						</c:when>
 						
 						<c:when test="${ param.tab eq 'coupon' || param.tab eq 'payment' || param.tab eq 'restaurant'}">
-							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Coupon.jsp"></jsp:include>
+							<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Coupon.jsp"></jsp:include>
 						</c:when>
 						
 						<c:when test="${ param.tab eq 'review' || param.tab eq 'friends' }">
-							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reviewer.jsp"></jsp:include>
+							<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Reviewer.jsp"></jsp:include>
 						</c:when>
 						
 						<c:when test="${ param.tab eq 'alert' }">
-							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reviewer.jsp"></jsp:include>
+							<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Reviewer.jsp"></jsp:include>
 						</c:when>
 						
 					</c:choose>
@@ -301,7 +301,7 @@
 					<!-- 예약 리뷰 찜 소식 -->
 					<c:if test="${ param.tab eq null || param.tab eq 'reservation' || param.tab eq 'review' ||
 								 param.tab eq 'restaurant' || param.tab eq 'alert'}">
-						<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Restaurant.jsp"></jsp:include>
+						<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Restaurant.jsp"></jsp:include>
 					</c:if>
 					
 				</div><!-- slide bar end -->

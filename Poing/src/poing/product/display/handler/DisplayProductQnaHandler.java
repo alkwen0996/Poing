@@ -1,5 +1,6 @@
 package poing.product.display.handler;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,9 +8,8 @@ import poing.mvc.CommandHandler;
 import poing.product.ProductDTO;
 import poing.product.display.service.DisplayProductDetailService;
 
-
-public class DisplayProductDetailHandler implements CommandHandler {
-
+public class DisplayProductQnaHandler implements CommandHandler {
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
@@ -20,7 +20,7 @@ public class DisplayProductDetailHandler implements CommandHandler {
 		} catch (Exception e) { 
 				e.printStackTrace();
 		}
-		return "product/productDetail";
+		return "product/productQna";
 	}
 
 }

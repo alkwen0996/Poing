@@ -2034,7 +2034,7 @@
 								auto_complete_prev = null;
 							}
 							auto_complete_prev = $.ajax({
-								url: "/restaurant/ajaxSearch/" + encodeURIComponent($(this).val()),
+								url: "Poing/restaurant/Search.do" + encodeURIComponent($(this).val()),
 								method: "get",
 								dataType: "json",
 								success: function (response) {

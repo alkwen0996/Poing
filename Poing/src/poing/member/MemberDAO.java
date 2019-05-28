@@ -57,7 +57,7 @@ public class MemberDAO {
 		sql.append(" (seq_member.nextval,      ?,       ?,     ?,       ?,       ?,    ?,          ?,      ?) ");	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		try {
+		try {  
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, mdto.getM_name());
 			pstmt.setString(2, mdto.getM_birth().toString());

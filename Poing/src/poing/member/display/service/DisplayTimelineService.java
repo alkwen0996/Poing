@@ -15,6 +15,10 @@ public class DisplayTimelineService {
 		
 		Connection conn = ConnectionProvider.getConnection();
 		mdto = mdao.selectById(conn , memberID);
+		
+		int result[] = MemberDAO.getFollowCnt(conn, memberID);
+		mdto.setEd_cnt(result[0]);
+		mdto.setEr_cnt(result[1]);
 		conn.close();
 		return mdto;
 	}

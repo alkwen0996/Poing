@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="poing.member.MemberDTO"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="com.util.ConnectionProvider"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	
 %>
@@ -7,8 +13,10 @@
 	<i class="icon popup_close" data-close></i>
 	<div class="body">
 		<ul class="tab">
-			<li data-type="follower">팔로워(<span>3</span>)</li>
-			<li data-type="followed">팔로잉(<span>10</span>)</li>
+			<li data-type="follower">팔로워(<span>${ param.er }</span>)
+			</li>
+			<li data-type="followed">팔로잉(<span>${ param.ed }</span>)
+			</li>
 		</ul>
 
 		<div class="list">
@@ -44,7 +52,7 @@
 		        $.ajax({url: '/Poing/popup/followList.do',
 		    			type: 'post',
 		    			cache : false,
-		    			data: {id: data.id, type: data.type, page: data.page},
+		    			data: {id: data.id, type: data.type, page: data.page, followed_count:${ param.ed }, follower_count:${ param.er }},
 		    			context: data,
 		    			success: function(res){
 		    				if(res && res != "null") {

@@ -89,7 +89,7 @@
 							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 1</a> <a
 							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 1</a>
 							<button class="empty item" tabindex="-1">
-								<span>팔로워 3</span>
+								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
 						</div>
 					</div>
@@ -285,15 +285,15 @@
 						</c:when>
 						
 						<c:when test="${ param.tab eq 'coupon' || param.tab eq 'payment' || param.tab eq 'restaurant'}">
-							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Coupon.jsp"></jsp:include>
+							<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Coupon.jsp"></jsp:include>
 						</c:when>
 						
 						<c:when test="${ param.tab eq 'review' || param.tab eq 'friends' }">
-							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reviewer.jsp"></jsp:include>
+							<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Reviewer.jsp"></jsp:include>
 						</c:when>
 						
 						<c:when test="${ param.tab eq 'alert' }">
-							<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reviewer.jsp"></jsp:include>
+							<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Reviewer.jsp"></jsp:include>
 						</c:when>
 						
 					</c:choose>
@@ -301,7 +301,7 @@
 					<!-- 예약 리뷰 찜 소식 -->
 					<c:if test="${ param.tab eq null || param.tab eq 'reservation' || param.tab eq 'review' ||
 								 param.tab eq 'restaurant' || param.tab eq 'alert'}">
-						<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Restaurant.jsp"></jsp:include>
+						<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Restaurant.jsp"></jsp:include>
 					</c:if>
 					
 				</div><!-- slide bar end -->

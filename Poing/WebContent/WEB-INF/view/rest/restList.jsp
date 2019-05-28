@@ -11,7 +11,7 @@
 <link rel='stylesheet' type='text/css'
 	href='<%=request.getContextPath()%>/css/app.css?v=1557742885314'>
 <style>
-<%@include file="/css/style.css"%>
+<%@include file="/css/style.css"%> 
 
 </style>
 <script type="text/javascript"

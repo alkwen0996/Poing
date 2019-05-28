@@ -89,7 +89,7 @@
 							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 1</a> <a
 							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 1</a>
 							<button class="empty item" tabindex="-1">
-								<span>팔로워 3</span>
+								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
 						</div>
 					</div>

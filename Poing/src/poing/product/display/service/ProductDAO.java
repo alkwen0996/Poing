@@ -30,7 +30,6 @@ public class ProductDAO {
 			while (rs.next()) {
 				dto = new ProductDTO();
 				dto.setR_name(rs.getString("p_name"));
-				dto.setR_location(rs.getString("p_line_exp"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
 				dto.setDiscount(rs.getString("p_price"));

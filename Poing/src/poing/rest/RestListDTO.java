@@ -20,8 +20,22 @@ public class RestListDTO {
 	private String rest_budget_type; // varchar2(100), -- 예산
 	private String rest_table_type; // varchar2(100), -- 테이블종류
 	private String rest_food_type; // varchar2(30) -- 음식종류
-	
+	private float rest_lat; //num 위도
+	private float rest_long; //num 경도
 
+	
+	public float getRest_lat() {
+		return rest_lat;
+	}
+	public void setRest_lat(float rest_lat) {
+		this.rest_lat = rest_lat;
+	}
+	public float getRest_long() {
+		return rest_long;
+	}
+	public void setRest_long(float rest_long) {
+		this.rest_long = rest_long;
+	}
 	public int getRest_seq() {
 		return rest_seq;
 	}

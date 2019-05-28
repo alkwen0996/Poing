@@ -47,7 +47,8 @@ public class RestListDAO {
 				dto.setRest_budget_type(rs.getString("rest_budget_type"));
 				dto.setRest_table_type(rs.getString("rest_table_type"));
 				dto.setRest_food_type(rs.getString("rest_food_type"));
-
+				dto.setRest_lat(rs.getFloat("rest_lat"));
+				dto.setRest_long(rs.getFloat("rest_long"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {

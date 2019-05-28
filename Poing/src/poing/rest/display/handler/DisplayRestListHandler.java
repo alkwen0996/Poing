@@ -14,7 +14,6 @@ public class DisplayRestListHandler implements CommandHandler
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	System.out.println(1);
 	try {
 	RestListService service = new RestListService();
 	List<RestListDTO> list = service.select();

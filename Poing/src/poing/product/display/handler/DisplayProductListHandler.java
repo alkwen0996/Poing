@@ -6,20 +6,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import poing.mvc.CommandHandler;
+import poing.product.Paging;
+import poing.product.ProductDAO;
+import poing.product.ProductDTO;
 import poing.product.display.service.DisplayProductListService;
-import poing.product.display.service.ProductDTO;
 
 
 public class DisplayProductListHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(1);
+		ProductDAO dao = new ProductDAO();
+		//finalPageNo = paging.makePaging();
+		int cpage = request.getParameter("pg") == null ? 1 : Integer.parseInt(request.getParameter("pg"));
+		int totalCount = dao.getTotalCount();
+	
+		int startPageNo = 1;
+		int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
+		int prevPageNo = cpage == 1 ? 1 : cpage - 1;
+		int nextPageno = cpage == endPageNo ? endPageNo : cpage + 1;
+		
+		Paging paging = new Paging();
+		//paging.setPageNo(pageNo);\
+		paging.setCpage(cpage);
+		paging.setPageSize(12);
+		paging.setTotalCount(totalCount);
+		paging.setStartPageNo(startPageNo);
+		paging.setEndPageNo(endPageNo);
+		paging.setPrevPageNo(prevPageNo);
+		paging.setNextPageno(nextPageno);
+		
 		try {
 			DisplayProductListService service = new DisplayProductListService();
-			List<ProductDTO> list = service.select();
+			List<ProductDTO> list = service.select(cpage);
 			System.out.println(list);
 			request.setAttribute("list", list);
+			request.setAttribute("paging", paging);
 		} catch (Exception e) { 
 				e.printStackTrace();
 		}

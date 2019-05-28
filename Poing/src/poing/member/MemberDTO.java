@@ -19,8 +19,35 @@ public class MemberDTO {
 	private String m_img; /* 프로필이미지 */
 	private int rp_seq; /* 레드포인트seq */
 	
+	private int er_cnt = 0;
+	private int ed_cnt = 0;
 	
 	
+	
+	public int getEr_cnt() {
+		return er_cnt;
+	}
+
+
+
+	public void setEr_cnt(int er_cnt) {
+		this.er_cnt = er_cnt;
+	}
+
+
+
+	public int getEd_cnt() {
+		return ed_cnt;
+	}
+
+
+
+	public void setEd_cnt(int ed_cnt) {
+		this.ed_cnt = ed_cnt;
+	}
+
+
+
 	public int getM_no() {
 		return m_no;
 	}
@@ -209,6 +236,9 @@ public class MemberDTO {
 		this.m_nickname = null;
 		this.m_img = null;
 		this.rp_seq = 0;
+		
+		this.er_cnt = 0;
+		this.ed_cnt = 0;
 	}
 
 

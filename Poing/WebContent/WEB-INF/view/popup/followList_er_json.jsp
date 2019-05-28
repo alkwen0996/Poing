@@ -1,77 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.util.ConnectionProvider"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-{
-  "status": true,
-  "data": {
-    "follows": [{
-      "follower": {
-        "object_id": null,
-        "id": 1522820,
-        "web_name": "YN",
-        "profile_image": null,
-        "follow_state": false,
-        "follower_count": 0,
-        "followed_count": 1,
-        "review_count": 0
-      }
-    }, {
-      "follower": {
-        "object_id": null,
-        "id": 1226312,
-        "web_name": "\uae68\ub0a8\ub9e4\ud30c\ud30c",
-        "profile_image": {
-          "original": {
-            "uri": "MjAxODA1\/15264484835afbc16383c69.jpeg",
-            "width": 1656,
-            "height": 2208,
-            "image_type": "original",
-            "url": "http:\/\/c4.poing.co.kr\/MjAxODA1\/15264484835afbc16383c69.jpeg"
-          },
-          "thumbnail": {
-            "uri": "thumbnail\/MjAxODA1\/15264484835afbc16383c69.jpeg",
-            "width": 1656,
-            "height": 2208,
-            "image_type": "original",
-            "url": "http:\/\/c4.poing.co.kr\/thumbnail\/MjAxODA1\/15264484835afbc16383c69.jpeg"
-          }
-        },
-        "follow_state": false,
-        "follower_count": 50,
-        "followed_count": 2009,
-        "review_count": 5
-      }
-    }, {
-      "follower": {
-        "object_id": "504a279ad20c78618b000116",
-        "id": 62080,
-        "web_name": "\uc815\ubc94\uc9c4",
-        "profile_image": {
-          "original": {
-            "uri": "546a936dd20c786d78000038.jpg",
-            "width": 2048,
-            "height": 1365,
-            "image_type": "original",
-            "url": "http:\/\/c4.poing.co.kr\/546a936dd20c786d78000038.jpg"
-          },
-          "thumbnail": {
-            "uri": "thumbnail\/546a936dd20c786d78000038.jpg",
-            "width": 2048,
-            "height": 1365,
-            "image_type": "original",
-            "url": "http:\/\/c4.poing.co.kr\/thumbnail\/546a936dd20c786d78000038.jpg"
-          }
-        },
-        "follow_state": false,
-        "follower_count": 1251,
-        "followed_count": 8145,
-        "review_count": 114
-      }
-    }]
-  },
-  "meta": {
-    "total": 3,
-    "page": 1,
-    "per_page": 14,
-    "follower_count": 3
-  }
+
+<% 
+StringBuffer sql = new StringBuffer();
+sql.append( "WITH temp AS(  ");
+sql.append( "    SELECT * FROM member ");
+sql.append( "    WHERE m_no IN ( SELECT follower_seq FROM follow WHERE following_seq = ?) ");
+sql.append( ") ");
+sql.append( "SELECT temp.m_no fer_no, temp.m_name fer_name, temp.m_img fer_img,  ");
+sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = temp.m_no) ercnt, ");
+sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_no) edcnt, ");
+sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_no AND follower_seq = ?) amIfollow ");
+sql.append( "FROM temp ");
+JSONObject jsonObject = new JSONObject();
+JSONObject data = new JSONObject();
+jsonObject.put("status", true);
+jsonObject.put("data", data);
+JSONArray follows = new JSONArray();
+data.put("follows", follows);
+JSONObject meta = new JSONObject();
+meta.put("page", 1);
+meta.put("per_page", 14);
+meta.put("follower_count", request.getParameter("follower_count"));
+jsonObject.put("meta", meta);
+
+JSONObject follower = null;
+try {
+	Connection conn = ConnectionProvider.getConnection();
+	PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+	String m_no = request.getParameter("id");
+	pstmt.setString(1, request.getParameter("id"));
+	pstmt.setString(2, request.getParameter("id"));
+	ResultSet rs = pstmt.executeQuery();
+	while(rs.next()) {
+		follower = new JSONObject();
+		follower.put("object_id", null);
+		follower.put("id", rs.getInt("fer_no"));
+		follower.put("web_name", rs.getString("fer_name"));
+		follower.put("profile_image", null);//rs.getString("fer_img"));
+		follower.put("follow_state", rs.getInt("amIfollow")==0?false:true);
+		follower.put("follower_count", rs.getInt("ercnt"));
+		follower.put("follower_count", rs.getInt("edcnt"));
+		follower.put("review_count", 0);
+		JSONObject temp = new JSONObject();
+		temp.put("follower", follower);
+		follows.add(temp);
+	}
 }
+catch (Exception e) {
+	jsonObject.put("status", false);
+
+	e.printStackTrace();
+	
+}
+System.out.println(jsonObject);
+%>
+<%= jsonObject %>

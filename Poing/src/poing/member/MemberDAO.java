@@ -13,7 +13,7 @@ public class MemberDAO {
 		sql.append("WHERE m_email = ? ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, email);
@@ -74,4 +74,30 @@ public class MemberDAO {
 		}
 		return result;
 	}
+
+	public static int[] getFollowCnt(Connection conn, int m_no) {
+		int[] result = new int[2];
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT ");
+		sql.append(" (SELECT COUNT(*) FROM follow WHERE follower_seq = ?) edcnt, ");
+		sql.append(" (SELECT COUNT(*) FROM follow WHERE following_seq = ?) ercnt ");
+		sql.append(" FROM dual ");
+
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, m_no);
+			pstmt.setInt(2, m_no);
+			ResultSet rs = pstmt.executeQuery();
+			if ( rs.next() ) {
+				result[0] = rs.getInt("edcnt");
+				result[1] = rs.getInt("ercnt");
+			}		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
+

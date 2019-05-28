@@ -13,7 +13,7 @@
 <style>
 <%@include file="/css/style.css"%> 
 
-</style>
+</style> 
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
 <script type="text/javascript"

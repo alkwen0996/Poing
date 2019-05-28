@@ -160,7 +160,7 @@
 							<div class="summary">
 								<span class="label">총 합계</span> <span class="value">0</span><span
 									class="label">원</span>
-							</div>
+							</div> 
 						</div>
 					</div>
 				</div>

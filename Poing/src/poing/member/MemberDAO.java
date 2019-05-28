@@ -56,7 +56,7 @@ public class MemberDAO {
 		sql.append(" (              m_no, m_name, m_birth, m_gen, m_email, m_level, m_pw, m_nickname, rp_seq) VALUES");
 		sql.append(" (seq_member.nextval,      ?,       ?,     ?,       ?,       ?,    ?,          ?,      ?) ");	
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;  
+		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, mdto.getM_name());

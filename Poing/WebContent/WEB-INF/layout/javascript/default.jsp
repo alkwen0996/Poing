@@ -1173,7 +1173,7 @@
 						$("#reserveShading").show();
 						place_id = id;
 						$.ajax({
-							url: '/Poing/restaurant/AjaxRestaurantInfo.do',
+							url: '/Poing/popup/reserve_rest.do',
 							method: "post",
 							dataType: 'json',
 							data: {
@@ -1868,8 +1868,8 @@
 			$("#banner .info>button.item").click(function () {
 				$.popup("/Poing/popup/follow.do", {
 					id: '${ mdto.m_no }',
-					'er': ${ 3 },
-					'ed': ${ 8 } /* follower, following숫자 */
+					'er': ${ mdto.er_cnt },
+					'ed': ${ mdto.ed_cnt } /* follower, following숫자 */
 				});
 			});
 
@@ -2034,7 +2034,7 @@
 								auto_complete_prev = null;
 							}
 							auto_complete_prev = $.ajax({
-								url: "/restaurant/ajaxSearch/" + encodeURIComponent($(this).val()),
+								url: "Poing/restaurant/Search.do" + encodeURIComponent($(this).val()),
 								method: "get",
 								dataType: "json",
 								success: function (response) {

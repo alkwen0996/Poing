@@ -39,11 +39,11 @@
 	
 </script>
 </head>
-<%-- <% 
+ <% 
 	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("list");
 	System.out.println("restList.jsp list : " + list);
 	int size = list.size();
-
+%>
 <body>
 
 <div id="wrap" class="">
@@ -54,7 +54,7 @@
 		<div id="content_wrap">
 			<div id="content" class="search">
 				<div class="result">
-					총 <span class="highlight"></span>${paging.totalCount}<%-- <%=size%> --%>개가 검색되었습니다.
+					총 <span class="highlight"></span>${paging.totalCount} <%=size%>개가 검색되었습니다.
 				</div>
 `
 				<ul class="sort_order_spread">
@@ -178,7 +178,7 @@
        center: positionMap
      });
 
-     var places = [<%=loc%>];
+     var places = [강남구, 역삼동];
 
      var markers=[];
      var markerCluster = new MarkerClusterer(map, markers, 

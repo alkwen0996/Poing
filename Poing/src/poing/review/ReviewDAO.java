@@ -15,12 +15,12 @@ public class ReviewDAO {
 		return reviewdao;
 	}//getInstance
 	
-	public static boolean insertReview(Connection conn, ReviewDTO rdto) {
-		boolean result = false;
+	public static int writeReview(Connection conn, ReviewDTO rdto) {
+		int result = 0;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" insert into review ");
-		sql.append(" (rev_seq,rest_seq,rev_wtime,rev_content,rev_like_cnt,rev_select_cnt,rev_comm_cnt,rev_m_seq,rev_se_seq,rev_starpoint,rev_line_exp) values ");
-		sql.append(" (seq_review.nextval,seq_restaurant.nextval,?,?,?,?,?,?,?,?,?) ");
+		sql.append(" (rev_seq,rest_seq,rev_wtime,rev_content,rev_m_seq,rev_starpoint) values ");
+		sql.append(" (rev_seq.nextval,rest_seq.nextval,?,?,rev_m_seq.nextval,?) ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -28,15 +28,9 @@ public class ReviewDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, rdto.getRev_wtime());
 			pstmt.setString(2, rdto.getRev_content());
-			pstmt.setInt(3, rdto.getRev_like_cnt());
-			pstmt.setInt(4, rdto.getRev_select_cnt());
-			pstmt.setInt(5, rdto.getRev_comm_cnt());
-			pstmt.setInt(6, rdto.getRev_m_seq());
-			pstmt.setInt(7, rdto.getRev_se_seq());
-			pstmt.setFloat(8, rdto.getRev_starpoint());
-			pstmt.setString(9, rdto.getRev_line_exp());
+			pstmt.setString(3, rdto.getRev_starpoint());
 			
-			result = pstmt.executeUpdate()==1?true:false;
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,16 +57,12 @@ public class ReviewDAO {
 			
 			while(rs.next()) {
 				dto = new ReviewDTO();
-				dto.setRev_seq(rs.getInt("rev_seq"));
-				dto.setRest_seq(rs.getInt("rest_seq"));
+				dto.setRev_seq(rs.getString("rev_seq"));
+				dto.setRest_seq(rs.getString("rest_seq"));
 				dto.setRev_wtime(rs.getString("rev_wtime"));
 				dto.setRev_content(rs.getString("rev_content"));
-				dto.setRev_like_cnt(rs.getInt("rev_like_cnt"));
-				dto.setRev_select_cnt(rs.getInt("rev_select_cnt"));
-				dto.setRev_comm_cnt(rs.getInt("rev_comm_cnt"));
-				dto.setRev_m_seq(rs.getInt("rev_m_seq"));
-				dto.setRev_se_seq(rs.getInt("rev_se_seq"));
-				dto.setRev_starpoint(rs.getFloat("rev_starpoint"));
+				dto.setRev_m_seq(rs.getString("rev_m_seq"));
+				dto.setRev_starpoint(rs.getString("rev_starpoint"));
 				
 				list.add(dto);
 			}//while

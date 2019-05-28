@@ -19,6 +19,9 @@
 			<%@include file="/css/style.css" %>
 	</style>
 </head>
+<%
+	
+%>
 <body>
 	<div id="wrap" class="">
 		
@@ -138,25 +141,25 @@
 								<div class="body">
 									<div class="time  loaded" style="display: block;">3시간 전</div>
 									<div class="grade">
-										<i class="icon star medium odd active" data-id="${dto.rev_seq }"
-											data-index="0" style=""></i><i
-											class="icon star medium even active" data-id="${dto.rev_seq }"
-											data-index="1" style=""></i><i
-											class="icon star medium odd active" data-id="${dto.rev_seq }"
-											data-index="2" style=""></i><i
-											class="icon star medium even active" data-id="${dto.rev_seq }"
-											data-index="3" style=""></i><i
-											class="icon star medium odd active" data-id="${dto.rev_seq }"
-											data-index="4" style=""></i><i class="icon star medium even "
-											data-id="${dto.rev_seq }" data-index="5" style=""></i><i
-											class="icon star medium odd " data-id="${dto.rev_seq }" data-index="6"
-											style=""></i><i class="icon star medium even "
-											data-id="${dto.rev_seq }" data-index="7" style=""></i><i
-											class="icon star medium odd " data-id="${dto.rev_seq }" data-index="8"
-											style=""></i><i class="icon star medium even "
-											data-id="${dto.rev_seq }" data-index="9" style=""></i><span
+									
+										
+										
+										<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
+										<c:if test = "${i%2 ne 0 }">
+											<i class="icon star medium odd active" data-id="${dto.rev_seq }"
+												data-index="${status.count }" style=""></i>
+										</c:if>
+										<c:if test = "${i%2 eq 0 }">
+											<i class="icon star medium even active" data-id="${dto.rev_seq }"
+												data-index="${status.count }" style=""></i>
+										</c:if>	
+										</c:forEach>
+										
+										<c:if test = "${status.count eq 10 }">
+											<span
 											style="display: inline-block; vertical-align: super;"
-											data-id="${dto.rev_seq }" data-grade="50">${dto.rev_starpoint } / ${dto.rev_line_exp }</span>
+											data-id="${dto.rev_seq }" data-grade="50">${dto.rev_starpoint } / 한줄평가</span>
+										</c:if>
 									</div>
 									<div class="text" data-truncated="">${dto.rev_content }</div>
 									<button class="like_list"
@@ -169,7 +172,7 @@
 											tabindex="-1">
 											<i class="icon like "></i>
 											<p>
-												좋아요 <span>${dto.rev_like_cnt }</span>
+												좋아요 <span>좋아요개수</span>
 											</p>
 										</button>
 										<button class="favorite " type="button"
@@ -177,7 +180,7 @@
 											data-id="193284" tabindex="-1">
 											<i class="icon heart small "></i>
 											<p>
-												찜하기 <span>${dto.rev_select_cnt }</span>
+												찜하기 <span>찜개수</span>
 											</p>
 										</button>
 										<button class="comment" type="button"
@@ -185,7 +188,7 @@
 											data-id="193284" tabindex="-1">
 											<i class="icon balloon"></i>
 											<p>
-												댓글 <span>${dto.rev_comm_cnt }</span>
+												댓글 <span>댓글개수</span>
 											</p>
 										</button>
 										<button class="share" type="button"
@@ -380,7 +383,7 @@
 	    // auto complete
 	    $("#review_search").on("keyup", function(){
 	        if( $(this).val().length > 0) {
-	            $.ajax({'url': "/restaurant/ajaxSearch/"+encodeURIComponent($(this).val()),
+	            $.ajax({'url': "/poing/WriteReviewHandler/"+encodeURIComponent($(this).val()),
 	                    'type': "GET",
 	                    'success': function(res) {
 	                        res = $.parseJSON(res).data.ac_keywords;

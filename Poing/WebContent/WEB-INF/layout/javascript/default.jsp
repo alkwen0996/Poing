@@ -344,7 +344,7 @@
 							poing.reviews.actions.temp.pause();
 							poing.reviews.isUploading = true;
 							$.ajax({
-								url: "/review/ajaxsendreview",
+								url: "/Poing/review/ajaxsendreview.do",
 								method: "post",
 								dataType: "json",
 								data: {

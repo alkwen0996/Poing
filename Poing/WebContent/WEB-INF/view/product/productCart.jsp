@@ -10,7 +10,7 @@
 		<%@include file="/css/style.css" %>
 		<%@include file="/css/poing.slider.css" %>
 	</style>
-	
+
 
 	<script type="text/javascript" 
         src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
@@ -28,12 +28,14 @@
 </head>
 
 <body>
+<%
+
+%>
         <!-- body wrap -->
 		<div id="wrap" class="">
 		<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 			<!-- header -->
 			
-dfdf
 			<!-- container -->
 			<div id="container" class="">
 				<!-- 상단에 배너가 있는 레이아웃 -->
@@ -85,7 +87,7 @@ dfdf
 
                                 <ul class="options">
                                                                             <li data-id="17324" data-min="1" data-limit="3">
-                                            <div class="name">2. Course A (2인), 양갈비 or 토마호크 스테이크</div>
+                                            <div class="name">${cart.r_name }</div>
                                             <div class="price" data-value="117000">117,000원</div>
                                             <div class="count_box">
                                                 <input type="text" value="1" disabled="">

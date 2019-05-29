@@ -44,7 +44,7 @@
 				<div class="inner_wrap">
 					<div class="inner">
 						<div class="header">
-			                <span class="name">${dto.r_name }</span>
+			                <span class="name">${dto.rest_name }</span>
 			                <span class="info">${dto.r_location }-${dto.r_type }</span>
 							<button class="empty favorite " data-id="5432" tabindex="-1">
 								찜하기<i class="icon heart large "></i>
@@ -71,8 +71,8 @@
 									<span class="main">할인</span><br> <span class="sub">
 										OFF</span>
 								</div>
-								<span class="reduced">${dto.discount }</span><br> <span
-									class="original">${dto.before_dc }</span>
+								<span class="reduced">${dto.p_dc_money }</span><br> <span
+									class="original">${dto.p_origin_money }</span>
 							</div>
 							<div id="left_time">
 								남은시간 <span>9일 23:06:11</span>
@@ -84,7 +84,7 @@
 								</div>
 								<ul class="items" style="display: none;">
 									<li class="" data-id="17684" data-min="2" data-limit="5">
-										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.discount }</span>
+										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
 									</li>
 								</ul>
 								
@@ -92,7 +92,7 @@
 							<ul class="selected">
 								<li data-id="17684" data-min="2" data-limit="5"><span
 									class="name">${dto.p_option }</span> <span
-									class="price">${dto.discount }</span>
+									class="price">${dto.p_dc_money }</span>
 									<div class="count_box">
 										<input type="text" value="2" disabled="">
 										<button type="button" class="increase">
@@ -101,11 +101,11 @@
 										<button type="button" class="decrease">
 											<i></i>
 										</button>
-									</div> <span class="total">${dto.discount }</span>
+									</div> <span class="total">${dto.p_dc_money }</span>
 									<button type="button" class="delete"></button></li>
 							</ul>
 							<div class="summary">
-								<span class="label">총 합계</span> <span class="value">${dto.discount }</span><span
+								<span class="label">총 합계</span> <span class="value">${dto.p_dc_money }</span><span
 									class="label"></span>
 							</div>
 						</div>
@@ -225,8 +225,8 @@
 					<div class="body">
 	                    <div class="">
 							<span class="name ">${dto.p_option }</span>
-							<span class="actual_price">${dto.before_dc }</span>
-							<span class="price">${dto.discount }</span>
+							<span class="actual_price">${dto.p_origin_money }</span>
+							<span class="price">${dto.p_dc_money }</span>
 						</div>
 	                    
 					</div>
@@ -315,18 +315,19 @@
 					var op = selected.eq(i);
 					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
 				}
+				
 			
 				$.ajax({
-					'url': "/pay/addCart",
+					'url': "/Poing/popup/cart.do",
 					'method': "POST",
 					'dataType': "JSON",
 					'data': {'options': options},
 					'success':function(response) {
 						if(response.status)
 						{
-                            ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
-                            $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
-                                location.href="/pay/cart";
+                            //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
+                            $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
+                                location.href="/Poing/product/productCart.do";
                             });
 						} else {
                             if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);

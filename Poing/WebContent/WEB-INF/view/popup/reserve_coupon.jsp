@@ -17,7 +17,7 @@
 	<i class="icon popup_close" data-close></i>
 	<div class="body">
 					<i class="image"></i>
-				<div class="title">${dto.r_name }
+				<div class="title">${dto.rest_name }
 				<span>${dto.r_location }-${dto.r_type }</span>
 		</div>
 		<form class="request" name="reserve">

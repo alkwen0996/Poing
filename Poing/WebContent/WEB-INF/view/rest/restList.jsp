@@ -12,7 +12,6 @@
 	href='<%=request.getContextPath()%>/css/app.css?v=1557742885314'>
 <style>
 <%@include file="/css/style.css"%> 
-
 </style> 
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
@@ -96,7 +95,7 @@
 		<div id="content_wrap">
 			<div id="content" class="search">
 				<div class="result">
-					총 <span class="highlight"></span><%=size%>개가 검색되었습니다.
+					총 <span class="highlight"></span>${paging.totalCount} <%=size%>개가 검색되었습니다.
 				</div>
 `
 				<ul class="sort_order_spread">
@@ -267,7 +266,7 @@ function initMap() {
        center: positionMap
      });
 
-     var places = [<%=loc%>];
+     var places = [강남구, 역삼동];
 
      var markers=[];
      var markerCluster = new MarkerClusterer(map, markers, 

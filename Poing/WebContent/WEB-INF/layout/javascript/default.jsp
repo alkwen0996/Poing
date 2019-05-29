@@ -243,7 +243,7 @@
 							type = "on";
 
 						$.ajax({
-							url: "/restaurant/ajaxfavorite",
+							url: "/main/ajaxfavorite.do",
 							method: 'post',
 							dataType: 'json',
 							data: {

@@ -15,41 +15,58 @@ public class ReviewDAO {
 		return reviewdao;
 	}//getInstance
 	
-	public static boolean insertReview(Connection conn, ReviewDTO rdto) {
-		boolean result = false;
+	public int writeReview(Connection conn, ReviewDTO rdto) throws WriteReviewError {
+		int result = 0;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" insert into review ");
-		sql.append(" (rev_seq,rest_seq,rev_wtime,rev_content,rev_like_cnt,rev_select_cnt,rev_comm_cnt,rev_m_seq,rev_se_seq,rev_starpoint,rev_line_exp) values ");
-		sql.append(" (seq_review.nextval,seq_restaurant.nextval,?,?,?,?,?,?,?,?,?) ");
+		sql.append(" INSERT INTO review ");
+		sql.append(" (rev_seq,        rest_seq, rev_wtime, rev_content, rev_m_seq, rev_starpoint) values ");
+		sql.append(" (rev_seq.nextval,?       , sysdate  , ?          , ?        , ?) ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		StringBuffer sql2 = new StringBuffer();
+		sql2.append(" SELECT rev_seq.currval cur FROM dual ");
+		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, rdto.getRev_wtime());
-			pstmt.setString(2, rdto.getRev_content());
-			pstmt.setInt(3, rdto.getRev_like_cnt());
-			pstmt.setInt(4, rdto.getRev_select_cnt());
-			pstmt.setInt(5, rdto.getRev_comm_cnt());
-			pstmt.setInt(6, rdto.getRev_m_seq());
-			pstmt.setInt(7, rdto.getRev_se_seq());
-			pstmt.setFloat(8, rdto.getRev_starpoint());
-			pstmt.setString(9, rdto.getRev_line_exp());
 			
-			result = pstmt.executeUpdate()==1?true:false;
+			pstmt.setInt(1, rdto.getRest_seq());
+			pstmt.setString(2, rdto.getRev_content());
+			pstmt.setInt(3, rdto.getRev_m_seq());
+			pstmt.setDouble(4, rdto.getRev_starpoint());
+			result = pstmt.executeUpdate();
+			
+			if(result != 0)
+			{
+				pstmt = conn.prepareStatement(sql2.toString());
+				rs = pstmt.executeQuery();
+				if(rs.next())
+					result = rs.getInt("cur");
+			}
+			else {
+				throw new WriteReviewError();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new WriteReviewError();
 		}
 		return result;
 	}//insert
 	
-	public List<ReviewDTO> selectdisplay(Connection conn){
+	public List<ReviewDTO> selectdisplay(Connection conn, String type){
 		
 		System.out.println("ReviewDAO");
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("select * from review ");
-		
+		sql.append(" SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
+		sql.append(" (SELECT COUNT(*) FROM follow WHERE follower_seq = rev.rev_m_seq) m_ercnt, ");
+		sql.append(" (SELECT COUNT(*) FROM review WHERE rev_m_seq = rev.rev_m_seq) m_revcnt "); 
+		sql.append(" FROM review rev ");
+		sql.append(" JOIN p_restaurant rest ON rev.rest_seq =  rest.rest_seq ");
+		sql.append(" JOIN member mem ON rev.rev_m_seq = mem.m_no ");
+		if (type.equals("follower")) {
+			sql.append(" WHERE rev.rev_m_seq IN (SELECT follower_seq FROM follow WHERE following_seq = 100022 ) ");
+		}
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -62,28 +79,15 @@ public class ReviewDAO {
 			ReviewDTO dto = null;
 			
 			while(rs.next()) {
-				dto = new ReviewDTO();
-				dto.setRev_seq(rs.getInt("rev_seq"));
-				dto.setRest_seq(rs.getInt("rest_seq"));
-				dto.setRev_wtime(rs.getString("rev_wtime"));
-				dto.setRev_content(rs.getString("rev_content"));
-				dto.setRev_m_seq(rs.getInt("rev_m_seq"));
-				dto.setRev_starpoint(rs.getFloat("rev_starpoint"));
-				
+				dto = new ReviewDTO(rs);
 				list.add(dto);
 			}//while
+			pstmt.close();
+			rs.close();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			try {
-				pstmt.close();
-				rs.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}//catch
 		}//finally
-		
 		
 		return list;
 	}//ReviewDisplay

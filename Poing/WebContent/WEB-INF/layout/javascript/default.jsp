@@ -344,7 +344,7 @@
 							poing.reviews.actions.temp.pause();
 							poing.reviews.isUploading = true;
 							$.ajax({
-								url: "/review/ajaxsendreview",
+								url: "/Poing/review/ajaxsendreview.do",
 								method: "post",
 								dataType: "json",
 								data: {
@@ -386,7 +386,7 @@
 													reviewPhotoSendCount++;
 
 													if (photo.length == reviewPhotoSendCount) {
-														ga('send', 'event', 'KPI', '[KPI]리뷰성공');
+														//ga('send', 'event', 'KPI', '[KPI]리뷰성공');
 														noticePopupInit({
 															message: "리뷰가 등록되었습니다."
 														});
@@ -402,7 +402,7 @@
 										callAPI(0);
 
 										if (photo.length == 0) {
-											ga('send', 'event', 'KPI', '[KPI]리뷰성공');
+											//ga('send', 'event', 'KPI', '[KPI]리뷰성공');
 											noticePopupInit({
 												message: "리뷰가 등록되었습니다."
 											});

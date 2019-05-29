@@ -17,7 +17,13 @@ public class DisplayReviewHandler implements CommandHandler{
 		System.out.println("DisplayReviewHandler process()");
 		
 		DisplayReviewService service = new DisplayReviewService();
-		List<ReviewDTO> list = service.select();
+		String type = request.getParameter("type");
+		if(type == null)
+		{
+			type = "all";
+		}
+		request.setAttribute("type", type);
+		List<ReviewDTO> list = service.select(type );
 		System.out.println(list);
 		request.setAttribute("list", list);
 		

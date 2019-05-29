@@ -67,7 +67,7 @@ public class ControllerUsingURI extends HttpServlet{
 		request.setAttribute("command", command);
 		if (command.equals("/popup/follow.ejs")) { //ejs별도처리
 			System.out.println("/popup/follow");
-			String viewPage = "/WEB-INF/view/popup/follow";
+			String viewPage = "/WEB-INF/view/popup/followejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;

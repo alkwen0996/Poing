@@ -11,9 +11,8 @@
 <link rel='stylesheet' type='text/css'
 	href='<%=request.getContextPath()%>/css/app.css?v=1557742885314'>
 <style>
-<%@include file="/css/style.css"%>
-
-</style>
+<%@include file="/css/style.css"%> 
+</style> 
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
 <script type="text/javascript"
@@ -26,23 +25,65 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="">
 <style>
-
+ #map {
+        height: 100%;
+      }
 </style>
 <script>
-/* 	$(document).ready(function() {
-	}); */
-	$("#paging").select(function() {
-		alter("안녕");
+	$(document).ready(function() {
 	});
-	
-	
-	
 </script>
 </head>
- <% 
+<% 
 	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("list");
 	System.out.println("restList.jsp list : " + list);
 	int size = list.size();
+	
+	StringBuffer sb = new StringBuffer();
+	float rlat, rlong;
+	String info;
+	String url;
+	sb.append("[");
+	for (int i=0; i<list.size(); i++){
+		if(i==0) {
+			rlat = list.get(i).getRest_lat();
+			rlong = list.get(i).getRest_long();
+			info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
+					+ list.get(i).getRest_name()
+					+"<br><span>" +list.get(i).getRest_loc()
+					+"</span></div></div></div>";
+			url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
+			sb.append("{ lat: ");
+			sb.append(rlat);
+			sb.append(", lng: ");
+			sb.append(rlong);
+			sb.append(", info: '");
+			sb.append(info);
+			sb.append("', url: '");
+			sb.append(url);
+			sb.append("' } ");
+		} else {
+			rlat = list.get(i).getRest_lat();
+			rlong = list.get(i).getRest_long();
+			info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
+					+ list.get(i).getRest_name()
+					+"<br><span>" +list.get(i).getRest_loc()
+					+"</span></div></div></div>";
+			url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
+			sb.append(",{ lat: ");
+			sb.append(rlat);
+			sb.append(", lng: ");
+			sb.append(rlong);
+			sb.append(", info: '");
+			sb.append(info);
+			sb.append("', url: '");
+			sb.append(url);
+			sb.append("' } ");
+		}	
+	}
+	sb.append("] ");
+	System.out.println(sb.toString());
+	
 %>
 <body>
 
@@ -125,37 +166,10 @@
 							<a href="/restaurant/detail/35740?review" class="review ">리뷰
 								쓰기</a>
 						</div>
-					</div>
-				</c:forEach>
-			</div>
-				<div id="pager">
-				<div class="page-list">
-				<ul class="pagination" onselectstart="return false;">
-				
-				<li class="prevAll">
-					<a href="list.do?pg=${paging.doubleprevPageNo }">&lt;&lt;</a>
-				</li>
-				
-				<li class="prev">
-					<a href="list.do?pg=${paging.prevPageNo}">&lt;</a>
-				</li>
-				
-				<c:forEach begin="${paging.firstPageNo }" end="${paging.finalPageNo}" step="1" var="cpage">	
-					<c:if test="${cpage ne paging.cpage }"><li class="page" data-page="${cpage }"><a href="list.do?pg=${cpage}">${cpage}</a></li></c:if>
-					<c:if test="${cpage eq paging.cpage }"><li class="page active" data-page="${cpage }"><a href="list.do?pg=${cpage}">${cpage}</a></li></c:if>
+				</div>
 				</c:forEach>
 
-				<li class="next">
-					<a href="list.do?pg=${paging.nextPageno}">&gt;</a>
-				</li>
-				
-				<li class="nextAll">
-					<a href="list.do?pg=${paging.doublenextPageNo }">&gt;&gt;</a>
-				</li>
-				
-				</ul>
-				</div>
-				</div>
+			</div>
 		</div>
 	</div>
 
@@ -167,8 +181,82 @@
 
 </div>
 
- <script>
+<script>
+function initMap() {
 
+	  var map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 13,
+	    center: {
+	      lat: 37.524315,
+	      lng: 127.01394
+	    }
+	  });
+	  var infoWin = new google.maps.InfoWindow();
+	  // Add some markers to the map.
+	  // Note: The code uses the JavaScript Array.prototype.map() method to
+	  // create an array of markers based on a given "locations" array.
+	  // The map() method here has nothing to do with the Google Maps API.
+	  var markers = locations.map(function(location, i) {
+	    var marker = new google.maps.Marker({
+	      position: location
+	    });
+	    google.maps.event.addListener(marker, 'click', function(evt) {
+	      infoWin.setContent(location.info);
+	      infoWin.open(map, marker);
+	    })
+	    google.maps.event.addListener(marker, 'dblclick', function() {
+   		window.location.href = location.url;
+		});
+	    return marker;
+	  });
+
+	  // Add a marker clusterer to manage the markers.
+	  var markerCluster = new MarkerClusterer(map, markers, {
+	    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+	  });
+
+	}
+	var locations = <%=sb%>;
+		
+		/* {
+	  lat: -19.9286,
+	  lng: -43.93888,
+	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+	  url: 'www.google.com'
+	}, {
+	  lat: -19.85758,
+	  lng: -43.9668,
+	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+	  url: 'www.google.com'
+	}, {
+	  lat: -18.24587,
+	  lng: -43.59613,
+	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+	  url: 'www.google.com'
+	}, {
+	  lat: -20.46427,
+	  lng: -45.42629,
+	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+		  url: 'www.google.com'
+	}, {
+	  lat: -20.37817,
+	  lng: -43.41641,
+	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+		  url: 'www.google.com'
+	}, {
+	  lat: -20.09749,
+	  lng: -43.48831,
+	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+		  url: 'www.google.com'
+	}, {
+	  lat: -21.13594,
+	  lng: -44.26132,
+	  info: "marker 7",
+	  url: 'www.google.com'
+	}, ]; */
+</script>
+ <script>
+<%-- 
  function initMap() {
      body = document.getElementById("map");
      
@@ -201,6 +289,8 @@
 
      }
    }
+  --%>
+
     </script>
    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3AEpRuYNo5NnomHPAXXRCyXxgtYzz3g&callback=initMap"></script>

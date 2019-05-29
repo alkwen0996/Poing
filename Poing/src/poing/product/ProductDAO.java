@@ -21,11 +21,11 @@ public class ProductDAO {
 	
 	public List<ProductDTO> selectdisplay(Connection conn, int first, int end){
 		StringBuffer sql = new StringBuffer();
-		sql.append("select no, p_num, rest_name, r_location, p_name, p_type, discount ");
+		sql.append(" select no, p_num, rest_name, r_location, p_name, p_type, p_dc_money ");
 		sql.append(" from ( ");
-		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, discount ");
+		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, p_dc_money ");
 		sql.append(" from ( ");
-		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p.discount ");
+		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p_dc_money ");
 		sql.append("  from p_product p JOIN p_restaurant r ON r.p_num = p.p_num  ");
 		sql.append("  ) t ");
 		sql.append(" ) b ");
@@ -43,11 +43,11 @@ public class ProductDAO {
 			while (rs.next()) {
 				dto = new ProductDTO();
 				dto.setP_num(rs.getInt("p_num"));
-				dto.setR_name(rs.getString("rest_name"));
+				dto.setRest_name(rs.getString("rest_name"));
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
-				dto.setDiscount(rs.getString("discount"));
+				dto.setP_dc_money(rs.getInt("p_dc_money"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -63,8 +63,7 @@ public class ProductDAO {
 		}	
 		return list;	
 	}
-	
-	
+
 	public int getTotalCount() {
 		int total = 0;
 		Connection conn = null;

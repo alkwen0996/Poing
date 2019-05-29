@@ -4,12 +4,12 @@ public class ProductDTO {
 	
 	private int p_num;
 	private String r_type;
-	private String r_name;
+	private String rest_name;
 	private String r_location;
 	private String p_name;
 	private String p_type;
-	private String before_dc;
-	private String discount;
+	private int p_origin_money;
+	private int p_dc_money;
 	private String p_option;
 	private int e_seq;
 	private int img_seq;
@@ -19,7 +19,7 @@ public class ProductDTO {
 	private String menu_img;
 	private String editer_img;
 	private String p_st_ed_date;
-	
+	private int pick;
 	
 	public String getP_st_ed_date() {
 		return p_st_ed_date;
@@ -39,11 +39,11 @@ public class ProductDTO {
 	public void setR_type(String r_type) {
 		this.r_type = r_type;
 	}
-	public String getR_name() {
-		return r_name;
+	public String getRest_name() {
+		return rest_name;
 	}
-	public void setR_name(String r_name) {
-		this.r_name = r_name;
+	public void setRest_name(String rest_name) {
+		this.rest_name = rest_name;
 	}
 	public String getR_location() {
 		return r_location;
@@ -63,17 +63,17 @@ public class ProductDTO {
 	public void setP_type(String p_type) {
 		this.p_type = p_type;
 	}
-	public String getBefore_dc() {
-		return before_dc;
+	public int getP_origin_money() {
+		return p_origin_money;
 	}
-	public void setBefore_dc(String before_dc) {
-		this.before_dc = before_dc;
+	public void setP_origin_money(int p_origin_money) {
+		this.p_origin_money = p_origin_money;
 	}
-	public String getDiscount() {
-		return discount;
+	public int getP_dc_money() {
+		return p_dc_money;
 	}
-	public void setDiscount(String discount) {
-		this.discount = discount;
+	public void setP_dc_money(int p_dc_money) {
+		this.p_dc_money = p_dc_money;
 	}
 	public String getP_option() {
 		return p_option;
@@ -122,6 +122,12 @@ public class ProductDTO {
 	}
 	public void setEditer_img(String editer_img) {
 		this.editer_img = editer_img;
+	}
+	public int getPick() {
+		return pick;
+	}
+	public void setPick(int pick) {
+		this.pick = pick;
 	}
 	
 	

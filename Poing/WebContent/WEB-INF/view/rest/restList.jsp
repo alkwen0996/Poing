@@ -12,7 +12,6 @@
 	href='<%=request.getContextPath()%>/css/app.css?v=1557742885314'>
 <style>
 <%@include file="/css/style.css"%> 
-
 </style> 
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>

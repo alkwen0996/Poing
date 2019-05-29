@@ -1,3 +1,4 @@
+<%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,8 +25,13 @@
 	        프로덕트		
 	</title>
 </head>
-	<%
+<%
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
+	MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+	int member_num = 0;
+	if(mdto==null) member_num = 0;
+	else member_num = mdto.getM_no();
+	
 %>
 <body>
 	<div id="wrap" class="">
@@ -44,10 +50,18 @@
 				<div class="inner_wrap">
 					<div class="inner">
 						<div class="header">
-			                <span class="name">${dto.r_name }</span>
+			                <span class="name">${dto.rest_name }</span>
 			                <span class="info">${dto.r_location }-${dto.r_type }</span>
-							<button class="empty favorite " data-id="5432" tabindex="-1">
-								찜하기<i class="icon heart large "></i>
+							<button class="empty favorite " data-id="${param.p_num}" tabindex="-1">
+								<%
+								if (dto.getPick()==1){
+								%>
+								찜하기<i class="icon heart large on"></i>
+								<%
+								}else {
+								%>
+								찜하기<i class="icon heart large"></i>
+								<%}%>
 							</button>
 						</div>
 						<div class="body">
@@ -71,8 +85,8 @@
 									<span class="main">할인</span><br> <span class="sub">
 										OFF</span>
 								</div>
-								<span class="reduced">${dto.discount }</span><br> <span
-									class="original">${dto.before_dc }</span>
+								<span class="reduced">${dto.p_dc_money }</span><br> <span
+									class="original">${dto.p_origin_money }</span>
 							</div>
 							<div id="left_time">
 								남은시간 <span>9일 23:06:11</span>
@@ -84,7 +98,7 @@
 								</div>
 								<ul class="items" style="display: none;">
 									<li class="" data-id="17684" data-min="2" data-limit="5">
-										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.discount }</span>
+										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
 									</li>
 								</ul>
 								
@@ -92,7 +106,7 @@
 							<ul class="selected">
 								<li data-id="17684" data-min="2" data-limit="5"><span
 									class="name">${dto.p_option }</span> <span
-									class="price">${dto.discount }</span>
+									class="price">${dto.p_dc_money }</span>
 									<div class="count_box">
 										<input type="text" value="2" disabled="">
 										<button type="button" class="increase">
@@ -101,11 +115,11 @@
 										<button type="button" class="decrease">
 											<i></i>
 										</button>
-									</div> <span class="total">${dto.discount }</span>
+									</div> <span class="total">${dto.p_dc_money }</span>
 									<button type="button" class="delete"></button></li>
 							</ul>
 							<div class="summary">
-								<span class="label">총 합계</span> <span class="value">${dto.discount }</span><span
+								<span class="label">총 합계</span> <span class="value">${dto.p_dc_money }</span><span
 									class="label"></span>
 							</div>
 						</div>
@@ -225,8 +239,8 @@
 					<div class="body">
 	                    <div class="">
 							<span class="name ">${dto.p_option }</span>
-							<span class="actual_price">${dto.before_dc }</span>
-							<span class="price">${dto.discount }</span>
+							<span class="actual_price">${dto.p_origin_money }</span>
+							<span class="price">${dto.p_dc_money }</span>
 						</div>
 	                    
 					</div>
@@ -263,8 +277,13 @@
 			<div id="sidebar_wrap" class="detail">
 				<button class="sidebar buy border_radius soft" data-id="5432" data-cart="true" tabindex="-1">바로 구매하기</button>
 				<button class="sidebar addCart border_radius soft" tabindex="-1">장바구니 담기</button>
-			
+
 				<script>
+				
+				
+		$(".empty favorite").click(function() {
+			alert("fav click");
+		});		
 		$("#sidebar_wrap>.buy").click(function(){
 			if(poing.account.checkLoginState()) {
 				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
@@ -317,15 +336,15 @@
 				}
 			
 				$.ajax({
-					'url': "/pay/addCart",
+					'url': "/Poing/popup/cart.do",
 					'method': "POST",
 					'dataType': "JSON",
 					'data': {'options': options},
 					'success':function(response) {
 						if(response.status)
 						{
-                            ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
-                            $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
+                            //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
+                            $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
                                 location.href="/pay/cart";
                             });
 						} else {

@@ -10,27 +10,29 @@ import com.util.JdbcUtil;
 
 import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
+import poing.review.WriteReviewError;
 
 public class WriteReviewService {
-	
-	public int writeReview(ReviewDTO rdto) {
+
+	public int writeReview(ReviewDTO rdto) throws WriteReviewError {
 		System.out.println("WriteReviewService");
 		ReviewDAO dao = ReviewDAO.getInstance();
 		Connection conn = null;
-		
+
 		try {
 			conn = ConnectionProvider.getConnection();
+			conn.setAutoCommit(false);
 			int insertedCount = dao.writeReview(conn, rdto);
-			
+			conn.commit();
+			conn.close();
 			return insertedCount;
 		} catch (SQLException e) {
-			JdbcUtil.rollback(conn);
-			throw new RuntimeException(e);
-		} catch (RuntimeException e) {
-			JdbcUtil.rollback(conn);
-			throw e;
-		} finally {
-			JdbcUtil.close(conn);
+			try {
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
+		return -1;
 	}// boolean
 }

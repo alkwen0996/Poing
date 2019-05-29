@@ -10,6 +10,7 @@ import poing.review.ReviewDTO;
 
 public class DisplayReviewService {
 	public List<ReviewDTO> select(){
+		
 		System.out.println("DisplayReviewService");
 		ReviewDAO dao = ReviewDAO.getInstance();
 		Connection conn = null;

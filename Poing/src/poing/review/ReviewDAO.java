@@ -67,11 +67,7 @@ public class ReviewDAO {
 				dto.setRest_seq(rs.getInt("rest_seq"));
 				dto.setRev_wtime(rs.getString("rev_wtime"));
 				dto.setRev_content(rs.getString("rev_content"));
-				//dto.setRev_like_cnt(rs.getInt("rev_like_cnt"));
-				//dto.setRev_select_cnt(rs.getInt("rev_select_cnt"));
-				//dto.setRev_comm_cnt(rs.getInt("rev_comm_cnt"));
 				dto.setRev_m_seq(rs.getInt("rev_m_seq"));
-				//dto.setRev_se_seq(rs.getInt("rev_se_seq"));
 				dto.setRev_starpoint(rs.getFloat("rev_starpoint"));
 				
 				list.add(dto);

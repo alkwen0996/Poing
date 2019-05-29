@@ -50,7 +50,7 @@
 									<div class="shading"></div>
 
 									<div class="bottom">
-										<span class="name">${dto.r_name }</span> <span class="area">${dto.r_location}</span>
+										<span class="name">${dto.rest_name }</span> <span class="area">${dto.r_location}</span>
 									</div>
 								</a>
 
@@ -59,7 +59,7 @@
 										<div class="option">${dto.p_name }</div>
 										<div class="price fixed">
 											<div class="ratio long ">${dto.p_type }</div>
-											<div class="discount">${dto.discount }원</div>
+											<div class="discount">${dto.p_dc_money }원</div>
 											<div class="origin"></div>
 										</div>
 									</div>

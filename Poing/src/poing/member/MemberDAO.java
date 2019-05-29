@@ -5,8 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MemberDAO {
+import poing.product.ProductDTO;
 
+public class MemberDAO {
+	
+	
+	
+	
+	
 	public static int selectID(Connection conn, String email) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT m_no FROM member ");
@@ -49,6 +55,27 @@ public class MemberDAO {
 		}
 		return mdto;
 	}
+	
+	public static boolean selectRp_seq(Connection conn, int rp_seq, int p_dc_money, String m_email){
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" update member set rp_seq = ?-? where m_email = ? ");
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, rp_seq);
+			pstmt.setInt(2, p_dc_money);
+			pstmt.setString(3, m_email);
+			result = pstmt.executeUpdate()!=0? true:false;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
 	public static boolean insertMember(Connection conn, MemberDTO mdto) {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();

@@ -49,7 +49,7 @@
 					<div class="inner_wrap">
 						<div class="inner">
 							<div class="header">
-								<span class="name"> ${dto.r_name } </span> <span class="info">
+								<span class="name"> ${dto.rest_name } </span> <span class="info">
 									${dto.r_location }-${dto.r_type } </span>
 								<button class="empty favorite " data-id="5432" tabindex="-1">
 									찜하기<i class="icon heart large "></i>
@@ -77,8 +77,8 @@
 										<span class="main">할인</span><br> <span class="sub">
 											OFF</span>
 									</div>
-									<span class="reduced">${dto.discount }</span><br> <span
-										class="original">${dto.before_dc }</span>
+									<span class="reduced">${dto.p_dc_money }</span><br> <span
+										class="original">${dto.p_origin_money }</span>
 								</div>
 								<div id="left_time">
 									남은시간 <span>7일 02:10:35</span>
@@ -90,7 +90,7 @@
 									</div>
 									<ul class="items" style="display: none;">
 										<li class="" data-id="17684" data-min="2" data-limit="5">
-											<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.discount }</span>
+											<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
 										</li>
 										
 									</ul>

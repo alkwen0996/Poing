@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
+	
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
 	<style>
 		<%@include file="/css/style.css" %>
@@ -22,7 +22,7 @@
 
 	<meta charset="UTF-8">
 	<title>
-	        프로덕트 주문	
+	        장바구니	
 	</title>
 </head>
 

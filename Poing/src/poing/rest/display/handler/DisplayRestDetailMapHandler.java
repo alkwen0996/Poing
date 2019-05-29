@@ -21,7 +21,7 @@ public class DisplayRestDetailMapHandler implements CommandHandler
 	} catch (Exception e) { 
 	e.printStackTrace();
 	}
-	return "restDetail_map";
+	return "rest/restDetail_map";
 	}
 	
 }

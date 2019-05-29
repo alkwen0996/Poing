@@ -19,7 +19,7 @@ public class ProductDTO {
 	private String menu_img;
 	private String editer_img;
 	private String p_st_ed_date;
-	
+	private int pick;
 	
 	public String getP_st_ed_date() {
 		return p_st_ed_date;
@@ -122,6 +122,12 @@ public class ProductDTO {
 	}
 	public void setEditer_img(String editer_img) {
 		this.editer_img = editer_img;
+	}
+	public int getPick() {
+		return pick;
+	}
+	public void setPick(int pick) {
+		this.pick = pick;
 	}
 	
 	

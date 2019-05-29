@@ -334,6 +334,7 @@
 					var op = selected.eq(i);
 					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
 				}
+				
 			
 				$.ajax({
 					'url': "/Poing/popup/cart.do",
@@ -345,7 +346,7 @@
 						{
                             //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
                             $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
-                                location.href="/pay/cart";
+                                location.href="/Poing/product/productCart.do";
                             });
 						} else {
                             if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);

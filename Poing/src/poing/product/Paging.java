@@ -13,8 +13,21 @@ public class Paging {
 	private int doubleprevPageNo;
 	private int doublenextPageNo;
 	private int cpage;
-	
-	
+	private int bpage;
+	private int StotalCount;
+
+	public int getStotalCount() {
+		return StotalCount;
+	}
+	public void setStotalCount(int stotalCount) {
+		StotalCount = stotalCount;
+	}
+	public int getBpage() {
+		return bpage;
+	}
+	public void setBpage(int bpage) {
+		this.bpage = bpage;
+	}
 	public int getCpage() {
 		return cpage;
 	}

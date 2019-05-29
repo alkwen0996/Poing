@@ -100,7 +100,7 @@ public class ProductDetailDAO {
 				sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?)";
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setInt(1, member_num);
-				pstmt2.setInt(1, p_num);
+				pstmt2.setInt(2, p_num);
 				rs2 = pstmt2.executeQuery();
 				rs2.next();
 				dto.setPick(rs2.getInt("cnt"));

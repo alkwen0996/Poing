@@ -383,7 +383,7 @@
 	    // auto complete
 	    $("#review_search").on("keyup", function(){
 	        if( $(this).val().length > 0) {
-	            $.ajax({'url': "/poing/WriteReviewHandler/"+encodeURIComponent($(this).val()),
+	            $.ajax({'url': "/Poing/restaurant/search.do?searchWord="+encodeURIComponent($(this).val()),
 	                    'type': "GET",
 	                    'success': function(res) {
 	                        res = $.parseJSON(res).data.ac_keywords;

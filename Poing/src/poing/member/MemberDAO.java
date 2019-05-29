@@ -57,7 +57,7 @@ public class MemberDAO {
 		sql.append(" (seq_member.nextval,      ?,       ?,     ?,       ?,       ?,    ?,          ?,      ?) ");	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		try {
+		try {  
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, mdto.getM_name());
 			pstmt.setString(2, mdto.getM_birth().toString());
@@ -97,6 +97,29 @@ public class MemberDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
+	}
+	public boolean deleteFollower(Connection conn, int myId, int fid) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" DELETE FROM follow ");
+		sql.append(" WHERE follower_seq = ? AND following_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, myId);
+		pstmt.setInt(2, fid);
+		boolean result = pstmt.executeUpdate()==0 ? false : true;
+		
+		
+		return result;
+	}
+	public boolean insertFollower(Connection conn, int myId, int fid) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" INSERT INTO follow (follow_seq, follower_seq, following_seq) ");
+		sql.append(" VALUES(follow_seq.nextval, ?, ?) ");
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, myId);
+		pstmt.setInt(2, fid);
+		boolean result = pstmt.executeUpdate()==0 ? false : true;
 		return result;
 	}
 }

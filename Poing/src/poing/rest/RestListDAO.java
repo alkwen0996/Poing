@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import poing.review.ReviewSearchDTO;
+
 public class RestListDAO {
 
 	private static RestListDAO displaydao = new RestListDAO();
@@ -45,7 +47,8 @@ public class RestListDAO {
 				dto.setRest_budget_type(rs.getString("rest_budget_type"));
 				dto.setRest_table_type(rs.getString("rest_table_type"));
 				dto.setRest_food_type(rs.getString("rest_food_type"));
-				
+				dto.setRest_lat(rs.getFloat("rest_lat"));
+				dto.setRest_long(rs.getFloat("rest_long"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -62,4 +65,39 @@ public class RestListDAO {
 		return list;	
 	}
 
+	public ArrayList<ReviewSearchDTO> selectSimpleRestInfo(Connection conn, String searchWord) throws SQLException
+	{
+		StringBuffer sql = new StringBuffer();
+		sql.append(" WITH temp2 AS( ");
+		sql.append(" SELECT ROWNUM AS no, temp.* ");
+		sql.append(" FROM ");
+		sql.append(" ( ");
+		sql.append("    SELECT rest_seq, rest_name, rest_loc ");
+		sql.append("    FROM p_restaurant ");
+		sql.append("    WHERE REGEXP_LIKE(rest_name, ?, 'i') OR REGEXP_LIKE(rest_loc, ?, 'i') ");
+		//sql.append("    ORDER BY rest_name ");
+		sql.append("    )temp ");
+		sql.append(" ) ");
+		sql.append(" SELECT temp2.* FROM temp2 ");
+		sql.append(" WHERE temp2.no BETWEEN 1 AND 5 ");
+
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, searchWord);
+		pstmt.setString(2, searchWord);
+		ResultSet rs = pstmt.executeQuery();
+		ArrayList<ReviewSearchDTO> searchList = null;
+		if(rs.next())
+		{
+			ReviewSearchDTO resultDTO = null;
+			searchList = new ArrayList<>();
+			do {
+				resultDTO = new ReviewSearchDTO();
+				resultDTO.setId(rs.getInt("rest_seq"));
+				resultDTO.setName(rs.getString("rest_name"));
+				resultDTO.setDescription(rs.getString("rest_loc"));
+				searchList.add(resultDTO);
+			} while (rs.next());
+		}
+		return searchList;
+	}
 }

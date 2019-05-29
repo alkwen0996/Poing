@@ -5,9 +5,7 @@
 JSONObject jsonData = new JSONObject();
 boolean result = (Boolean)request.getAttribute("result");
 jsonData.put("status", result);
-System.out.println("joinResult jsonData: " + jsonData);
-System.out.println("joinResult result: " + result);
-
+jsonData.put("data", result);
 %>
 <%= jsonData %>
 

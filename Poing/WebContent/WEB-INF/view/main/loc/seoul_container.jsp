@@ -11,7 +11,7 @@
 					<div class="slider PoingSlider">
 						<div class="current slice" style="top: 0px; left: 0px;">
 							<div class="element  large best first ">
-								<a href="/product?banner_theme=9736" class="image"
+							<a href="/product?banner_theme=9736" class="image" 
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543475675ca5762f9a9be.png&quot;);">
 									<div class="shading"></div>
 
@@ -23,12 +23,13 @@
 										<div class="title">오늘 약속 장소 정했어요?</div>
 										<div class="subtitle">오늘 바로 예약 가능한 곳을 알아보세요.</div>
 									</div>
+								
 								</div>
 
 							</div>
 
 							<div class="element  large best  ">
-								<a href="/product?banner_theme=9728" class="image"
+								<a href="/Poing/search/searchList.do?banner_theme=9728" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543474395ca575afd8dbb.png&quot;);">
 									<div class="shading"></div>
 
@@ -62,7 +63,7 @@
 							</div>
 
 							<div class="element  large best  ">
-								<a href="/product?banner_theme=10952" class="image"
+								<a href="/Poing/search/searchList.do?banner_theme=10952" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543487535ca57ad1d8b6a.png&quot;);">
 									<div class="shading"></div>
 
@@ -368,8 +369,6 @@
 										</div>
 									</div>
 								</a>
-
-
 							</div>
 						</div>
 					</div>
@@ -959,10 +958,7 @@
 									class="image lazy"
 									data-src="http://c2.poing.co.kr/banner/MjAxOTAx/15471880715c383767bacc6.png">
 									<div class="shading"></div>
-
 								</a>
-
-
 							</div>
 						</div>
 					</div>

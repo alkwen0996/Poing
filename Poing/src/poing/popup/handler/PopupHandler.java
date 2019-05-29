@@ -45,6 +45,7 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/popup/confirm.do")) {
 			return "popup/confirm";
 		}
+<<<<<<< HEAD
 		else if (command.equals("/popup/confirm2.do")) {
 			return "popup/confirm2";
 		}
@@ -65,6 +66,17 @@ public class PopupHandler implements CommandHandler {
 		}
 		else 
 			return null;
+=======
+		else if(command.equals("/popup/basket_confirm.do")) {
+			return "popup/basket_confirm";
+		}
+		else if (command.equals("/pick/popup/confirm.do")) {
+			return "popup/confirmPick";
+		}
+		else {
+			return null;			
+		}
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 	}
 
 }

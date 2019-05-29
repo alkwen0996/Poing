@@ -14,12 +14,12 @@ $(function () {
 	$("#banner.product>.inner_wrap>.inner>.header>.favorite>i").click(function () {
 		if (poing.account.checkLoginState() == true) {
 			var type = 'add';
-
+			
 			if ($(this).hasClass("on"))
 				type = "delete";
 
 			$.ajax({
-				'url': "/product/favorite",
+				'url': "/Poing/main/ajaxfavorite.do",
 				'method': 'post',
 				'dataType': 'json',
 				'data': {
@@ -28,12 +28,12 @@ $(function () {
 				},
 				'success': function (res) {
 					if (type === "add")
-						$.popup("confirm", {
+						$.popup("/Poing/pick/popup/confirm.do", {
 							'text': "티켓을 찜하셨습니다.",
 							'alert': true
 						});
 					else if (type === "delete")
-						$.popup("confirm", {
+						$.popup("/Poing/pick/popup/confirm.do", {
 							'text': "찜을 취소하셨습니다.",
 							'alert': true
 						});

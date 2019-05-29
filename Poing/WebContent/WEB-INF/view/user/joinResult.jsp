@@ -9,6 +9,6 @@ System.out.println("joinResult jsonData: " + jsonData);
 System.out.println("joinResult result: " + result);
 
 %>
-<%= request.getAttribute("jsonData")%>
+<%= jsonData %>
 
 

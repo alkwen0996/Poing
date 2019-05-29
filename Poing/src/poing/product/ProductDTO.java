@@ -8,6 +8,11 @@ public class ProductDTO {
 	private String r_location;
 	private String p_name;
 	private String p_type;
+<<<<<<< HEAD
+=======
+	private int p_origin_money;
+	private int p_dc_money;
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 	private String p_option;
 	private int e_seq;
 	private int img_seq;
@@ -17,9 +22,13 @@ public class ProductDTO {
 	private String menu_img;
 	private String editer_img;
 	private String p_st_ed_date;
+<<<<<<< HEAD
 	private int p_origin_money;
 	private int p_dc_money;
 	
+=======
+	private int pick;
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 	
 	
 	
@@ -53,7 +62,10 @@ public class ProductDTO {
 	public void setR_type(String r_type) {
 		this.r_type = r_type;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 	public String getRest_name() {
 		return rest_name;
 	}
@@ -78,6 +90,21 @@ public class ProductDTO {
 	public void setP_type(String p_type) {
 		this.p_type = p_type;
 	}
+<<<<<<< HEAD
+=======
+	public int getP_origin_money() {
+		return p_origin_money;
+	}
+	public void setP_origin_money(int p_origin_money) {
+		this.p_origin_money = p_origin_money;
+	}
+	public int getP_dc_money() {
+		return p_dc_money;
+	}
+	public void setP_dc_money(int p_dc_money) {
+		this.p_dc_money = p_dc_money;
+	}
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 	public String getP_option() {
 		return p_option;
 	}
@@ -125,6 +152,12 @@ public class ProductDTO {
 	}
 	public void setEditer_img(String editer_img) {
 		this.editer_img = editer_img;
+	}
+	public int getPick() {
+		return pick;
+	}
+	public void setPick(int pick) {
+		this.pick = pick;
 	}
 	
 	

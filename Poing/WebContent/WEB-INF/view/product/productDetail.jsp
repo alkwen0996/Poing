@@ -1,3 +1,4 @@
+<%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -24,8 +25,13 @@
 	        프로덕트		
 	</title>
 </head>
-	<%
+<%
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
+	MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+	int member_num = 0;
+	if(mdto==null) member_num = 0;
+	else member_num = mdto.getM_no();
+	
 %>
 <body>
 	<div id="wrap" class="">
@@ -46,8 +52,16 @@
 						<div class="header">
 			                <span class="name">${dto.rest_name }</span>
 			                <span class="info">${dto.r_location }-${dto.r_type }</span>
-							<button class="empty favorite " data-id="5432" tabindex="-1">
-								찜하기<i class="icon heart large "></i>
+							<button class="empty favorite " data-id="${param.p_num}" tabindex="-1">
+								<%
+								if (dto.getPick()==1){
+								%>
+								찜하기<i class="icon heart large on"></i>
+								<%
+								}else {
+								%>
+								찜하기<i class="icon heart large"></i>
+								<%}%>
 							</button>
 						</div>
 						<div class="body">
@@ -263,8 +277,13 @@
 			<div id="sidebar_wrap" class="detail">
 				<button class="sidebar buy border_radius soft" data-id="5432" data-cart="true" tabindex="-1">바로 구매하기</button>
 				<button class="sidebar addCart border_radius soft" tabindex="-1">장바구니 담기</button>
-			
+
 				<script>
+				
+				
+		$(".empty favorite").click(function() {
+			alert("fav click");
+		});		
 		$("#sidebar_wrap>.buy").click(function(){
 			if(poing.account.checkLoginState()) {
 				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
@@ -315,17 +334,23 @@
 					var op = selected.eq(i);
 					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
 				}
+				
 			
 				$.ajax({
-					'url': "/pay/addCart",
+					'url': "/Poing/popup/cart.do",
 					'method': "POST",
 					'dataType': "JSON",
 					'data': {'options': options},
 					'success':function(response) {
 						if(response.status)
 						{
+<<<<<<< HEAD
                             ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
                             $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
+=======
+                            //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
+                            $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
                                 location.href="/Poing/product/productCart.do";
                             });
 						} else {

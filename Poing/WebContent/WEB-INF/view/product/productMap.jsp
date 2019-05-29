@@ -90,7 +90,11 @@
 									</div>
 									<ul class="items" style="display: none;">
 										<li class="" data-id="17684" data-min="2" data-limit="5">
+<<<<<<< HEAD
 											<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
+=======
+											<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_origin_money }</span>
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 										</li>
 										
 									</ul>

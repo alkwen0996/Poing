@@ -19,6 +19,9 @@
 			<%@include file="/css/style.css" %>
 	</style>
 </head>
+<%
+	
+%>
 <body>
 	<div id="wrap" class="">
 		
@@ -78,7 +81,7 @@
 								<div class="detail">
 									<textarea id="review_text" class="border_radius soft"
 										placeholder="매장에 대한 리뷰를 30자 이상 작성해주세요.
-	매장과 관계없는 글, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제됩니다."></textarea>
+									매장과 관계없는 글, 광고성, 욕설, 비방, 도배 등의 글은 예고 없이 삭제됩니다."></textarea>
 									<div id="review_text_state" class="border_radius soft">평점을
 										매겨주세요!</div>
 									<i class="icon save"></i><span>저장됨</span>
@@ -107,69 +110,79 @@
 
 					<div class="section realtime">
 						<div class="filter">
-							<a href="?type=all" class="selected">모든 사용자</a> <a
-								href="?type=follower" class="follower ">팔로잉</a>
+							<a href="?type=all" class="all" >모든 사용자</a> 
+							<a href="?type=follower" class="follower ">팔로잉</a>
+							<script type="text/javascript">
+							<%
+								System.out.println("type = " + request.getAttribute("type"));
+							%>
+								$("div.filter > a.${ type eq null ? all : type}").addClass("selected")
+							</script>
 						</div>
 						<div class="title">실시간 리뷰</div>
 						<div class="body review_wrap">
 							<c:forEach var = "dto" items = "${list }" varStatus = "status">
-							<div class="review" data-id="${dto.rev_seq }" data-place="41800"
-								data-place-name="${dto.rest_seq }">
-								<a class="author" href="/timeline/643871"> <span
+							<div class="review" data-id="${dto.rev_seq }" data-place="${dto.rest_seq }"
+								data-place-name="${dto.rest_name }">
+								<a class="author" href="/Poing/timeline.do?id=${dto.rev_m_seq }"> <span
 									class="thumbnail"
-									style="display: inline-block; background-image: url(&quot;http://c4.poing.co.kr/MjAxNzA3/1499996293596820856bc3c.jpeg&quot;);"></span>
+									style="display: inline-block; background-image: url(&quot;${ dto.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }&quot;);"></span>
 									<div class="info">
-										<p class="name">${dto.rev_m_seq }</p>
-										<p class="stat">129 리뷰, 32 팔로워</p>
+										<p class="name">${dto.m_name }</p>
+										<p class="stat">${ dto.m_revcnt } 리뷰, ${ dto.m_ercnt } 팔로워</p>
 									</div>
-									<button class="follow " type="button"
-										data-type="poing.user.follow" data-id="643871" tabindex="-1">
-										<i class="icon follow "></i>팔로우
-									</button>
-								</a> <a class="place" href="/restaurant/detail/41800">
+									<c:if test="${ authUser.m_no ne dto.rev_m_seq }">
+										<button class="follow " type="button"
+											data-type="poing.user.follow" data-id="${ dto.rev_m_seq }" tabindex="-1">
+											<i class="icon follow "></i>팔로우
+										</button>
+									</c:if>
+								</a> <a class="place" href="/Poing/rest/detail.do?rest_seq=${ dto.rest_seq }">
 									<button class="favorite " type="button"
-										data-type="poing.restaurants.favorite" data-id="41800"
+										data-type="poing.restaurants.favorite" data-id="${ dto.rest_seq }"
 										tabindex="-1">
 										<i class="icon heart small "></i>매장찜
 									</button>
-									<p class="name">${dto.rest_seq}</p>
-									<p class="info">한남동 · 한식</p>
+									<p class="name">${dto.rest_name}</p>
+									<p class="info">${dto.rest_loc}</p>
 								</a>
 								<div class="body">
-									<div class="time  loaded" style="display: block;">3시간 전</div>
+									<div class="time  loaded" style="display: block;">${dto.rev_wtime}</div>
 									<div class="grade">
-										<i class="icon star medium odd active" data-id="${dto.rev_seq }"
-											data-index="0" style=""></i><i
-											class="icon star medium even active" data-id="${dto.rev_seq }"
-											data-index="1" style=""></i><i
-											class="icon star medium odd active" data-id="${dto.rev_seq }"
-											data-index="2" style=""></i><i
-											class="icon star medium even active" data-id="${dto.rev_seq }"
-											data-index="3" style=""></i><i
-											class="icon star medium odd active" data-id="${dto.rev_seq }"
-											data-index="4" style=""></i><i class="icon star medium even "
-											data-id="${dto.rev_seq }" data-index="5" style=""></i><i
-											class="icon star medium odd " data-id="${dto.rev_seq }" data-index="6"
-											style=""></i><i class="icon star medium even "
-											data-id="${dto.rev_seq }" data-index="7" style=""></i><i
-											class="icon star medium odd " data-id="${dto.rev_seq }" data-index="8"
-											style=""></i><i class="icon star medium even "
-											data-id="${dto.rev_seq }" data-index="9" style=""></i><span
+									
+										
+										
+										<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
+										<c:if test = "${i%2 ne 0 }">
+											<i class="icon star medium odd active" data-id="${dto.rev_seq }"
+												data-index="${status.count }" style=""></i>
+										</c:if>
+										
+										<c:if test = "${i%2 eq 0 }">
+											<i class="icon star medium even active" data-id="${dto.rev_seq }"
+												data-index="${status.count }" style=""></i>
+										</c:if>	
+										</c:forEach>
+										
+										<c:if test = "${status.count eq 10 }">
+											<span
 											style="display: inline-block; vertical-align: super;"
-											data-id="${dto.rev_seq }" data-grade="50">${dto.rev_starpoint } / ${dto.rev_line_exp }</span>
+											data-id="${dto.rev_seq }" data-grade="50">${dto.rev_starpoint } / 한줄평가</span>
+										</c:if>
 									</div>
 									<div class="text" data-truncated="">${dto.rev_content }</div>
 									<button class="like_list"
 										data-type="poing.reviews.actions.user.showLikers"
-										data-id="193284" tabindex="-1">김수한님, jwjwjw님 외 12명이
-										좋아합니다.</button>
+										data-id="193284" tabindex="-1">
+										김수한님, jwjwjw님 외 12명이 좋아합니다.
+									</button>
 									<div class="action">
 										<button class="like " type="button"
 											data-type="poing.reviews.actions.user.like" data-id="193284"
 											tabindex="-1">
 											<i class="icon like "></i>
 											<p>
-												좋아요 <span>${dto.rev_like_cnt }</span>
+												좋아요 <span>좋아요개수</span>
 											</p>
 										</button>
 										<button class="favorite " type="button"
@@ -177,7 +190,7 @@
 											data-id="193284" tabindex="-1">
 											<i class="icon heart small "></i>
 											<p>
-												찜하기 <span>${dto.rev_select_cnt }</span>
+												찜하기 <span>찜개수</span>
 											</p>
 										</button>
 										<button class="comment" type="button"
@@ -185,28 +198,28 @@
 											data-id="193284" tabindex="-1">
 											<i class="icon balloon"></i>
 											<p>
-												댓글 <span>${dto.rev_comm_cnt }</span>
+												댓글 <span>댓글개수</span>
 											</p>
 										</button>
 										<button class="share" type="button"
 											data-type="poing.reviews.actions.share.dropdown"
 											data-id="193284" tabindex="-1">
 											<i class="icon share"></i>
-											<p>공유</p>
+											<!-- <p>공유</p>
 											<ul class="list">
 												<li data-type="poing.reviews.actions.share.facebook">페이스북
 													공유</li>
 												<li data-type="poing.reviews.actions.share.twitter">트위터
 													공유</li>
-											</ul>
+											</ul> -->
 										</button>
 									</div>
 								</div>
 								<div class="comment_list"></div>
 								<div class="write">
 									<span class="thumbnail"
-										style="background-image: url('http://c1.poing.co.kr/original/images/common/default_profile_162.png')"></span>
-									<textarea data-id="193284" placeholder="댓글을 입력해주세요"></textarea>
+										style="background-image: url('${ authUser.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"></span>
+									<textarea data-id="${ dto.rev_seq }" placeholder="댓글을 입력해주세요"></textarea>
 								</div>
 							</div>
 							</c:forEach>
@@ -234,99 +247,7 @@
 						</div>
 					</div>
 				</div>
-
-				<div id="sidebar_wrap" class="review">
-					<div id="best_review" class="sidebar">
-						<div class="title">베스트 리뷰</div>
-						<ul class="list">
-							<li class="item"><a class="i_wrap" href="/timeline/621822">
-									<i class="image border_radius circle"
-									style="background-image: url(&quot;http://c4.poing.co.kr/MjAxNzEx/15104866525a08327c4540c.png&quot;); display: inline-block;"></i>
-							</a>
-								<div class="user">
-									<div class="desc">
-										<a href="/timeline/621822" class="name">강현</a><br> <a
-											href="/restaurant/detail/12413" class="restaurant">피에르
-											가니에르 서울</a>
-									</div>
-									<div class="grade">
-										<i class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even "></i><span>4.5</span>
-									</div>
-								</div>
-								<div class="comment">원래도 가성비 좋은 피에르 가니에르 런치이지만 포잉 프로모션 덕분에
-									더욱 즐거운 식사시간이었네요. 해산물을 좋아해 바다로 이용했습니다(값도 더 저렴하고 ^ ^). 웰컴 디쉬는
-									디자인과 당근 퓨레가 상큼하니...</div> <a
-								href="/restaurant/detail/12413?review=25751" class="more">더보기</a>
-							</li>
-							<li class="item"><a class="i_wrap" href="/timeline/657461">
-									<i class="image border_radius circle"
-									style="background-image: url(&quot;http://c4.poing.co.kr/MjAxODA2/15287337435b1ea02fbb855.png&quot;); display: inline-block;"></i>
-							</a>
-								<div class="user">
-									<div class="desc">
-										<a href="/timeline/657461" class="name">매련</a><br> <a
-											href="/restaurant/detail/10640" class="restaurant">더 파크뷰</a>
-									</div>
-									<div class="grade">
-										<i class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><span>5.0</span>
-									</div>
-								</div>
-								<div class="comment">평일 디너 2부에 가족끼리 창가자리에 앉아서 먹었어요 ~ 역시
-									신라호텔은 로비장식이 정말 예뻐요. 일단 음식을 평해보자면 유명한 도삭 자장면은 쫄깃하긴 한데 기대만큼은
-									아니었고, LA갈비랑 광어 연어회, 부...</div> <a
-								href="/restaurant/detail/10640?review=22131" class="more">더보기</a>
-							</li>
-							<li class="item"><a class="i_wrap" href="/timeline/672641">
-									<i class="image border_radius circle"
-									style="background-image: url(&quot;http://c4.poing.co.kr/571c7c7e43320410880022ff.jpg&quot;); display: inline-block;"></i>
-							</a>
-								<div class="user">
-									<div class="desc">
-										<a href="/timeline/672641" class="name">일식마이쪙</a><br> <a
-											href="/restaurant/detail/26801" class="restaurant">야마야
-											(여의도점)</a>
-									</div>
-									<div class="grade">
-										<i class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd active"></i><i
-											class="icon star small even active"></i><i
-											class="icon star small odd "></i><i
-											class="icon star small even "></i><span>4.0</span>
-									</div>
-								</div>
-								<div class="comment">일단 돈! 에 대한 문제는 차치하고서 이야기를 진행하고자 합니다.
-									순전히 맛으로! (그 말인즉 가성비는 그다지 좋지 않다는 뜻입니다.)갓절임주먹밥, 명란계란말이, 명란 풍미 치킨
-									가라아게, 유자 츄하이를 밤...</div> <a
-								href="/restaurant/detail/26801?review=22087" class="more">더보기</a>
-							</li>
-						</ul>
-						<a href="?best" class="more">베스트리뷰 더보기</a>
-					</div><!-- best_review -->
-				</div><!-- sidebar_wrap -->
-
+	<jsp:include page="/WEB-INF/view/slideBar/Slidebar_BestReview.jsp"></jsp:include>
 <script>
 	$(document).ready(function(){
 	    new Pagination({'selector':'#review_pagination', 
@@ -380,7 +301,7 @@
 	    // auto complete
 	    $("#review_search").on("keyup", function(){
 	        if( $(this).val().length > 0) {
-	            $.ajax({'url': "/restaurant/ajaxSearch/"+encodeURIComponent($(this).val()),
+	            $.ajax({'url': "/Poing/restaurant/search.do?searchWord="+encodeURIComponent($(this).val()),
 	                    'type': "GET",
 	                    'success': function(res) {
 	                        res = $.parseJSON(res).data.ac_keywords;

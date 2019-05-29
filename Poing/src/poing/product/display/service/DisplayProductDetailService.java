@@ -23,4 +23,17 @@ public class DisplayProductDetailService {
 		}
 	}
 
+	public ProductDTO select(int p_num, int member_num) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
+		try (Connection conn = ConnectionProvider.getConnection()) {			
+			ProductDTO dto = dao.selectdisplay(conn, p_num, member_num);
+			// 로그 처리
+			// 
+			//
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

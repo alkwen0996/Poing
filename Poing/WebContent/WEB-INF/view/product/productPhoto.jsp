@@ -50,7 +50,7 @@
 		<div class="inner">
 			<div class="header">
                 <span class="name">
-                    ${dto.r_name }				</span>
+                    ${dto.rest_name }				</span>
                 <span class="info">
                     ${dto.r_location }-${dto.r_type }				</span>
 				<button class="empty favorite " data-id="5432" tabindex="-1">
@@ -72,15 +72,15 @@
 				</div>
 				<div class="price">
                     <div class="i_wrap "><span class="main">할인</span><br><span class="sub"> OFF</span></div>
-					<span class="reduced">${dto.discount }</span><br>
-					<span class="original">${dto.before_dc }</span>
+					<span class="reduced">${dto.p_dc_money }</span><br>
+					<span class="original">${dto.p_origin_money }</span>
 				</div>
 									<div id="left_time">남은시간 <span>5일 17:41:04</span></div>
 								<div class="dropbox">
 					<div class="label"><span class="text">옵션을 선택해주세요.</span><span class="i_wrap"><i class="icon arrow small red down"></i></span></div>
 					<ul class="items" style="display: none;">
 						                            <li class="" data-id="17684" data-min="2" data-limit="5">
-								<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.discount }</span>
+								<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
 							</li>
 						                            
 											</ul>

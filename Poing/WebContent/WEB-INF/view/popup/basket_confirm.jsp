@@ -11,7 +11,10 @@
 </div>
 
 <script>
+<<<<<<< HEAD
 $(".buttons>.deny").click(function() {
 	location.href="/Poing/product/productCart.do";
 });
+=======
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 </script>

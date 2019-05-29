@@ -8,9 +8,14 @@
 	<i class="icon popup_close" data-close></i>
 	<div class="body">
 					<i class="image"></i>
+<<<<<<< HEAD
 				<div class="title">
 			${dto.rest_name }			<span>
 				${dto.r_location }-${dto.r_type }            </span>
+=======
+				<div class="title">${dto.rest_name }
+				<span>${dto.r_location }-${dto.r_type }</span>
+>>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 		</div>
 		<form class="request" name="reserve">
             <input type="hidden" id="mode" value="buy"/>

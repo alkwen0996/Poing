@@ -15,8 +15,14 @@ public class LoginMemberService {
 		try {
 			conn = ConnectionProvider.getConnection();
 			int memberID = MemberDAO.selectID(conn, email);
+			conn.close();
 			return memberID ;
 		} catch (SQLException e) {
+			try {
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return 0;
@@ -27,8 +33,13 @@ public class LoginMemberService {
 		try {
 			conn = ConnectionProvider.getConnection();
 			mdto = mdao.selectById(conn , memberID);
+			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			try {
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return mdto;

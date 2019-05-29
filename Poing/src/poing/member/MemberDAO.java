@@ -99,5 +99,28 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	public boolean deleteFollower(Connection conn, int myId, int fid) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" DELETE FROM follow ");
+		sql.append(" WHERE follower_seq = ? AND following_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, myId);
+		pstmt.setInt(2, fid);
+		boolean result = pstmt.executeUpdate()==0 ? false : true;
+		
+		
+		return result;
+	}
+	public boolean insertFollower(Connection conn, int myId, int fid) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" INSERT INTO follow (follow_seq, follower_seq, following_seq) ");
+		sql.append(" VALUES(follow_seq.nextval, ?, ?) ");
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, myId);
+		pstmt.setInt(2, fid);
+		boolean result = pstmt.executeUpdate()==0 ? false : true;
+		return result;
+	}
 }
 

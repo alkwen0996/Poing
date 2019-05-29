@@ -35,7 +35,7 @@ public class LoginMemberHandler implements CommandHandler{
 			request.setAttribute("error", error);
 			request.setAttribute("result", false);
 			return "user/loginResult";
-		} 
+		}
 		MemberDTO mdto = loginMemberService.selectMemberByID(memberID);
 		if(!mdto.checkPassword(password))
 		{

@@ -1315,7 +1315,7 @@
 						}
 
 						$.ajax({
-							url: "/user/ajaxfollow",
+							url: "/Poing/user/ajaxfollow.do",
 							method: "post",
 							dataType: "json",
 							data: {

@@ -13,9 +13,16 @@ public class JoinMemberService {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			return MemberDAO.insertMember(conn, mdto);
+			boolean result = MemberDAO.insertMember(conn, mdto);
+			conn.close();
+			return result;
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				conn.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			return false;
 		}
 	}

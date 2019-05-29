@@ -1,4 +1,4 @@
-package poing.member.auth.service;
+package poing.member.follow.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,17 +6,18 @@ import java.sql.SQLException;
 import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
-import poing.member.MemberDTO;
 
-public class LoginMemberService {
-	MemberDAO mdao = new MemberDAO();
-	public int getMemberID(String email) {
+public class ModifyFollowService {
+	MemberDAO memberDAO = new MemberDAO();
+	
+	public boolean removeFollower(int myId, int fid) {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			int memberID = MemberDAO.selectID(conn, email);
+			boolean result = false;
+			result = memberDAO.deleteFollower(conn, myId, fid);
 			conn.close();
-			return memberID ;
+			return result;
 		} catch (SQLException e) {
 			try {
 				conn.close();
@@ -25,15 +26,18 @@ public class LoginMemberService {
 			}
 			e.printStackTrace();
 		}
-		return 0;
+		
+		return false;
 	}
-	public MemberDTO selectMemberByID(int memberID) {
-		MemberDTO mdto = null;
+
+	public boolean addFollower(int myId, int fid) {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			mdto = mdao.selectById(conn , memberID);
+			boolean result = false;
+			result = memberDAO.insertFollower(conn, myId, fid);
 			conn.close();
+			return result;
 		} catch (SQLException e) {
 			try {
 				conn.close();
@@ -42,6 +46,7 @@ public class LoginMemberService {
 			}
 			e.printStackTrace();
 		}
-		return mdto;
+		return false;
 	}
+
 }

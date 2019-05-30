@@ -31,11 +31,9 @@ public class PopupHandler implements CommandHandler {
 		}
 		else if (command.equals("/popup/followList.do")) {
 			if (request.getParameter("type").equals("followed")) {
-				System.out.println("followed");
 				return "popup/followList_ed_json";
 			}
 			else {   //(request.getParameter("type").equals("follower")) {
-				System.out.println("follower");
 				return "popup/followList_er_json";
 			}
 		}

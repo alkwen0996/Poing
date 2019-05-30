@@ -716,7 +716,7 @@
 								}
 
 								$.ajax({
-									url: "/review/ajaxlike",
+									url: "/Poing/review/ajaxlike.do",
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -726,31 +726,21 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this)
-												.data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]")
-												.html(res.data.like_count);
-											noticePopupInit({
-												message: "리뷰를 좋아요 하셨습니다."
-											});
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											noticePopupInit({message: "리뷰를 좋아요 하셨습니다."});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this)
-												.data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]")
-												.html(res.data.like_count);
-											noticePopupInit({
-												message: "좋아요를 취소하셨습니다."
-											});
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											noticePopupInit({message: "좋아요를 취소하셨습니다."});
 										} else {
-											noticePopupInit({
-												message: "리뷰를 좋아요 하는데 실패했습니다."
-											});
+											noticePopupInit({message: "리뷰를 좋아요 하는데 실패했습니다."});
 										}
 									}
 								});
@@ -832,7 +822,7 @@
 							if (isOpen) {
 								list.find(".comment_list>.comment").addClass('old');
 								$.ajax({
-									url: '/review/getComments',
+									url: '/Poing/review/getComments.do',
 									type: 'POST',
 									data: {
 										id: id
@@ -858,7 +848,7 @@
 											for (var i = 0; i < res.length; ++i) {
 												res[i].me = (res[i].user_id == '');
 												var parse = new EJS({
-													url: '/template/review_comment.ejs'
+													url: '/Poing/template/review_comment.ejs'
 												}).render(res[i]);
 												target.append(parse);
 											}
@@ -1026,7 +1016,7 @@
 							if (poing.reviews.comment.isSending == false) {
 								poing.reviews.comment.isSending = true;
 								$.ajax({
-									url: '/review/ajaxsendreviewcomment',
+									url: '/Poing/review/ajaxsendreviewcomment.do',
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -1057,7 +1047,7 @@
 							if (poing.reviews.comment.isSending == false) {
 								poing.reviews.comment.isSending = true;
 								$.ajax({
-									url: '/review/ajaxsendreviewcomment',
+									url: '/Poing/review/ajaxsendreviewcomment.do',
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -1324,8 +1314,7 @@
 							},
 							context: this,
 							success: function (res) {
-								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data(
-										"id") + "]").hasClass("on")) {
+								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data("id") + "]").hasClass("on")) {
 									if ($(".inner[data-type=following]>.item[data-id=" + $(this).data("id") + "]").length == 0) {
 										$(".inner[data-type=following]>.item").removeClass("last");
 										$(".inner[data-type=following]").append(
@@ -1353,30 +1342,21 @@
 											$(".inner[data-type=following]").children(".item:nth-last-child(2)").addClass("last");
 										}
 									}
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) +
-									1);
-									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this)
-										.data("id") + "'] #follow").html()) + 1);
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass(
-										'on');
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass(
-										'on');
-									noticePopupInit({
-										message: "팔로우 하셨습니다."
-									});
-								} else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this)
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) +	1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").
+										html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) + 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass('on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass('on');
+									noticePopupInit({message: "팔로우 하셨습니다."});
+								} 
+								else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this)
 										.data("id") + "]").hasClass("on")) {
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) -
-									1);
-									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this)
-										.data("id") + "'] #follow").html()) - 1);
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass(
-										'on');
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i")
-										.removeClass('on');
-									noticePopupInit({
-										message: "팔로우를 취소하셨습니다."
-									});
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) -	1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").
+										html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) - 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass('on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").removeClass('on');
+									noticePopupInit({message: "팔로우를 취소하셨습니다."});
 								} else {
 									if (res.error.code == 510) {
 										noticePopupInit({

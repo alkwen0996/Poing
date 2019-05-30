@@ -1,10 +1,6 @@
 <%@page import="poing.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	System.out.println("request mdto: "+request.getAttribute("mdto"));
-	System.out.println("session mdto: "+session.getAttribute("authUser"));
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -120,10 +116,6 @@
 							<li class="setting item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
-						
-						<%MemberDTO mdto = (MemberDTO) session.getAttribute("authUser");
-						  System.out.println("timeline.jsp line80 : " + mdto);%>
-						<!--  -->
 						
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'reservation'}">

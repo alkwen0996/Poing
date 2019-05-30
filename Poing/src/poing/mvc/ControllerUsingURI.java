@@ -66,8 +66,13 @@ public class ControllerUsingURI extends HttpServlet{
 		System.out.println("ControllerUsingURL.java line 66 : " + command);
 		request.setAttribute("command", command);
 		if (command.equals("/popup/follow.ejs")) { //ejs별도처리
-			System.out.println("/popup/follow");
 			String viewPage = "/WEB-INF/view/popup/followejs";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
+		if (command.equals("/template/review_comment.ejs")) { //ejs별도처리
+			String viewPage = "/WEB-INF/view/review/commentsejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;

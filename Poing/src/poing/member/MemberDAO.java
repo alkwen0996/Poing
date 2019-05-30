@@ -29,27 +29,22 @@ public class MemberDAO {
 		return 0;
 	}
 	//회원 정보 검색
-	public MemberDTO selectById(Connection conn, int memberID){
+	public MemberDTO selectById(Connection conn, int memberID) throws SQLException{
 		MemberDTO mdto = null;
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM member WHERE m_no = ?");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, memberID);
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, memberID);
 
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				mdto = new MemberDTO(rs);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+			mdto = new MemberDTO(rs);
 		}
 		return mdto;
 	}
-	public static boolean insertMember(Connection conn, MemberDTO mdto) {
+	public static boolean insertMember(Connection conn, MemberDTO mdto) throws SQLException {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" INSERT INTO member ");
@@ -57,25 +52,21 @@ public class MemberDAO {
 		sql.append(" (seq_member.nextval,      ?,       ?,     ?,       ?,       ?,    ?,          ?,      ?) ");	
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		try {  
-			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, mdto.getM_name());
-			pstmt.setString(2, mdto.getM_birth().toString());
-			pstmt.setInt(3, mdto.getM_gen());
-			pstmt.setString(4, mdto.getM_email());
-			pstmt.setInt(5, mdto.getM_level());
-			pstmt.setString(6, mdto.getM_pw());
-			pstmt.setString(7, mdto.getM_name());
-			pstmt.setInt(8, mdto.getRp_seq());
-			result = pstmt.executeUpdate()==1?true:false;
-			//입력성공시 true, 실패시 false반환
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, mdto.getM_name());
+		pstmt.setString(2, mdto.getM_birth().toString());
+		pstmt.setInt(3, mdto.getM_gen());
+		pstmt.setString(4, mdto.getM_email());
+		pstmt.setInt(5, mdto.getM_level());
+		pstmt.setString(6, mdto.getM_pw());
+		pstmt.setString(7, mdto.getM_name());
+		pstmt.setInt(8, mdto.getRp_seq());
+		result = pstmt.executeUpdate()==1?true:false;
+		//입력성공시 true, 실패시 false반환
 		return result;
 	}
 
-	public static int[] getFollowCnt(Connection conn, int m_no) {
+	public static int[] getFollowCnt(Connection conn, int m_no) throws SQLException {
 		int[] result = new int[2];
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ");
@@ -84,19 +75,14 @@ public class MemberDAO {
 		sql.append(" FROM dual ");
 
 		PreparedStatement pstmt;
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, m_no);
-			pstmt.setInt(2, m_no);
-			ResultSet rs = pstmt.executeQuery();
-			if ( rs.next() ) {
-				result[0] = rs.getInt("edcnt");
-				result[1] = rs.getInt("ercnt");
-			}		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, m_no);
+		pstmt.setInt(2, m_no);
+		ResultSet rs = pstmt.executeQuery();
+		if ( rs.next() ) {
+			result[0] = rs.getInt("edcnt");
+			result[1] = rs.getInt("ercnt");
+		}		
 		return result;
 	}
 	public boolean deleteFollower(Connection conn, int myId, int fid) throws SQLException {
@@ -107,15 +93,15 @@ public class MemberDAO {
 		pstmt.setInt(1, myId);
 		pstmt.setInt(2, fid);
 		boolean result = pstmt.executeUpdate()==0 ? false : true;
-		
-		
+
+
 		return result;
 	}
 	public boolean insertFollower(Connection conn, int myId, int fid) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" INSERT INTO follow (follow_seq, follower_seq, following_seq) ");
 		sql.append(" VALUES(follow_seq.nextval, ?, ?) ");
-		
+
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setInt(1, myId);
 		pstmt.setInt(2, fid);

@@ -18,9 +18,6 @@ public class DisplayFavHandler implements CommandHandler{
 		String email = mdto.getM_email();*/
 		String id = request.getParameter("id");
 		String type = request.getParameter("type");
-		System.out.println("DisplaFavHandler line 21 id: "+id);
-		System.out.println("DisplaFavHandler line 21 type: "+type);
-		
 		return "main/ajaxfavorite";
 	}
 	

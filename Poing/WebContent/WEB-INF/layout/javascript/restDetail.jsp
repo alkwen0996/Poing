@@ -32,29 +32,6 @@ $("#detail_slider>.i_wrap>i").on("click", function () {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function () {
 	shadingHideEvent("#reportShading", function () {
 		$('#report_popup').hide();
@@ -154,13 +131,13 @@ $("#post-reserve div.confirm-btn button").click(function () {
 });
 $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	// check form validation
-	if ($(".confirm_code>input.code").is(":visible") && $(".confirm_code>input.code").attr('done') !== 'true') // 인증 x
+	<%-- if ($(".confirm_code>input.code").is(":visible") && $(".confirm_code>input.code").attr('done') !== 'true') // 인증 x
 	{
 		noticePopupInit({
 			message: "휴대폰 인증을 해주세요."
 		});
 		return;
-	}
+	} --%>
 	if ($("#reserve_time").text() === "예약 불가") // 시간 선택 x
 	{
 		noticePopupInit({

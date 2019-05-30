@@ -52,7 +52,7 @@
 						<div class="header">
 			                <span class="name">${dto.rest_name }</span>
 			                <span class="info">${dto.r_location }-${dto.r_type }</span>
-							<button class="empty favorite " data-id="${param.p_num}" tabindex="-1">
+							<button class="empty favorite " data-id="${dto.p_num }" tabindex="-1">
 								<%
 								if (dto.getPick()==1){
 								%>
@@ -97,14 +97,14 @@
 										class="icon arrow small red down"></i></span>
 								</div>
 								<ul class="items" style="display: none;">
-									<li class="" data-id="17684" data-min="2" data-limit="5">
+									<li class="" data-id="${param.p_num }" data-min="2" data-limit="5">
 										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
 									</li>
 								</ul>
 								
 							</div>
 							<ul class="selected">
-								<li data-id="17684" data-min="2" data-limit="5"><span
+								<li data-id="${param.p_num }" data-min="2" data-limit="5"><span
 									class="name">${dto.p_option }</span> <span
 									class="price">${dto.p_dc_money }</span>
 									<div class="count_box">
@@ -325,8 +325,6 @@
 				if(selected.length === 0) {
 					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
 					return;
-				}else{
-					
 				}
 
 				for(var i=0; i<selected.length; ++i)

@@ -1,4 +1,5 @@
 
+<%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.rest.RestListDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="poing.rest.RestListDAO"%>
@@ -28,6 +29,13 @@
 	double starpoint = dto.getRest_starpoint();
 	int tenpoint = (int) Math.round(starpoint * 2);
 	request.setAttribute("tenpoint", tenpoint);
+%>
+
+<%
+	MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+	int member_num = 0;
+	if(mdto==null) member_num = 0;
+	else member_num = mdto.getM_no(); 
 %>
 <body>
 
@@ -336,7 +344,7 @@
 				<div id="sidebar_wrap" class="detail">
 					<div id="reserve_button" class="sidebar empty">
 						<button class="red_fill border_radius soft"
-							data-type="poing.reservation.add" data-id="35740" tabindex="-1">즉시
+							data-type="poing.reservation.add" data-id="<%=member_num%>" tabindex="-1">즉시
 							예약하기</button>
 					</div>
 

@@ -1,111 +1,5 @@
-<%@page import="poing.rest.RestReserveDTO"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="com.util.ConnectionProvider"%>
-<%@page import="org.json.simple.JSONObject"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="poing.rest.RestListDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%
-   
-   int m_num = Integer.parseInt(request.getParameter("id")); //product num 확인
-   /* RestListDTO dto = (RestListDTO) request.getAttribute("dto"); */
-   int r_num = Integer.parseInt(request.getParameter("r_num"));
-   System.out.println("rest_reserve.jsp line 11: rnum= "+r_num);
-   /* "0": ["11:30", "12:30", "18:00", "19:00", "20:00"], */ 
-   String sun = "";
-   String mon = "";
-   String tue = "";
-   String wed = "";
-   String thur = "";
-   String fri = "";
-   String sat = "";
-   String sql = "select * from rest_reserve_openhr where rest_seq = ? order by openday asc, openhour_by_day asc";
-   
-   Connection conn = null;
-   PreparedStatement pstmt = null;
-   ResultSet rs = null;
-   
-   try {
-		conn =ConnectionProvider.getConnection();
-	   	pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, r_num);
-		rs = pstmt.executeQuery();
-		RestReserveDTO dto = null;
-				
-		while (rs.next()) {	
-			switch(rs.getInt("openday")){
-			case 0:
-				if(sun.length()<1){
-					sun+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						sun+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			case 1:
-				if(mon.length()<1){
-					mon+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						mon+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			case 2:
-				if(tue.length()<1){
-					tue+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						tue+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			case 3:
-				if(wed.length()<1){
-					wed+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						wed+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			case 4:
-				if(thur.length()<1){
-					thur+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						thur+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			case 5:
-				if(fri.length()<1){
-					fri+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						fri+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			case 6:
-				if(sat.length()<1){
-					sat+="\""+rs.getString("openhour_by_day")+"\"";
-					} else {
-						sat+=", \""+rs.getString("openhour_by_day")+"\"";	
-					}
-				break;
-			}
-		}
-		
-		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		
-	}	
-   System.out.println("mon= "+mon);
-   System.out.println("tue= "+tue);
-   System.out.println("wed= "+wed);
-   System.out.println("thur= "+thur);
-   System.out.println("fri= "+fri);
-   System.out.println("sat= "+sat);
-   System.out.println("sun= "+sun);
-   
-%>
 {
   "status": true,
   "data": {
@@ -283,13 +177,13 @@
         "updated_at": "2019-05-08 16:10:47",
         "who_update": "jimin.kim@trustus.co.kr",
         "times_hash": {
-          "0": [<%=sun%>],
-          "1": [<%=mon%>],
-          "2": [<%=tue%>],
-          "3": [<%=wed%>],
-          "4": [<%=thur%>],
-          "5": [<%=fri%>],
-          "6": [<%=sat%>]
+          "0": ["11:30", "12:30", "18:00", "19:00", "20:00"],
+          "1": [],
+          "2": ["18:00", "19:00", "20:00"],
+          "3": ["11:30", "12:30", "18:00", "19:00", "20:00"],
+          "4": ["11:30", "12:30", "18:00", "19:00", "20:00", "24:00"],
+          "5": ["11:30", "12:30", "18:00", "19:00", "20:00"],
+          "6": ["11:30", "12:30", "18:00", "19:00", "20:00"]
         }
       },
       "reservation_histories": [{

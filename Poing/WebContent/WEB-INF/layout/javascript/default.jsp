@@ -1177,7 +1177,8 @@
 							method: "post",
 							dataType: 'json',
 							data: {
-								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test
+								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test_ok
+								'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }"
 							},
 							async: false
 						}).success(function (data) {

@@ -32,29 +32,6 @@ $("#detail_slider>.i_wrap>i").on("click", function () {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function () {
 	shadingHideEvent("#reportShading", function () {
 		$('#report_popup').hide();
@@ -154,13 +131,13 @@ $("#post-reserve div.confirm-btn button").click(function () {
 });
 $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	// check form validation
-	if ($(".confirm_code>input.code").is(":visible") && $(".confirm_code>input.code").attr('done') !== 'true') // 인증 x
+	<%-- if ($(".confirm_code>input.code").is(":visible") && $(".confirm_code>input.code").attr('done') !== 'true') // 인증 x
 	{
 		noticePopupInit({
 			message: "휴대폰 인증을 해주세요."
 		});
-		return;
-	}
+		return; 
+	}--%>
 	if ($("#reserve_time").text() === "예약 불가") // 시간 선택 x
 	{
 		noticePopupInit({
@@ -187,14 +164,15 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	date = date + " " + time + ":00";
 
 	$.ajax({
-		url: "/restaurant/ajaxreserve",
+		url: "/Poing/rest/ajaxreserve.do",
 		method: "POST",
 		dataType: "JSON",
 		data: {
 			rdate: date,
 			personnel: $("#reserve_person_count").text(),
-			restaurantId: reserve_id,
+			restaurantId: ${dto.rest_seq},
 			message: $("#reserve_comment").val()
+			
 		},
 		success: function (response) {
 			if (response.status == false) {
@@ -203,11 +181,12 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 				});
 			} else {
 				$("#reserveShading").show();
-				$("#pre-reserve").hide();
+				//$("#pre-reserve").hide();
 				$("#post-reserve").show();
-				ga('send', 'event', 'KPI', '[KPI]예약성공');
+				//ga('send', 'event', 'KPI', '[KPI]예약성공');
 			}
 		}
+		
 	});
 });
 

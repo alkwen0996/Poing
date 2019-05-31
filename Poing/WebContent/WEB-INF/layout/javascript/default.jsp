@@ -1178,7 +1178,8 @@
 							dataType: 'json',
 							data: {
 								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test_ok
-								'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }"
+								'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }",
+								'r_name': "${ dto.rest_name eq null ? '' : dto.rest_name }"
 							},
 							async: false
 						}).success(function (data) {

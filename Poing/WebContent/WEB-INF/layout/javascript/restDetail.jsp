@@ -127,7 +127,9 @@ $("#pre-reserve textarea").click(function () {
 });
 
 $("#post-reserve div.confirm-btn button").click(function () {
-	location.href = "/timeline/";
+	//location.href = "/timeline/";
+	$("#post-reserve").hide();
+	$("#reserveShading").hide();
 });
 $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	// check form validation
@@ -171,13 +173,14 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 			rdate: date,
 			personnel: $("#reserve_person_count").text(),
 			restaurantId: ${dto.rest_seq},
-			message: $("#reserve_comment").val()
-			
+			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			message: $("#reserve_comment").val(),
+			name : $("#reserve_name").val()
 		},
 		success: function (response) {
 			if (response.status == false) {
 				noticePopupInit({
-					message: response.error.message
+					message: '예약이 완료되지 않았습니다, 다시 시도해 주세요'
 				});
 			} else {
 				$("#reserveShading").show();

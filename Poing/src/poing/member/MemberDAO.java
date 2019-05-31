@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import poing.rest.RestListDTO;
+import poing.rest.RestReserveDTO;
+import poing.rest.RestTimlineReserveDTO;
 
 public class MemberDAO {
 
@@ -121,6 +126,44 @@ public class MemberDAO {
 		pstmt.setInt(2, fid);
 		boolean result = pstmt.executeUpdate()==0 ? false : true;
 		return result;
+	}
+	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID) throws SQLException {
+		
+		String sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<RestTimlineReserveDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberID);
+			rs = pstmt.executeQuery();
+			RestTimlineReserveDTO dto = null;
+			while (rs.next()) {
+				dto = new RestTimlineReserveDTO();
+				dto.setR_reserve_seq(  rs.getInt("R_RESERVE_NUM") );
+				dto.setR_reserve_date( rs.getDate("R_RESERVE_DATE").toString()  );
+				dto.setR_reserve_hour(  rs.getString("R_RESERVE_HOUR") );
+				dto.setR_reserve_name( rs.getString("r_reserve_name") ); 
+				dto.setR_reserve_request(  rs.getString("r_reserve_request") );
+				dto.setRest_seq( rs.getInt("rest_no") );
+				dto.setR_reserve_status( rs.getInt("R_RESERVE_STATUS") );
+				dto.setR_reserve_numofpeople(rs.getInt("R_RESERVE_NUM_OF_PEOPLE"));
+				dto.setRest_name(rs.getString("rest_name"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return list;		
 	}
 }
 

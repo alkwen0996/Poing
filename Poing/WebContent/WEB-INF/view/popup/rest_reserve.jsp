@@ -15,7 +15,8 @@
    int m_num = Integer.parseInt(request.getParameter("id")); //product num 확인
    /* RestListDTO dto = (RestListDTO) request.getAttribute("dto"); */
    int r_num = Integer.parseInt(request.getParameter("r_num"));
-   System.out.println("rest_reserve.jsp line 11: rnum= "+r_num);
+   String r_name = request.getParameter("r_name");
+   System.out.println("rest_reserve.jsp line 11: rname= "+r_name);
    /* "0": ["11:30", "12:30", "18:00", "19:00", "20:00"], */ 
    String sun = "";
    String mon = "";
@@ -112,7 +113,7 @@
     "place": {
       "id": 41880,
       "object_id": null,
-      "name": "\ub3c4\ub974\ub9ac",
+      "name": "<%=r_name%>",
       "english_name": "DOREURI",
       "phone": "02-326-2248",
       "exposed_phone": "02-326-2248",

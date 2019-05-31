@@ -35,7 +35,7 @@
 	MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 	int member_num = 0;
 	if(mdto==null) member_num = 0;
-	else member_num = mdto.getM_no(); 
+	else member_num = mdto.getM_no(); 	
 %>
 <body>
 

@@ -16,27 +16,44 @@ import poing.rest.RestListDTO;
 
 public class CartDAO {
 	
-	public static boolean insertbasket(Connection conn, int mId, int poId, int cNum) {
+	public static boolean insertbasket(Connection conn, int m_no) {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" insert into cart (c_seq, m_no, po_id, c_num) values (c_seq.NEXTVAL, ?, ?, ?) ") ;
+		sql.append(" insert into cart values (c_seq.NEXTVAL, ?, 'N') ") ;
 		ResultSet rs = null;
 		ProductDTO dto = new ProductDTO();
 		MemberDTO mdto = new MemberDTO();
 		RestListDTO rdto = new RestListDTO();
 		PreparedStatement pstmt = null;
 		try {
-			
+			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, mId);
-			pstmt.setInt(2, poId);
-			pstmt.setInt(3, cNum);
-			
+			pstmt.setInt(1, m_no);
 			result = pstmt.executeUpdate()==0?false:true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public static int selectcid(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		int cart = 0;
+		sql.append(" select c_seq.currval from dual ") ;
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		try {
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				cart = rs.getInt(1);
+			}
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cart;
 	}
 }
 

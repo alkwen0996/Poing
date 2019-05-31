@@ -24,14 +24,16 @@ public class DisplayProductCartHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		DisplayCartService cartservice = new DisplayCartService();
 		RestListDTO rdto = new RestListDTO();
-		int mId = 1;
-		int poId = 1;
-		int cNum = 1;
-		String restName = rdto.getRest_name();
-		boolean result = cartservice.insertbasket(mId, poId, cNum);
-		//int options = cartservice.selectcart();
+		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
+		int m_no = mdto.getM_no();
+		//System.out.println("@@@@@@@@@@@@@@@@@" + m_no);
+		boolean result = cartservice.insertbasket(m_no);
+		int cart = cartservice.selectcid();
+		
 		JSONObject jsonObject = new JSONObject();
+		JSONObject jobject = new JSONObject();
 		jsonObject.put("status", result);
+		jsonObject.put("data", cart);
 		//jsonObject.put("data", options);
 
 		request.setAttribute("jsonData", jsonObject);

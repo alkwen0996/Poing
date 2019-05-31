@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="poing.product.OptionDTO"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
@@ -36,8 +38,8 @@
 <body>
 	<div id="wrap" class="">
 		<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
-		
 		<div id="container">
+		
 		<div id="banner_wrap">
 		
 			<div id="banner" class="product">
@@ -85,7 +87,7 @@
 									<span class="main">할인</span><br> <span class="sub">
 										OFF</span>
 								</div>
-								<span class="reduced">${dto.p_dc_money }</span><br> <span
+								<span class="reduced">${dto.p_dc_money }원</span><br> <span
 									class="original">${dto.p_origin_money }</span>
 							</div>
 							<div id="left_time">
@@ -96,30 +98,35 @@
 									<span class="text">옵션을 선택해주세요.</span> <span class="i_wrap"><i
 										class="icon arrow small red down"></i></span>
 								</div>
+								
 								<ul class="items" style="display: none;">
-									<li class="" data-id="${param.p_num }" data-min="2" data-limit="5">
-										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
+								<c:forEach items="${pp }" var="op">
+									<li class="" data-id="${op.po_id }" data-min="${op.po_minnum }" data-limit="${op.po_maxnum }">
+										<span class="option"><span>${op.po_name}</span></span><span class="price">${op.po_price }</span>
 									</li>
+								</c:forEach>
 								</ul>
 								
+								
 							</div>
-							<ul class="selected">
-								<li data-id="${param.p_num }" data-min="2" data-limit="5"><span
-									class="name">${dto.p_option }</span> <span
-									class="price">${dto.p_dc_money }</span>
+							<ul class="selected"> </ul>
+							<%-- <ul class="selected">
+								<li data-id="${pp.po_id }" data-min="${pp.po_minnum }" data-limit="${pp.po_maxnum }"><span
+									class="name">${pp.po_name }</span> <span
+									class="price">${pp.po_price }</span>
 									<div class="count_box">
-										<input type="text" value="2" disabled="">
+										<input type="text" value="${pp.po_minnum }" disabled="">
 										<button type="button" class="increase">
 											<i></i>
 										</button>
 										<button type="button" class="decrease">
 											<i></i>
 										</button>
-									</div> <span class="total">${dto.p_dc_money }</span>
+									</div> <span class="total"></span>
 									<button type="button" class="delete"></button></li>
-							</ul>
+							</ul> --%>
 							<div class="summary">
-								<span class="label">총 합계</span> <span class="value">${dto.p_dc_money }</span><span
+								<span class="label">총 합계</span> <span class="value">0</span><span
 									class="label"></span>
 							</div>
 						</div>
@@ -237,11 +244,13 @@
 				<div class="section option single">
 					<div class="title">옵션</div>
 					<div class="body">
+	                    <c:forEach items="${pp }" var="op">
 	                    <div class="">
-							<span class="name ">${dto.p_option }</span>
+							<span class="name ">${op.po_name }</span>
 							<span class="actual_price">${dto.p_origin_money }</span>
-							<span class="price">${dto.p_dc_money }</span>
+							<span class="price">${op.po_price }</span>
 						</div>
+						</c:forEach>
 	                    
 					</div>
 				</div>
@@ -268,10 +277,10 @@
 							</div>
 						</div>
 						<a href="/restaurant/detail/37984" class="more">레스토랑 정보 더 자세히 알아보기&gt;</a>
+						
 					</div><!-- body -->
 				</div>
 			</div><!-- body -->
-		
 			</div><!-- content -->
 		
 			<div id="sidebar_wrap" class="detail">
@@ -298,7 +307,7 @@
 				for(var i=0; i<selected.length; ++i)
 				{
 					var op = selected.eq(i);
-					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+					options[i] = {id: pp.data('id'), count: pp.find(".count_box>input").val()};
 				}
 
 				$.ajax({

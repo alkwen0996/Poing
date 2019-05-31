@@ -14,10 +14,10 @@ import poing.product.ProductDTO;
 public class DisplayCartService {
 	CartDAO cartdao = new CartDAO();
 	
-	public boolean insertbasket(int mId, int poId, int cNum) {
+	public boolean insertbasket(int m_no) {
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			boolean insertCheck = cartdao.insertbasket(conn, mId, poId, cNum);
+			boolean insertCheck = cartdao.insertbasket(conn, m_no);
 			if (insertCheck) {
 				return true;
 			}
@@ -27,14 +27,14 @@ public class DisplayCartService {
 		return false;
 	}
 	
-	/*public int selectcart(int p_num) {
+	public int selectcid() {
    
 		try (Connection conn = ConnectionProvider.getConnection()) {			
-			int cart = cartdao.insertbasket(conn, p_num);
+			int cart = cartdao.selectcid(conn);
 			
 			return cart;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	} */
+	} 
 }

@@ -73,8 +73,8 @@ public class ReviewDAO {
 		result = pstmt.executeUpdate();
 		return result;
 	}
-	
-	
+
+
 	public List<ReviewDTO> selectdisplay(Connection conn, String type, int m_no){
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
@@ -96,8 +96,7 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		ArrayList <ReviewDTO> list = new ArrayList<>();
-
+		ArrayList <ReviewDTO> list = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			if (m_no != -1) {
@@ -110,11 +109,15 @@ public class ReviewDAO {
 			rs=pstmt.executeQuery();
 
 			ReviewDTO dto = null;
-			while(rs.next()) {
-				dto = new ReviewDTO(rs, m_no);
-				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
-				list.add(dto);
-			}//while
+			if (rs.next()) {
+				list = new ArrayList<>();
+				do {
+					dto = new ReviewDTO(rs, m_no);
+					dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+					dto.setImages(this.selectReviewImages(conn, dto.getRev_no()));
+					list.add(dto);
+				}while(rs.next());//while
+			}
 			pstmt.close();
 			rs.close();
 			conn.close();
@@ -166,5 +169,42 @@ public class ReviewDAO {
 
 		return result;
 	}
+	public boolean insertReviewImage(Connection conn, int rev_no, String filePath) throws SQLException {
+		boolean result = false;
+
+		StringBuffer sql = new StringBuffer();
+		sql.append(" INSERT INTO review_img ");
+		sql.append(" (rev_img_seq, rev_img, rev_no) VALUES ");
+		sql.append(" (review_img_seq.nextval, ?, ?) ");
+
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, filePath);
+		pstmt.setInt(2, rev_no);
+
+		result = pstmt.executeUpdate()==0?false:true;
+
+		return result;
+	}
+
+	public ArrayList<String> selectReviewImages(Connection conn, int rev_no) throws SQLException {
+		ArrayList<String> reviewImages = null;
+
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT rev_img FROM review_img ");
+		sql.append(" WHERE rev_no = ? ");
+
+		PreparedStatement pstmt = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, rev_no);
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			reviewImages = new ArrayList<>();
+			do {
+				reviewImages.add(rs.getString("rev_img"));
+			} while (rs.next());
+		}
+		return reviewImages;
+	}
+
 }// class
 

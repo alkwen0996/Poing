@@ -162,7 +162,26 @@
 											data-id="${dto.rev_no }" data-grade="50">${dto.rev_starpoint } / 한줄평가</span>
 										</c:if>
 									</div>
-									<div class="text" data-truncated="">${dto.rev_content }</div>
+								<div class="text" data-truncated="">${dto.rev_content }</div>
+
+
+									<div class="photo" data-id="${dto.rev_no }">
+										<c:if test="${dto.images ne null}">
+											<c:forEach items="${dto.images }" var="image_dto">
+												<button class="empty i_wrap"
+													data-type="poing.popup.photoReviewViewerPopup"
+													data-id="${dto.rev_no }" data-index="0"
+													data-image-selector=".photo[data-id=${dto.rev_no }]>button>i"
+													tabindex="-1">
+													<i class="image border_radius soft"
+														data-origin="${ image_dto }"
+														style="background-image: url(&quot;${ image_dto }&quot;); display: inline-block;"
+														title="${ dto.rest_name } 유저리뷰 이미지"></i>
+												</button>
+											</c:forEach>
+										</c:if>
+									</div>
+
 									<button class="like_list"
 										data-type="poing.reviews.actions.user.showLikers"
 										data-id="${dto.rev_no }" tabindex="-1">

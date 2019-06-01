@@ -44,8 +44,7 @@ public class RestDetailDAO {
 
 				dto.setRest_tic_code(rs.getInt("p_num"));
 
-				dto.setRest_line_exp(rs.getString("restpoing"
-						+ "_line_exp"));
+				dto.setRest_line_exp(rs.getString("rest_line_exp"));
 				dto.setRest_alchol(rs.getString("rest_alchol"));
 				dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
 				dto.setRest_add_info(rs.getString("rest_add_info"));

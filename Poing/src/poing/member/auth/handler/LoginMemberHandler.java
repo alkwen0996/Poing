@@ -23,7 +23,6 @@ public class LoginMemberHandler implements CommandHandler{
 		while (ir.hasNext()) {
 			String string = ir.next();
 			String[] params = map.get(string);
-			System.out.println(string + " : " + params[0]);
 		} 
 		
 		String email = request.getParameter("login_id");
@@ -44,8 +43,6 @@ public class LoginMemberHandler implements CommandHandler{
 			request.setAttribute("result", false);
 			return "user/loginResult";
 		}
-		System.out.println("no:" + mdto.getM_no());
-		System.out.println("이름:" + mdto.getM_name());
 		request.setAttribute("result", true);
 		request.getSession().setAttribute("authUser", mdto);
 

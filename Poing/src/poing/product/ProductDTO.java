@@ -38,6 +38,13 @@ public class ProductDTO {
 	}
 	public void setP_min_Personnel(int p_min_Personnel) {
 		this.p_min_Personnel = p_min_Personnel;
+	private int rest_seq;
+	
+	public int getRest_seq() {
+		return rest_seq;
+	}
+	public void setRest_seq(int rest_seq) {
+		this.rest_seq = rest_seq;
 	}
 	public String getP_st_ed_date() {
 		return p_st_ed_date;

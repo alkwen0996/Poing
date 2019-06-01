@@ -15,7 +15,6 @@ public class DisplayRestDetailHandler implements CommandHandler
 		try {
 			RestDetailService service = new RestDetailService();
 			int rest_seq = Integer.parseInt(request.getParameter("rest_seq"));
-			//System.out.println("rest_seq="+rest_seq);
 			RestListDTO dto = service.select(rest_seq);
 			request.setAttribute("dto", dto);
 		} catch (Exception e) {

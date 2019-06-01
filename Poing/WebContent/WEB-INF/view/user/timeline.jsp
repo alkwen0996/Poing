@@ -1,10 +1,6 @@
 <%@page import="poing.member.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	System.out.println("request mdto: "+request.getAttribute("mdto"));
-	System.out.println("session mdto: "+session.getAttribute("authUser"));
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,19 +35,18 @@
 			<div id="banner" class="user">
 				<div class="i_wrap background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 				</div>
 				<div class="i_wrap blur background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 				</div>
 				<div class="inner_wrap">
 					<div class="inner">
-						
 						<c:if test="${authUser.m_no eq mdto.m_no}" >
 							<div id="change_user_image" class="user_image i_wrap">
 								<i class="image border_radius circle profile_image"
-									style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+									style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 								<div class="shading border_radius circle"></div>
 								<div class="message border_radius circle">프로필 사진 바꾸기</div>
 							</div>
@@ -60,7 +55,7 @@
 						<c:if test="${authUser.m_no ne mdto.m_no}" >
 							<div id="user_image" class="user_image i_wrap">
 								<i class="image border_radius circle"
-									style="width:100%;height:100%;background-image:url(${ mdto.m_img })"></i>
+									style="width:100%;height:100%;background-image:url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 							</div>
 						</c:if>
 
@@ -120,10 +115,6 @@
 							<li class="setting item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
-						
-						<%MemberDTO mdto = (MemberDTO) session.getAttribute("authUser");
-						  System.out.println("timeline.jsp line80 : " + mdto);%>
-						<!--  -->
 						
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'reservation'}">

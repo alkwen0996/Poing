@@ -8,6 +8,5 @@
 	JSONObject error = new JSONObject();
 	error.put("message", request.getAttribute("error"));
 	jsonData.put("error", error);
-	System.out.println(jsonData);
 %>
 <%=jsonData%>

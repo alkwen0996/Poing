@@ -71,8 +71,7 @@
 									<div class="name">별점</div>
 									<div class="text">
 										<div class="rest_starpoint">
-											<c:forEach varStatus="status" var="i" begin="1" end="10"
-												step="1">
+											<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
 												<c:if test="${i <= tenpoint }">
 													<c:if test="${i%2 ne 0 }"><i class="icon star large odd active" data-id="" data-index="${status.index}" style=""></i></c:if>
 													<c:if test="${i%2 eq 0 }">

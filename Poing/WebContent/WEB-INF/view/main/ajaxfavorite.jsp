@@ -4,8 +4,8 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
     
  <%
@@ -18,7 +18,7 @@
    
    String sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?) ";
    int cnt = 0;
-   // 0 »ç¿ë°¡´É 1 ºÒ°¡
+   // 0 ï¿½ï¿½ë°¡ï¿½ï¿½ 1 ï¿½Ò°ï¿½
    Connection conn = null;
    PreparedStatement pstmt = null;
    PreparedStatement pstmt2 = null;

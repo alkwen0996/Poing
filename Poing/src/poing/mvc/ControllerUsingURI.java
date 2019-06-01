@@ -34,6 +34,10 @@ public class ControllerUsingURI extends HttpServlet{
 	@Override
 	public void init() throws ServletException {
 		String configFile = getInitParameter("configFile");
+		String realPath = getServletContext().getRealPath("");
+		getServletContext().setAttribute("realPath", realPath);
+		getServletContext().setAttribute("baseimg", "upload\\uploadprofileimage\\user_base.png");
+		System.out.println(realPath);
 		Properties prop = new Properties();
 		String configFilePrath = getServletContext().getRealPath(configFile);
 		try(FileInputStream fis = new FileInputStream(configFilePrath))
@@ -66,8 +70,13 @@ public class ControllerUsingURI extends HttpServlet{
 		System.out.println("ControllerUsingURL.java line 66 : " + command);
 		request.setAttribute("command", command);
 		if (command.equals("/popup/follow.ejs")) { //ejs별도처리
-			System.out.println("/popup/follow");
 			String viewPage = "/WEB-INF/view/popup/followejs";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
+		if (command.equals("/template/review_comment.ejs")) { //ejs별도처리
+			String viewPage = "/WEB-INF/view/review/commentsejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;

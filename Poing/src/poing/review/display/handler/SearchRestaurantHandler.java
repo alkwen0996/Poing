@@ -16,7 +16,6 @@ public class SearchRestaurantHandler implements CommandHandler{
 		String searchWord = request.getParameter("searchWord");
 		
 		ArrayList<ReviewSearchDTO> searchList = seracrhRestService.getSearchList(searchWord);
-		System.out.println("SearchResultRestaurantHandler.java line 19 searchWord: "+ searchWord);
 		request.setAttribute("searchList", searchList);
 		
 		

@@ -42,7 +42,6 @@ public class DisplaySearchHandler implements CommandHandler {
 		try {
 			DisplaySearchService service = new DisplaySearchService();
 			List<ProductDTO> list = service.select(cpage, bpage);
-			System.out.println(list);
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 	} catch (Exception e) { 
@@ -51,7 +50,6 @@ public class DisplaySearchHandler implements CommandHandler {
 		if (bpage == 0) {
 			DisplayProductListService service = new DisplayProductListService();
 			List<ProductDTO> list = service.select(cpage);
-			System.out.println(list);
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 			return "product/productList";

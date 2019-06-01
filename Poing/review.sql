@@ -119,3 +119,4 @@ ALTER TABLE review_img
 			rev_no
 		);
 		
+CREATE SEQUENCE review_img_seq;

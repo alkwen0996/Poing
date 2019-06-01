@@ -7,11 +7,14 @@
 	
 	
 	JSONObject data = new JSONObject();
+	JSONObject review = new JSONObject();
+	
 	if(request.getAttribute("errorMsg")!=null)
 	{
 		data.put("error", request.getAttribute("errorMsg"));
 	}
-	data.put("review", request.getAttribute("reviewID"));
+	review.put("id", request.getAttribute("reviewID"));
+	data.put("review", review);
 	jsonObject.put("data", data);
 %>
 <%=jsonObject%>

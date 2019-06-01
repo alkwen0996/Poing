@@ -2,6 +2,7 @@ package poing.review;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ReviewDTO {
@@ -23,7 +24,7 @@ public class ReviewDTO {
 	private boolean amIlike;
 	private int commend_cnt;
 	private CommentDTO cdto;
-	
+	private ArrayList<String> images = null;
 	
 	public ReviewDTO() {
 	}
@@ -158,6 +159,14 @@ public class ReviewDTO {
 
 	public void setM_no(int m_no) {
 		this.m_no = m_no;
+	}
+
+	public ArrayList<String> getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList<String> images) {
+		this.images = images;
 	}
 	
 }

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import poing.mvc.CommandHandler;
 
 
-public class DisplayProductCartHandler implements CommandHandler {
+public class DisplayProductPayHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {

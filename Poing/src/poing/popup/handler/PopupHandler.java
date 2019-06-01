@@ -39,13 +39,13 @@ public class PopupHandler implements CommandHandler {
 				return "popup/followList_er_json";
 			}
 		}
+		
 		else if (command.equals("/popup/reserve_rest.do")) {
 			return "popup/rest_reserve";
 		}
 		else if (command.equals("/popup/confirm.do")) {
 			return "popup/confirm";
 		}
-<<<<<<< HEAD
 		else if (command.equals("/popup/confirm2.do")) {
 			return "popup/confirm2";
 		}
@@ -64,9 +64,6 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/popup/p_payMent.do")) {
 			return "popup/p_payMent";
 		}
-		else 
-			return null;
-=======
 		else if(command.equals("/popup/basket_confirm.do")) {
 			return "popup/basket_confirm";
 		}
@@ -76,7 +73,6 @@ public class PopupHandler implements CommandHandler {
 		else {
 			return null;			
 		}
->>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 	}
 
 }

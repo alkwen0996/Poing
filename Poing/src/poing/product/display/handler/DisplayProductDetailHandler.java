@@ -16,12 +16,8 @@ public class DisplayProductDetailHandler implements CommandHandler {
 		try {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			int p_num = Integer.parseInt(request.getParameter("p_num"));
-<<<<<<< HEAD
 			ProductDTO dto = service.select(p_num);
-			ProductDTO dto1 = service.select(p_num);
-=======
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-			ProductDTO dto = null;
 			int member_num;
 			if(mdto==null) {dto = service.select(p_num);
 			} else {
@@ -30,14 +26,15 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			}
 					
 			
->>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 			request.setAttribute("dto", dto);
-			request.setAttribute("dto1", dto1);
 			
 		} catch (Exception e) { 
 				e.printStackTrace();
 		}
 		return "product/productDetail";
+	}
+
+	public static void main(String[] args) {
 	}
 
 }

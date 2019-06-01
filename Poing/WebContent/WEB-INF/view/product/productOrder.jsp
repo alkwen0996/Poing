@@ -1,3 +1,4 @@
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
@@ -29,9 +30,11 @@
 </head>
 
 <body>
+
+
 <%
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
-
+	
 %>
         <!-- body wrap -->
 		<div id="wrap" class="">
@@ -66,7 +69,6 @@
                     <th class="reserve">예약정보</th>
                 </tr>
             </thead>
-
             <tbody>
                                     <tr data-id="1299328"> 
                         <td class="info">
@@ -80,7 +82,7 @@
                                                                     <li data-id="19044" data-limit="4">
                                         <div class="name">2. ${dto.p_option }</div>
                                         <div class="price">${dto.p_dc_money }원</div>
-                                        <div class="count">1</div>
+                                        <div class="count">????</div>
                                         <div class="total_price"><span>${dto.p_dc_money }</span>원</div>
                                     </li>
                                                                 <li class="total">
@@ -90,10 +92,10 @@
                             </ul>
                         </td>
                         <td class="reserve">
-                                                        <div class="date">날짜: <span>19년 5월 29일 (수)</span></div>
-                            <div class="time">시간: <span>오후 6:00</span></div>
-                            <div class="count">인원: <span>1명</span></div>
-                                                            <br><div class="comment">요청사항: <span>dd</span></div>
+                                                        <div class="date">날짜: <span>${param.date}시</span></div>
+<!--                             <div class="time">시간: <span>오후 6:00</span></div> -->
+                            <div class="count">인원: <span>${param.party_size}</span></div>
+                                                            <br><div class="comment">요청사항: <span>${param.message}</span></div>
                                                     </td>
                     </tr>
                             </tbody>

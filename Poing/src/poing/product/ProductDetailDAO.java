@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+
 import poing.member.MemberDTO;
 
 
@@ -17,20 +19,37 @@ public class ProductDetailDAO {
 	}
 
 	public ProductDetailDAO() {}
-	
+	public ProductDTO insertPd(Connection conn, JSONArray [] optionArray, int date, int party_size, String message) {
+		String sql = "";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		try {
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return dto;
+	};
 	
 	public ProductDTO selectdisplay(Connection conn, int p_num){
-<<<<<<< HEAD
-		String sql = " select * from p_product p join editer_review e on p.e_seq = e.e_seq join product_img i on p.img_seq = i.img_seq join p_restaurant r on p.p_num = r.p_num where p.p_num = ? ";
-=======
 		String sql = " select * from p_product p join editer_review e on p.e_seq = e.e_seq join product_img i on p.img_seq = i.img_seq join p_restaurant r on r.p_num = p.p_num where p.p_num = ? ";
->>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
+
 			pstmt.setInt(1, p_num);
 			rs = pstmt.executeQuery();
 
@@ -42,11 +61,8 @@ public class ProductDetailDAO {
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
-<<<<<<< HEAD
-=======
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
 				dto.setP_dc_money(rs.getInt("p_dc_money"));
->>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
 				dto.setP_option(rs.getString("p_option"));
 				dto.setE_seq(rs.getInt("e_seq"));
 				dto.setImg_seq(rs.getInt("img_seq"));
@@ -58,7 +74,8 @@ public class ProductDetailDAO {
 				dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
 				dto.setP_dc_money(rs.getInt("p_dc_money"));
-				
+				dto.setP_min_count(rs.getInt("p_min_count"));
+				dto.setP_min_Personnel(rs.getInt("p_min_personnel"));
 				
 
 		} catch (SQLException e) {

@@ -52,7 +52,7 @@
 						<div class="header">
 			                <span class="name">${dto.rest_name }</span>
 			                <span class="info">${dto.r_location }-${dto.r_type }</span>
-							<button class="empty favorite " data-id="${param.p_num}" tabindex="-1">
+							<button class="empty favorite " data-id="${dto.p_num}" tabindex="-1">
 								<%
 								if (dto.getPick()==1){
 								%>
@@ -97,18 +97,18 @@
 										class="icon arrow small red down"></i></span>
 								</div>
 								<ul class="items" style="display: none;">
-									<li class="" data-id="17684" data-min="2" data-limit="5">
+									<li class="" data-id="${dto.p_num }" data-min="1" data-limit="100">
 										<span class="option"><span>${dto.p_option }</span></span><span class="price">${dto.p_dc_money }</span>
 									</li>
 								</ul>
 								
 							</div>
 							<ul class="selected">
-								<li data-id="17684" data-min="2" data-limit="5"><span
+								<li data-id="${dto.p_num }" data-min="1" data-limit="100"><span
 									class="name">${dto.p_option }</span> <span
 									class="price">${dto.p_dc_money }</span>
 									<div class="count_box">
-										<input type="text" value="2" disabled="">
+										<input id="jindong" type="text" value="2">
 										<button type="button" class="increase">
 											<i></i>
 										</button>
@@ -280,43 +280,38 @@
 
 				<script>
 				
-				
 		$(".empty favorite").click(function() {
 			alert("fav click");
 		});		
+		
 		$("#sidebar_wrap>.buy").click(function(){
 			if(poing.account.checkLoginState()) {
+				var url = "/Poing/popup/reserve_coupon.do?p_num=${param.p_num}";
+				
 				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
 				var options = [];
 
 				if(selected.length === 0) {
-					$.popup("/Poing/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
+					$.popup("confirm", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
 					return;
-				}else{
-					$.popup("/Poing/popup/reserve_coupon.do?p_num=${param.p_num}");
 				}
 				for(var i=0; i<selected.length; ++i)
 				{
 					var op = selected.eq(i);
-					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+					options[i] = {
+							id: op.data('id')
+							, count: op.find(".count_box>input").val()
+							};
+					//alert( $.param(options[i]) );
+					url += "&" + $.param(options[i]);
 				}
+				//?id=4&count=4&id=2&count=5				
+				//alert( url )
+				$.popup(url);
 
-				$.ajax({
-					'url': "",
-					'method': "POST",
-					'dataType': "JSON",
-					'data': {'options': options},
-					'success':function(response) {
-						if(response.status) {
-							$.popup("reserve_coupon", {'id':response.data.cart_id, 'mode':'buy'});
-						} else {
-                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
-                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
-                        }
-					}
-				});
 			}
 		});
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
 		$("#sidebar_wrap>.addCart").click(function(){
 			if(poing.account.checkLoginState()) {
 				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
@@ -325,32 +320,27 @@
 				if(selected.length === 0) {
 					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
 					return;
-				}else{
-					$.popup("/Poing/popup/basket_confirm.do");
 				}
 
 				for(var i=0; i<selected.length; ++i)
 				{
 					var op = selected.eq(i);
-					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+					options[i] = {
+							id: op.data('id'), count: op.find(".count_box>input").val()
+							};
 				}
 				
 			
 				$.ajax({
-					'url': "/Poing/popup/cart.do",
+					'url': "/Poing/popup/basket_confirm.do",
 					'method': "POST",
 					'dataType': "JSON",
 					'data': {'options': options},
 					'success':function(response) {
 						if(response.status)
 						{
-<<<<<<< HEAD
                             ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
                             $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
-=======
-                            //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
-                            $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
->>>>>>> branch 'jindonghyen' of https://github.com/Kouzie/Poing.git
                                 location.href="/Poing/product/productCart.do";
                             });
 						} else {

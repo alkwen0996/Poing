@@ -28,7 +28,9 @@ public class ProductPayService {
 			Connection conn = ConnectionProvider.getConnection();
 			if (p_dc_money <= rp_seq && point == p_dc_money) {
 				updateCheck = MemberDAO.selectRp_seq(conn, rp_seq, p_dc_money, m_email);
-				System.out.println(updateCheck);
+				System.out.println(updateCheck); //
+				
+				 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

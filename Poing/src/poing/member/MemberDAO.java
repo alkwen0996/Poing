@@ -57,16 +57,22 @@ public class MemberDAO {
 	}
 	
 	public static boolean selectRp_seq(Connection conn, int rp_seq, int p_dc_money, String m_email){
+		MemberDTO mdto = null;
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update member set rp_seq = ?-? where m_email = ? ");
+		sql.append(" update member set rp_seq = rp_seq -? where m_email = ? ");
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, rp_seq);
-			pstmt.setInt(2, p_dc_money);
-			pstmt.setString(3, m_email);
+			//pstmt.setInt(1, rp_seq);
+			pstmt.setInt(1, p_dc_money);
+			pstmt.setString(2, m_email);
+			//
+			 
 			result = pstmt.executeUpdate()!=0? true:false;
+			// 
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

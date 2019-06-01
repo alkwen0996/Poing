@@ -12,8 +12,8 @@ public class CommentDAO {
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" INSERT INTO review_comment ");
-		sql.append(" (rc_no,                      rc_content, rc_wtime, m_no, rev_no) VALUES ");
-		sql.append(" (review_comment_seq.nextval, ?         , sysdate , ?   , ? ) ");
+		sql.append(" (rc_no,                      rc_content, rc_wtime, rc_mtime, m_no, rev_no) VALUES ");
+		sql.append(" (review_comment_seq.nextval, ?         , sysdate , sysdate , ?   , ? ) ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, comment);
 		pstmt.setInt(2, m_no);
@@ -30,21 +30,25 @@ public class CommentDAO {
 		return m_no;
 	}
 	public ArrayList<CommentDTO> selectComments(Connection conn, int rev_no) throws SQLException {
-		ArrayList<CommentDTO> clist = null;
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select rc.*, m_name, m_img  ");
 		sql.append(" from review_comment rc ");
 		sql.append(" JOIN member m ON  rc.m_no = m.m_no ");
+		sql.append(" WHERE rev_no= ? ");
 		sql.append(" ORDER BY rc_wtime ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setInt(1, rev_no);
 		
 		ResultSet rs = pstmt.executeQuery();
 		CommentDTO cdto = null;
-		while (rs.next()) {
-			cdto = new CommentDTO(rs);
-			clist.add(cdto);
+		ArrayList<CommentDTO> clist = null;
+		if (rs.next()) {
+			clist = new ArrayList<CommentDTO>();
+			do {
+				cdto = new CommentDTO(rs);
+				clist.add(cdto);
+			} while (rs.next());
 		}
 		return clist;
 	}

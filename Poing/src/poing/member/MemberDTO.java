@@ -216,9 +216,6 @@ public class MemberDTO {
 		this.m_pw = rs.getString("m_pw");
 		this.m_nickname = rs.getString("m_nickname");
 		this.m_img = rs.getString("m_img");
-		if(this.m_img == null) {
-			this.m_img = "http://c1.poing.co.kr/original/images/user/user_base.png";
-		}
 		this.rp_seq = rs.getInt("rp_seq");
 	}
 	

@@ -41,7 +41,7 @@ public class ReviewDTO {
 		this.m_img = rs.getString("m_img");
 		this.m_ercnt = rs.getInt("m_ercnt");
 		this.m_revcnt = rs.getInt("m_revcnt");
-		this.setCommend_cnt(rs.getInt("commend_cnt"));
+		this.commend_cnt = rs.getInt("commend_cnt");
 		if(m_no != -1) {
 			this.amIfollow = rs.getInt("amIfollow")==1?true:false;
 			this.setAmIlike(rs.getInt("amIlike")==1?true:false);

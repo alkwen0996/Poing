@@ -23,9 +23,6 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/popup/qna.do")) {
 			return "popup/qna";
 		}
-		else if (command.equals("/util/upload.do")) {
-			return "popup/upload";
-		}
 		else if (command.equals("/popup/follow.do")) {
 			return "popup/follow";
 		}

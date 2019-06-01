@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html lang = "ko">
@@ -130,7 +130,7 @@
 									</div>
 									<c:if test="${ authUser.m_no ne dto.m_no }">
 										<button class="follow ${ dto.amIfollow?'on':' '}" type="button"
-											data-type="poing.user.follow" data-id="${ dto.rev_m_seq }" tabindex="-1">
+											data-type="poing.user.follow" data-id="${ dto.m_no }" tabindex="-1">
 											<i class="icon follow ${ dto.amIfollow?'on':' '}"></i>팔로우
 										</button>
 									</c:if>
@@ -150,15 +150,10 @@
 										
 										
 										<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
-										<c:if test = "${i%2 ne 0 }">
-											<i class="icon star medium odd active" data-id="${dto.rev_seq }"
-												data-index="${status.count }" style=""></i>
-										</c:if>
-										
-										<c:if test = "${i%2 eq 0 }">
-											<i class="icon star medium even active" data-id="${dto.rev_no }"
-												data-index="${status.count }" style=""></i>
-										</c:if>	
+											<c:if test="${i <= dto.rev_starpoint/10 }">
+												<c:if test = "${i%2 ne 0 }"><i class="icon star medium odd active" data-id="" data-index="${status.count }" style=""></i></c:if>
+												<c:if test = "${i%2 eq 0 }"><i class="icon star medium even active" data-id="" data-index="${status.count }" style=""></i></c:if>
+											</c:if>
 										</c:forEach>
 										
 										<c:if test = "${status.count eq 10 }">
@@ -195,7 +190,7 @@
 											data-id="${dto.rev_no }" tabindex="-1">
 											<i class="icon balloon"></i>
 											<p>
-												댓글 <span>댓글개수</span>
+												댓글 <span>${dto.commend_cnt}</span>
 											</p>
 										</button>
 										<c:if test="${ authUser.m_no eq dto.m_no }">
@@ -211,7 +206,7 @@
 									</div>
 								</div>
 									<div class="comment_list on">
-										<c:if test="${ dto.cdto }">
+										<c:if test="${ dto.cdto ne null }">
 											<div class="comment">
 												<a class="thumbnail"
 													style="background-image: url('${ dto.cdto.m_img?dto.cdto.m_img:"http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"
@@ -234,7 +229,7 @@
 									<div class="write">
 									<span class="thumbnail"
 										style="background-image: url('${ authUser.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"></span>
-									<textarea data-id="${ dto.rev_seq }" placeholder="댓글을 입력해주세요"></textarea>
+									<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
 								</div>
 							</div>
 							</c:forEach>

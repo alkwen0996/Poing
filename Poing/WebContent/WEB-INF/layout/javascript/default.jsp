@@ -377,7 +377,7 @@
 											form.append("index", i + 1);
 
 											$.ajax({
-												url: "/review/ajaxsendreviewphoto",
+												url: "/Poing/review/ajaxsendreviewphoto.do",
 												method: "post",
 												contentType: false,
 												processData: false,
@@ -1804,7 +1804,7 @@
 				var uploader = PoingUploader.Create({
 					afterAddFile: function (file) {
 						$.ajax({
-							url: "/user/uploadprofileimage",
+							url: "/Poing/user/uploadprofileimage.do",
 							method: "post",
 							dataType: "json",
 							data: {
@@ -1816,10 +1816,11 @@
 									$("i.profile_image").css("background-image", "url(" + "'data:" + file
 										.file_type + ";base64," + file.file_data + "')");
 									if (ie < 9) {
-										$("i.profile_image").css("filter",
-											"progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" +
-											"data:" + file.file_type + ";base64," + file.file_data +
-											", sizingMethod='scale')");
+										$("i.profile_image").css(
+												"filter",
+												"progid:DXImageTransform.Microsoft.AlphaImageLoader(src=data:" + file.file_type 
+														+ ";base64," + file.file_data +	", sizingMethod='scale')"
+										);
 										location.reload(true);
 									}
 									noticePopupInit({
@@ -1853,7 +1854,7 @@
 				});
 			});
 
-		</c:if>
+		</c:if> //end timeline.do
 
 
 

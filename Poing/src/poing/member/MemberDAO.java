@@ -108,5 +108,17 @@ public class MemberDAO {
 		boolean result = pstmt.executeUpdate()==0 ? false : true;
 		return result;
 	}
+	public boolean updateProfileImage(Connection conn, int m_no, String filePath) throws SQLException {
+		int result = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE member SET m_img = ?");
+		sql.append(" WHERE m_no = ? ");
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, filePath);
+		pstmt.setInt(2, m_no);
+		result = pstmt.executeUpdate();
+		return result==0?false:true;
+	}
 }
 

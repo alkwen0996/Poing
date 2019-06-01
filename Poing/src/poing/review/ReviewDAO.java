@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.glassfish.external.probe.provider.annotations.ProbeParam;
+
 public class ReviewDAO {
 	private static ReviewDAO reviewdao = new ReviewDAO();
 
@@ -52,18 +54,28 @@ public class ReviewDAO {
 		}
 		return result;
 	}//insert
-	public int deletReview(Connection conn, int rev_no) {
+	public int deletReview(Connection conn, int rev_no) throws SQLException {
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" DELETE FROM review ");
+		sql.append(" DELETE FROM review WHERE rev_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, rev_no);
+		result = pstmt.executeUpdate();
+		return result;
+	}
+	public int updateReview(Connection conn, int rev_no, String content) throws SQLException {
+		int result = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE review SET content = ? WHERE rev_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, content);
+		pstmt.setInt(2, rev_no);
+		result = pstmt.executeUpdate();
 		return result;
 	}
 	
 	
 	public List<ReviewDTO> selectdisplay(Connection conn, String type, int m_no){
-
-		System.out.println("ReviewDAO");
-
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");

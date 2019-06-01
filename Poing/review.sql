@@ -92,3 +92,30 @@ ALTER TABLE review_comment
 		REFERENCES review (
 			rev_no
 		);
+		
+
+
+/* 리뷰이미지 */
+CREATE TABLE review_img (
+	rev_img_seq NUMBER NOT NULL, /* 리뷰이미지seq */
+	rev_img VARCHAR(100), /* 리뷰이미지 */
+	rev_no NUMBER /* 리뷰코드 */
+);
+
+ALTER TABLE review_img
+	ADD
+		CONSTRAINT PK_review_img
+		PRIMARY KEY (
+			rev_img_seq
+		);
+
+ALTER TABLE review_img
+	ADD
+		CONSTRAINT FK_review_TO_review_img
+		FOREIGN KEY (
+			rev_no
+		)
+		REFERENCES review (
+			rev_no
+		);
+		

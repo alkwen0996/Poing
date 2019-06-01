@@ -312,7 +312,7 @@
 		
 	
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
-	
+	<jsp:include page="/WEB-INF/layout/popup_wrap_rest.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	

@@ -192,7 +192,7 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 		
 	});
 });
-
+<%--
 // 예약 변경
 $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 	var time = $("#reserve_time").attr('time');
@@ -206,6 +206,7 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 		'method': 'POST',
 		'dataType': 'json',
 		'data': {
+			
 			id: reserve_id,
 			date: date,
 			party_size: $("#reserve_person_count").html(),
@@ -228,6 +229,7 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 	});
 	$("#reserveShading").click();
 });
+ --%>
 // 예약 취소
 $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 	confirmPopupInit({

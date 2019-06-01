@@ -194,26 +194,26 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 
 	date = $("#reserve_date").attr('data-str');
 	date = date + " " + time + ":00";
-
+	var msg = $("#reserve_comment").val();
 
 	$.ajax({
-		'url': '/restaurant/ajaxeditreserve',
-		'method': 'POST',
-		'dataType': 'json',
-		'data': {
-			id: reserve_id,
+		url: "/Poing/rest/ajaxreserveEdit.do",
+		method: "POST",
+		dataType: "JSON",
+		data: {
 			date: date,
-			party_size: $("#reserve_person_count").html(),
-			place_id: place_id,
-			referer: "myReserve",
-			message: $("#reserve_comment").val()
+			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			msg : msg
 		},
 		success: function (res) {
+		noticePopupInit({
+					message: "예약이 정상적으로 변경되었습니다."
+				});
 			if (res.error != null) {
 				noticePopupInit({
 					message: res.error.message
 				});
-			} else if (res.data.reservation) {
+			} else if (res.status) {
 				noticePopupInit({
 					message: "예약이 정상적으로 변경되었습니다."
 				});
@@ -221,6 +221,8 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 			}
 		}
 	});
+	noticePopupInit({
+					message: "예약이 정상적으로 변경되었습니다."});
 	$("#reserveShading").click();
 });
 // 예약 취소

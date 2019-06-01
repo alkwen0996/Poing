@@ -25,12 +25,12 @@
 			</div>
 
 			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324324"
+				data-type="poing.reservation.edit" data-id="${dto.r_reserve_seq},${dto.rest_seq}"
 				tabindex="-1">변경 / 취소</button>
 		</div>
 		</c:forEach>
 	</div>
-
+	
 	<!-- 
 	만약 데이터가 없다면 아래 blank div태그를 출력
 	<div class="blank">

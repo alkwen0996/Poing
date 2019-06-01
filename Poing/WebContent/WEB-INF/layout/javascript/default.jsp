@@ -1205,11 +1205,13 @@
 					$("#reserveShading").show();
 					var id = $(this).data('id');
 					$.ajax({
-						url: '/restaurant/AjaxReserveInfo',
+						url: '/Poing/popup/reserve_edit_rest.do',
 						method: "post",
 						dataType: 'json',
 						data: {
-							'id': id
+							'id': id,
+							'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }",
+							'r_name': "${ dto.rest_name eq null ? '' : dto.rest_name }"
 						},
 						async: false
 					}).success(function (response) {
@@ -1227,14 +1229,14 @@
 							for (var i = 0; i < response.place.food_types.length; i++)
 								data.info_str += " · " + response.place.food_types[i];
 						}
-
+						
 						var temp = response.reservation_date.split(' ')[1].split(':');
 						data.time = temp[0] + ":" + temp[1];
 						data.message = response.message;
 
 						place_id = data.place_id;
 						reserve_popup_init(data.place_name, data.info_str, data.reserve_setting, data.id);
-
+						
 						$("#pre-reserve").show();
 
 						// 인원 선택

@@ -127,7 +127,9 @@ $("#pre-reserve textarea").click(function () {
 });
 
 $("#post-reserve div.confirm-btn button").click(function () {
-	location.href = "/timeline/";
+	//location.href = "/timeline/";
+	$("#post-reserve").hide();
+	$("#reserveShading").hide();
 });
 $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	// check form validation
@@ -138,6 +140,7 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 		});
 		return;
 	} --%>
+	
 	if ($("#reserve_time").text() === "예약 불가") // 시간 선택 x
 	{
 		noticePopupInit({
@@ -164,27 +167,30 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	date = date + " " + time + ":00";
 
 	$.ajax({
-		url: "/restaurant/ajaxreserve",
+		url: "/Poing/rest/ajaxreserve.do",
 		method: "POST",
 		dataType: "JSON",
 		data: {
 			rdate: date,
 			personnel: $("#reserve_person_count").text(),
-			restaurantId: reserve_id,
-			message: $("#reserve_comment").val()
+			restaurantId: ${dto.rest_seq},
+			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			message: $("#reserve_comment").val(),
+			name : $("#reserve_name").val()
 		},
 		success: function (response) {
 			if (response.status == false) {
 				noticePopupInit({
-					message: response.error.message
+					message: '예약이 완료되지 않았습니다, 다시 시도해 주세요'
 				});
 			} else {
 				$("#reserveShading").show();
-				$("#pre-reserve").hide();
+				//$("#pre-reserve").hide();
 				$("#post-reserve").show();
-				ga('send', 'event', 'KPI', '[KPI]예약성공');
+				//ga('send', 'event', 'KPI', '[KPI]예약성공');
 			}
 		}
+		
 	});
 });
 

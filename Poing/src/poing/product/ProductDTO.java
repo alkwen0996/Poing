@@ -20,7 +20,14 @@ public class ProductDTO {
 	private String editer_img;
 	private String p_st_ed_date;
 	private int pick;
+	private int rest_seq;
 	
+	public int getRest_seq() {
+		return rest_seq;
+	}
+	public void setRest_seq(int rest_seq) {
+		this.rest_seq = rest_seq;
+	}
 	public String getP_st_ed_date() {
 		return p_st_ed_date;
 	}

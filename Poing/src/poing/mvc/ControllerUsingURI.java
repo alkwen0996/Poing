@@ -35,8 +35,8 @@ public class ControllerUsingURI extends HttpServlet{
 	public void init() throws ServletException {
 		String configFile = getInitParameter("configFile");
 		String realPath = getServletContext().getRealPath("");
-		getServletContext().setAttribute("realPath", realPath);
-		getServletContext().setAttribute("baseimg", "upload\\uploadprofileimage\\user_base.png");
+		getServletContext().setAttribute("realPath", "/Poing");
+		getServletContext().setAttribute("baseimg", "upload/uploadprofileimage/user_base.png");
 		System.out.println(realPath);
 		Properties prop = new Properties();
 		String configFilePrath = getServletContext().getRealPath(configFile);

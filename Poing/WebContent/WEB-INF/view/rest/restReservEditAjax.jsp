@@ -10,8 +10,8 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%
-System.out.println("restReservEditAjax loaded");
+JSONObject jsonObject = new JSONObject();
+jsonObject.put("status", "success");
+
 %>
-{
-"status": success
-}
+{"status" : "success"}

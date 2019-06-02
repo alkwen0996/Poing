@@ -6,7 +6,6 @@
 	<meta charset="UTF-8">
 	<title>리뷰</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="">
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript"
@@ -146,8 +145,6 @@
 								<div class="body">
 									<div class="time  loaded" style="display: block;">${dto.rev_wtime}</div>
 									<div class="grade">
-									
-										
 										
 										<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
 											<c:if test="${i <= dto.rev_starpoint/10 }">
@@ -155,12 +152,10 @@
 												<c:if test = "${i%2 eq 0 }"><i class="icon star medium even active" data-id="" data-index="${status.count }" style=""></i></c:if>
 											</c:if>
 										</c:forEach>
-										
-										<c:if test = "${status.count eq 10 }">
-											<span
-											style="display: inline-block; vertical-align: super;"
-											data-id="${dto.rev_no }" data-grade="50">${dto.rev_starpoint } / 한줄평가</span>
-										</c:if>
+										<span id="pointComment" style="display:inline-block;vertical-align:super;" data-id="${ dto.rev_no }" data-grade="${ dto.rev_starpoint/10 }"></span>
+										<script type="text/javascript">
+											//$("#pointComment").text("${ dto.rev_starpoint/10 } / " + ratingText[${ dto.rev_starpoint/10 }]);
+										</script>
 									</div>
 								<div class="text" data-truncated="">${dto.rev_content }</div>
 
@@ -174,8 +169,8 @@
 													data-image-selector=".photo[data-id=${dto.rev_no }]>button>i"
 													tabindex="-1">
 													<i class="image border_radius soft"
-														data-origin="${ image_dto }"
-														style="background-image: url(&quot;${ image_dto }&quot;); display: inline-block;"
+														data-origin="${ realPath }${ image_dto }"
+														style="background-image: url(&quot;${ realPath }${ image_dto }&quot;); display: inline-block;"
 														title="${ dto.rest_name } 유저리뷰 이미지"></i>
 												</button>
 											</c:forEach>
@@ -224,34 +219,35 @@
 										</c:if>
 									</div>
 								</div>
-									<div class="comment_list on">
-										<c:if test="${ dto.cdto ne null }">
-											<div class="comment">
-												<a class="thumbnail"
-													style="background-image: url('${ dto.cdto.m_img?dto.cdto.m_img:"http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"
-													href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
-												<div class="author">
-													<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
-													<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
-													<p class="text">${ dto.cdto.rc_content }</p>
-													<c:if test="${ dto.cdto.m_no eq authUser.m_no }"></c:if>
-													<div class="action">
-														<button type="button" class="edit"
-															data-type="poing.reviews.comment.modify" data-id="11840">수정하기</button>
-														<button type="button" class="delete"
-															data-type="poing.reviews.comment.remove" data-id="11840">삭제하기</button>
-													</div>
+								<div class="comment_list ">
+									<c:if test="${ dto.cdto ne null }">
+										<div class="comment">
+											<a class="thumbnail"
+												style="background-image: url('${ dto.cdto.m_img?dto.cdto.m_img:"http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"
+												href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
+											<div class="author">
+												<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
+												<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
+												<p class="text">${ dto.cdto.rc_content }</p>
+												<c:if test="${ dto.cdto.m_no eq authUser.m_no }">
+												<div class="action">
+													<button type="button" class="edit"
+														data-type="poing.reviews.comment.modify" data-id="11840">수정하기</button>
+													<button type="button" class="delete"
+														data-type="poing.reviews.comment.remove" data-id="11840">삭제하기</button>
 												</div>
+												</c:if>
 											</div>
-										</c:if>
-									</div>
-									<div class="write">
-									<span class="thumbnail"
-										style="background-image: url('${ authUser.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"></span>
-									<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
+										</div>
+									</c:if>
+								</div>
+								<div class="write">
+								<span class="thumbnail"
+									style="background-image: url('${ authUser.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"></span>
+								<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
 								</div>
 							</div>
-							</c:forEach>
+						</c:forEach>
 					</div>
 
 						<div id="review_pagination">
@@ -466,7 +462,7 @@
 			</div><!-- content_wrap end -->
 		</div><!-- container end -->
 		
-		<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"/>
+		<jsp:include page="/WEB-INF/layout/popup_wrap_review.jsp"/>
 	</div>
 		<!-- wrap end -->
 	<jsp:include page="/WEB-INF/layout/footer.jsp"/>

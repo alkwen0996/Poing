@@ -6,10 +6,10 @@
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="oracle.jdbc.OracleDriver"
-		url="jdbc:oracle:thin:@localhost:1521:xe"
+		url="jdbc:oracle:thin:@172.17.107.68:1521:xe"
 		username="poing"
 		password="poing" 
-		maxTotal="20" 
+		maxTotal="20"
 		maxIdle="10" 
 		maxWaitMillis="-1" />
 </Context>

@@ -1447,7 +1447,7 @@
 						if ($("#photoReviewViewerPopup").data("id") != review_id) {
 							$("#photoReviewViewerPopup>.section.review>.inner").html("");
 							$.ajax({
-								url: "/review/ajaxrenderreview",
+								url: "/Poing/review/ajaxrenderreview.do",
 								method: "get",
 								data: {
 									"id": review_id,
@@ -1602,7 +1602,7 @@
 									review_id = img_review_id;
 
 									$.ajax({
-										url: "/review/ajaxrenderreview",
+										url: "/review/ajaxrenderreview.do",
 										method: "get",
 										data: {
 											"id": img_review_id,

@@ -126,6 +126,54 @@ public class ReviewDAO {
 		}//finally
 
 		return list;
+	}//selectdisplay
+	
+	
+	public static ReviewDTO selectReviewById(Connection conn, int m_no, int rev_no){
+		StringBuffer sql = new StringBuffer();
+		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
+		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review WHERE m_no = rev.m_no) m_revcnt,  ");
+		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no) like_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_no = rev.rev_no) commend_cnt ");
+		if (m_no != -1) {
+			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
+			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+		}
+		sql.append( "FROM review rev ");
+		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
+		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
+		sql.append( "WHERE rev.rev_no = ? ");
+		sql.append( "ORDER BY rev_wtime DESC ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ReviewDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			if (m_no != -1) {
+				pstmt.setInt(1, m_no);
+				pstmt.setInt(2, m_no);
+				pstmt.setInt(3, rev_no);
+			}
+			else {
+				pstmt.setInt(1, rev_no);
+			}
+			rs=pstmt.executeQuery();
+
+			if (rs.next()) {
+				dto = new ReviewDTO(rs, m_no);
+				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+				dto.setImages(selectReviewImages(conn, dto.getRev_no()));
+			}
+			pstmt.close();
+			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}//finally
+
+		return dto;
 	}//ReviewDisplay
 
 	public int insertLikeReview(Connection conn, int mid, int rev_id) throws SQLException {
@@ -186,7 +234,7 @@ public class ReviewDAO {
 		return result;
 	}
 
-	public ArrayList<String> selectReviewImages(Connection conn, int rev_no) throws SQLException {
+	public static ArrayList<String> selectReviewImages(Connection conn, int rev_no) throws SQLException {
 		ArrayList<String> reviewImages = null;
 
 		StringBuffer sql = new StringBuffer();

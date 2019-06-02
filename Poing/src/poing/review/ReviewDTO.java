@@ -48,7 +48,7 @@ public class ReviewDTO {
 			this.setAmIlike(rs.getInt("amIlike")==1?true:false);
 		}
 		this.like_cnt = rs.getInt("like_cnt");
-		this.like_cnt = rs.getInt("commend_cnt");
+		this.commend_cnt = rs.getInt("commend_cnt");
 	}
 	
 	

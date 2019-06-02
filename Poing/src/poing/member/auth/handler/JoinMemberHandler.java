@@ -56,20 +56,14 @@ public class JoinMemberHandler implements CommandHandler{
 		}
 		
 		mdto.setRp_seq(3000);
-		System.out.println(mdto);
 		
 		boolean result = joinMemberService.joinMember(mdto);
 		request.setAttribute("result", result);
 
 		if(result)
 		{
-			System.out.println("Join success");
 			request.getSession().setAttribute("authUser", mdto);
 			return "user/joinResult";
-		}
-		else
-		{
-			System.out.println("Join failed");
 		}
 		return FORM_VIEW;
 	}

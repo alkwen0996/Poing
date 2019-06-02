@@ -138,8 +138,9 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 		noticePopupInit({
 			message: "휴대폰 인증을 해주세요."
 		});
-		return; 
-	}--%>
+		return;
+	} --%>
+	
 	if ($("#reserve_time").text() === "예약 불가") // 시간 선택 x
 	{
 		noticePopupInit({

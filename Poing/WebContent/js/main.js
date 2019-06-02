@@ -16464,7 +16464,15 @@ PoingSlider.Create = function(i) {
 };
 
 function PoingUploader(e) {
-  return arguments.callee.caller != PoingUploader.Create ? (console.error("[PoingUploader]", "should be created by only PoingUploader.Create"), null) : (this.option = e, this.files = [], this.uploader = document.createElement("iframe"), $(this.uploader).attr("src", this.option.iframe_src), $(this.uploader).attr("style", "display:none;"), void document.body.appendChild(this.uploader))
+  return arguments.callee.caller != PoingUploader.Create ?
+		  (console.error("[PoingUploader]", "should be created by only PoingUploader.Create"), null) :(
+			  this.option = e, 
+			  this.files = [], 
+			  this.uploader = document.createElement("iframe"), 
+			  $(this.uploader).attr("src", this.option.iframe_src), 
+			  $(this.uploader).attr("style", "display:none;"), 
+			  void document.body.appendChild(this.uploader)
+		  )
 }
 PoingUploader.Create = function(e) {
   var t = {
@@ -16478,7 +16486,9 @@ PoingUploader.Create = function(e) {
   return new PoingUploader(o)
 }, PoingUploader.addFileToUploader = function() {
   var e = this.uploader.contentDocument || this.uploader.contentWindow.document,
-      t = (e.getElementById(this.option.form_id), e.getElementById(this.option.input_id), e.getElementById(this.option.file_id));
+      t = (e.getElementById(this.option.form_id), 
+		   e.getElementById(this.option.input_id), 
+		   e.getElementById(this.option.file_id));
   null != t ? (this.files.push({
       file_type: $(t).attr("file_type"),
       file_data: $(t).attr("file_data")

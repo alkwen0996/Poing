@@ -11,7 +11,7 @@ public class RestReserveEditHandler implements CommandHandler
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
-	return "rest/restReservEditAjax";
+	return "rest/ajax/restReserveditAjax";
 	}
 	
 }

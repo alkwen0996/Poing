@@ -2,6 +2,7 @@ package poing.product.display.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 
@@ -12,12 +13,55 @@ import poing.product.ProductDetailDAO;
 
 
 public class DisplayProductDetailService {
+	public boolean deletePayCart(int reserva_tic_seq) {
+		ProductDetailDAO dao = new ProductDetailDAO();		
+		boolean result2 = true;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			 result2 = dao.deletePayCart(conn, reserva_tic_seq);
+			 
+			 return result2;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
-	
-	public ProductDTO insertProduct(JSONArray [] optionArray, int date, int party_size, String message) {
+	public int insertCart(int m_no, String c_date, int party_size, String message,ArrayList<Integer> ids,ArrayList<Integer> counts) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
-		try (Connection conn = ConnectionProvider.getConnection()) {			
-			ProductDTO dto = dao.insertPd(conn, optionArray, date, party_size, message);
+		boolean result1 = false;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+//			conn.setAutoCommit(false);
+			 int cart_seq = dao.insertCart(conn, m_no, c_date, party_size, message);
+//			 conn.commit();
+			 return cart_seq;
+/*			if (cart_seq>=1 && result1 == true) {
+				return true;
+			}else {
+				return false;
+			}*/
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public boolean insertTotalCart(int cart_seq,ArrayList<Integer> ids,ArrayList<Integer> counts) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
+		boolean result = false;
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			 result = dao.insertTotalCart(conn, cart_seq, ids, counts);
+			if (result == true) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public ProductDTO selectCartId(int cart_seq) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			ProductDTO dto = dao.selectCartId(conn, cart_seq);
 			// 로그 처리
 			// 
 			//
@@ -27,6 +71,7 @@ public class DisplayProductDetailService {
 		}
 	}
 	
+
 	public ProductDTO select(int p_num) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
 		try (Connection conn = ConnectionProvider.getConnection()) {			

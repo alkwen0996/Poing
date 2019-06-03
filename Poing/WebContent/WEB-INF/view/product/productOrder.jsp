@@ -34,8 +34,15 @@
 
 <%
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
-	
+	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
+			int op_cnt = dto2.getOp_cnt();
+			int p_dc_money = dto.getP_dc_money();
+			int a = op_cnt * p_dc_money;
+			int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
+			System.out.println(a);
+			System.out.println(cart_seq);
 %>
+
         <!-- body wrap -->
 		<div id="wrap" class="">
 			<!-- header -->
@@ -75,27 +82,27 @@
                             <a class="image" href="/product/detail/5904" target="_blank">
                                 <i class="image border_radius medium" style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/5458801ed20c7820f000002b.png);"></i>
                             </a>
-                            <a class="name" href="/product/detail/5904" target="_blank">${dto.rest_name }</a>
+                            <a class="name" href="/product/detail/5904" target="_blank">${dto2.op_name }</a>
                             <div class="valid_date">유효기간: <span>${dto.p_st_ed_date }</span></div>
 
                             <ul class="options">
                                                                     <li data-id="19044" data-limit="4">
-                                        <div class="name">2. ${dto.p_option }</div>
+                                        <div class="name">${dto2.op_name }</div>
                                         <div class="price">${dto.p_dc_money }원</div>
-                                        <div class="count">????</div>
-                                        <div class="total_price"><span>${dto.p_dc_money }</span>원</div>
+                                        <div class="count">${dto2.op_cnt}</div>
+                                        <div class="total_price"><span><%=a%></span>원</div>
                                     </li>
                                                                 <li class="total">
                                     티켓금액
-                                    <span class="jindong">${dto.p_dc_money }</span>
+                                    <span class="jindong"><%=a %>원</span>
                                 </li>
                             </ul>
                         </td>
                         <td class="reserve">
-                                                        <div class="date">날짜: <span>${param.date}시</span></div>
+                                                        <div class="date">날짜: <span>${dto2.c_date}</span></div>
 <!--                             <div class="time">시간: <span>오후 6:00</span></div> -->
-                            <div class="count">인원: <span>${param.party_size}</span></div>
-                                                            <br><div class="comment">요청사항: <span>${param.message}</span></div>
+                            <div class="count">인원: <span>${dto2.party_size}</span></div>
+                                                            <br><div class="comment">요청사항: <span>${dto2.message}</span></div>
                                                     </td>
                     </tr>
                             </tbody>
@@ -183,8 +190,10 @@
         <button type="button" class="link red_fill border_radius soft" tabindex="-1" >결제하기 &gt;</button>
     </div>
 </div>
+
 <script>
 $(document).ready(function(){
+	
     var cdata = { cart_ids: [] };
     $(".pay>.section.list>table>tbody>tr").each(function(){
         cdata['cart_ids'].push(this.attributes['data-id'].value); 
@@ -235,6 +244,7 @@ $(document).ready(function(){
         else 
             $(this).data('input', value );
     });
+    
     $("#point").on({
         input: function() {
             var value = $(this).val();
@@ -298,6 +308,8 @@ $(document).ready(function(){
             .siblings().removeClass('selected');
     });
     
+    
+    
     $(".pay.order>.buttons>.link").click(function(){
     	
         var pay_type = $('input[name="pay"]:checked').val();
@@ -317,18 +329,20 @@ $(document).ready(function(){
             $.popup("confirm", {'text':'상품 사용 및 환불 규정에 동의하셔야 구매가 가능합니다.', 'alert':true});
             return;
         }
-       /*  if(${dto.p_dc_money} < ${authUser.rp_seq}){
-        	$.popup("/Poing/popup/p_payMent.do");
-        	} */
+        
         
          var data = {
-            cart_ids: [],
+        		 cart_ids : [],
+            cart_seq: ${param.cart_seq},
+            p_num: ${param.p_num},
             point: $("#point").val(),
-            pay_type: pay_type,
-            p_dc_money : ${dto.p_dc_money},
-            m_email : "${authUser.m_email}",
-            rp_seq : ${authUser.rp_seq}
+            p_dc_money: ${dto.p_dc_money},
+            m_email: "${authUser.m_email}",
+            rp_seq: ${authUser.rp_seq},
+            m_no: ${authUser.m_no}
+            
         };
+        	
         $(".pay>.section.list>table>tbody>tr").each(function(){
             data['cart_ids'].push(this.attributes['data-id'].value); 
         }); 
@@ -340,7 +354,7 @@ $(document).ready(function(){
             'context': this,
             'data': data,
             'success':function(res) {
-                if(res.status) {
+                if(res.status2) {
                       post_to_url("/Poing/timeline.do?id=${authUser.m_no}&tab=coupon");
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
@@ -351,10 +365,12 @@ $(document).ready(function(){
                 }
             }
         });
+        
     });//결제하기 버튼 눌렀을떄
     
 });
 </script>
+
 </div>
 			</div>
 

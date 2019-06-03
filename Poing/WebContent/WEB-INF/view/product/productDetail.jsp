@@ -299,8 +299,7 @@
 				{
 					var op = selected.eq(i);
 					options[i] = {
-							id: op.data('id')
-							, count: op.find(".count_box>input").val()
+							id: op.data('id') , count: op.find(".count_box>input").val()
 							};
 					//alert( $.param(options[i]) );
 					url += "&" + $.param(options[i]);

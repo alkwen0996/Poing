@@ -16,16 +16,14 @@ public class DisplayProductOrderHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		DisplayProductDetailService service = new DisplayProductDetailService();
 		int p_num = Integer.parseInt(request.getParameter("p_num"));
+		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
+		DisplayProductDetailService service = new DisplayProductDetailService();
 		ProductDTO dto = service.select(p_num);
-		String message = request.getParameter("message");
-		String data = request.getParameter("date");
-		int party_size = Integer.parseInt(request.getParameter("party_size"));
-		String rest_name = dto.getRest_name();
-		
 		request.setAttribute("dto", dto);
+		ProductDTO dto2 = service.selectCartId(cart_seq);
+		request.setAttribute("dto2", dto2);
+		
 
 		return "/product/productOrder";
 	}

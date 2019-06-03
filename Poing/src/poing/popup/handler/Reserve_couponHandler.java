@@ -37,8 +37,8 @@ public class Reserve_couponHandler implements CommandHandler {
 			JSONObject js = null;
 			for (int i = 0; i < ids.length; i++) {
 				js = new JSONObject();
-				js.put("id", ids[i]);
-				js.put("cunts", counts[i]);
+				js.put("ids", ids[i]);
+				js.put("counts", counts[i]);
 				ja.add(js);
 			}
 			

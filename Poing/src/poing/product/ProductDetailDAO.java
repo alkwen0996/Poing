@@ -17,18 +17,143 @@ public class ProductDetailDAO {
 	public static ProductDetailDAO getInstance() {
 		return displaydao;
 	}
+	
+	
 
 	public ProductDetailDAO() {}
-	public ProductDTO insertPd(Connection conn, JSONArray [] optionArray, int date, int party_size, String message) {
-		String sql = "";
+	
+	public boolean deletePayCart(Connection conn, int reserva_tic_seq) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" delete reserve_tic where reserva_tic_seq = ? ");
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, reserva_tic_seq);
+				result = pstmt.executeUpdate()==0? false:true;
+				
+			pstmt.close();
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	};
+	
+	public int insertCart(Connection conn,int m_no, String c_date, int party_size, String message) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append("insert into cart (cart_seq, m_no, c_date, party_size, message)values (cart_seq.nextval,?,?,?,?)");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
+		int cart_seq = -1;
 		try {
-			
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, m_no);
+				pstmt.setString(2, c_date);
+				pstmt.setInt(3, party_size);
+				pstmt.setString(4, message);
+				result = pstmt.executeUpdate()==0? false:true;
+				
+				if (result) {
+					String sql2 = "select cart_seq.currval cart_seq from dual";
+					pstmt = conn.prepareStatement(sql2);
+					rs = pstmt.executeQuery();
+					while (rs.next()) {
+						cart_seq = rs.getInt(1);
+					}
+					
+				}
+				pstmt.close();
+				rs.close();
+				conn.close();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return cart_seq;
+	};
+//	public int selectCart_seq(Connection conn) throws SQLException {
+//		String sql = "select cart_seq.currval cart_seq from dual";
+//		PreparedStatement pstmt = conn.prepareStatement(sql);
+//		ResultSet rs = null;
+//		ProductDTO dto = null;
+//		int cart_seq = 0;
+//		try {
+//			
+//			dto = new ProductDTO();
+//			rs = pstmt.executeQuery();
+//				cart_seq = rs.getInt("cart_seq");
+//		}catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				pstmt.close();
+//				rs.close();
+//				conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}	
+//		
+//		return cart_seq;
+//	};
+	public boolean insertTotalCart(Connection conn, int cart_seq, ArrayList<Integer> ids,ArrayList<Integer> counts) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append("insert into totalcart (total_cart_seq, cart_seq, op_seq, op_cnt)values (total_cart_seq.nextval, ?, ?, ?)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		boolean result = false;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			for (int i = 0; i < ids.size(); i++) {
+				pstmt.setInt(1, cart_seq);
+				pstmt.setInt(2, ids.get(i));
+				pstmt.setInt(3, counts.get(i));
+				result = pstmt.executeUpdate()==0? false:true;
+				if (result) {
+					return result;
+				}
+			}
+			pstmt.close();
+			rs.close();
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	};
+	
+	public ProductDTO selectCartId(Connection conn, int cart_seq){
+		String sql = " select * from totalcart t join p_option p on t.op_seq = p.op_seq join cart c on t.cart_seq = c.cart_seq where c.cart_seq = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto2 = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cart_seq);
+			rs = pstmt.executeQuery();
+
+				dto2 = new ProductDTO();
+				if(rs.next()) {
+				dto2.setOp_name(rs.getString("op_name"));
+				dto2.setOp_cnt(rs.getInt("op_cnt"));
+				dto2.setParty_size(rs.getInt("party_size"));
+				dto2.setMessage(rs.getString("message"));
+				dto2.setOp_price(rs.getInt("op_price"));
+				dto2.setC_date(rs.getString("c_date"));
+				};
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				pstmt.close();
 				rs.close();
@@ -37,9 +162,9 @@ public class ProductDetailDAO {
 				e.printStackTrace();
 			}
 		}	
-		
-		return dto;
-	};
+		return dto2;	
+	}
+	
 	
 	public ProductDTO selectdisplay(Connection conn, int p_num){
 		String sql = " select * from p_product p join editer_review e on p.e_seq = e.e_seq join product_img i on p.img_seq = i.img_seq join p_restaurant r on r.p_num = p.p_num where p.p_num = ? ";
@@ -74,7 +199,6 @@ public class ProductDetailDAO {
 				dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
 				dto.setP_dc_money(rs.getInt("p_dc_money"));
-				dto.setP_min_count(rs.getInt("p_min_count"));
 				dto.setP_min_Personnel(rs.getInt("p_min_personnel"));
 				
 

@@ -453,9 +453,9 @@
 			'success' : function(res) {
 				if (res) {
 					if (res.status) {
-						//res = res.data;
-						location.href = "/Poing/product/productOrder.do?p_num=${param.p_num}"
-								+ "&" + $.param(params);
+// 						res = res.data;
+						
+						location.href = "/Poing/product/productOrder.do?p_num=${param.p_num}&cart_seq="+res.cart_seq;
 					} else {
 						if ($.inArray(res.error.code, [ 1503 ]) > -1)
 							alert(res.error.message);

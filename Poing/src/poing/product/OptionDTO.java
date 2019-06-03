@@ -2,18 +2,18 @@ package poing.product;
 
 public class OptionDTO {
 	
-	private int po_id;
+	private int op_seq;
 	private int p_num;
-	private String po_name;
-	private int po_price;
-	private int po_minnum;
-	private int po_maxnum;
+	private String op_name;
+	private int op_price;
+	private int op_min_cnt;
+	private int op_max_cnt;
 	
-	public int getPo_id() {
-		return po_id;
+	public int getOp_seq() {
+		return op_seq;
 	}
-	public void setPo_id(int po_id) {
-		this.po_id = po_id;
+	public void setOp_seq(int op_seq) {
+		this.op_seq = op_seq;
 	}
 	public int getP_num() {
 		return p_num;
@@ -21,30 +21,28 @@ public class OptionDTO {
 	public void setP_num(int p_num) {
 		this.p_num = p_num;
 	}
-	public String getPo_name() {
-		return po_name;
+	public String getOp_name() {
+		return op_name;
 	}
-	public void setPo_name(String po_name) {
-		this.po_name = po_name;
+	public void setOp_name(String op_name) {
+		this.op_name = op_name;
 	}
-	public int getPo_price() {
-		return po_price;
+	public int getOp_price() {
+		return op_price;
 	}
-	public void setPo_price(int po_price) {
-		this.po_price = po_price;
+	public void setOp_price(int op_price) {
+		this.op_price = op_price;
 	}
-	public int getPo_minnum() {
-		return po_minnum;
+	public int getOp_min_cnt() {
+		return op_min_cnt;
 	}
-	public void setPo_minnum(int po_minnum) {
-		this.po_minnum = po_minnum;
+	public void setOp_min_cnt(int op_min_cnt) {
+		this.op_min_cnt = op_min_cnt;
 	}
-	public int getPo_maxnum() {
-		return po_maxnum;
+	public int getOp_max_cnt() {
+		return op_max_cnt;
 	}
-	public void setPo_maxnum(int po_maxnum) {
-		this.po_maxnum = po_maxnum;
+	public void setOp_max_cnt(int op_max_cnt) {
+		this.op_max_cnt = op_max_cnt;
 	}
-	
-	
 }

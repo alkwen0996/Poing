@@ -32,12 +32,12 @@ public class OptionDAO {
 			OptionDTO op = null;
 			while (rs.next()) {
 				op = new OptionDTO();
-				op.setPo_id(rs.getInt("po_id"));
+				op.setOp_seq(rs.getInt("op_seq"));
 				op.setP_num(rs.getInt("p_num"));
-				op.setPo_name(rs.getString("po_name"));
-				op.setPo_price(rs.getInt("po_price"));
-				op.setPo_minnum(rs.getInt("po_minnum"));
-				op.setPo_maxnum(rs.getInt("po_maxnum"));
+				op.setOp_name(rs.getString("op_name"));
+				op.setOp_price(rs.getInt("op_price"));
+				op.setOp_min_cnt(rs.getInt("op_min_cnt"));
+				op.setOp_max_cnt(rs.getInt("op_max_cnt"));
 				pp.add(op);
 				
 			}

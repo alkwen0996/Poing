@@ -20,12 +20,29 @@ public class ProductDTO {
 	private String editer_img;
 	private String p_st_ed_date;
 	private int pick;
-	
-	public String getP_st_ed_date() {
-		return p_st_ed_date;
+	private int p_min_count;
+    private int p_min_Personnel;
+    private int cart_seq;
+    private String op_name;
+    private int op_cnt;
+    private int party_size;
+    private String message;
+    private int op_price;
+    private String c_date;
+    private int op_min_cnt;
+    private int op_max_cnt;
+    
+    public int getOp_min_cnt() {
+		return op_min_cnt;
 	}
-	public void setP_st_ed_date(String p_st_ed_date) {
-		this.p_st_ed_date = p_st_ed_date;
+	public void setOp_min_cnt(int op_min_cnt) {
+		this.op_min_cnt = op_min_cnt;
+	}
+	public int getOp_max_cnt() {
+		return op_max_cnt;
+	}
+	public void setOp_max_cnt(int op_max_cnt) {
+		this.op_max_cnt = op_max_cnt;
 	}
 	public int getP_num() {
 		return p_num;
@@ -123,11 +140,71 @@ public class ProductDTO {
 	public void setEditer_img(String editer_img) {
 		this.editer_img = editer_img;
 	}
+	public String getP_st_ed_date() {
+		return p_st_ed_date;
+	}
+	public void setP_st_ed_date(String p_st_ed_date) {
+		this.p_st_ed_date = p_st_ed_date;
+	}
 	public int getPick() {
 		return pick;
 	}
 	public void setPick(int pick) {
 		this.pick = pick;
+	}
+	public int getP_min_count() {
+		return p_min_count;
+	}
+	public void setP_min_count(int p_min_count) {
+		this.p_min_count = p_min_count;
+	}
+	public int getP_min_Personnel() {
+		return p_min_Personnel;
+	}
+	public void setP_min_Personnel(int p_min_Personnel) {
+		this.p_min_Personnel = p_min_Personnel;
+	}
+	public int getCart_seq() {
+		return cart_seq;
+	}
+	public void setCart_seq(int cart_seq) {
+		this.cart_seq = cart_seq;
+	}
+	public String getOp_name() {
+		return op_name;
+	}
+	public void setOp_name(String op_name) {
+		this.op_name = op_name;
+	}
+	public int getOp_cnt() {
+		return op_cnt;
+	}
+	public void setOp_cnt(int op_cnt) {
+		this.op_cnt = op_cnt;
+	}
+	public int getParty_size() {
+		return party_size;
+	}
+	public void setParty_size(int party_size) {
+		this.party_size = party_size;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public int getOp_price() {
+		return op_price;
+	}
+	public void setOp_price(int op_price) {
+		this.op_price = op_price;
+	}
+	public String getC_date() {
+		return c_date;
+	}
+	public void setC_date(String c_date) {
+		this.c_date = c_date;
 	}
 	
 	

@@ -101,8 +101,8 @@
 								
 								<ul class="items" style="display: none;">
 								<c:forEach items="${pp }" var="op">
-									<li class="" data-id="${op.po_id }" data-min="${op.po_minnum }" data-limit="${op.po_maxnum }">
-										<span class="option"><span>${op.po_name}</span></span><span class="price">${op.po_price }</span>
+									<li class="" data-id="${op.op_seq }" data-min="${op.op_min_cnt }" data-limit="${op.op_max_cnt }">
+										<span class="option"><span>${op.op_name}</span></span><span class="price">${op.op_price }</span>
 									</li>
 								</c:forEach>
 								</ul>
@@ -246,9 +246,9 @@
 					<div class="body">
 	                    <c:forEach items="${pp }" var="op">
 	                    <div class="">
-							<span class="name ">${op.po_name }</span>
+							<span class="name ">${op.op_name }</span>
 							<span class="actual_price">${dto.p_origin_money }</span>
-							<span class="price">${op.po_price }</span>
+							<span class="price">${op.op_price }</span>
 						</div>
 						</c:forEach>
 	                    
@@ -326,8 +326,33 @@
 				});
 			}
 		});
-		$("#sidebar_wrap>.addCart").click(function(){
+		 /* $("#sidebar_wrap>.addCart").click(function(){
+			 if(poing.account.checkLoginState()) {
+				 
+				 
+				 var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+				 var options = [];
+				 
+				 if(selected.length === 0) {
+						$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
+						return;
+				}
+				 for(var i=0; i<selected.length; ++i)
+					{
+						var op = selected.eq(i);
+						options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+						
+					}
+						
+				 
+			 }
+		 }); */
+		
+		
+		
+		 $("#sidebar_wrap>.addCart").click(function(){
 			if(poing.account.checkLoginState()) {
+				var url = "/Poing/popup/cart.do?";
 				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
 				var options = [];
 
@@ -335,19 +360,21 @@
 					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
 					return;
 				}
-
 				for(var i=0; i<selected.length; ++i)
 				{
+				
 					var op = selected.eq(i);
 					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+					url += "&" + $.param(options[i]);
 				}
 				
-			
 				$.ajax({
-					'url': "/Poing/popup/cart.do",
-					'method': "POST",
+				
+					//'url': "/Poing/popup/cart.do",
+					'url': url,
+					'method': "GET",
 					'dataType': "JSON",
-					'data': {'options': options},
+					//'data': {'options': options},
 					'success':function(response) {
 						if(response.status)
 						{
@@ -362,7 +389,7 @@
 					}
 				});
 			}
-		});
+		}); 
 	</script>
 				<div id="recommend_coupon" class="sidebar">
 				<div class="title">이 달의 추천 티켓</div>

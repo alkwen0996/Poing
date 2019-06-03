@@ -19,6 +19,7 @@ public class DisplayTimelineHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String tab = request.getParameter("tab");
+		String type = request.getParameter("type");
 		if (tab == null) {
 			tab = "reservation";
 		}
@@ -31,7 +32,12 @@ public class DisplayTimelineHandler implements CommandHandler{
 		
 		ArrayList<ReviewDTO> review_list = null;
 		if (tab.equals("review")) {
-			review_list = displayTimelineService.getMyReview(memberID);
+			if (type == null || type.equals("write")) {
+				review_list = displayTimelineService.getMyWriteReview(memberID);
+			}
+			else if (type.equals("like")) {
+				review_list = displayTimelineService.getMyReview(memberID);
+			}
 			request.setAttribute("review_list", review_list);
 		}
 		return "user/timeline";

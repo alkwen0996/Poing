@@ -192,12 +192,12 @@
 												좋아요 <span>${dto.like_cnt }</span>
 											</p>
 										</button>
-										<button class="favorite " type="button"
+										<button class="favorite ${ dto.amIpick?'on':' '}" type="button"
 											data-type="poing.reviews.actions.user.favorite"
 											data-id="${dto.rev_no }" tabindex="-1">
-											<i class="icon heart small "></i>
+											<i class="icon heart small ${ dto.amIpick?'on':' '}"></i>
 											<p>
-												찜하기 <span>${rdto.pick_cnt }</span>
+												찜하기 <span>${dto.pick_cnt }</span>
 											</p>
 										</button>
 										<button class="comment" type="button"

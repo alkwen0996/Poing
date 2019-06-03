@@ -15,7 +15,7 @@
 		data-place-name="${dto.rest_name }">
 		<a class="place" href="/Poing/rest/detail.do?rest_seq=${dto.rest_no }"> <span
 			class="thumbnail"
-			style="display: block; background-image: url(&quot;${realPath}${"rest_img" }&quot;);"></span>
+			style="display: block; background-image: url(&quot;${realPath}rest_img&quot;);"></span>
 			<button class="favorite " type="button"
 				data-type="poing.restaurants.favorite" data-id="2345" tabindex="-1">
 				<i class="icon heart small "></i>매장찜
@@ -58,7 +58,7 @@
 					tabindex="-1">
 					<i class="icon heart small "></i>
 					<p>
-						찜하기 <span>${rdto.pick_cnt }</span>
+						찜하기 <span>${dto.pick_cnt }</span>
 					</p>
 				</button>
 				<button class="comment" type="button"

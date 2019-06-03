@@ -15,7 +15,7 @@ public class ReviewPickHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		boolean result = false;
-		int likeCnt = 0;
+		int pick_count = 0;
 		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
 		String type = request.getParameter("type");
 		int rev_id = Integer.parseInt(request.getParameter("id"));
@@ -32,9 +32,9 @@ public class ReviewPickHandler implements CommandHandler{
 			else if (type.equals("off")) {
 				result = reviewPickService.removePickReview(mid, rev_id)==0?false:true;
 			}
-			likeCnt = reviewPickService.countPickReview(rev_id);
+			pick_count = reviewPickService.countPickReview(rev_id);
 			request.setAttribute("status", result);
-			request.setAttribute("like_count", likeCnt);
+			request.setAttribute("pick_count", pick_count);
 		} catch (SQLException e) {
 			request.setAttribute("status", false);
 			e.printStackTrace();

@@ -258,14 +258,14 @@
 								if (data.type == 'on') {
 									btn.addClass('on')
 										.children("i").addClass('on');
-									$.popup("/Poing/confirm", {
+									$.popup("/Poing/pick/popup/confirm.do", {
 										'text': "매장을 찜하셨습니다.",
 										'alert': true
 									});
 								} else if (data.type == 'off') {
 									btn.removeClass('on')
 										.children("i").removeClass('on');
-									$.popup("confirm", {
+									$.popup("/Poing/pick/popup/confirm.do", {
 										'text': "찜을 취소하셨습니다.",
 										'alert': true
 									});
@@ -288,7 +288,7 @@
 						var idx = 0;
 
 						if (files.length + $list.children().length > 20) {
-							$.popup("confirm", {
+							$.popup("/Poing/pick/popup/confirm.do", {
 								'text': "사진 등록은 최대 20장까지 가능합니다.",
 								single: true
 							});
@@ -768,31 +768,27 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
-												this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
-											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
-												"]").html(res.data.selection_review_count);
-											$.popup("confirm", {
+											selector.find("span:not(.text)").text(res.data.pick_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.pick_count);
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "리뷰를 찜하셨습니다.",
 												'alert': true
 											});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
-												this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
-											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
-												"]").html(res.data.selection_review_count);
-											$.popup("confirm", {
+											selector.find("span:not(.text)").text(res.data.pick_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.pick_count);
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "찜을 취소하셨습니다.",
 												'alert': true
 											});
 										} else {
-											$.popup("confirm", {
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "리뷰를 찜하지 못했습니다.",
 												'alert': true
 											});
@@ -2091,7 +2087,7 @@
 			e.stopPropagation();
 			$("#nav_notice_list").toggle();
 			$.ajax({
-				url: '/user/noticeCheck',
+				url: '/Poing/user/noticeCheck.do',
 				method: 'post',
 				dataType: 'json',
 				success: function (res) {
@@ -2122,13 +2118,13 @@
 
 			if ($("#nav_mynews_list").html() == "") {
 				$.ajax({
-					url: '/user/UserNotice',
+					url: '/Poing/user/UserNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/UserNotice.ejs'
+							url: '/Poing/template/UserNotice.ejs'
 						}).render({
 							notices: res
 						});

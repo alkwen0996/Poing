@@ -290,7 +290,7 @@
 				var options = [];
 
 				if(selected.length === 0) {
-					$.popup("/Poing/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
+					$.popup("/Poing/pick/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
 					return;
 				}else{
 					$.popup("/Poing/popup/reserve_coupon.do?p_num=${param.p_num}");

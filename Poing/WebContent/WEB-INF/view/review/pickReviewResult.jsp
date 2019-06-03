@@ -7,7 +7,7 @@
 	
 	
 	JSONObject data = new JSONObject();
-	data.put("like_count", request.getAttribute("like_count"));
+	data.put("pick_count", request.getAttribute("pick_count"));
 	jsonObject.put("data", data);
 %>
 <%= jsonObject %>      

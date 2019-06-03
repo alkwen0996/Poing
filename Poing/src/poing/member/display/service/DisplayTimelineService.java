@@ -36,12 +36,12 @@ public class DisplayTimelineService {
 		System.out.println("displaytimlineService : 예약리스트 처리도어  list에 담김");
 		return list;
 	}
-	public ArrayList<ReviewDTO> getMyReview(int memberID) throws SQLException {
+	public ArrayList<ReviewDTO> getMyWriteReview(int memberID) throws SQLException {
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
 		ArrayList<ReviewDTO> review_list = null;
 		
-		review_list = ReviewDAO.selectMyReview(conn, memberID);
+		review_list = ReviewDAO.selectMyWriteReview(conn, memberID);
 		conn.close();
 		return review_list;
 	}

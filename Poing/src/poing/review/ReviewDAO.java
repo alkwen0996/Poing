@@ -87,6 +87,8 @@ public class ReviewDAO {
 		if (my_no != -1) {
 			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
 			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+			sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
+
 		}
 		sql.append( "FROM review rev ");
 		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
@@ -104,9 +106,10 @@ public class ReviewDAO {
 			if (my_no != -1) {
 				pstmt.setInt(1, my_no);
 				pstmt.setInt(2, my_no);
+				pstmt.setInt(3, my_no);
 			}
 			if (my_no != -1 && type.equals("follower")) {
-				pstmt.setInt(3, my_no);
+				pstmt.setInt(4, my_no);
 			}
 			rs=pstmt.executeQuery();
 
@@ -143,6 +146,7 @@ public class ReviewDAO {
 		if (m_no != -1) {
 			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
 			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+			sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
 		}
 		sql.append( "FROM review rev ");
 		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
@@ -158,7 +162,8 @@ public class ReviewDAO {
 			if (m_no != -1) {
 				pstmt.setInt(1, m_no);
 				pstmt.setInt(2, m_no);
-				pstmt.setInt(3, rev_no);
+				pstmt.setInt(3, m_no);
+				pstmt.setInt(4, rev_no);
 			}
 			else {
 				pstmt.setInt(1, rev_no);
@@ -256,7 +261,7 @@ public class ReviewDAO {
 		}
 		return reviewImages;
 	}
-	public static ArrayList<ReviewDTO> selectMyReview(Connection conn, int memberID) {
+	public static ArrayList<ReviewDTO> selectMyWriteReview(Connection conn, int memberID) {
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
@@ -265,6 +270,7 @@ public class ReviewDAO {
 		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_no = rev.rev_no) commend_cnt, ");
 		sql.append( "(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no) pick_cnt ");
 		sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+		sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
 		sql.append( "FROM review rev ");
 		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
 		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
@@ -278,6 +284,7 @@ public class ReviewDAO {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, memberID);
 			pstmt.setInt(2, memberID);
+			pstmt.setInt(3, memberID);
 			rs=pstmt.executeQuery();
 
 			ReviewDTO dto = null;

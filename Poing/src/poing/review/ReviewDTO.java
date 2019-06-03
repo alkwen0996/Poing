@@ -24,6 +24,7 @@ public class ReviewDTO {
 	private int pick_cnt;
 	private boolean amIfollow;
 	private boolean amIlike;
+	private boolean amIpick;
 	private int commend_cnt;
 	private CommentDTO cdto;
 	private ArrayList<String> images = null;
@@ -51,6 +52,7 @@ public class ReviewDTO {
 		if(m_no != -1) {
 			this.amIfollow = rs.getInt("amIfollow")==1?true:false;
 			this.amIlike = rs.getInt("amIlike")==1?true:false;
+			this.amIpick = rs.getInt("amIpick")==1?true:false;
 		}
 	}
 	public ReviewDTO(ResultSet rs) throws SQLException {
@@ -68,6 +70,7 @@ public class ReviewDTO {
 		this.m_revcnt = rs.getInt("m_revcnt");
 		this.commend_cnt = rs.getInt("commend_cnt");
 		this.amIlike = rs.getInt("amIlike")==1?true:false;
+		this.amIpick = rs.getInt("amIpick")==1?true:false;
 		this.like_cnt = rs.getInt("like_cnt");
 		this.commend_cnt = rs.getInt("commend_cnt");
 		this.pick_cnt = rs.getInt("pick_cnt");
@@ -197,6 +200,14 @@ public class ReviewDTO {
 
 	public void setPick_cnt(int pick_cnt) {
 		this.pick_cnt = pick_cnt;
+	}
+
+	public boolean isAmIpick() {
+		return amIpick;
+	}
+
+	public void setAmIpick(boolean amIpick) {
+		this.amIpick = amIpick;
 	}
 	
 }

@@ -194,6 +194,7 @@ $("#pre-reserve div.confirm-btn>button.reserve").click(function () {
 	});
 });
 <%--
+timeline_reserve.jsp와 코드 겹침
 // 예약 변경
 $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 	var time = $("#reserve_time").attr('time');
@@ -230,7 +231,7 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 	});
 	$("#reserveShading").click();
 });
- --%>
+ 
 // 예약 취소
 $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 	confirmPopupInit({
@@ -263,7 +264,7 @@ $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 		}
 	})
 });
-
+--%>
 
 $("div.reserve-popup>div.box_list>div.box>.person_count>i.minus").click(function () {
 	var target = $("#pre-reserve .person_count .count");

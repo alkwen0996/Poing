@@ -249,14 +249,26 @@ $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 		ok: function () {
 			$("#reserveShading").hide();
 			$.ajax({
-				'url': '/restaurant/ajaxcancelreserve',
+				'url': '/Poing/rest/ajax/restReserveDelAjax.do', 
 				'method': 'POST',
 				'dataType': 'json',
 				'data': {
-					id: reserve_id
+					id: reserve_id,
+					rnumNrest_seq : rnumNrest_seq,	
 				},
 				success: function (res) {
-					if (res.error != null) {
+					if (res.status == "true") {
+						noticePopupInit({
+						message: "예약이 정상적으로 취소되었습니다."
+					});
+						setTimeout(location.reload.bind(location), 1000);
+					} else {
+						noticePopupInit({
+						message: "예약변경이 정상적으로 취소되지 않았습니다 다시 시도해주세요."
+					});
+				
+					}
+					<%--if (res.error != null) {
 						noticePopupInit({
 							message: res.error.message
 						});
@@ -265,7 +277,7 @@ $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 							message: "예약이 정상적으로 취소되었습니다."
 						});
 						location.reload(true);
-					}
+					} --%>
 				}
 			});
 		},

@@ -5,16 +5,16 @@ import java.sql.SQLException;
 
 import com.util.ConnectionProvider;
 
-import poing.review.ReviewDAO;
+import poing.review.CommentDAO;
 
 public class UpdateCommentService {
-	ReviewDAO reviewDAO = new ReviewDAO();
+	CommentDAO commentDAO = new CommentDAO();
 
-	public int updateReview(int rev_no, String content, int m_no) throws SQLException {
+	public int updateComment(int rc_no, String content) throws SQLException {
 		int result = 0;
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
-		result = reviewDAO.updateReview(conn, rev_no, content);
+		result = commentDAO.updateComment(conn, rc_no, content);
 		return result;
 	}
 }

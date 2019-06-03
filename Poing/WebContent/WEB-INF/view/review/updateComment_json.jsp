@@ -3,15 +3,14 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 <%
 	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("status", request.getAttribute("status"));
+	jsonObject.put("data", request.getAttribute("data"));
 	
 	
-	JSONObject data = new JSONObject();
+	JSONObject error = new JSONObject();
 	if(request.getAttribute("errorMsg")!=null)
 	{
-		data.put("error", request.getAttribute("errorMsg"));
+		error.put("error", request.getAttribute("errorMsg"));
 	}
-	data.put("review", request.getAttribute("reviewID"));
-	jsonObject.put("data", data);
+	jsonObject.put("error", error);
 %>
 <%=jsonObject%>

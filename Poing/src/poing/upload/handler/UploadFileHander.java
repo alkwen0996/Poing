@@ -78,7 +78,7 @@ public class UploadFileHander implements CommandHandler{
 			filePath = filePath + originalFileName;
 			System.out.println("uploadFile_length: " + uploadFile_length);
 			System.out.println("filePath: " + filePath);
-			
+			authUser.setM_img(filePath);
 			byte[] file_byte = new byte[(int) uploadFile_length];
 			FileInputStream fis = new FileInputStream(uploadFile);
 			fis.read(file_byte, 0, uploadFile_length);

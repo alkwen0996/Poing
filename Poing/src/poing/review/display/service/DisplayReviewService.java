@@ -16,7 +16,7 @@ public class DisplayReviewService {
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			List<ReviewDTO> list = dao.selectdisplay(conn, type, m_no);
+			List<ReviewDTO> list = ReviewDAO.selectAllReview(conn, type, m_no);
 			
 			return list;
 		} catch (Exception e) {

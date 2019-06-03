@@ -15,11 +15,13 @@ public class ReviewDTO {
 	private int rev_starpoint;
 	private String rest_name;
 	private String rest_loc;
+	private String rest_img;
 	private String m_name;
 	private String m_img;
 	private int m_ercnt;
 	private int m_revcnt;
 	private int like_cnt;
+	private int pick_cnt;
 	private boolean amIfollow;
 	private boolean amIlike;
 	private int commend_cnt;
@@ -43,12 +45,32 @@ public class ReviewDTO {
 		this.m_ercnt = rs.getInt("m_ercnt");
 		this.m_revcnt = rs.getInt("m_revcnt");
 		this.commend_cnt = rs.getInt("commend_cnt");
+		this.like_cnt = rs.getInt("like_cnt");
+		this.pick_cnt = rs.getInt("pick_cnt");
+		
 		if(m_no != -1) {
 			this.amIfollow = rs.getInt("amIfollow")==1?true:false;
-			this.setAmIlike(rs.getInt("amIlike")==1?true:false);
+			this.amIlike = rs.getInt("amIlike")==1?true:false;
 		}
+	}
+	public ReviewDTO(ResultSet rs) throws SQLException {
+		this.rev_no = rs.getInt("rev_no");
+		this.rest_no = rs.getInt("rest_no");
+		this.rev_content = rs.getString("rev_content");
+		this.m_no = rs.getInt("m_no");
+		this.rev_wtime = rs.getDate("rev_wtime");
+		this.rev_starpoint = rs.getInt("rev_starpoint");
+		this.rest_name = rs.getString("rest_name");
+		this.rest_loc = rs.getString("rest_loc");
+		this.m_name = rs.getString("m_name");
+		this.m_img = rs.getString("m_img");
+		this.m_ercnt = rs.getInt("m_ercnt");
+		this.m_revcnt = rs.getInt("m_revcnt");
+		this.commend_cnt = rs.getInt("commend_cnt");
+		this.amIlike = rs.getInt("amIlike")==1?true:false;
 		this.like_cnt = rs.getInt("like_cnt");
 		this.commend_cnt = rs.getInt("commend_cnt");
+		this.pick_cnt = rs.getInt("pick_cnt");
 	}
 	
 	
@@ -167,6 +189,14 @@ public class ReviewDTO {
 
 	public void setImages(ArrayList<String> images) {
 		this.images = images;
+	}
+
+	public int getPick_cnt() {
+		return pick_cnt;
+	}
+
+	public void setPick_cnt(int pick_cnt) {
+		this.pick_cnt = pick_cnt;
 	}
 	
 }

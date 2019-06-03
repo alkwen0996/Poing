@@ -8,5 +8,3 @@ jsonData.put("status", result);
 jsonData.put("data", result);
 %>
 <%= jsonData %>
-
-

@@ -88,7 +88,7 @@ ${rdto.rev_content }
 				data-type="poing.reviews.actions.user.favorite" data-id="${rdto.rev_no }">
 				<i class="icon heart small "></i> <span class="text">찜하기</span> <span
 					class="count" data-type="poing.reviews.actions.user.favorite"
-					data-id="${rdto.rev_no }">찜개수</span>
+					data-id="${rdto.rev_no }">${rdto.pick_cnt }</span>
 			</button>
 			<button class="gray_red border_radius soft balloon comment"
 				data-type="poing.reviews.actions.user.loadComments" data-id="${rdto.rev_no }"
@@ -122,7 +122,7 @@ ${rdto.rev_content }
 		<div class="comment_write" data-id="${rdto.rev_no }">
 			<div class="i_wrap">
 				<i class="profile_image border_radius circle"
-					style="background-image: url('${realPath}${ authUser.m_img }')"></i>
+					style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></i>
 			</div>
 			<textarea class="border_radius soft" data-id="${rdto.rev_no }"
 				data-target="popup"></textarea>

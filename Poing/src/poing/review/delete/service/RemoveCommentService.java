@@ -5,15 +5,15 @@ import java.sql.SQLException;
 
 import com.util.ConnectionProvider;
 
-import poing.review.ReviewDAO;
+import poing.review.CommentDAO;
 
 public class RemoveCommentService {
-	ReviewDAO reviewDAO = new ReviewDAO();
-	public int removeReview(int rev_no) throws SQLException {
+	CommentDAO commentDAO = new CommentDAO();
+	public int removeComment(int rc_no) throws SQLException {
 		int result = 0;
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
-		result = reviewDAO.deletReview(conn, rev_no);
+		result = commentDAO.deleteComment(conn, rc_no);
 		conn.close();
 		return result;
 	}

@@ -258,7 +258,7 @@
 								if (data.type == 'on') {
 									btn.addClass('on')
 										.children("i").addClass('on');
-									$.popup("confirm", {
+									$.popup("/Poing/confirm", {
 										'text': "매장을 찜하셨습니다.",
 										'alert': true
 									});
@@ -515,7 +515,7 @@
 							var action = parent_review.children(".action");
 
 							$.ajax({
-								url: "/review/ajaxmodifyreview",
+								url: "/Poing/review/ajaxmodifyreview.do",
 								method: "post",
 								dataType: "json",
 								data: {
@@ -641,7 +641,7 @@
 							review.find(".action, .time").show();
 
 							$.ajax({
-								url: "/review/ajaxModifyReview",
+								url: "/Poing/review/ajaxModifyReview.do",
 								method: "POST",
 								data: {
 									id: id,
@@ -679,7 +679,7 @@
 									message: "리뷰를 삭제하시겠습니까?",
 									ok: function () {
 										$.ajax({
-											url: "/review/ajaxremovereview",
+											url: "/Poing/review/ajaxremovereview.do",
 											method: "post",
 											dataType: "json",
 											data: {
@@ -758,7 +758,7 @@
 								}
 
 								$.ajax({
-									url: "/review/ajaxfavorite",
+									url: "/Poing/review/ajaxfavorite.do",
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -846,7 +846,7 @@
 										if (res) {
 											target.parent(".review").find("button.comment>p>span").text(res.length);
 											for (var i = 0; i < res.length; ++i) {
-												res[i].me = (res[i].user_id == '');
+												res[i].me = (res[i].user_id == '${authUser.m_no}');
 												var parse = new EJS({
 													url: '/Poing/template/review_comment.ejs'
 												}).render(res[i]);
@@ -1094,7 +1094,7 @@
 							$textarea.on("keydown", function (e) {
 								if (e.keyCode == 13) { // enter
 									$.ajax({
-										url: "/review/ajaxmodifycomment",
+										url: "/Poing/review/ajaxmodifycomment.do",
 										method: "post",
 										dataType: "json",
 										data: {
@@ -1129,7 +1129,7 @@
 								message: "댓글을 삭제하시겠습니까?",
 								ok: $.proxy(function () {
 									$.ajax({
-										url: "/review/ajaxremovecomment",
+										url: "/Poing/review/ajaxremovecomment.do",
 										method: "post",
 										dataType: "json",
 										data: {

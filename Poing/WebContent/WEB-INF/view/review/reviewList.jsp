@@ -16,6 +16,7 @@
 		src="<%=request.getContextPath()%>/js/slider.js"></script>
 	<style>
 			<%@include file="/css/style.css" %>
+			<%@include file="/css/poing.slider.css" %>
 	</style>
 </head>
 <%
@@ -116,13 +117,13 @@
 							</script>
 						</div>
 						<div class="title">실시간 리뷰</div>
+						<c:forEach var = "dto" items = "${list }" varStatus = "status">
 						<div class="body review_wrap">
-							<c:forEach var = "dto" items = "${list }" varStatus = "status">
 							<div class="review" data-id="${dto.rev_no }" data-place="${dto.rest_no }"
 								data-place-name="${dto.rest_name }">
 								<a class="author" href="/Poing/timeline.do?id=${dto.m_no }"> <span
 									class="thumbnail"
-									style="display: inline-block; background-image: url(&quot;${ dto.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }&quot;);"></span>
+									style="display: inline-block; background-image: url(&quot;${realPath}${ dto.m_img ne null ? dto.m_img : application.getAttribute("baseimg") }&quot;);"></span>
 									<div class="info">
 										<p class="name">${dto.m_name }</p>
 										<p class="stat">${ dto.m_revcnt } 리뷰, ${ dto.m_ercnt } 팔로워</p>
@@ -147,12 +148,12 @@
 									<div class="grade">
 										
 										<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
-											<c:if test="${i <= dto.rev_starpoint/10 }">
+											<c:if test="${i <= dto.rev_starpoint / 10 }">
 												<c:if test = "${i%2 ne 0 }"><i class="icon star medium odd active" data-id="" data-index="${status.count }" style=""></i></c:if>
 												<c:if test = "${i%2 eq 0 }"><i class="icon star medium even active" data-id="" data-index="${status.count }" style=""></i></c:if>
 											</c:if>
 										</c:forEach>
-										<span id="pointComment" style="display:inline-block;vertical-align:super;" data-id="${ dto.rev_no }" data-grade="${ dto.rev_starpoint/10 }"></span>
+										<span id="pointComment" style="display:inline-block;vertical-align:super;" data-id="${ dto.rev_no }" data-grade="${ dto.rev_starpoint }"></span>
 										<script type="text/javascript">
 											//$("#pointComment").text("${ dto.rev_starpoint/10 } / " + ratingText[${ dto.rev_starpoint/10 }]);
 										</script>
@@ -196,7 +197,7 @@
 											data-id="${dto.rev_no }" tabindex="-1">
 											<i class="icon heart small "></i>
 											<p>
-												찜하기 <span>찜개수</span>
+												찜하기 <span>${rdto.pick_cnt }</span>
 											</p>
 										</button>
 										<button class="comment" type="button"
@@ -223,7 +224,7 @@
 									<c:if test="${ dto.cdto ne null }">
 										<div class="comment">
 											<a class="thumbnail"
-												style="background-image: url('${ dto.cdto.m_img?dto.cdto.m_img:"http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"
+												style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : application.getAttribute("baseimg") }')"
 												href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
 											<div class="author">
 												<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
@@ -243,12 +244,12 @@
 								</div>
 								<div class="write">
 								<span class="thumbnail"
-									style="background-image: url('${ authUser.m_img ? authUser.m_img : "http://c1.poing.co.kr/original/images/common/default_profile_162.png" }')"></span>
+									style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></span>
 								<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
 								</div>
 							</div>
+						</div>
 						</c:forEach>
-					</div>
 
 						<div id="review_pagination">
 							<div class="page-list">

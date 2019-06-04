@@ -1,60 +1,50 @@
-<%@page import="poing.product.display.service.DisplayProductDetailService"%>
+<%@page import="java.util.Hashtable"%>
+<%@page import="org.json.simple.JSONObject"%>
 <%@page import="poing.product.ProductDTO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	try {
-		DisplayProductDetailService service = new DisplayProductDetailService();
-		int p_num = Integer.parseInt(request.getParameter("p_num"));
-		ProductDTO dto = service.select(p_num);
-		request.setAttribute("dto", dto);
-	} catch (Exception e) { 
-			e.printStackTrace();
-	}
-	
+	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
 %>
 <div id="reserve_coupon">
 	<i class="icon popup_close" data-close></i>
 	<div class="body">
-					<i class="image"></i>
-				<div class="title">${dto.rest_name }
-				<span>${dto.r_location }-${dto.r_type }</span>
+		<i class="image"></i>
+		<div class="title">
+			${dto.rest_name} <span> ${dto.r_location }-${dto.r_type } </span>
 		</div>
 		<form class="request" name="reserve">
-            <input type="hidden" id="mode" value="buy"/>
+			<input type="hidden" id="mode" value="buy" />
 			<div class="box count">
-				<i class="icon personnel"></i>
-                <span class="label">인원</span>
+				<i class="icon personnel"></i> <span class="label">인원</span>
 
 				<div>
 					<button type="button" class="decrease"></button>
-					<input type="text" name="party_size" value="2" data-min="2" data-max="100" disabled>
+					<input type="text" name="party_size" value="2" data-min="2"
+						data-max="100" disabled>
 					<button type="button" class="increase"></button>
 				</div>
 			</div>
 
 			<div class="box date">
-				<i class="icon calendar"></i>
-				<span class="label">날짜</span>
+				<i class="icon calendar"></i> <span class="label">날짜</span>
 
 				<div>
-					<input type="hidden" name="date" value="" disabled>
-					<span></span>
+					<input type="hidden" name="date" value="" disabled> <span></span>
 					<i class="icon arrow"></i>
 
-					<div class="calendar"></div>					
+					<div class="calendar"></div>
 				</div>
 			</div>
 
 			<div class="box time">
-				<i class="icon clock"></i>
-				<span class="label">시간</span>
+				<i class="icon clock"></i> <span class="label">시간</span>
 
 				<div>
-					<input type="hidden" name="time" value="" disabled>
-					<span></span>
+					<input type="hidden" name="time" value="" disabled> <span></span>
 					<i class="icon arrow"></i>
-					
+
 					<div class="timetable">
 						<ul class="disable">
 							<li data-time="none">예약 불가</span>
@@ -223,26 +213,28 @@
 			</div>
 
 			<p class="summary">
-				<span class="date"></span>
-				<span class="time"></span>
-				<span class="count">2명</span>
+				<span class="date"></span> <span class="time"></span> <span
+					class="count">2명</span>
 			</p>
 
-			
+
 			<div class="section comment">
 				<textarea name="message" rows="5" placeholder="요청사항을 적어주세요."></textarea>
 			</div>
-			<p class="text_count">(<span>0</span>/30자)</p>
+			<p class="text_count">
+				(<span>0</span>/30자)
+			</p>
 
 			<div class="notice">
-									<p>* No-Show(노쇼:예약을 하고 나타나지 않은 행위)는 외식업계를 아프게 합니다.</p>
-							</div>
+				<p>* No-Show(노쇼:예약을 하고 나타나지 않은 행위)는 외식업계를 아프게 합니다.</p>
+			</div>
 		</form>
 	</div>
 
 	<div class="buttons">
-					<button type="button" class="accept" data-id="1297740" data-close onclick="location.href='/Poing/product/productOrder.do?p_num=${param.p_num}'">예약 접수</button>
-			</div>
+		<button type="button" class="accept" data-id="1297740" data-close>예약
+			접수</button>
+	</div>
 </div>
 
 <script>
@@ -303,8 +295,7 @@
 		var range = new Date();
 		range.setMonth(range.getMonth() + 2);
 		range.setDate(0);
-		var holidays = $
-				.parseJSON('["2019.03.18","2019.03.19","2019.03.20","2019.03.22"]');
+		var holidays = $.parseJSON('[]');
 		for (var i = 0; i < holidays.length; ++i)
 			holidays[i] = new Date(holidays[i].replace(/\./g, '-'));
 
@@ -355,7 +346,7 @@
 								var selected = new Date(date);
 								var now = new Date();
 								var day = selected.getDay();
-								var lead_hour = 60 * 2;
+								var lead_hour = 60 * 1;
 								var available_time = (now.getHours() * 60)
 										+ now.getMinutes() + lead_hour;
 								var table = $(
@@ -436,62 +427,53 @@
 				"#reserve_coupon div.calendar .ui-datepicker-calendar td:not(.ui-state-disabled):first")
 				.click();
 
+		$("#reserve_coupon>.buttons>.accept").on("click", reservation);
 		// 예약
 		function reservation(e) {
 			e.stopImmediatePropagation();
-			var name = '고지용';
+			var name = '진동현';
+			var reserve = $("#reserve_coupon form").get(0);
+			var date = reserve.date.value + " " + reserve.time.value;
+			var mode = $("#mode").val();
 
-			if ($("#reserve_coupon .phone").length > 0) {
-				noticePopupInit({
-					message : "번호 인증을 해주세요!"
-				});
-				return false;
-			} else if (name == '' || name == null) {
-				alert('예약자명을 설정해주세요');
-				location.href = "/timeline/1520484?setting";
-				return false;
-			} else {
-				var id = $(this).data('id');
-				var reserve = $("#reserve_coupon form").get(0);
-				var date = reserve.date.value + " " + reserve.time.value;
-				var mode = $("#mode").val();
-				var request = mode ? '/pay/modifyCartReservation'
-						: '/restaurant/ajaxEditreserve';
+			var params = {
+				'date' : date, //날짜
+				'party_size' : reserve.party_size.value, //인원수
+				'message' : reserve.message.value, //요청사항
+				'optionArr' : '${ja}'
+				
+			};
+			
+			$.ajax({
+			'url' : '/Poing/productCart/modifyCartReservation.do',
+			'method' : 'POST',
+			'dataType' : 'json',
+			'data' : params,
 
-				$.ajax({
-					'url' : request,
-					'method' : 'POST',
-					'dataType' : 'json',
-					'data' : {
-						'id' : id,
-						'date' : date,
-						'party_size' : reserve.party_size.value,
-						'message' : reserve.message.value,
-					},
-					'success' : function(res) {
-						if (res) {
-							if (res.status) {
-								res = res.data;
-								location.href = "/pay/order/" + res.cart_id;
-							} else {
-								if ($.inArray(res.error.code, [ 1503 ]) > -1)
-									alert(res.error.message);
-								else
-									$.popup("confirm", {
-										'text' : res.error.message,
-										'alert' : true,
-										'wait' : true
-									});
-							}
-						} else
+			'success' : function(res) {
+				if (res) {
+					if (res.status) {
+// 						res = res.data;
+						
+						location.href = "/Poing/product/productOrder.do?p_num=${param.p_num}&cart_seq="+res.cart_seq;
+					} else {
+						if ($.inArray(res.error.code, [ 1503 ]) > -1)
+							alert(res.error.message);
+						else
 							$.popup("confirm", {
-								'text' : '예약 접수에 실패했습니다.',
-								'alert' : true
+								'text' : res.error.message,
+								'alert' : true,
+								'wait' : true
 							});
 					}
-				});
+				} else
+					$.popup("confirm", {
+						'text' : '예약 접수에 실패했습니다.',
+						'alert' : true
+					});
 			}
+		});
+			//   		}
 		}
-		$("#reserve_coupon>.buttons>.accept").on("click", reservation);
 	});
 </script>

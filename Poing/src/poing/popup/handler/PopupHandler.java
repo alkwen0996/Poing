@@ -14,6 +14,9 @@ public class PopupHandler implements CommandHandler {
 		if (command.equals("/popup/sign.do")) {
 			return "popup/sign";
 		}
+		else if (command.equals("/popup/deleteCart.do")) {
+			return "popup/deleteCart";
+		}
 		else if (command.equals("/popup/point_history.do")) {
 			return "popup/point_history";
 		}
@@ -34,8 +37,30 @@ public class PopupHandler implements CommandHandler {
 				return "popup/followList_er_json";
 			}
 		}
+		
 		else if (command.equals("/popup/reserve_rest.do")) {
 			return "popup/rest_reserve";
+		}
+		else if (command.equals("/popup/confirm.do")) {
+			return "popup/confirm";
+		}
+		else if (command.equals("/popup/confirm2.do")) {
+			return "popup/confirm2";
+		}
+		else if (command.equals("/popup/confirm3.do")) {
+			return "popup/confirm3";
+		}
+		else if (command.equals("/popup/basket_confirm.do")) {
+			return "popup/basket_confirm";
+		}
+		else if (command.equals("/popup/basket_no_confirm.do")) {
+			return "popup/basket_no_confirm";
+		}
+		else if (command.equals("/popup/pointConfirm.do")) {
+			return "popup/pointConfirm";
+		}
+		else if (command.equals("/popup/p_payMent.do")) {
+			return "popup/p_payMent";
 		}
 		else if (command.equals("/popup/reserve_edit_rest.do")) {
 			return "popup/rest_reserve_edit";
@@ -50,10 +75,13 @@ public class PopupHandler implements CommandHandler {
 			return "popup/confirmPick";
 		}
 		else if (command.equals("/user/UserNotice.do")) {
-			return "popup/userNotice";
+			return "popup/UserNotice_json";
 		}
-		else if (command.equals("/user/noticeCheck.do")) {
-			return "popup/noticeCheck";
+		else if(command.equals("/user/PoingNotice.do")) {
+			return "popup/PoingNotice_json";
+		}
+		else if(command.equals("/user/noticeCheck.do")) {
+			return "popup/noticeCheck_json";
 		}
 		else {
 			return null;			

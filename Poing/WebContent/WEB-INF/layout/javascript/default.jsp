@@ -2138,6 +2138,8 @@
 			}
 		});
 
+		
+		// 포잉 알림 news/notice
 		// notice section
 		$("#nav_notice>.i_wrap").on("click", function (e) {
 			if ($("#nav_mynews_list").html() == "")
@@ -2204,13 +2206,13 @@
 
 			if ($("#nav_poingnews_list").html() == "") {
 				$.ajax({
-					url: '/user/PoingNotice',
+					url: '/Poing/user/PoingNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/PoingNotice.ejs'
+							url: '/Poing/templete/PoingNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2223,7 +2225,10 @@
 			} else
 				$("#nav_poingnews_list").show();
 		});
-
+// 포잉 알림 news/notice
+		
+		
+		
 		$("#nav_mynews_list").on("click", ".item", function () {
 			var type = $(this).data("type");
 			var target = $(this).data("target");

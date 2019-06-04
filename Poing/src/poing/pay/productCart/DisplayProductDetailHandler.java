@@ -1,4 +1,4 @@
-package poing.product.display.handler;
+package poing.pay.productCart;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,15 +24,14 @@ public class DisplayProductDetailHandler implements CommandHandler {
 				member_num = mdto.getM_no();
 				dto = service.select(p_num,member_num);
 			}
+					
+			
 			request.setAttribute("dto", dto);
 			
 		} catch (Exception e) { 
 				e.printStackTrace();
 		}
 		return "product/productDetail";
-	}
-
-	public static void main(String[] args) {
 	}
 
 }

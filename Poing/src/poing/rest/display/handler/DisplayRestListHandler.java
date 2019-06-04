@@ -18,14 +18,18 @@ public class DisplayRestListHandler implements CommandHandler
 		try {
 			RestListService service = new RestListService();
 
-			String loc_code = request.getParameter("loc_code")==null?null:request.getParameter("loc_code");
-			String food_type = request.getParameter("food_type")==null?null:request.getParameter("food_type");
-			String searchWord = request.getParameter("searchWord")==null?null:request.getParameter("searchWord");
-
-			if (loc_code!=null) {
-
-			}
-			List<RestListDTO> list = service.select();
+			
+//			pop=2&add=104,107&searchWord=고기&foodType=11,55
+					
+			
+			String pop = request.getParameter("pop");
+			String loc_code = request.getParameter("loc_code");
+			String food_type = request.getParameter("food_type");
+			String searchWord = request.getParameter("searchWord");
+			List<RestListDTO> list = null;
+			
+			if(pop!=null || loc_code!=null || food_type!=null || searchWord!=null ) list = service.select(pop, loc_code, food_type, searchWord);
+			else list = service.select();
 			request.setAttribute("list", list);
 		} catch (Exception e) { 
 			e.printStackTrace();

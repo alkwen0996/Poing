@@ -10,10 +10,12 @@
 
 	boolean result1 = (Boolean)request.getAttribute("result1");
 	boolean result2 = (Boolean)request.getAttribute("result2");
+	int totalmoney = (Integer)request.getAttribute("totalmoney");
 // 	reserva_ticDTO rdto = (reserva_ticDTO)request.getAttribute("rdto");
 	
 	jsonObject.put("status1", result1);
 	jsonObject.put("status2", result2);
+	jsonObject.put("totalmoney", totalmoney);
 // 	jsonObject.put("rdto", rdto);
 	%>
 	

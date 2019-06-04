@@ -36,24 +36,27 @@ public class ProductPayService {
 			
 			insertCheck = MemberDAO.insertReserve_tic(conn, p_num, m_no, cart_seq);
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new RuntimeException(e);
 		}
 		return insertCheck;
 		
 	}
 
-	public boolean selectRp_seq(int rp_seq, int p_dc_money, String m_email, int point) {
-
+	public boolean selectRp_seq(int rp_seq, int totalmoney, String m_email, int point) {
+		System.out.println("selectRp_seq 안으로 들어옴"+totalmoney);
+		System.out.println("selectRp_seq 안으로 들어옴"+point);
+		System.out.println("selectRp_seq 안으로 들어옴"+m_email);
+		System.out.println("selectRp_seq 안으로 들어옴"+rp_seq);
 		boolean updateCheck = false;
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			if (p_dc_money <= rp_seq && point == p_dc_money) {
-				updateCheck = MemberDAO.selectRp_seq(conn, rp_seq, p_dc_money, m_email);
+			if (totalmoney <= rp_seq && point == totalmoney) {
+				System.out.println("조건만족");
+				updateCheck = MemberDAO.selectRp_seq(conn, rp_seq, totalmoney, m_email);
 				System.out.println(updateCheck); //
 
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return updateCheck;

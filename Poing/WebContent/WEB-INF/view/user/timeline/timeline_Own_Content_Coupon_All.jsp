@@ -58,11 +58,14 @@ $("button.jindong").click(function () {
 		method: 'post',
 		dataType: 'JSON',
 		data:{
-			reserva_tic_seq : $(this).attr('data')
+			reserva_tic_seq : $(this).attr('data'),
+			totalmoney : ${param.totalmoney},
+			id :${param.id}
 		},
 		success: function (res) {
-			if (res.status) {
+			if (res.status2) {
 			$.popup('/Poing/popup/deleteCart.do');
+				
 			setTimeout(location.reload.bind(location), 1000);
 			
 			}else{

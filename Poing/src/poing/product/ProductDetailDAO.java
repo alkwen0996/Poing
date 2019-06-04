@@ -22,6 +22,27 @@ public class ProductDetailDAO {
 
 	public ProductDetailDAO() {}
 	
+	public boolean updateTotalmoney(Connection conn, int totalmoney, int id) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" update member set rp_seq = rp_seq + ? where m_no = ? ");
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, totalmoney);
+			pstmt.setInt(2, id);
+			result = pstmt.executeUpdate()==0? false:true;
+			
+			pstmt.close();
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	};
+	
 	public boolean deletePayCart(Connection conn, int reserva_tic_seq) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" delete reserve_tic where reserva_tic_seq = ? ");

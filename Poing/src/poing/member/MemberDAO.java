@@ -95,15 +95,12 @@ public class MemberDAO {
 	}
 	
 	public static boolean insertReserve_tic(Connection conn, int p_num, int m_no, int cart_seq){
-		MemberDTO mdto = null;
 		boolean result1 = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" insert into reserve_tic (reserva_tic_seq, p_num, m_no, cart_seq, p_state)values (reserva_tic_seq.nextval, ?, ?, ?,'결제완료') ");
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			//pstmt.setInt(1, rp_seq);
 			pstmt.setInt(1, p_num);
 			pstmt.setInt(2, m_no);
 			pstmt.setInt(3, cart_seq);
@@ -111,8 +108,8 @@ public class MemberDAO {
 			 
 			result1 = pstmt.executeUpdate()==0? false:true;
 			// 
-			
-			
+			pstmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,29 +118,30 @@ public class MemberDAO {
 	}
 	
 	
-	public static boolean selectRp_seq(Connection conn, int rp_seq, int p_dc_money, String m_email){
-		MemberDTO mdto = null;
-		boolean result = false;
+	public static boolean selectRp_seq(Connection conn,int rp_seq,int totalmoney, String m_email){
+		System.out.println("진입성공");
+		System.out.println("rp_seq="+rp_seq);
+		System.out.println("totalmoney="+totalmoney);
+		System.out.println("m_email="+m_email);
+		boolean result2 = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update member set rp_seq = rp_seq -? where m_email = ? ");
+		sql.append(" update member set rp_seq = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			//pstmt.setInt(1, rp_seq);
-			pstmt.setInt(1, p_dc_money);
-			pstmt.setString(2, m_email);
-			//
+			pstmt.setInt(1, rp_seq);
+			pstmt.setInt(2, totalmoney);
+			pstmt.setString(3, m_email);
 			 
-			result = pstmt.executeUpdate()!=0? true:false;
-			// 
-			
-			
+			result2 = pstmt.executeUpdate()==0? false:true;
+			System.out.println(result2);
+			pstmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result;
+		return result2;
 	}
 	
 	

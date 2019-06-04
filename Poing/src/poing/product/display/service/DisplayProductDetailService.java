@@ -13,6 +13,18 @@ import poing.product.ProductDetailDAO;
 
 
 public class DisplayProductDetailService {
+	public boolean updateTotalmoney(int totalmoney, int id) {
+		ProductDetailDAO dao = new ProductDetailDAO();		
+		boolean result = true;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			result = dao.updateTotalmoney(conn, totalmoney, id);
+			
+			return result;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public boolean deletePayCart(int reserva_tic_seq) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result2 = true;

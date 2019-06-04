@@ -20,7 +20,7 @@ public class ProductPayHandler implements CommandHandler {
 		
 		
 		System.out.println("payHandler start");
-		int p_dc_money = Integer.parseInt(request.getParameter("p_dc_money"));
+		int totalmoney = Integer.parseInt(request.getParameter("totalmoney"));
 		int rp_seq = Integer.parseInt(request.getParameter("rp_seq"));
 		int point = Integer.parseInt(request.getParameter("point"));
 		int p_num = Integer.parseInt(request.getParameter("p_num"));
@@ -38,33 +38,36 @@ public class ProductPayHandler implements CommandHandler {
 		
 		System.out.println(point);// 입력한값
 		System.out.println(rp_seq);
-		System.out.println(p_dc_money);
+		System.out.println(totalmoney);
 		System.out.println(m_email);
-
 		boolean result1 = service.insertReserve_tic(p_num, m_no, cart_seq);
-		boolean result2 = service.selectRp_seq(rp_seq, p_dc_money, m_email, point);
+		System.out.println(result1);
+		boolean result2 = service.selectRp_seq(rp_seq, totalmoney, m_email, point);
+		System.out.println(result2);
 		
 		if (result2) {
 			// 세션 새로 저장
-			int new_rq_seq = rp_seq - p_dc_money;
+			int new_rq_seq = rp_seq - totalmoney;
 
 			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
 			mdto.setRp_seq(new_rq_seq);
 			request.getSession().setAttribute("authUser", mdto);
 		}
 
-		System.out.println(result1);
-		System.out.println(result2);
+		
 		
 		JSONObject jsonObject = new JSONObject();
 		
 		jsonObject.put("result1", result1);
 		jsonObject.put("result2", result2);
+		jsonObject.put("totalmoney", totalmoney);
 //		jsonObject.put("rdto", rdto);
 		
 		request.setAttribute("result1",result1);
 		request.setAttribute("result2",result2);
+		request.setAttribute("totalmoney",totalmoney);
 //		request.setAttribute("rdto",rdto);
+		
 		return "productCart/checkCartUpdate";
 
 	}

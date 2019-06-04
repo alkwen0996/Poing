@@ -37,9 +37,9 @@
 	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
 			int op_cnt = dto2.getOp_cnt();
 			int p_dc_money = dto.getP_dc_money();
-			int a = op_cnt * p_dc_money;
+			int totalmoney = op_cnt * p_dc_money;
 			int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
-			System.out.println(a);
+			System.out.println(totalmoney);
 			System.out.println(cart_seq);
 %>
 
@@ -90,11 +90,11 @@
                                         <div class="name">${dto2.op_name }</div>
                                         <div class="price">${dto.p_dc_money }원</div>
                                         <div class="count">${dto2.op_cnt}</div>
-                                        <div class="total_price"><span><%=a%></span>원</div>
+                                        <div class="total_price"><span><%=totalmoney%></span>원</div>
                                     </li>
                                                                 <li class="total">
                                     티켓금액
-                                    <span class="jindong"><%=a %>원</span>
+                                    <span class="jindong"><%=totalmoney %>원</span>
                                 </li>
                             </ul>
                         </td>
@@ -122,13 +122,13 @@
 
             <tbody>
                 <tr>
-                    <td class="price" data-price="${dto.p_dc_money }">${dto.p_dc_money }</td>
+                    <td class="price" data-price="<%=totalmoney%>"><%=totalmoney%></td>
                     <td class="point">
                         <i class="icon subtract"></i>
                         <input id="point" type="text" value="0" data-max="1000000000">P
                     </td>
                     <td class="total">
-                        <span>${dto.p_dc_money }</span>원
+                        <span><%=totalmoney%></span>원
                     </td>
                 </tr>
             </tbody>
@@ -332,15 +332,14 @@ $(document).ready(function(){
         
         
          var data = {
-        		 cart_ids : [],
+        	cart_ids : [],
             cart_seq: ${param.cart_seq},
             p_num: ${param.p_num},
             point: $("#point").val(),
-            p_dc_money: ${dto.p_dc_money},
+            totalmoney: <%=totalmoney%>,
             m_email: "${authUser.m_email}",
             rp_seq: ${authUser.rp_seq},
             m_no: ${authUser.m_no}
-            
         };
         	
         $(".pay>.section.list>table>tbody>tr").each(function(){
@@ -354,8 +353,8 @@ $(document).ready(function(){
             'context': this,
             'data': data,
             'success':function(res) {
-                if(res.status2) {
-                      post_to_url("/Poing/timeline.do?id=${authUser.m_no}&tab=coupon");
+                if(res.status1) {
+                      post_to_url("/Poing/timeline.do?id=${authUser.m_no}&totalmoney="+res.totalmoney+"&tab=coupon");
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else {

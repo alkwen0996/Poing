@@ -246,7 +246,7 @@
 						<c:when test="${ param.tab eq 'review' }">
 						<% System.out.println("review"); %>
 							<jsp:include page="/WEB-INF/view/rest/rest_review.jsp"/>
-						</c:when>
+						</c:when> 
 						
 						<c:when test="${ param.tab eq 'menu' }">
 						<% System.out.println("menu"); %>

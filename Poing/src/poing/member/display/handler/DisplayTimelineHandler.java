@@ -39,6 +39,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		if (tab == null) {
 			tab = "reservation";
 		}
+		
 		int memberID = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = displayTimelineService.getMemberDTO(memberID);
 		System.out.println("DisplayTimelineHandler.java line 22 mdto:" + mdto);

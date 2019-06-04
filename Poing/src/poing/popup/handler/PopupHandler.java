@@ -61,6 +61,7 @@ public class PopupHandler implements CommandHandler {
 		}
 		else if (command.equals("/popup/p_payMent.do")) {
 			return "popup/p_payMent";
+		}
 		else if (command.equals("/popup/reserve_edit_rest.do")) {
 			return "popup/rest_reserve_edit";
 		}

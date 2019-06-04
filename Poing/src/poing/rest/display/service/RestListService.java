@@ -23,4 +23,17 @@ public class RestListService {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public List<RestListDTO> select(String pop, String loc_code, String food_type, String searchWord) {
+		RestListDAO dao = RestListDAO.getInstance();	
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			List<RestListDTO> list = dao.selectdisplay(conn,pop, loc_code, food_type, searchWord );
+			// 로그 처리
+			// 
+			//
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

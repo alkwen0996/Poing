@@ -23,8 +23,10 @@ JSONObject jsonObject = new JSONObject();
 JSONObject data = new JSONObject();
 jsonObject.put("status", true);
 jsonObject.put("data", data);
+
 JSONArray follows = new JSONArray();
 data.put("follows", follows);
+
 JSONObject meta = new JSONObject();
 meta.put("page", 1);
 meta.put("per_page", 14);

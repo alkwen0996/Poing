@@ -41,10 +41,10 @@
   </filter>
   <filter-mapping>
     <filter-name>encodingFile</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.ad</url-pattern>
   </filter-mapping>
   
-	
   <servlet>
     <servlet-name>ControllerUsingURI</servlet-name>
     <servlet-class>poing.mvc.ControllerUsingURI</servlet-class>
@@ -58,6 +58,22 @@
     <servlet-name>ControllerUsingURI</servlet-name>
     <url-pattern>*.do</url-pattern> 
     <url-pattern>*.ejs</url-pattern> 
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <servlet-name>ControllerUsingURIAdmin</servlet-name>
+    <servlet-class>admin.mvc.AdminControllerUsingURI</servlet-class>
+    <init-param>
+      <param-name>configFile</param-name>
+      <param-value>/WEB-INF/admin/commandHandlerForAdmin.properties</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ControllerUsingURIAdmin</servlet-name>
+    <url-pattern>*.ad</url-pattern> 
   </servlet-mapping>
 
 </web-app>

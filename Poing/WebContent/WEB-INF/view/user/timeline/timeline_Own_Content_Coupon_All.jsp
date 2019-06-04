@@ -1,11 +1,7 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="poing.product.reserva_ticDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	ArrayList<reserva_ticDTO> list1 = (ArrayList<reserva_ticDTO>) request.getAttribute("list1");
-%>
 
 <div class="body empty coupon ">
 	<div class="filter">
@@ -52,30 +48,26 @@
 		</table>
 	</c:forEach>
 	<script>
-$("button.jindong").click(function () {
-	$.ajax({
-		url: '/Poing/product/cartDelete.do',
-		method: 'post',
-		dataType: 'JSON',
-		data:{
-			reserva_tic_seq : $(this).attr('data'),
-			totalmoney : ${param.totalmoney},
-			id :${param.id}
-		},
-		success: function (res) {
-			if (res.status2) {
-			$.popup('/Poing/popup/deleteCart.do');
-				
-			setTimeout(location.reload.bind(location), 1000);
-			
-			}else{
-				
+	$("button.jindong").click(function () {
+		$.ajax({
+			url: '/Poing/product/cartDelete.do',
+			method: 'post',
+			dataType: 'JSON',
+			data:{
+				reserva_tic_seq : $(this).attr('data'),
+				totalmoney : ${param.totalmoney},
+				id :${param.id}
+			},
+			success: function (res) {
+				if (res.status2) {
+				$.popup('/Poing/popup/deleteCart.do');
+				setTimeout(location.reload.bind(location), 1000);
+				}else{
+				}
 			}
-		}
-	});
-})
-</script>
-
+		});
+	})
+	</script>
 </div>
 
 

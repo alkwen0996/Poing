@@ -1,4 +1,3 @@
-<%@page import="poing.product.reserva_ticDTO"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.review.display.service.DisplayReviewService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>

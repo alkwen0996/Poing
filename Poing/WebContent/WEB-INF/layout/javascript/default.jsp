@@ -2516,7 +2516,31 @@
 			});
 			// search button
 			$("#nav_btn").click(function () {
-				window.search({
+				var pop = $.unique($("#nav_area #pop-list input:checked").map(function () { return $(this).val(); }).get()).join(',');
+				var add = $.unique($("#nav_area #add input:checked").map(function () { return $(this).val(); }).get()).join(',');
+				var searchWord = $("#nav_search>input").val();
+				var food_type = $("#nav_genre ul input:not(#food_all):checked").map(function () { return $(this).val(); }).get().join(',')
+				var loc_href = "/Poing/rest/list.do?";
+				
+				
+				var queryParams = {
+						pop: pop,
+						add: add,
+						searchWord: searchWord,
+						food_type: food_type
+						};
+				
+				function isEmpty(value){
+					  return value == null || value == "";
+					}
+				
+				for(key in queryParams) if(isEmpty(queryParams[key])) delete queryParams[key];
+				
+				var param = $.param( queryParams );
+				
+				var loc_href = "/Poing/rest/list.do?"+param;
+				location.href = loc_href; 
+				 /* window.search({
 					set: {
 						place_area: $.unique($("#nav_area ul input:checked").map(function () {
 							return $(this).val();
@@ -2530,7 +2554,7 @@
 						'table_styles', 'liquors', 'parking', 'order_rule', 'theme_childe_sub3',
 						'theme_childe_url', 'r_num', 'page'
 					]
-				});
+				}); */ 
 			});
 			// box button click
 			$("#nav_container>.search.sel>.box>button").click(function () {

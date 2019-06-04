@@ -30,5 +30,7 @@ public class DisplayRestListHandler implements CommandHandler
 	} catch (Exception e) { 
 	e.printStackTrace();
 	}
+	return "rest/restList";
+	}
 
 }

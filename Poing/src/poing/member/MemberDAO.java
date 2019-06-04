@@ -14,7 +14,7 @@ import poing.news_notice.NoticeDTO;
 import poing.rest.RestTimlineReserveDTO;
 
 import poing.product.ProductDTO;
-import poing.product.reserva_ticDTO;
+import poing.product.ReserveTicketDTO;
 
 public class MemberDAO {
 	
@@ -60,18 +60,18 @@ public class MemberDAO {
 		return mdto;
 	}
 	
-	public static List<reserva_ticDTO> selectReserva_tic(Connection conn) {
+	public static List<ReserveTicketDTO> selectReserva_tic(Connection conn) {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<reserva_ticDTO> list1 = new ArrayList<>();
+		ArrayList<ReserveTicketDTO> list1 = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
-			reserva_ticDTO rdto = null;
+			ReserveTicketDTO rdto = null;
 			while(rs.next()) {
-			rdto = new reserva_ticDTO();
+			rdto = new ReserveTicketDTO();
 			rdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
 			rdto.setRest_name(rs.getString("rest_name"));
 			rdto.setP_st_ed_date(rs.getString("p_st_ed_date"));

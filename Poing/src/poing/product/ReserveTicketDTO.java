@@ -1,6 +1,6 @@
 package poing.product;
 
-public class reserva_ticDTO {
+public class ReserveTicketDTO {
 private int p_num;
 private int m_no;
 private int cart_seq;

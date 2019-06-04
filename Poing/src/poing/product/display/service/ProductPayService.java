@@ -2,21 +2,18 @@ package poing.product.display.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
-import poing.member.MemberDTO;
-import poing.product.ProductDTO;
-import poing.product.reserva_ticDTO;
+import poing.product.ReserveTicketDTO;
 
 public class ProductPayService {
-	public List<reserva_ticDTO> selectReserva_tic() {
-		reserva_ticDTO rdto = new reserva_ticDTO();
+	public List<ReserveTicketDTO> selectReserva_tic() {
+		ReserveTicketDTO rdto = new ReserveTicketDTO();
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			List<reserva_ticDTO> list1 = MemberDAO.selectReserva_tic(conn);
+			List<ReserveTicketDTO> list1 = MemberDAO.selectReserva_tic(conn);
 			// 로그 처리
 			// 
 			//

@@ -118,7 +118,7 @@
 						</div>
 						<div class="title">실시간 리뷰</div>
 						<c:forEach var = "dto" items = "${list }" varStatus = "status">
-						<div class="body review_wrap">
+							<div class="body review_wrap">
 						
 							<c:forEach var = "dto" items = "${list }" varStatus = "status">
 							<div class="review" data-id="${dto.rev_no }" data-place="${dto.rest_no }"
@@ -250,8 +250,9 @@
 							<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
 							</div>
 						</div>
-					</div>
-					</c:forEach>
+							</c:forEach>
+							</div>
+						</c:forEach>
 
 						<div id="review_pagination">
 							<div class="page-list">

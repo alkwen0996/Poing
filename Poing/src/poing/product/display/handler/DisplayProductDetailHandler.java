@@ -16,8 +16,8 @@ public class DisplayProductDetailHandler implements CommandHandler {
 		try {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			int p_num = Integer.parseInt(request.getParameter("p_num"));
+			ProductDTO dto = service.select(p_num);
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-			ProductDTO dto = null;
 			int member_num;
 			if(mdto==null) {dto = service.select(p_num);
 			} else {
@@ -27,10 +27,14 @@ public class DisplayProductDetailHandler implements CommandHandler {
 					
 			
 			request.setAttribute("dto", dto);
+			
 		} catch (Exception e) { 
 				e.printStackTrace();
 		}
 		return "product/productDetail";
+	}
+
+	public static void main(String[] args) {
 	}
 
 }

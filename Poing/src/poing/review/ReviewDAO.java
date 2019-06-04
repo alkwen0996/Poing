@@ -7,12 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.glassfish.external.probe.provider.annotations.ProbeParam;
-
 public class ReviewDAO {
-	private static ReviewDAO reviewdao = new ReviewDAO();
 
 	public ReviewDAO() {}
+	
 	public static List<ReviewDTO> selectAllReview(Connection conn, String type, int my_no) throws SQLException{
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
@@ -449,7 +447,7 @@ public class ReviewDAO {
 	public static int countRestReview(Connection conn, int rest_no) throws SQLException {
 		int review_cnt = 0;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT COUNT(*) review_cnt FROM pick ");
+		sql.append(" SELECT COUNT(*) review_cnt FROM review ");
 		sql.append(" WHERE rest_no = ? ");
 
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -461,5 +459,37 @@ public class ReviewDAO {
 		}
 		return review_cnt;
 	}
+	
+	public static ArrayList<ReviewDTO> selectMainReview(Connection conn) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT rev.*, rest.rest_name, rest.rest_loc, rest.rest_img, mem.m_name, mem.m_img, ");
+		sql.append(" (SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
+		sql.append(" (SELECT COUNT(*) FROM review WHERE m_no = rev.m_no) m_revcnt ");
+		sql.append(" FROM review rev ");
+		sql.append(" JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
+		sql.append(" JOIN member mem ON rev.m_no = mem.m_no ");
+		sql.append(" WHERE ROWNUM <= 12; ");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList <ReviewDTO> list = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		
+		rs=pstmt.executeQuery();
+
+		ReviewDTO dto = null;
+		if (rs.next()) {
+			list = new ArrayList<>();
+			do {
+				dto = new ReviewDTO(rs, "main");
+				list.add(dto);
+			}while(rs.next());//while
+		}
+		pstmt.close();
+		rs.close();
+		return list;
+	}
+	
 }// class
 

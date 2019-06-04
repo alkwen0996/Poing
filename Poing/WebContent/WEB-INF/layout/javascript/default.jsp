@@ -1740,43 +1740,45 @@
 		
 		//productDeatil.do일때 
 		<c:if test="${ command eq '/product/detail.do' }">
-			<% System.out.println("default.jsp line 1668: /product/detail.do" ); %>
+			<% System.out.println("default.jsp line 1668: productDetail.jsp" ); %>
 			<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
 		</c:if>
 
 		//restDeatil.do일때 
 		<c:if test="${ command eq '/rest/detail.do' }">
-			<% System.out.println("default.jsp line 1668: /rest/detail.do" ); %>
-			<c:choose>
-			<c:when test="${ param.tab eq null || param.tab eq 'info' }">
-			
-			</c:when>
-
-			<c:when test="${ param.tab eq 'photo' }">
-				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
-				<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
-			</c:when>
-
-			<c:when test="${ param.tab eq 'review' }">
-			<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
-				<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
-			</c:when>
-			
-			<c:when test="${ param.tab eq 'menu' }">
-			<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
-				<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
-			</c:when>
-			
-			<c:when test="${ param.tab eq 'map' }">
-			<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
-				<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
-			</c:when>
-			<c:otherwise>
-				<% System.out.println("param 없음"); %>
-				<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
-			</c:otherwise>
-		</c:choose>
 			<jsp:include page="/WEB-INF/layout/javascript/restDetail.jsp"></jsp:include>
+			<% System.out.println("default.jsp line 1668: restDetail.jsp" ); %>
+			<c:choose>
+				<c:when test="${ param.tab eq null || param.tab eq 'info' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=info" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'photo' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'review' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'menu' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'map' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+				<c:otherwise>
+					<% System.out.println("param 없음"); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:otherwise>
+			</c:choose>
+			
 		</c:if>
 		
 		

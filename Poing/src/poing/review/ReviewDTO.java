@@ -41,6 +41,7 @@ public class ReviewDTO {
 		this.rev_starpoint = rs.getInt("rev_starpoint");
 		this.rest_name = rs.getString("rest_name");
 		this.rest_loc = rs.getString("rest_loc");
+		this.rest_img = rs.getString("rest_img");
 		this.m_name = rs.getString("m_name");
 		this.m_img = rs.getString("m_img");
 		this.m_ercnt = rs.getInt("m_ercnt");
@@ -64,6 +65,7 @@ public class ReviewDTO {
 		this.rev_starpoint = rs.getInt("rev_starpoint");
 		this.rest_name = rs.getString("rest_name");
 		this.rest_loc = rs.getString("rest_loc");
+		this.rest_img = rs.getString("rest_img");
 		this.m_name = rs.getString("m_name");
 		this.m_img = rs.getString("m_img");
 		this.m_ercnt = rs.getInt("m_ercnt");
@@ -75,7 +77,21 @@ public class ReviewDTO {
 		this.commend_cnt = rs.getInt("commend_cnt");
 		this.pick_cnt = rs.getInt("pick_cnt");
 	}
-	
+	public ReviewDTO(ResultSet rs, String main) throws SQLException {
+		this.rev_no = rs.getInt("rev_no");
+		this.rest_no = rs.getInt("rest_no");
+		this.rev_content = rs.getString("rev_content");
+		this.m_no = rs.getInt("m_no");
+		this.rev_wtime = rs.getDate("rev_wtime");
+		this.rev_starpoint = rs.getInt("rev_starpoint");
+		this.rest_name = rs.getString("rest_name");
+		this.rest_loc = rs.getString("rest_loc");
+		this.rest_img = rs.getString("rest_img");
+		this.m_name = rs.getString("m_name");
+		this.m_img = rs.getString("m_img");
+		this.m_ercnt = rs.getInt("m_ercnt");
+		this.m_revcnt = rs.getInt("m_revcnt");
+	}
 	
 	public String getRest_name() {
 		return rest_name;

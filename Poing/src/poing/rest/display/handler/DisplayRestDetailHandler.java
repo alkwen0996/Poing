@@ -28,7 +28,11 @@ public class DisplayRestDetailHandler implements CommandHandler
 		try {
 			RestDetailService service = new RestDetailService();
 			RestListDTO dto = service.select(rest_seq);
-			if (tab == null || tab.equals("review")) {
+			if (tab == null || tab.equals("info")) {
+				System.out.println();
+			}
+			
+			else if (tab.equals("review")) {
 				String type = (String) request.getAttribute("type");
 				ArrayList<ReviewDTO> list = DisplayRestDetailReviewService.getRestReviewList(rest_seq, m_no, type);
 				request.setAttribute("list", list);

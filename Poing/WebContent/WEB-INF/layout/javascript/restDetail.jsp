@@ -3,6 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+shadingHideEvent("#editorReviewsPopupShading.shading_bg", function () {
+	$("#editorReviewsPopup>.close").click();
+});
+$("#editorReviewsPopup>.close").on("click", function () {
+	$("#editorReviewsPopupShading.shading_bg").hide();
+	$("#editorReviewsPopup").hide();
+});
+$(document).ready(function () {
+	shadingHideEvent("#reserveShading.shading_bg", function () {
+		$("#pre-reserve").hide();
+		$("#post-reserve").hide();
+	});
+})
 
 var minimum_party_size = 1;
 var maximum_party_size = 99;

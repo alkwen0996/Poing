@@ -84,17 +84,3 @@ $(document).ready(function () {
 		$('#reportShading').click();
 	});
 });
-
-shadingHideEvent("#editorReviewsPopupShading.shading_bg", function () {
-	$("#editorReviewsPopup>.close").click();
-});
-$("#editorReviewsPopup>.close").on("click", function () {
-	$("#editorReviewsPopupShading.shading_bg").hide();
-	$("#editorReviewsPopup").hide();
-});
-$(document).ready(function () {
-	shadingHideEvent("#reserveShading.shading_bg", function () {
-		$("#pre-reserve").hide();
-		$("#post-reserve").hide();
-	});
-})

@@ -1,4 +1,4 @@
-package poing.display.main;
+package poing.display.main.handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

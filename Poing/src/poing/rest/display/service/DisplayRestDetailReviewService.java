@@ -17,6 +17,7 @@ public class DisplayRestDetailReviewService {
 		
 		conn = ConnectionProvider.getConnection();
 		list = ReviewDAO.selectRestReview(conn, rest_no, m_no, type);
+		conn.close();
 		return list;
 	}
 	

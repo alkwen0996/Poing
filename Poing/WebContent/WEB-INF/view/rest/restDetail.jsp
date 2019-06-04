@@ -218,7 +218,7 @@
 							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=photo">포토</a>
 						</li>
 						<li class="item review">
-							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review">리뷰(19)</a>
+							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review">리뷰(${dto.rest_review_cnt})</a>
 						</li>
 						<li class="item menu">
 							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=menu">메뉴</a>

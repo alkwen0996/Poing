@@ -208,9 +208,6 @@ $(document).ready(function () {
 
 
 
-
-
-
 $(document).ready(function () {
 	shadingHideEvent("#reserveShading.shading_bg", function () {
 		$("#pre-reserve").hide();

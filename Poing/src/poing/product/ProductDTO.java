@@ -2,6 +2,7 @@ package poing.product;
 
 public class ProductDTO {
 	
+	private int rest_seq;
 	private int p_num;
 	private String r_type;
 	private String rest_name;
@@ -20,7 +21,149 @@ public class ProductDTO {
 	private String editer_img;
 	private String p_st_ed_date;
 	private int pick;
-	private int rest_seq;
+	private int p_min_count;
+	private int p_min_Personnel;
+	private int cart_seq;
+	private String op_name;
+	private int op_cnt;
+	private int party_size;
+	private String message;
+	private int op_price;
+	private String c_date;
+	private String p_content_1;
+	private String p_content_2;
+	private String p_content_3;
+	private String p_content_4;
+	private String p_content_5;
+	private String menu_info_title;
+	private String p_use_time_title;
+	private String advice_title;
+	private String cancel_change_title;
+	private String use_case_title;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getMenu_info_title() {
+		return menu_info_title;
+	}
+	public void setMenu_info_title(String menu_info_title) {
+		this.menu_info_title = menu_info_title;
+	}
+	public String getP_content_1() {
+		return p_content_1;
+	}
+	public void setP_content_1(String p_content_1) {
+		this.p_content_1 = p_content_1;
+	}
+	public String getP_content_2() {
+		return p_content_2;
+	}
+	public void setP_content_2(String p_content_2) {
+		this.p_content_2 = p_content_2;
+	}
+	public String getP_content_3() {
+		return p_content_3;
+	}
+	public void setP_content_3(String p_content_3) {
+		this.p_content_3 = p_content_3;
+	}
+	public String getP_content_4() {
+		return p_content_4;
+	}
+	public void setP_content_4(String p_content_4) {
+		this.p_content_4 = p_content_4;
+	}
+	public String getP_content_5() {
+		return p_content_5;
+	}
+	public void setP_content_5(String p_content_5) {
+		this.p_content_5 = p_content_5;
+	}
+	
+	public String getP_use_time_title() {
+		return p_use_time_title;
+	}
+	public void setP_use_time_title(String p_use_time_title) {
+		this.p_use_time_title = p_use_time_title;
+	}
+	public String getAdvice_title() {
+		return advice_title;
+	}
+	public void setAdvice_title(String advice_title) {
+		this.advice_title = advice_title;
+	}
+	public String getCancel_change_title() {
+		return cancel_change_title;
+	}
+	public void setCancel_change_title(String cancel_change_title) {
+		this.cancel_change_title = cancel_change_title;
+	}
+	public String getUse_case_title() {
+		return use_case_title;
+	}
+	public void setUse_case_title(String use_case_title) {
+		this.use_case_title = use_case_title;
+	}
+	public String getOp_name() {
+		return op_name;
+	}
+	public void setOp_name(String op_name) {
+		this.op_name = op_name;
+	}
+	public int getOp_cnt() {
+		return op_cnt;
+	}
+	public void setOp_cnt(int op_cnt) {
+		this.op_cnt = op_cnt;
+	}
+	public int getParty_size() {
+		return party_size;
+	}
+	public void setParty_size(int party_size) {
+		this.party_size = party_size;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public int getOp_price() {
+		return op_price;
+	}
+	public void setOp_price(int op_price) {
+		this.op_price = op_price;
+	}
+	public String getC_date() {
+		return c_date;
+	}
+	public void setC_date(String c_date) {
+		this.c_date = c_date;
+	}
+	public int getCart_seq() {
+		return cart_seq;
+	}
+	public void setCart_seq(int cart_seq) {
+		this.cart_seq = cart_seq;
+	}
+	public int getP_min_count() {
+		return p_min_count;
+	}
+	public void setP_min_count(int p_min_count) {
+		this.p_min_count = p_min_count;
+	}
+	public int getP_min_Personnel() {
+		return p_min_Personnel;
+	}
+	public void setP_min_Personnel(int p_min_Personnel) {
+		this.p_min_Personnel = p_min_Personnel;
+	}
 	
 	public int getRest_seq() {
 		return rest_seq;

@@ -1742,8 +1742,38 @@
 		
 		//productDeatil.do일때 
 		<c:if test="${ command eq '/product/detail.do' }">
-			<% System.out.println("default.jsp line 1668: productDetail.jsp" ); %>
 			<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
+			<% System.out.println("default.jsp line 1668: productDetail.jsp" ); %>
+			<c:choose>
+				<c:when test="${ param.tab eq null || param.tab eq 'info' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=info" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'photo' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'review' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'menu' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'map' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+				<c:otherwise>
+					<% System.out.println("param 없음"); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:otherwise>
+			</c:choose>
 		</c:if>
 
 		//restDeatil.do일때 
@@ -2108,6 +2138,8 @@
 			}
 		});
 
+		
+		// 포잉 알림 news/notice
 		// notice section
 		$("#nav_notice>.i_wrap").on("click", function (e) {
 			if ($("#nav_mynews_list").html() == "")
@@ -2174,13 +2206,13 @@
 
 			if ($("#nav_poingnews_list").html() == "") {
 				$.ajax({
-					url: '/user/PoingNotice',
+					url: '/Poing/user/PoingNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/PoingNotice.ejs'
+							url: '/Poing/templete/PoingNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2193,7 +2225,10 @@
 			} else
 				$("#nav_poingnews_list").show();
 		});
-
+// 포잉 알림 news/notice
+		
+		
+		
 		$("#nav_mynews_list").on("click", ".item", function () {
 			var type = $(this).data("type");
 			var target = $(this).data("target");

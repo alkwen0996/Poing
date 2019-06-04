@@ -28,7 +28,7 @@ public class ProductDAO {
 		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p_dc_money ");
 		sql.append("  from p_product p JOIN p_restaurant r ON r.p_num = p.p_num  ");
 		sql.append("  ) t ");
-		sql.append(" ) b ");
+		sql.append(" ) b ");  
 		sql.append(" where b.no between ? and ? ");
 			   
 		PreparedStatement pstmt = null;

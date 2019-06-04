@@ -71,7 +71,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	public static int[] getFollowCnt(Connection conn, int m_no) throws SQLException {
+	public static int[] getFollowCnt(Connection conn, int memberID) throws SQLException {
 		int[] result = new int[2];
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT ");
@@ -81,8 +81,8 @@ public class MemberDAO {
 
 		PreparedStatement pstmt;
 		pstmt = conn.prepareStatement(sql.toString());
-		pstmt.setInt(1, m_no);
-		pstmt.setInt(2, m_no);
+		pstmt.setInt(1, memberID);
+		pstmt.setInt(2, memberID);
 		ResultSet rs = pstmt.executeQuery();
 		if ( rs.next() ) {
 			result[0] = rs.getInt("edcnt");
@@ -164,5 +164,34 @@ public class MemberDAO {
 		}	
 		return list;		
 	}
+
+	public boolean updateWebName(Connection conn, int memberID, String webName) throws SQLException {
+		//이름 변경
+		boolean result = false;
+		
+		
+		
+		return result;
+	}
+	
+	public boolean updateName(Connection conn, int memberID, String name) throws SQLException {
+		//예약자명 변경
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE member SET m_name = ? ");
+		
+		
+		return result;
+	}
+
+	public boolean updateSelfIntro(Connection conn, int memberID, String webName) throws SQLException {
+		//예약자명 변경
+		boolean result = false;
+		
+		
+		
+		return result;
+	}
+
 }
 

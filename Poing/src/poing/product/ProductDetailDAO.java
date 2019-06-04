@@ -36,7 +36,7 @@ public class ProductDetailDAO {
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
-				dto.setP_dc_money(rs.getInt("p_dc_money"));
+				dto.setDiscount(rs.getString("discount"));
 				dto.setP_option(rs.getString("p_option"));
 				dto.setE_seq(rs.getInt("e_seq"));
 				dto.setImg_seq(rs.getInt("img_seq"));
@@ -86,7 +86,7 @@ public class ProductDetailDAO {
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
-				dto.setP_dc_money(rs.getInt("p_dc_money"));
+				dto.setDiscount(rs.getString("discount"));
 				dto.setP_option(rs.getString("p_option"));
 				dto.setE_seq(rs.getInt("e_seq"));
 				dto.setImg_seq(rs.getInt("img_seq"));

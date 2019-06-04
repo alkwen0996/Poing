@@ -6,6 +6,7 @@ public class CartDTO {
 	private int po_id;
 	private int c_num;
 	private String rest_name;
+	
 	public int getC_seq() {
 		return c_seq;
 	}

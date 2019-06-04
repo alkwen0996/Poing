@@ -21,11 +21,11 @@ public class ProductDAO {
 	
 	public List<ProductDTO> selectdisplay(Connection conn, int first, int end){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select no, p_num, rest_name, r_location, p_name, p_type, p_dc_money ");
+		sql.append(" select no, p_num, rest_name, r_location, p_name, p_type, discount ");
 		sql.append(" from ( ");
-		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, p_dc_money ");
+		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, discount ");
 		sql.append(" from ( ");
-		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p_dc_money ");
+		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, discount ");
 		sql.append("  from p_product p JOIN p_restaurant r ON r.p_num = p.p_num  ");
 		sql.append("  ) t ");
 		sql.append(" ) b ");
@@ -47,7 +47,7 @@ public class ProductDAO {
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
-				dto.setP_dc_money(rs.getInt("p_dc_money"));
+				dto.setDiscount(rs.getString("discount"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -66,11 +66,11 @@ public class ProductDAO {
 	
 	public List<ProductDTO> sselectdisplay(Connection conn, int first, int end, int bpage){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select no, p_num, rest_name, r_location, p_name, p_type, p_dc_money, r_type ");
+		sql.append(" select no, p_num, rest_name, r_location, p_name, p_type, discount, r_type ");
 		sql.append(" from ( ");
-		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, p_dc_money, r_type ");
+		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, discount, r_type ");
 		sql.append(" from ( ");
-		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p_dc_money, r_type ");
+		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, discount, r_type ");
 		sql.append("  from p_product p JOIN p_restaurant r ON r.p_num = p.p_num  ");
 		sql.append("  ) t ");
 		sql.append(" ) b ");
@@ -97,7 +97,7 @@ public class ProductDAO {
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
-				dto.setP_dc_money(rs.getInt("p_dc_money"));
+				dto.setDiscount(rs.getString("discount"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -124,9 +124,9 @@ public class ProductDAO {
 			StringBuffer sql = new StringBuffer();
 			sql.append(" select count(*) ");
 			sql.append(" from ( ");
-			sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, p_dc_money, r_type ");
+			sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, discount, r_type ");
 			sql.append(" from ( ");
-			sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p_dc_money, r_type ");
+			sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, discount, r_type ");
 			sql.append("  from p_product p JOIN p_restaurant r ON r.p_num = p.p_num  ");
 			sql.append("  ) t ");
 			sql.append(" ) b ");

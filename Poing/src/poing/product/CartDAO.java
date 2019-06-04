@@ -20,7 +20,7 @@ public class CartDAO {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" insert into cart values (cart_seq.NEXTVAL, ?, null, null) ") ;
+		sql.append(" insert into cart values (cart_seq.NEXTVAL, ?, 0, null, null) ") ;
 		ResultSet rs = null;
 
 		PreparedStatement pstmt = null;
@@ -94,6 +94,7 @@ public class CartDAO {
 			while (rs.next()) {
 				dto = new ProductDTO();
 				dto.setP_num(rs.getInt("p_num"));
+				dto.setOp_seq(rs.getInt("op_seq"));
 				dto.setOp_cnt(rs.getInt("op_cnt"));
 				dto.setCart_seq(rs.getInt("cart_seq"));
 				dto.setP_name(rs.getString("p_name"));
@@ -103,6 +104,9 @@ public class CartDAO {
 				dto.setOp_cnt(rs.getInt("op_cnt"));
 				dto.setOp_min_cnt(rs.getInt("op_min_cnt"));
 				dto.setOp_max_cnt(rs.getInt("op_max_cnt"));
+				dto.setMessage(rs.getString("message"));
+				dto.setParty_size(rs.getInt("party_size"));
+				dto.setC_date(rs.getString("c_date"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -118,34 +122,135 @@ public class CartDAO {
 		
 	}
 	
-	public boolean deleteCart(Connection conn) {
-		StringBuffer sql = new StringBuffer();
-		sql.append(" delete cart where cart_seq = ? ");
-		return false;
-		
-	}
-	/*
+	 public boolean deleteCart(Connection conn, int cart_seq) throws SQLException {
+	      StringBuffer sql = new StringBuffer();
+	      
+	      sql.append(" delete cart where cart_seq = ? ");
+	      
+	      PreparedStatement pstmt = null;
+	      
+	      boolean result = false;
+	      pstmt = conn.prepareStatement(sql.toString());
+	     
+	      pstmt.setInt(1, cart_seq);
+	     
+	      result = pstmt.executeUpdate()==0? false:true;
+	      pstmt.close();
+	      conn.close();
+	      return false;
+
+	   }
 	 
-   public static int selectcid(Connection conn) {
-      StringBuffer sql = new StringBuffer();
+	 public boolean updateCart(Connection conn, int party_size, String message, String c_date, int cart_seq) {
+		 StringBuffer sql = new StringBuffer();
+		 sql.append(" update cart set party_size = ?, message = ?, c_date = ? where cart_seq = ? ");
+		 PreparedStatement pstmt = null;
+		 boolean result =  false;
+		 try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, party_size);
+			pstmt.setString(2, message);
+			pstmt.setString(3, c_date);
+			pstmt.setInt(4, cart_seq);
+			result = pstmt.executeUpdate()==0? false:true;
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	 }
+	 
+	 public List<ProductDTO> selectoption(Connection conn, int cart_seq) {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" select * from totalcart t ");
+			sql.append(" join cart c on t.cart_seq = c.cart_seq ");
+			sql.append(" join p_option o on t.op_seq = o.op_seq ");
+			sql.append(" join p_product p on o.p_num = p.p_num  ");
+			sql.append(" where c.cart_seq = ? ");
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<ProductDTO> list = new ArrayList<>();
+			
+			try {
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, cart_seq);
+				rs = pstmt.executeQuery();
+				ProductDTO dto = null;
+				while (rs.next()) {
+					dto = new ProductDTO();
+					dto.setP_num(rs.getInt("p_num"));
+					dto.setOp_seq(rs.getInt("op_seq"));
+					dto.setOp_cnt(rs.getInt("op_cnt"));
+					dto.setCart_seq(rs.getInt("cart_seq"));
+					dto.setP_name(rs.getString("p_name"));
+					dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
+					dto.setOp_name(rs.getString("op_name"));
+					dto.setOp_price(rs.getInt("op_price"));
+					dto.setOp_cnt(rs.getInt("op_cnt"));
+					dto.setOp_min_cnt(rs.getInt("op_min_cnt"));
+					dto.setOp_max_cnt(rs.getInt("op_max_cnt"));
+					dto.setMessage(rs.getString("message"));
+					dto.setParty_size(rs.getInt("party_size"));
+					dto.setC_date(rs.getString("c_date"));
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+			return list;
+			
+		} 
+	 
+	 /*public boolean updateOption1(Connection conn, int cart_seq) {
+		 StringBuffer sql = new StringBuffer();
+		 sql.append(" delete from totalcart where cart_seq = ? ");
+		 PreparedStatement pstmt = null;
+		 ResultSet rs = null;
+		 boolean result =  false;
+		 try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, cart_seq);
+			result = pstmt.executeUpdate()==0? false:true;
+	
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			
+		}
+		return result;
+	 }
 
-      int cart = 0;
-      sql.append(" select c_seq.currval from dual ") ;
-      ResultSet rs = null;
-
-      PreparedStatement pstmt = null;
-      try {
-
-         pstmt = conn.prepareStatement(sql.toString());
-         rs = pstmt.executeQuery();
-         if (rs.next()) {
-            cart = rs.getInt(1);
-         }
-
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } 
-
-      return cart;
-   }*/
+	public boolean updateOption(Connection conn, int cart_seq, String[] op_seq, String[] op_cnt) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" insert into totalcart values(total_cart_seq.nextval, ?, ?, ?) ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean result =  false;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			for (int i = 0; i < op_seq.length; i++) {
+			pstmt.setInt(1, cart_seq);
+			pstmt.setInt(2, Integer.parseInt(op_seq[i]));
+			pstmt.setInt(3, Integer.parseInt(op_cnt[i]));	
+			result = pstmt.executeUpdate()==0? false:true;
+			if (!result) {
+				break;
+			}
+		}
+			pstmt.close();
+		}catch (SQLException e) {
+			pstmt.close();
+			e.printStackTrace();
+		}
+		return result;
+	}*/
 }

@@ -9,7 +9,7 @@ public class ProductDTO {
 	private String p_name;
 	private String p_type;
 	private int p_origin_money;
-	private int p_dc_money;
+	private String discount;
 	private String p_option;
 	private int e_seq;
 	private int img_seq;
@@ -31,8 +31,17 @@ public class ProductDTO {
     private String c_date;
     private int op_min_cnt;
     private int op_max_cnt;
+    private int op_seq;
     
-    public int getOp_min_cnt() {
+    
+    
+    public int getOp_seq() {
+		return op_seq;
+	}
+	public void setOp_seq(int op_seq) {
+		this.op_seq = op_seq;
+	}
+	public int getOp_min_cnt() {
 		return op_min_cnt;
 	}
 	public void setOp_min_cnt(int op_min_cnt) {
@@ -86,11 +95,13 @@ public class ProductDTO {
 	public void setP_origin_money(int p_origin_money) {
 		this.p_origin_money = p_origin_money;
 	}
-	public int getP_dc_money() {
-		return p_dc_money;
+	
+	
+	public String getDiscount() {
+		return discount;
 	}
-	public void setP_dc_money(int p_dc_money) {
-		this.p_dc_money = p_dc_money;
+	public void setDiscount(String discount) {
+		this.discount = discount;
 	}
 	public String getP_option() {
 		return p_option;

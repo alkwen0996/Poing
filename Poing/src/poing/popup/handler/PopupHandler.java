@@ -57,6 +57,18 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/pick/popup/confirm.do")) {
 			return "popup/confirmPick";
 		}
+		else if (command.equals("/popup/delete_confirm.do")) {
+			return "popup/delete_confirm";
+		}
+		else if (command.equals("/popup/change_coupon.do")) {
+			return "popup/change_coupon";
+		}
+		else if (command.equals("/popup/change_option.do")) {
+			return "popup/change_option";
+		}
+		else if (command.equals("/popup/change.do")) {
+			return "popup/change_option";
+		}
 		else {
 			return null;			
 		}

@@ -469,6 +469,7 @@ public class ReviewDAO {
 		sql.append(" JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
 		sql.append(" JOIN member mem ON rev.m_no = mem.m_no ");
 		sql.append(" WHERE ROWNUM <= 12 ");
+		sql.append(" ORDER BY ROWNUM DESC ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

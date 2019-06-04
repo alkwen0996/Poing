@@ -224,7 +224,7 @@
 								<c:if test="${ dto.cdto ne null }">
 									<div class="comment">
 										<a class="thumbnail"
-											style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : application.getAttribute("baseimg") }')"
+											style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : applicationScope.baseprofile }')"
 											href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
 										<div class="author">
 											<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
@@ -244,7 +244,7 @@
 							</div>
 							<div class="write">
 							<span class="thumbnail"
-								style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></span>
+								style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : applicationScope.baseprofile }')"></span>
 							<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
 							</div>
 						</div>

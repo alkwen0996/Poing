@@ -194,33 +194,52 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 
 	date = $("#reserve_date").attr('data-str');
 	date = date + " " + time + ":00";
-
+	var msg = $("#reserve_comment").val();
 
 	$.ajax({
-		'url': '/restaurant/ajaxeditreserve',
-		'method': 'POST',
-		'dataType': 'json',
-		'data': {
-			id: reserve_id,
+		url: '/Poing/rest/ajax/ajaxreserveedit.do',
+		method: 'POST',
+		dataType: 'JSON',
+		data: {
+			<%--id: reserve_id,
 			date: date,
 			party_size: $("#reserve_person_count").html(),
 			place_id: place_id,
 			referer: "myReserve",
-			message: $("#reserve_comment").val()
+			message: $("#reserve_comment").val() --%>
+			rnumNrest_seq : rnumNrest_seq,
+			numofpeople : $("#reserve_person_count").text(),
+			date: date,
+			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			msg : msg
+			<%-- 
+			numofpeople: $("#reserve_person_count").text(),
+			restaurantId: <%=request.getAttribute("to_be_edited_rest_seq")==null?0:request.getAttribute("to_be_edited_rest_seq")%>,
+			date: date
+			rdate: date,
+			personnel: $("#reserve_person_count").text(),
+			
+			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			message: $("#reserve_comment").val(),
+			name : $("#reserve_name").val() --%>
 		},
 		success: function (res) {
-			if (res.error != null) {
-				noticePopupInit({
-					message: res.error.message
-				});
-			} else if (res.data.reservation) {
+		
+			if (res.status == "true") {
 				noticePopupInit({
 					message: "예약이 정상적으로 변경되었습니다."
 				});
-				location.reload(true);
+				setTimeout(location.reload.bind(location), 1000);
+				<%--location.reload(true);--%>
+			} else {
+				noticePopupInit({
+					message: "예약변경이 정상적으로 처리되지 않았습니다 다시 시도해주세요."
+				});
+				
 			}
 		}
 	});
+	
 	$("#reserveShading").click();
 });
 // 예약 취소
@@ -230,14 +249,26 @@ $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 		ok: function () {
 			$("#reserveShading").hide();
 			$.ajax({
-				'url': '/restaurant/ajaxcancelreserve',
+				'url': '/Poing/rest/ajax/restReserveDelAjax.do', 
 				'method': 'POST',
 				'dataType': 'json',
 				'data': {
-					id: reserve_id
+					id: reserve_id,
+					rnumNrest_seq : rnumNrest_seq,	
 				},
 				success: function (res) {
-					if (res.error != null) {
+					if (res.status == "true") {
+						noticePopupInit({
+						message: "예약이 정상적으로 취소되었습니다."
+					});
+						setTimeout(location.reload.bind(location), 1000);
+					} else {
+						noticePopupInit({
+						message: "예약변경이 정상적으로 취소되지 않았습니다 다시 시도해주세요."
+					});
+				
+					}
+					<%--if (res.error != null) {
 						noticePopupInit({
 							message: res.error.message
 						});
@@ -246,7 +277,7 @@ $("#pre-reserve div.confirm-btn>button.cancel").click(function () {
 							message: "예약이 정상적으로 취소되었습니다."
 						});
 						location.reload(true);
-					}
+					} --%>
 				}
 			});
 		},

@@ -130,7 +130,16 @@
 
   function w(e, t, n) {
       var r, i, o, s, a = e.style;
-      return n = n || _e(e), n && (s = n.getPropertyValue(t) || n[t]), n && ("" !== s || Z.contains(e.ownerDocument, e) || (s = Z.style(e, t)), Be.test(s) && Ie.test(t) && (r = a.width, i = a.minWidth, o = a.maxWidth, a.minWidth = a.maxWidth = a.width = s, s = n.width, a.width = r, a.minWidth = i, a.maxWidth = o)), void 0 !== s ? s + "" : s
+      return n = n || _e(e), n && (s = n.getPropertyValue(t) || n[t]),
+      			n && ("" !== s || Z.contains(e.ownerDocument, e) || (s = Z.style(e, t)),
+      			Be.test(s) && Ie.test(t) && 
+      				(r = a.width, i = a.minWidth, 
+    				  o = a.maxWidth, 
+    				  a.minWidth = a.maxWidth = a.width = s,
+    				  s = n.width, a.width = r, 
+    				  a.minWidth = i, 
+    				  a.maxWidth = o)), 
+    				  void 0 !== s ? s + "" : s
   }
 
   function T(e, t) {

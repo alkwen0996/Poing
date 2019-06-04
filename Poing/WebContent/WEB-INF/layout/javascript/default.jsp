@@ -4,6 +4,7 @@
 
 <div id="scripts">
 	<script>
+		var rnumNrest_seq = 0;
 		var console = console || {
 			"log": function () {}
 		};
@@ -258,14 +259,14 @@
 								if (data.type == 'on') {
 									btn.addClass('on')
 										.children("i").addClass('on');
-									$.popup("confirm", {
+									$.popup("/Poing/pick/popup/confirm.do", {
 										'text': "매장을 찜하셨습니다.",
 										'alert': true
 									});
 								} else if (data.type == 'off') {
 									btn.removeClass('on')
 										.children("i").removeClass('on');
-									$.popup("confirm", {
+									$.popup("/Poing/pick/popup/confirm.do", {
 										'text': "찜을 취소하셨습니다.",
 										'alert': true
 									});
@@ -288,7 +289,7 @@
 						var idx = 0;
 
 						if (files.length + $list.children().length > 20) {
-							$.popup("confirm", {
+							$.popup("/Poing/pick/popup/confirm.do", {
 								'text': "사진 등록은 최대 20장까지 가능합니다.",
 								single: true
 							});
@@ -515,7 +516,7 @@
 							var action = parent_review.children(".action");
 
 							$.ajax({
-								url: "/review/ajaxmodifyreview",
+								url: "/Poing/review/ajaxmodifyreview.do",
 								method: "post",
 								dataType: "json",
 								data: {
@@ -641,7 +642,7 @@
 							review.find(".action, .time").show();
 
 							$.ajax({
-								url: "/review/ajaxModifyReview",
+								url: "/Poing/review/ajaxModifyReview.do",
 								method: "POST",
 								data: {
 									id: id,
@@ -679,7 +680,7 @@
 									message: "리뷰를 삭제하시겠습니까?",
 									ok: function () {
 										$.ajax({
-											url: "/review/ajaxremovereview",
+											url: "/Poing/review/ajaxremovereview.do",
 											method: "post",
 											dataType: "json",
 											data: {
@@ -758,7 +759,7 @@
 								}
 
 								$.ajax({
-									url: "/review/ajaxfavorite",
+									url: "/Poing/review/ajaxfavorite.do",
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -768,31 +769,27 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
-												this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
-											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
-												"]").html(res.data.selection_review_count);
-											$.popup("confirm", {
+											selector.find("span:not(.text)").text(res.data.pick_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.pick_count);
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "리뷰를 찜하셨습니다.",
 												'alert': true
 											});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
-												this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
-											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
-												"]").html(res.data.selection_review_count);
-											$.popup("confirm", {
+											selector.find("span:not(.text)").text(res.data.pick_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.pick_count);
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "찜을 취소하셨습니다.",
 												'alert': true
 											});
 										} else {
-											$.popup("confirm", {
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "리뷰를 찜하지 못했습니다.",
 												'alert': true
 											});
@@ -846,7 +843,7 @@
 										if (res) {
 											target.parent(".review").find("button.comment>p>span").text(res.length);
 											for (var i = 0; i < res.length; ++i) {
-												res[i].me = (res[i].user_id == '');
+												res[i].me = (res[i].user_id == '${authUser.m_no}');
 												var parse = new EJS({
 													url: '/Poing/template/review_comment.ejs'
 												}).render(res[i]);
@@ -1094,7 +1091,7 @@
 							$textarea.on("keydown", function (e) {
 								if (e.keyCode == 13) { // enter
 									$.ajax({
-										url: "/review/ajaxmodifycomment",
+										url: "/Poing/review/ajaxmodifycomment.do",
 										method: "post",
 										dataType: "json",
 										data: {
@@ -1129,7 +1126,7 @@
 								message: "댓글을 삭제하시겠습니까?",
 								ok: $.proxy(function () {
 									$.ajax({
-										url: "/review/ajaxremovecomment",
+										url: "/Poing/review/ajaxremovecomment.do",
 										method: "post",
 										dataType: "json",
 										data: {
@@ -1194,12 +1191,15 @@
 				edit: function () {
 					$("#reserveShading").show();
 					var id = $(this).data('id');
+					rnumNrest_seq = $(this).data('id');
 					$.ajax({
-						url: '/restaurant/AjaxReserveInfo',
+						url: '/Poing/popup/reserve_edit_rest.do',
 						method: "post",
 						dataType: 'json',
 						data: {
-							'id': id
+							'id': id,
+							'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }",
+							'r_name': "${ dto.rest_name eq null ? '' : dto.rest_name }"
 						},
 						async: false
 					}).success(function (response) {
@@ -1217,14 +1217,14 @@
 							for (var i = 0; i < response.place.food_types.length; i++)
 								data.info_str += " · " + response.place.food_types[i];
 						}
-
+						
 						var temp = response.reservation_date.split(' ')[1].split(':');
 						data.time = temp[0] + ":" + temp[1];
 						data.message = response.message;
 
 						place_id = data.place_id;
 						reserve_popup_init(data.place_name, data.info_str, data.reserve_setting, data.id);
-
+						
 						$("#pre-reserve").show();
 
 						// 인원 선택
@@ -1445,7 +1445,7 @@
 						if ($("#photoReviewViewerPopup").data("id") != review_id) {
 							$("#photoReviewViewerPopup>.section.review>.inner").html("");
 							$.ajax({
-								url: "/review/ajaxrenderreview",
+								url: "/Poing/review/ajaxrenderreview.do",
 								method: "get",
 								data: {
 									"id": review_id,
@@ -1600,7 +1600,7 @@
 									review_id = img_review_id;
 
 									$.ajax({
-										url: "/review/ajaxrenderreview",
+										url: "/review/ajaxrenderreview.do",
 										method: "get",
 										data: {
 											"id": img_review_id,
@@ -1742,15 +1742,47 @@
 		
 		//productDeatil.do일때 
 		<c:if test="${ command eq '/product/detail.do' }">
-			<% System.out.println("default.jsp line 1668: /product/detail.do" ); %>
+			<% System.out.println("default.jsp line 1668: productDetail.jsp" ); %>
 			<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
 		</c:if>
 
 		//restDeatil.do일때 
 		<c:if test="${ command eq '/rest/detail.do' }">
-			<% System.out.println("default.jsp line 1668: /rest/detail.do" ); %>
 			<jsp:include page="/WEB-INF/layout/javascript/restDetail.jsp"></jsp:include>
+			<% System.out.println("default.jsp line 1668: restDetail.jsp" ); %>
+			<c:choose>
+				<c:when test="${ param.tab eq null || param.tab eq 'info' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=info" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'photo' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'review' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'menu' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'map' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+				<c:otherwise>
+					<% System.out.println("param 없음"); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:otherwise>
+			</c:choose>
+			
 		</c:if>
+		
 		
 		//review페이지일때 review.jsp
 		<c:if test="${ command eq '/review.do' }">
@@ -1857,11 +1889,6 @@
 			});
 
 		</c:if> //end timeline.do
-
-
-
-
-
 
 
 
@@ -2089,7 +2116,7 @@
 			e.stopPropagation();
 			$("#nav_notice_list").toggle();
 			$.ajax({
-				url: '/user/noticeCheck',
+				url: '/Poing/user/noticeCheck.do',
 				method: 'post',
 				dataType: 'json',
 				success: function (res) {
@@ -2120,13 +2147,13 @@
 
 			if ($("#nav_mynews_list").html() == "") {
 				$.ajax({
-					url: '/user/UserNotice',
+					url: '/Poing/user/UserNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/UserNotice.ejs'
+							url: '/Poing/template/UserNotice.ejs'
 						}).render({
 							notices: res
 						});

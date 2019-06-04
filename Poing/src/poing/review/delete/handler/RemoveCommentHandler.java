@@ -17,10 +17,9 @@ public class RemoveCommentHandler implements CommandHandler{
 			request.setAttribute("status", false);
 			return "review/deleteComment_json";
 		}
-		int rc_no = Integer.parseInt(request.getParameter("rcid"));
-		int m_no = Integer.parseInt(request.getParameter("mid"));
+		int rc_no = Integer.parseInt(request.getParameter("id"));
 		
-		int result = removeCommentService.removeReview(rc_no);
+		int result = removeCommentService.removeComment(rc_no);
 		request.setAttribute("status", result==0?false:true);
 		return "review/deleteComment_json";
 	}

@@ -12,11 +12,11 @@ public class DisplayReviewService {
 	public List<ReviewDTO> select(String type, int m_no){
 		
 		System.out.println("DisplayReviewService");
-		ReviewDAO dao = ReviewDAO.getInstance();
+		ReviewDAO dao = new ReviewDAO();
 		Connection conn = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			List<ReviewDTO> list = dao.selectdisplay(conn, type, m_no);
+			List<ReviewDTO> list = ReviewDAO.selectAllReview(conn, type, m_no);
 			
 			return list;
 		} catch (Exception e) {
@@ -24,4 +24,17 @@ public class DisplayReviewService {
 		}
 		
 	}//List
+	
+	public static int countReview(int m_no) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			result = ReviewDAO.countWriteReview(conn, m_no);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
 }//class

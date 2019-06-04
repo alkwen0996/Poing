@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
-import poing.upload.UpdateProfileImageException;
+import poing.upload.handler.UpdateProfileImageException;
 
 public class UploadFileService {
 	MemberDAO memberDAO = new MemberDAO();

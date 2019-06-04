@@ -651,7 +651,7 @@
 							<div id="nav_profile" class="underline">
 								<div class="i_wrap">
 									<i class="profile_image border_radius circle"
-										style="background-image: url(http://c1.poing.co.kr/original/images/common/default_profile_162.png)"></i>
+										style="background-image: url(${realPath}${ authUser.m_img ne null ? authUser.m_img : applicationScope.baseprofile })"></i>
 									<div class="hover border_radius circle">MY</div>
 								</div>
 								<div id="nav_profile_list" class="border_radius soft">

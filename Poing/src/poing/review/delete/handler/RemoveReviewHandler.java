@@ -17,11 +17,10 @@ public class RemoveReviewHandler implements CommandHandler{
 			request.setAttribute("status", false);
 			return "review/deleteReview_json";
 		}
-		int rev_no = Integer.parseInt(request.getParameter("rid"));
-		int m_no = Integer.parseInt(request.getParameter("mid"));
+		int rev_no = Integer.parseInt(request.getParameter("id"));
 		
 		int result = removeReviewService.removeReview(rev_no);
-		request.setAttribute("status", result==0?false:true);
+		request.setAttribute("data", result==0?false:true);
 		return "review/deleteReview_json";
 	}
 

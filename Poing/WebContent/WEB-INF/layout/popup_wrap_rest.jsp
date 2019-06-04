@@ -40,6 +40,9 @@
 		style="display: none; z-index: 10000; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: url(http://c1.poing.co.kr/original/images/spiffygif_52x52.gif) no-repeat center center black; opacity: 0.6; filter: alpha(opacity = 60);"></i>
 
 
+
+
+
 	<div id="reportShading" class="shading_bg"></div>
 	<div id="report_popup">
 		<i class="icon close"></i>

@@ -1,7 +1,7 @@
 package poing.rest;
 
-public class RestTimlineReserveDTO {
 
+public class RestTimlineReserveDTO {
 	private String rest_name;
 	private int rest_seq;
 	private int r_reserve_seq;
@@ -12,6 +12,7 @@ public class RestTimlineReserveDTO {
 	private int r_reserve_status;
 	private int m_num;
 	private int r_reserve_numofpeople;
+	
 	
 	
 	public String getRest_name() {

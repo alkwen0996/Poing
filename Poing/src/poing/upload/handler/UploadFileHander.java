@@ -21,12 +21,12 @@ import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
 
 public class UploadFileHander implements CommandHandler{
-	final String INPUTPATH = "popup/upload";
+	final String FORMPATH = "popup/upload";
 	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (request.getMethod().equalsIgnoreCase("GET")) {
-			return INPUTPATH;
+			return FORMPATH;
 		}
 		else if (request.getMethod().equalsIgnoreCase("POST")) {
 			System.out.println("UploadFileHander.java line 16 preocess POST");
@@ -45,9 +45,9 @@ public class UploadFileHander implements CommandHandler{
 		MemberDTO authUser = (MemberDTO) session.getAttribute("authUser");
 		if (authUser == null) {
 			request.setAttribute("status", false);
-			return INPUTPATH;
+			return FORMPATH;
 		}
-		String filePath = "upload\\uploadprofileimage\\";
+		String filePath = "/upload/uploadprofileimage/";
 		String saveDirectory = request.getRealPath(filePath);
 		System.out.println(saveDirectory);
 
@@ -78,7 +78,7 @@ public class UploadFileHander implements CommandHandler{
 			filePath = filePath + originalFileName;
 			System.out.println("uploadFile_length: " + uploadFile_length);
 			System.out.println("filePath: " + filePath);
-			
+			authUser.setM_img(filePath);
 			byte[] file_byte = new byte[(int) uploadFile_length];
 			FileInputStream fis = new FileInputStream(uploadFile);
 			fis.read(file_byte, 0, uploadFile_length);
@@ -86,12 +86,12 @@ public class UploadFileHander implements CommandHandler{
 			request.setAttribute("file_str", file_str);
 			request.setAttribute("content_type", mrequest.getContentType("file"));
 			session.setAttribute("filePath", filePath);
-			return INPUTPATH;
+			return FORMPATH;
 		} catch (IOException e) {
 			System.out.println("UploadFileHandler.java line 87 파일 업로드 실패");
 			e.printStackTrace();
 			request.setAttribute("status", false);
-			return INPUTPATH;
+			return FORMPATH;
 		} //파일 정책
 	}
 

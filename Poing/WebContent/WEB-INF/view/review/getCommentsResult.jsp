@@ -1,3 +1,4 @@
+<%@page import="poing.member.MemberDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="org.json.simple.JSONArray"%>
@@ -11,6 +12,8 @@
 	JSONArray jsonArray = new JSONArray();
 	SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 	JSONObject cdto_json = null;
+	MemberDTO authUser = (MemberDTO)session.getAttribute("authUser");
+	String realPath = (String)application.getAttribute("realPath");
 	if(clist!= null) {
 		Iterator<CommentDTO> ir = clist.iterator();
 		while (ir.hasNext()) {
@@ -23,9 +26,13 @@
 			cdto_json.put("name", cdto.getM_name());
 			cdto_json.put("created_at", sdf.format(cdto.getRc_wtime()));
 			cdto_json.put("updated_at", sdf.format(cdto.getRc_mtime()));
-			String m_img = cdto.getM_img();
+			String m_img = realPath+cdto.getM_img();
+			if (authUser!= null && authUser.getM_no() == cdto.getM_no() )
+				cdto_json.put("auth", true);
+			else
+				cdto_json.put("auth", false);
 			JSONObject url = new JSONObject();
-			url.put("url", m_img==null?"http://c1.poing.co.kr/original/images/common/default_profile_162.png":m_img);
+			url.put("url", m_img != null ? m_img : application.getAttribute("baseimg"));
 			cdto_json.put("profile_image", url);
 			jsonArray.add(cdto_json);
 		}

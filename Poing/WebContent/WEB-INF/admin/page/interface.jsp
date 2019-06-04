@@ -10,7 +10,7 @@
 <style>
 <%@include file="/admin/css/bootstrap.min.css" %>
 <%@include file="/admin/css/bootstrap-responsive.min.css" %>
-<%@include file="/admin/css/bootstrap-wysihtml5.css" %>
+<%@include file="/admin/css/bootstrap-w  ysihtml5.css" %>
 <%@include file="/admin/css/matrix-style.css" %>
 <%@include file="/admin/css/matrix-media.css" %>
 <%@include file="/admin/font-awesome/css/font-awesome.css" %>

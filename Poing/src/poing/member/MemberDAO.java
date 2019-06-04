@@ -5,9 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import poing.rest.RestListDTO;
-import poing.rest.RestReserveDTO;
+import poing.news_notice.NewsDTO;
+import poing.news_notice.NoticeDTO;
 import poing.rest.RestTimlineReserveDTO;
 
 public class MemberDAO {
@@ -69,7 +68,7 @@ public class MemberDAO {
 		result = pstmt.executeUpdate()==1?true:false;
 		//입력성공시 true, 실패시 false반환
 		return result;
-	}
+	} // getFollowCnt
 
 	public static int[] getFollowCnt(Connection conn, int m_no) throws SQLException {
 		int[] result = new int[2];
@@ -89,7 +88,7 @@ public class MemberDAO {
 			result[1] = rs.getInt("ercnt");
 		}		
 		return result;
-	}
+	} //getFollowCnt
 	public boolean deleteFollower(Connection conn, int myId, int fid) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" DELETE FROM follow ");
@@ -101,7 +100,7 @@ public class MemberDAO {
 
 
 		return result;
-	}
+	} //deleteFollower
 	public boolean insertFollower(Connection conn, int myId, int fid) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" INSERT INTO follow (follow_seq, follower_seq, following_seq) ");
@@ -112,26 +111,26 @@ public class MemberDAO {
 		pstmt.setInt(2, fid);
 		boolean result = pstmt.executeUpdate()==0 ? false : true;
 		return result;
-	}
+	} // insertFollower
 	public boolean updateProfileImage(Connection conn, int m_no, String filePath) throws SQLException {
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" UPDATE member SET m_img = ?");
 		sql.append(" WHERE m_no = ? ");
-		
+
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, filePath);
 		pstmt.setInt(2, m_no);
 		result = pstmt.executeUpdate();
 		return result==0?false:true;
-	}
-	
+	}//updateProfileImage
+
 	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID) throws SQLException {
-		
+
 		String sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		ArrayList<RestTimlineReserveDTO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -150,7 +149,7 @@ public class MemberDAO {
 				dto.setR_reserve_numofpeople(rs.getInt("R_RESERVE_NUM_OF_PEOPLE"));
 				dto.setRest_name(rs.getString("rest_name"));
 				list.add(dto);
-			}
+			}// while
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -160,9 +159,92 @@ public class MemberDAO {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}
-		}	
+			}//catch
+		}// finally	
 		return list;		
-	}
-}
+	}// getReserveList
+
+	public ArrayList<NewsDTO> getNewsList(Connection conn, int memberID) throws SQLException {
+
+		StringBuffer sql = new StringBuffer();
+
+		sql.append(" select * ");
+		sql.append(" from news  ");
+		sql.append(" where news_m_no = ? ") ;
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<NewsDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, memberID);
+			rs = pstmt.executeQuery();
+			NewsDTO dto = null;
+
+			while (rs.next()) {
+				dto = new NewsDTO();
+				dto.setNews_m_name(rs.getString("news_m_name"));
+				dto.setNews_no(rs.getInt("news_no"));
+				dto.setNews_content(rs.getString("news_content"));
+				dto.setNews_wtime(rs.getDate("news_wtime"));
+				dto.setNews_img(rs.getString("news_img"));
+				dto.setNews_m_no(rs.getInt("news_m_no"));
+				list.add(dto);
+
+			}// while
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}//catch
+		}// finally	
+		return list;		
+	}// getNewsList
+	
+	public ArrayList<NoticeDTO> getNoticeList(Connection conn, int memberID){
+		System.out.println("notice DAO");
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" select * from notice where notice_m_no = ? ");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<NoticeDTO> list = new ArrayList<>();
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, memberID);
+			rs = pstmt.executeQuery();
+			NoticeDTO ndto = null;
+			
+			while(rs.next()) {
+				ndto = new NoticeDTO();
+				ndto.setNotice_no(rs.getInt("notice_no"));
+				ndto.setNotice_content(rs.getString("notice_content"));
+				ndto.setNotice_wtime(rs.getDate("notice_wtime"));
+				ndto.setNotice_img(rs.getString("notice_img"));
+				ndto.setNotice_type(rs.getInt("notice_type"));
+				ndto.setNotice_m_no(rs.getInt("notice_m_no"));
+				list.add(ndto);
+			}// while
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}// catch
+		
+		return list;
+	}// displayNotice
+
+
+}// class
 

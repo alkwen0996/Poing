@@ -118,6 +118,7 @@
 						</div>
 						<div class="title">실시간 리뷰</div>
 						<div class="body review_wrap">
+						
 							<c:forEach var = "dto" items = "${list }" varStatus = "status">
 							<div class="review" data-id="${dto.rev_no }" data-place="${dto.rest_no }"
 								data-place-name="${dto.rest_name }">

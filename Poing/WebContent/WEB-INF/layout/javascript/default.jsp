@@ -2081,6 +2081,8 @@
 			}
 		});
 
+		
+		// 포잉 알림 news/notice
 		// notice section
 		$("#nav_notice>.i_wrap").on("click", function (e) {
 			if ($("#nav_mynews_list").html() == "")
@@ -2089,7 +2091,7 @@
 			e.stopPropagation();
 			$("#nav_notice_list").toggle();
 			$.ajax({
-				url: '/user/noticeCheck',
+				url: '/Poing/user/noticeCheck.do',
 				method: 'post',
 				dataType: 'json',
 				success: function (res) {
@@ -2120,13 +2122,13 @@
 
 			if ($("#nav_mynews_list").html() == "") {
 				$.ajax({
-					url: '/user/UserNotice',
+					url: '/Poing/user/UserNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/UserNotice.ejs'
+							url: '/Poing/templete/UserNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2147,13 +2149,13 @@
 
 			if ($("#nav_poingnews_list").html() == "") {
 				$.ajax({
-					url: '/user/PoingNotice',
+					url: '/Poing/user/PoingNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/PoingNotice.ejs'
+							url: '/Poing/templete/PoingNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2166,7 +2168,10 @@
 			} else
 				$("#nav_poingnews_list").show();
 		});
-
+// 포잉 알림 news/notice
+		
+		
+		
 		$("#nav_mynews_list").on("click", ".item", function () {
 			var type = $(this).data("type");
 			var target = $(this).data("target");

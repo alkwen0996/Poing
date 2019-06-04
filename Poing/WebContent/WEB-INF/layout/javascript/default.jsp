@@ -4,6 +4,7 @@
 
 <div id="scripts">
 	<script>
+		var rnumNrest_seq = 0;
 		var console = console || {
 			"log": function () {}
 		};
@@ -1190,6 +1191,7 @@
 				edit: function () {
 					$("#reserveShading").show();
 					var id = $(this).data('id');
+					rnumNrest_seq = $(this).data('id');
 					$.ajax({
 						url: '/Poing/popup/reserve_edit_rest.do',
 						method: "post",

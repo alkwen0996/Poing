@@ -52,3 +52,12 @@ END RADIANS;
 2. 법정지역 : 남양주, 송도(연수구), 망원, 분당, 연남,종로,청담동, 한남동,문래,양평,인사동,일산
 3. 좌표지역 : 가로수길, 경리단길, 북촌, 샤로수길, 서래마을, 서촌, 을지로, 익선동, 해방촌
 
+
+---------------------------------------------------
+예약 업데이트
+
+select * from rest_reserve;
+
+update rest_reserve set r_reserve_date ='19-12-24', r_reserve_hour='20:00:00',  r_reserve_request = '에디트테스트1', r_reserve_num_of_people = 6  where r_reserve_num=18;
+rollback
+

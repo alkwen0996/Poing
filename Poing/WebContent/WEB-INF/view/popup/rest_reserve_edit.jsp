@@ -118,7 +118,8 @@
 		party_size = rs1.getInt("r_reserve_num_of_people");
 				
 		System.out.println("date="+date+" time="+time+" message="+message);
-		
+		conn.close();
+		conn1.close();
 		
 	} catch (SQLException e) {
 		e.printStackTrace();

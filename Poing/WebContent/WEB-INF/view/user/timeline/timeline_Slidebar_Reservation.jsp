@@ -1,6 +1,64 @@
+<%@page import="poing.rest.RestTimlineReserveDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+		<%@include file="/fullcalendar/packages/core/main.css" %>
+		<%@include file="/fullcalendar/packages/daygrid/main.css" %>
+</style>
+<script src='fullcalendar/packages/core/main.js'></script>
+<script src='fullcalendar/packages/daygrid/main.js'></script>
+<script src='fullcalendar/packages/core/locales-all.js'></script>
+
+<%
+ArrayList<RestTimlineReserveDTO> list = (ArrayList<RestTimlineReserveDTO>)request.getAttribute("list");
+String reserveDate = "";
+for( int i=0 ; i<list.size(); i++) {
+	if(i==0) reserveDate += "{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
+	else reserveDate += ",{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
+}
+
+%>
+<script>
+<%-- 
+document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar_created');
+
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    plugins: [ 'dayGrid' ],
+	    locale: 'ko',	    
+	    header: {
+	      left: 'prev',
+	      center: 'title',
+	      right: 'next'
+	    },
+	    formatdate: {
+	    	day: 'dd'
+	    },
+	    events: [
+	    	<%=reserveDate%>
+	    ]
+	    
+	    
+	  });
+	  
+	  calendar.render();
+	});
+ --%>	
+/* 
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar_created');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      }); */
+
+</script>
+<div id='calendar_created'></div>
 
 <div id="reservation_calendar" class="sidebar">
 	<div class="title">예약 캘린더</div>
@@ -203,5 +261,36 @@ $(document).ready(function(){
             }, this)
         });
     });
+    //
+    var calendarEl = document.getElementById('calendar_created');
+
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    plugins: [ 'dayGrid' ],
+	    locale: 'ko',	    
+	    header: {
+	      left: 'prev',
+	      center: 'title',
+	      right: 'next'
+	    },
+	    formatdate: {
+	    	day: 'dd'
+	    },
+	    events: [
+	    	<%=reserveDate%>
+	    ]
+	    
+	    
+	  });
+	  
+	  calendar.render();
+	  $(".fc-day-number").each(function(index,item) {
+		  $(this).text( $(this).text().substring(0, $(this).text().length-1) );  
+	});
+			  
+	$("[type=button]").click(function() {
+		$(".fc-day-number").each(function(index,item) {
+			  $(this).text( $(this).text().substring(0, $(this).text().length-1) );  
+		});
+	});	  										
 });
 </script>

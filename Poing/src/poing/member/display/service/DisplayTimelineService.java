@@ -45,4 +45,13 @@ public class DisplayTimelineService {
 		conn.close();
 		return review_list;
 	}
+	public ArrayList<ReviewDTO> getMyPickReview(int memberID) throws SQLException {
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		ArrayList<ReviewDTO> review_list = null;
+		
+		review_list = ReviewDAO.selectMyPickReview(conn, memberID);
+		conn.close();
+		return review_list;
+	}
 }

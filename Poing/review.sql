@@ -77,6 +77,7 @@ CREATE TABLE review_img (
 	rev_img VARCHAR(100), /* 리뷰이미지 */
 	rev_no NUMBER /* 리뷰코드 */
 );
+CREATE SEQUENCE review_img_seq;
 
 ALTER TABLE review_img
 	ADD

@@ -1,4 +1,4 @@
-<%@page import="poing.member.MemberDTO"%>
+<%@page import="poing.review.display.service.DisplayReviewService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -21,7 +21,6 @@
 		Poing - ${ mdto.m_name }님의 담벼락입니다.		
 	</title>
 </head>
-
 <body class="vsc-initialized">
 <!-- body wrap -->
 <div id="wrap" class="">
@@ -80,9 +79,9 @@
 						</c:if>	
 						
 						<div class="info">
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a> <a
-							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 1</a> <a
-							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 1</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 3</a>
 							<button class="empty item" tabindex="-1">
 								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
@@ -155,15 +154,7 @@
 							<%-- tab=review 이라면--%>
 							
 							<c:when test="${ param.tab eq 'review'}">
-								<c:choose>
-									<c:when test="${ param.type eq null || param.type eq 'write'}">
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Write.jsp"></jsp:include>
-									</c:when>
-									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Like.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose>
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review.jsp"></jsp:include>
 							</c:when>
 							
 							<%-- tab=restaurant 이라면--%>
@@ -235,15 +226,7 @@
 						</ul>
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'review'}">
-								<c:choose>
-									<c:when test="${ param.type eq null || param.type eq 'write'}">
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Write.jsp"></jsp:include>
-									</c:when>
-									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Like.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose>
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review.jsp"></jsp:include>
 							</c:when>
 
 							<%-- tab=restaurant 이라면 --%>

@@ -18,9 +18,6 @@ Connection conn = null;
 try {
 	conn = ConnectionProvider.getConnection();
 	ReviewDTO rdto = ReviewDAO.selectReviewById(conn, m_no, rev_no);
-	System.out.println(m_no);
-	System.out.println(rev_no);
-	System.out.println(rdto);
 	request.setAttribute("rdto", rdto);
 	conn.close();
 }

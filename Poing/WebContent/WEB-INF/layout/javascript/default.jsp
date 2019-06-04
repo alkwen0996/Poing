@@ -1747,8 +1747,38 @@
 		//restDeatil.do일때 
 		<c:if test="${ command eq '/rest/detail.do' }">
 			<% System.out.println("default.jsp line 1668: /rest/detail.do" ); %>
+			<c:choose>
+			<c:when test="${ param.tab eq null || param.tab eq 'info' }">
+			
+			</c:when>
+
+			<c:when test="${ param.tab eq 'photo' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
+			</c:when>
+
+			<c:when test="${ param.tab eq 'review' }">
+			<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
+			</c:when>
+			
+			<c:when test="${ param.tab eq 'menu' }">
+			<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
+			</c:when>
+			
+			<c:when test="${ param.tab eq 'map' }">
+			<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+			</c:when>
+			<c:otherwise>
+				<% System.out.println("param 없음"); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+			</c:otherwise>
+		</c:choose>
 			<jsp:include page="/WEB-INF/layout/javascript/restDetail.jsp"></jsp:include>
 		</c:if>
+		
 		
 		//review페이지일때 review.jsp
 		<c:if test="${ command eq '/review.do' }">
@@ -1855,11 +1885,6 @@
 			});
 
 		</c:if> //end timeline.do
-
-
-
-
-
 
 
 

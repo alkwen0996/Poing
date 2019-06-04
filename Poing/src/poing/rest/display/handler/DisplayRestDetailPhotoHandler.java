@@ -12,16 +12,16 @@ public class DisplayRestDetailPhotoHandler implements CommandHandler
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	
-	try {
-	RestDetailService service = new RestDetailService();
-	int rest_seq = Integer.parseInt(request.getParameter("rest_seq"));
-	RestListDTO dto = service.select(rest_seq);
-	request.setAttribute("dto", dto);
-	} catch (Exception e) { 
-	e.printStackTrace();
+		System.out.println("DisplayRestDetailPhotoHandler process called...");
+		try {
+			RestDetailService service = new RestDetailService();
+			int rest_seq = Integer.parseInt(request.getParameter("rest_seq"));
+			RestListDTO dto = service.select(rest_seq);
+			request.setAttribute("dto", dto);
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		return "rest/restDetail";
 	}
-	return "restDetail_photo";
-	}
-	
+
 }

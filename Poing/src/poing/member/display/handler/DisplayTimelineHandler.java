@@ -36,7 +36,7 @@ public class DisplayTimelineHandler implements CommandHandler{
 				review_list = displayTimelineService.getMyWriteReview(memberID);
 			}
 			else if (type.equals("like")) {
-				review_list = displayTimelineService.getMyReview(memberID);
+				review_list = displayTimelineService.getMyPickReview(memberID);
 			}
 			request.setAttribute("review_list", review_list);
 		}

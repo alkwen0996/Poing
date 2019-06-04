@@ -13,11 +13,58 @@ public class ReviewDAO {
 	private static ReviewDAO reviewdao = new ReviewDAO();
 
 	public ReviewDAO() {}
-	public static ReviewDAO getInstance() {
-		return reviewdao;
-	}//getInstance
+	public static List<ReviewDTO> selectAllReview(Connection conn, String type, int my_no) throws SQLException{
+		StringBuffer sql = new StringBuffer();
+		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
+		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review WHERE m_no = rev.m_no) m_revcnt,  ");
+		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no) like_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_no = rev.rev_no) commend_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no) pick_cnt ");
+		if (my_no != -1) {
+			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
+			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+			sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
 
-	public int writeReview(Connection conn, ReviewDTO rdto) throws WriteReviewError {
+		}
+		sql.append( "FROM review rev ");
+		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
+		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
+		if (my_no != -1 && type.equals("follower")) {
+			sql.append( "WHERE rev.m_no IN (SELECT following_seq FROM follow WHERE follower_seq = ?) ");
+		}
+		sql.append( "ORDER BY rev_wtime DESC ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList <ReviewDTO> list = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		if (my_no != -1) {
+			pstmt.setInt(1, my_no);
+			pstmt.setInt(2, my_no);
+			pstmt.setInt(3, my_no);
+		}
+		if (my_no != -1 && type.equals("follower")) {
+			pstmt.setInt(4, my_no);
+		}
+		rs=pstmt.executeQuery();
+
+		ReviewDTO dto = null;
+		if (rs.next()) {
+			list = new ArrayList<>();
+			do {
+				dto = new ReviewDTO(rs, my_no);
+				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+				dto.setImages(ReviewDAO.selectReviewImages(conn, dto.getRev_no()));
+				list.add(dto);
+			}while(rs.next());//while
+		}
+		pstmt.close();
+		rs.close();
+		return list;
+	}//selectdisplay
+	
+	public int insertReview(Connection conn, ReviewDTO rdto) throws WriteReviewError {
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" INSERT INTO review ");
@@ -75,66 +122,44 @@ public class ReviewDAO {
 		return result;
 	}
 
+	public static ArrayList<String> selectReviewImages(Connection conn, int rev_no) throws SQLException {
+		ArrayList<String> reviewImages = null;
 
-	public static List<ReviewDTO> selectAllReview(Connection conn, String type, int my_no){
 		StringBuffer sql = new StringBuffer();
-		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
-		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
-		sql.append( "(SELECT COUNT(*) FROM review WHERE m_no = rev.m_no) m_revcnt,  ");
-		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no) like_cnt, ");
-		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_no = rev.rev_no) commend_cnt, ");
-		sql.append( "(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no) pick_cnt ");
-		if (my_no != -1) {
-			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
-			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
-			sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
+		sql.append(" SELECT rev_img FROM review_img ");
+		sql.append(" WHERE rev_no = ? ");
 
-		}
-		sql.append( "FROM review rev ");
-		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
-		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
-		if (my_no != -1 && type.equals("follower")) {
-			sql.append( "WHERE rev.m_no IN (SELECT following_seq FROM follow WHERE follower_seq = ?) ");
-		}
-		sql.append( "ORDER BY rev_wtime DESC ");
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, rev_no);
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			reviewImages = new ArrayList<>();
+			do {
+				reviewImages.add(rs.getString("rev_img"));
+			} while (rs.next());
+		}
+		return reviewImages;
+	}
+	public boolean insertReviewImage(Connection conn, int rev_no, String filePath) throws SQLException {
+		boolean result = false;
 
-		ArrayList <ReviewDTO> list = null;
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			if (my_no != -1) {
-				pstmt.setInt(1, my_no);
-				pstmt.setInt(2, my_no);
-				pstmt.setInt(3, my_no);
-			}
-			if (my_no != -1 && type.equals("follower")) {
-				pstmt.setInt(4, my_no);
-			}
-			rs=pstmt.executeQuery();
+		StringBuffer sql = new StringBuffer();
+		sql.append(" INSERT INTO review_img ");
+		sql.append(" (rev_img_seq, rev_img, rev_no) VALUES ");
+		sql.append(" (review_img_seq.nextval, ?, ?) ");
 
-			ReviewDTO dto = null;
-			if (rs.next()) {
-				list = new ArrayList<>();
-				do {
-					dto = new ReviewDTO(rs, my_no);
-					dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
-					dto.setImages(ReviewDAO.selectReviewImages(conn, dto.getRev_no()));
-					list.add(dto);
-				}while(rs.next());//while
-			}
-			pstmt.close();
-			rs.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}//finally
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, filePath);
+		pstmt.setInt(2, rev_no);
 
-		return list;
-	}//selectdisplay
-	
-	
-	public static ReviewDTO selectReviewById(Connection conn, int m_no, int rev_no){
+		result = pstmt.executeUpdate()==0?false:true;
+
+		return result;
+	}
+
+
+	public static ReviewDTO selectReviewById(Connection conn, int m_no, int rev_no) throws SQLException{
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
@@ -157,31 +182,25 @@ public class ReviewDAO {
 		ResultSet rs = null;
 
 		ReviewDTO dto = null;
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			if (m_no != -1) {
-				pstmt.setInt(1, m_no);
-				pstmt.setInt(2, m_no);
-				pstmt.setInt(3, m_no);
-				pstmt.setInt(4, rev_no);
-			}
-			else {
-				pstmt.setInt(1, rev_no);
-			}
-			rs=pstmt.executeQuery();
+		pstmt = conn.prepareStatement(sql.toString());
+		if (m_no != -1) {
+			pstmt.setInt(1, m_no);
+			pstmt.setInt(2, m_no);
+			pstmt.setInt(3, m_no);
+			pstmt.setInt(4, rev_no);
+		}
+		else {
+			pstmt.setInt(1, rev_no);
+		}
+		rs=pstmt.executeQuery();
 
-			if (rs.next()) {
-				dto = new ReviewDTO(rs, m_no);
-				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
-				dto.setImages(selectReviewImages(conn, dto.getRev_no()));
-			}
-			pstmt.close();
-			rs.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}//finally
-
+		if (rs.next()) {
+			dto = new ReviewDTO(rs, m_no);
+			dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+			dto.setImages(selectReviewImages(conn, dto.getRev_no()));
+		}
+		pstmt.close();
+		rs.close();
 		return dto;
 	}//ReviewDisplay
 
@@ -210,58 +229,9 @@ public class ReviewDAO {
 		result = pstmt.executeUpdate();
 		return result;	
 	}
-	public int countLikeReview(Connection conn, int rev_id) throws SQLException {
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT COUNT(*) like_cnt FROM review_like ");
-		sql.append(" WHERE rev_no = ? ");
 
-		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-		pstmt.setInt(1, rev_id);
-		ResultSet rs = pstmt.executeQuery();
 
-		int result = 0;
-		if (rs.next()) {
-			result = rs.getInt("like_cnt");
-		}
-		return result;
-	}
-	public boolean insertReviewImage(Connection conn, int rev_no, String filePath) throws SQLException {
-		boolean result = false;
-
-		StringBuffer sql = new StringBuffer();
-		sql.append(" INSERT INTO review_img ");
-		sql.append(" (rev_img_seq, rev_img, rev_no) VALUES ");
-		sql.append(" (review_img_seq.nextval, ?, ?) ");
-
-		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-		pstmt.setString(1, filePath);
-		pstmt.setInt(2, rev_no);
-
-		result = pstmt.executeUpdate()==0?false:true;
-
-		return result;
-	}
-
-	public static ArrayList<String> selectReviewImages(Connection conn, int rev_no) throws SQLException {
-		ArrayList<String> reviewImages = null;
-
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT rev_img FROM review_img ");
-		sql.append(" WHERE rev_no = ? ");
-
-		PreparedStatement pstmt = null;
-		pstmt = conn.prepareStatement(sql.toString());
-		pstmt.setInt(1, rev_no);
-		ResultSet rs = pstmt.executeQuery();
-		if (rs.next()) {
-			reviewImages = new ArrayList<>();
-			do {
-				reviewImages.add(rs.getString("rev_img"));
-			} while (rs.next());
-		}
-		return reviewImages;
-	}
-	public static ArrayList<ReviewDTO> selectMyWriteReview(Connection conn, int memberID) {
+	public static ArrayList<ReviewDTO> selectMyWriteReview(Connection conn, int memberID) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
@@ -274,35 +244,30 @@ public class ReviewDAO {
 		sql.append( "FROM review rev ");
 		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
 		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
-			sql.append( "WHERE rev.m_no = ? ");
+		sql.append( "WHERE rev.m_no = ? ");
 		sql.append( "ORDER BY rev_wtime DESC ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		ArrayList <ReviewDTO> list = null;
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, memberID);
-			pstmt.setInt(2, memberID);
-			pstmt.setInt(3, memberID);
-			rs=pstmt.executeQuery();
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, memberID);
+		pstmt.setInt(2, memberID);
+		pstmt.setInt(3, memberID);
+		rs=pstmt.executeQuery();
 
-			ReviewDTO dto = null;
-			if (rs.next()) {
-				list = new ArrayList<>();
-				do {
-					dto = new ReviewDTO(rs);
-					dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
-					dto.setImages(ReviewDAO.selectReviewImages(conn, dto.getRev_no()));
-					list.add(dto);
-				}while(rs.next());//while
-			}
-			pstmt.close();
-			rs.close();
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}//finally
+		ReviewDTO dto = null;
+		if (rs.next()) {
+			list = new ArrayList<>();
+			do {
+				dto = new ReviewDTO(rs);
+				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+				dto.setImages(ReviewDAO.selectReviewImages(conn, dto.getRev_no()));
+				list.add(dto);
+			}while(rs.next());//while
+		}
+		pstmt.close();
+		rs.close();
 
 		return list;
 	}
@@ -336,7 +301,137 @@ public class ReviewDAO {
 
 		return result;
 	}
-	public int countPickReview(Connection conn, int rev_no) throws SQLException {
+
+	public static ArrayList<ReviewDTO> selectMyPickReview(Connection conn, int memberID) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
+		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review WHERE m_no = rev.m_no) m_revcnt,  ");
+		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no) like_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_no = rev.rev_no) commend_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no) pick_cnt ");
+		sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
+		sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+		sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
+		sql.append( "FROM review rev ");
+		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
+		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
+		sql.append( "WHERE rev.rev_no IN (select review_num from pick WHERE m_no = ? AND review_num IS NOT NULL) ");
+		sql.append( "ORDER BY rev_wtime DESC ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList <ReviewDTO> list = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, memberID);
+		pstmt.setInt(2, memberID);
+		pstmt.setInt(3, memberID);
+		pstmt.setInt(4, memberID);
+		rs=pstmt.executeQuery();
+
+		ReviewDTO dto = null;
+		if (rs.next()) {
+			list = new ArrayList<>();
+			do {
+				dto = new ReviewDTO(rs, memberID);
+				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+				dto.setImages(ReviewDAO.selectReviewImages(conn, dto.getRev_no()));
+				list.add(dto);
+			}while(rs.next());//while
+		}
+		pstmt.close();
+		rs.close();
+		return list;
+	}
+
+	public static ArrayList<ReviewDTO> selectRestReview(Connection conn, int rest_no, int my_no, String type) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_loc, mem.m_name, mem.m_img, ");
+		sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = rev.m_no) m_ercnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review WHERE m_no = rev.m_no) m_revcnt,  ");
+		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no) like_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_no = rev.rev_no) commend_cnt, ");
+		sql.append( "(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no) pick_cnt ");
+		if (my_no != -1) {
+			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.m_no AND follower_seq = ?) amIfollow ");
+			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
+			sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
+
+		}
+		sql.append( "FROM review rev ");
+		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
+		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
+		sql.append( "WHERE rest_no = ? ");
+		if (type==null || type.equals("time")) {
+			sql.append( "ORDER BY rev_wtime DESC ");
+		}
+		else if(type.equals("like")) {
+			sql.append( "ORDER BY like_cnt DESC ");
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList <ReviewDTO> list = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		if (my_no != -1) {
+			pstmt.setInt(1, my_no);
+			pstmt.setInt(2, my_no);
+			pstmt.setInt(3, my_no);
+			pstmt.setInt(4, rest_no);
+		}
+		else {
+			pstmt.setInt(1, rest_no);
+		}
+		
+		rs=pstmt.executeQuery();
+
+		ReviewDTO dto = null;
+		if (rs.next()) {
+			list = new ArrayList<>();
+			do {
+				dto = new ReviewDTO(rs, my_no);
+				dto.setCdto(CommentDAO.selectLatestComment(conn, dto.getRev_no()));
+				dto.setImages(ReviewDAO.selectReviewImages(conn, dto.getRev_no()));
+				list.add(dto);
+			}while(rs.next());//while
+		}
+		pstmt.close();
+		rs.close();
+		return list;
+	}
+
+	public static int countWriteReview(Connection conn, int m_no) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT COUNT(*) review_cnt FROM review ");
+		sql.append(" WHERE m_no = ? ");
+
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, m_no);
+		ResultSet rs = pstmt.executeQuery();
+
+		int result = 0;
+		if (rs.next()) {
+			result = rs.getInt("review_cnt");
+		}
+		return result;
+	}
+	public static int countLikeReview(Connection conn, int rev_id) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT COUNT(*) like_cnt FROM review_like ");
+		sql.append(" WHERE rev_no = ? ");
+
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, rev_id);
+		ResultSet rs = pstmt.executeQuery();
+
+		int result = 0;
+		if (rs.next()) {
+			result = rs.getInt("like_cnt");
+		}
+		return result;
+	}
+	public static int countPickReview(Connection conn, int rev_no) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT COUNT(*) pick_cnt FROM pick ");
 		sql.append(" WHERE review_num = ? ");
@@ -349,8 +444,22 @@ public class ReviewDAO {
 		if (rs.next()) {
 			result = rs.getInt("pick_cnt");
 		}
-
 		return result;
+	}
+	public static int countRestReview(Connection conn, int rest_no) throws SQLException {
+		int review_cnt = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT COUNT(*) review_cnt FROM pick ");
+		sql.append(" WHERE rest_no = ? ");
+
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, rest_no);
+		ResultSet rs = pstmt.executeQuery();
+
+		if (rs.next()) {
+			review_cnt = rs.getInt("review_cnt");
+		}
+		return review_cnt;
 	}
 }// class
 

@@ -5,8 +5,8 @@
 
 <div class="body empty">
 	<div class="filter">
-		<a href="/Poing/timeline.do?id=${ param.id }&tab=review&type=write" class="selected">리뷰</a> 
-		<a href="/Poing/timeline.do?id=${ param.id }&tab=review&type=like" class="">찜한 리뷰</a>
+		<a href="/Poing/timeline.do?id=${ param.id }&tab=review&type=write" class="${ param.type eq null || param.type.equals("write") ? "selected":""}">리뷰</a> 
+		<a href="/Poing/timeline.do?id=${ param.id }&tab=review&type=like" class="${ param.type.equals("like") ? "selected":""}">찜한 리뷰</a>
 	</div>
 </div>
 <c:forEach var = "dto" items = "${review_list }" varStatus = "status">
@@ -38,25 +38,24 @@
 					//$("#pointComment").text("${ dto.rev_starpoint/10 } / " + ratingText[${ dto.rev_starpoint/10 }]);
 				</script>
 			</div>
-			<div class="text" data-truncated="">
-				${dto.rev_content }
-			</div>
+			<div class="text" data-truncated="">${dto.rev_content }</div>
+			
 			<button class="like_list"
 				data-type="poing.reviews.actions.user.showLikers" data-id="${dto.rev_no }"
 				tabindex="-1">YN님, 투명인간님 외 16명이 좋아합니다.</button>
 			<div class="action">
-				<button class="like " type="button"
+				<button class="like ${ dto.amIlike?'on':' '}" type="button"
 					data-type="poing.reviews.actions.user.like" data-id="${dto.rev_no }"
 					tabindex="-1">
-					<i class="icon like "></i>
+					<i class="icon like ${ dto.amIlike?'on':' '}"></i>
 					<p>
 						좋아요 <span>${dto.like_cnt }</span>
 					</p>
 				</button>
-				<button class="favorite " type="button"
+				<button class="favorite ${ dto.amIpick?'on':' '}" type="button"
 					data-type="poing.reviews.actions.user.favorite" data-id="${dto.rev_no }"
 					tabindex="-1">
-					<i class="icon heart small "></i>
+					<i class="icon heart small ${ dto.amIpick?'on':' '}"></i>
 					<p>
 						찜하기 <span>${dto.pick_cnt }</span>
 					</p>
@@ -94,9 +93,9 @@
 						<c:if test="${ dto.cdto.m_no eq authUser.m_no }">
 						<div class="action">
 							<button type="button" class="edit"
-								data-type="poing.reviews.comment.modify" data-id="11840">수정하기</button>
+								data-type="poing.reviews.comment.modify" data-id="${ dto.cdto.rc_no }">수정하기</button>
 							<button type="button" class="delete"
-								data-type="poing.reviews.comment.remove" data-id="11840">삭제하기</button>
+								data-type="poing.reviews.comment.remove" data-id="${ dto.cdto.rc_no }">삭제하기</button>
 						</div>
 						</c:if>
 					</div>

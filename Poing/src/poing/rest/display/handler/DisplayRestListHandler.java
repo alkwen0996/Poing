@@ -14,14 +14,14 @@ public class DisplayRestListHandler implements CommandHandler
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	try {
-	RestListService service = new RestListService();
-	List<RestListDTO> list = service.select();
-	request.setAttribute("list", list);
-	} catch (Exception e) { 
-	e.printStackTrace();
+		try {
+			RestListService service = new RestListService();
+			List<RestListDTO> list = service.select();
+			request.setAttribute("list", list);
+		} catch (Exception e) { 
+			e.printStackTrace();
+		}
+		return "rest/restList";
 	}
-	return "rest/restList";
-	}
-	
+
 }

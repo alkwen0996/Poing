@@ -161,95 +161,95 @@
 								<div class="text" data-truncated="">${dto.rev_content }</div>
 
 
-									<div class="photo" data-id="${dto.rev_no }">
-										<c:if test="${dto.images ne null}">
-											<c:forEach items="${dto.images }" var="image_dto">
-												<button class="empty i_wrap"
-													data-type="poing.popup.photoReviewViewerPopup"
-													data-id="${dto.rev_no }" data-index="0"
-													data-image-selector=".photo[data-id=${dto.rev_no }]>button>i"
-													tabindex="-1">
-													<i class="image border_radius soft"
-														data-origin="${ realPath }${ image_dto }"
-														style="background-image: url(&quot;${ realPath }${ image_dto }&quot;); display: inline-block;"
-														title="${ dto.rest_name } 유저리뷰 이미지"></i>
-												</button>
-											</c:forEach>
-										</c:if>
-									</div>
-
-									<button class="like_list"
-										data-type="poing.reviews.actions.user.showLikers"
-										data-id="${dto.rev_no }" tabindex="-1">
-										김수한님, jwjwjw님 외 12명이 좋아합니다.
-									</button>
-									<div class="action">
-										<button class="like ${ dto.amIlike?'on':' '}" type="button"
-											data-type="poing.reviews.actions.user.like" data-id="${dto.rev_no }"
-											tabindex="-1">
-											<i class="icon like ${ dto.amIlike?'on':' '}"></i>
-											<p>
-												좋아요 <span>${dto.like_cnt }</span>
-											</p>
-										</button>
-										<button class="favorite ${ dto.amIpick?'on':' '}" type="button"
-											data-type="poing.reviews.actions.user.favorite"
-											data-id="${dto.rev_no }" tabindex="-1">
-											<i class="icon heart small ${ dto.amIpick?'on':' '}"></i>
-											<p>
-												찜하기 <span>${dto.pick_cnt }</span>
-											</p>
-										</button>
-										<button class="comment" type="button"
-											data-type="poing.reviews.actions.user.loadComments"
-											data-id="${dto.rev_no }" tabindex="-1">
-											<i class="icon balloon"></i>
-											<p>
-												댓글 <span>${dto.commend_cnt}</span>
-											</p>
-										</button>
-										<c:if test="${ authUser.m_no eq dto.m_no }">
-											<div class="article">
-												<button class="edit"
-													data-type="poing.reviews.actions.auth.modify2"
-													data-id="${ dto.rev_no }" tabindex="-1">수정하기</button>
-												<button class="delete"
-													data-type="poing.reviews.actions.auth.remove"
-													data-id="${ dto.rev_no }" tabindex="-1">삭제하기</button>
-											</div>
-										</c:if>
-									</div>
+								<div class="photo" data-id="${dto.rev_no }">
+									<c:if test="${dto.images ne null}">
+										<c:forEach items="${dto.images }" var="image_dto">
+											<button class="empty i_wrap"
+												data-type="poing.popup.photoReviewViewerPopup"
+												data-id="${dto.rev_no }" data-index="0"
+												data-image-selector=".photo[data-id=${dto.rev_no }]>button>i"
+												tabindex="-1">
+												<i class="image border_radius soft"
+													data-origin="${ realPath }${ image_dto }"
+													style="background-image: url(&quot;${ realPath }${ image_dto }&quot;); display: inline-block;"
+													title="${ dto.rest_name } 유저리뷰 이미지"></i>
+											</button>
+										</c:forEach>
+									</c:if>
 								</div>
-								<div class="comment_list ">
-									<c:if test="${ dto.cdto ne null }">
-										<div class="comment">
-											<a class="thumbnail"
-												style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : application.getAttribute("baseimg") }')"
-												href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
-											<div class="author">
-												<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
-												<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
-												<p class="text">${ dto.cdto.rc_content }</p>
-												<c:if test="${ dto.cdto.m_no eq authUser.m_no }">
-												<div class="action">
-													<button type="button" class="edit"
-														data-type="poing.reviews.comment.modify" data-id="11840">수정하기</button>
-													<button type="button" class="delete"
-														data-type="poing.reviews.comment.remove" data-id="11840">삭제하기</button>
-												</div>
-												</c:if>
-											</div>
+
+								<button class="like_list"
+									data-type="poing.reviews.actions.user.showLikers"
+									data-id="${dto.rev_no }" tabindex="-1">
+									김수한님, jwjwjw님 외 12명이 좋아합니다.
+								</button>
+								<div class="action">
+									<button class="like ${ dto.amIlike?'on':' '}" type="button"
+										data-type="poing.reviews.actions.user.like" data-id="${dto.rev_no }"
+										tabindex="-1">
+										<i class="icon like ${ dto.amIlike?'on':' '}"></i>
+										<p>
+											좋아요 <span>${dto.like_cnt }</span>
+										</p>
+									</button>
+									<button class="favorite ${ dto.amIpick?'on':' '}" type="button"
+										data-type="poing.reviews.actions.user.favorite"
+										data-id="${dto.rev_no }" tabindex="-1">
+										<i class="icon heart small ${ dto.amIpick?'on':' '}"></i>
+										<p>
+											찜하기 <span>${dto.pick_cnt }</span>
+										</p>
+									</button>
+									<button class="comment" type="button"
+										data-type="poing.reviews.actions.user.loadComments"
+										data-id="${dto.rev_no }" tabindex="-1">
+										<i class="icon balloon"></i>
+										<p>
+											댓글 <span>${dto.commend_cnt}</span>
+										</p>
+									</button>
+									<c:if test="${ authUser.m_no eq dto.m_no }">
+										<div class="article">
+											<button class="edit"
+												data-type="poing.reviews.actions.auth.modify2"
+												data-id="${ dto.rev_no }" tabindex="-1">수정하기</button>
+											<button class="delete"
+												data-type="poing.reviews.actions.auth.remove"
+												data-id="${ dto.rev_no }" tabindex="-1">삭제하기</button>
 										</div>
 									</c:if>
 								</div>
-								<div class="write">
-								<span class="thumbnail"
-									style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></span>
-								<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
-								</div>
+							</div>
+							<div class="comment_list ">
+								<c:if test="${ dto.cdto ne null }">
+									<div class="comment">
+										<a class="thumbnail"
+											style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : application.getAttribute("baseimg") }')"
+											href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
+										<div class="author">
+											<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
+											<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
+											<p class="text">${ dto.cdto.rc_content }</p>
+											<c:if test="${ dto.cdto.m_no eq authUser.m_no }">
+											<div class="action">
+												<button type="button" class="edit"
+													data-type="poing.reviews.comment.modify" data-id="${ dto.cdto.rc_no }">수정하기</button>
+												<button type="button" class="delete"
+													data-type="poing.reviews.comment.remove" data-id="${ dto.cdto.rc_no }">삭제하기</button>
+											</div>
+											</c:if>
+										</div>
+									</div>
+								</c:if>
+							</div>
+							<div class="write">
+							<span class="thumbnail"
+								style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></span>
+							<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
 							</div>
 						</div>
-						</c:forEach>
+					</div>
+					</c:forEach>
 
 						<div id="review_pagination">
 							<div class="page-list">

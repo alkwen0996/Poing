@@ -18,6 +18,7 @@ public class DisplayTimelineHandler implements CommandHandler{
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
 		if (tab == null) {

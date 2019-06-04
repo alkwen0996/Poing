@@ -123,7 +123,7 @@
 								data-place-name="${dto.rest_name }">
 								<a class="author" href="/Poing/timeline.do?id=${dto.m_no }"> <span
 									class="thumbnail"
-									style="display: inline-block; background-image: url(&quot;${realPath}${ dto.m_img ne null ? dto.m_img : application.getAttribute("baseimg") }&quot;);"></span>
+									style="display: inline-block; background-image: url(&quot;${realPath}${ dto.m_img ne null ? dto.m_img : applicationScope.baseprofile }&quot;);"></span>
 									<div class="info">
 										<p class="name">${dto.m_name }</p>
 										<p class="stat">${ dto.m_revcnt } 리뷰, ${ dto.m_ercnt } 팔로워</p>

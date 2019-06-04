@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div id="container" class="">
@@ -384,11 +384,11 @@
 				<div class="slider_wrap PoingSlider_wrap">
 				<div class="slider PoingSlider">
 				
-				<c:forEach var="i" begin="1" end="4">
-					<div class="slice ${ i eq 1?'current':'' }" style="top: 0px; left: 0px;">
-					<c:forEach var="rev_dto" items="${ mainDTO.rev_list }" varStatus="status">
-						<div class="element  main_review ${ i eq 1?'fri':'' } ">
-							<a href="/restaurant/detail/30748" class="image"
+				<c:forEach var="i" begin="0" end="3">
+					<div class="slice ${ i eq 0?'current':'' }" style="top: 0px; left: 0px;">
+					<c:forEach var="rev_dto" items="${ mainDTO.rev_list }" begin="${ i*3 }" end="${ i*3+2 }" varStatus="status">
+						<div class="element main_review ${ status.index eq i*3?'first':'' } ">
+							<a href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rest_no }" class="image"
 								style="display: block; background-image: url(&quot;http://c2.poing.co.kr/PIMAGE-original/MjAxNzAx/1484297155587893c36848b.jpeg&quot;);">
 								<div class="shading"></div>
 
@@ -400,7 +400,9 @@
 
 							<div class="desc">
 								<div class="author">
-									<a href="/Poing/timeline.do?id=${ rev_dto.m_no }"><i class="profile"></i></a>
+									<a href="/Poing/timeline.do?id=${ rev_dto.m_no }">
+										<i class="profile" style="background-image:url(${realPath}${ rev_dto.m_img ne null ? rev_dto.m_img : applicationScope.baseprofile});"></i>
+									</a>
 									<div class="info">
 										<div class="name">
 											<a href="/Poing/timeline.do?id=${ rev_dto.m_no }">${ rev_dto.m_name }</a>
@@ -409,7 +411,7 @@
 										<div class="rating">
 											<div class="stars">
 												<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
-													<c:if test="${i <= dto.rev_starpoint / 10 }">
+													<c:if test="${i <= rev_dto.rev_starpoint / 10 }">
 														<c:if test = "${i%2 ne 0 }"><i class="icon star medium odd active" data-id="" data-index="${status.count }" style=""></i></c:if>
 														<c:if test = "${i%2 eq 0 }"><i class="icon star medium even active" data-id="" data-index="${status.count }" style=""></i></c:if>
 													</c:if>

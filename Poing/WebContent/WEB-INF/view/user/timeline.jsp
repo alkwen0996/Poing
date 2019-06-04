@@ -34,18 +34,18 @@
 			<div id="banner" class="user">
 				<div class="i_wrap background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:application.baseimg}')"></i>
+						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 				</div>
 				<div class="i_wrap blur background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:application.baseimg}')"></i>
+						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 				</div>
 				<div class="inner_wrap">
 					<div class="inner">
 						<c:if test="${authUser.m_no eq mdto.m_no}" >
 							<div id="change_user_image" class="user_image i_wrap">
 								<i class="image border_radius circle profile_image"
-									style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:application.baseimg}')"></i>
+									style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 								<div class="shading border_radius circle"></div>
 								<div class="message border_radius circle">프로필 사진 바꾸기</div>
 							</div>
@@ -54,7 +54,7 @@
 						<c:if test="${authUser.m_no ne mdto.m_no}" >
 							<div id="user_image" class="user_image i_wrap">
 								<i class="image border_radius circle"
-									style="width:100%;height:100%;background-image:url('${realPath}${ mdto.m_img ne null?mdto.m_img:application.baseimg}')"></i>
+									style="width:100%;height:100%;background-image:url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 							</div>
 						</c:if>
 

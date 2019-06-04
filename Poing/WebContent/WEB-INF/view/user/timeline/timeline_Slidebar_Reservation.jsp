@@ -130,6 +130,10 @@ $(document).ready(function(){
 		  $(this).text( $(this).text().substring(0, $(this).text().length-1) );  
 	});
 			  
-		  										
+	$("[type=button]").click(function() {
+		$(".fc-day-number").each(function(index,item) {
+			  $(this).text( $(this).text().substring(0, $(this).text().length-1) );  
+		});
+	});	  										
 });
 </script>

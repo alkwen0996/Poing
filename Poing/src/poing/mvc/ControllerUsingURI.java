@@ -70,13 +70,26 @@ public class ControllerUsingURI extends HttpServlet{
 		}
 		System.out.println("ControllerUsingURL.java line 66 : " + command);
 		request.setAttribute("command", command);
+		
 		if (command.equals("/popup/follow.ejs")) { //ejs별도처리
 			String viewPage = "/WEB-INF/view/popup/followejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
-		if (command.equals("/template/review_comment.ejs")) { //ejs별도처리
+		if(command.equals("/templete/UserNotice.ejs")) {
+			String viewPage = "/WEB-INF/view/popup/UserNoticeejs";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
+		if(command.equals("/templete/PoingNotice.ejs")) {
+			String viewPage = "/WEB-INF/view/popup/PoingNoticeejs";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
+			dispatcher.forward(request, response);
+			return;
+		}
+		if (command.equals("/templete/review_comment.ejs")) { //ejs별도처리
 			String viewPage = "/WEB-INF/view/review/commentsejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
@@ -108,3 +121,4 @@ public class ControllerUsingURI extends HttpServlet{
 		}
 	}
 }
+

@@ -38,7 +38,7 @@
 
 					</form></td>
 			</tr>
-			<tr class="">
+			<!-- <tr class="">
 				<td class="title">전화번호</td>
 				<td class="value"><span>01075823579</span>
 					<button type="button" tabindex="-1">변경하기</button>
@@ -58,11 +58,11 @@
 						<input type="hidden" name="current_phone" value="01075823579">
 						<input type="hidden" name="type" value="phone">
 					</form></td>
-			</tr>
+			</tr> -->
 		</tbody>
 	</table>
 
-	<table class="card">
+	<!-- <table class="card">
 		<caption>결제 정보</caption>
 		<tbody>
 			<tr>
@@ -83,7 +83,7 @@
 				</td>
 			</tr>
 		</tbody>
-	</table>
+	</table> -->
 
 	<table class="privacy">
 		<caption>알림 / 프라이버시</caption>

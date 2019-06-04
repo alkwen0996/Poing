@@ -54,11 +54,11 @@
 			                <span class="info">${dto.r_location }-${dto.r_type }</span>
 							<button class="empty favorite " data-id="${dto.p_num}" tabindex="-1">
 								<%
-								if (dto.getPick()==1){
+									if (dto.getPick() == 1) {
 								%>
 								찜하기<i class="icon heart large on"></i>
 								<%
-								}else {
+									} else {
 								%>
 								찜하기<i class="icon heart large"></i>
 								<%}%>
@@ -130,22 +130,22 @@
 		</div><!-- banner_wrap -->
 		
 		<div id="content_wrap">
-			<div id="content" class="detail info coupon">
+			<div id="content" class="detail coupon ${ param.tab }">
 				<ul class="tab">
-					<li class="item selected">
-						<a href="/Poing/product/detail.do?p_num=${param.p_num }&&type=detail">상세정보</a>
+					<li class="item info">
+						<a href="/Poing/product/detail.do?p_num=${param.p_num }&tab=info">상제정보</a>
 					</li>
-					<li class="item">
-						<a href="/Poing/product/detail/photo.do?p_num=${param.p_num }&&type=photo">포토</a>
+					<li class="item photo">
+						<a href="/Poing/product/detail.do?p_num=${param.p_num }&tab=photo">포토</a>
 					</li>
-					<li class="item ">
-						<a href="/Poing/product/detail/menu.do?p_num=${param.p_num }&&type=menu">메뉴</a>
+					<li class="item menu">
+						<a href="/Poing/product/detail.do?p_num=${param.p_num }&tab=menu">메뉴</a>
 					</li>
-					<li class="item ">
-						<a href="/Poing/product/detail/map.do?p_num=${param.p_num }&&type=menu">지도</a>
+					<li class="item map">
+						<a href="/Poing/product/detail.do?p_num=${param.p_num }&tab=map">지도</a>
 					</li>
-					<li class="item ">
-						<a href="/Poing/product/detail/qna.do?p_num=${param.p_num }&&type=qna">상품문의</a>
+					<li class="item qna">
+						<a href="/Poing/product/detail.do?p_num=${param.p_num }&tab=qna">상품문의</a>
 					</li>
 				</ul>
 				
@@ -211,116 +211,125 @@
 							<span class="name ">${dto.p_option }</span>
 							<span class="actual_price">${dto.p_origin_money }</span>
 							<span class="price">${dto.p_dc_money }</span>
+				<script type="text/javascript">
+					$("#content > ul > li.${param.tab}").addClass("selected");
+				</script>
+
+				<c:choose>
+					<c:when test="${ param.tab eq 'info' }" >
+						<% System.out.println("info"); %>
+						<jsp:include page="/WEB-INF/view/product/productDetail_info.jsp"/>
+					</c:when>
+					
+					<c:when test="${ param.tab eq 'photo' }">
+						<% System.out.println("photo"); %>
+						<jsp:include page="/WEB-INF/view/product/productDetail_photo.jsp"/>
+					</c:when>
+					
+					<c:when test="${ param.tab eq 'menu' }">
+						<% System.out.println("menu"); %>
+						<jsp:include page="/WEB-INF/view/product/productDetail_menu.jsp"/>
+					</c:when>
+					
+					<c:when test="${ param.tab eq 'map' }">
+						<% System.out.println("map"); %>
+						<div class="body first last">
+							<div id="map"></div>
 						</div>
-	                    
-					</div>
-				</div>
-				<hr>
+					</c:when>
+					
+					<c:when test="${ param.tab eq 'qna' }">
+					<% System.out.println("qna"); %>
+						<jsp:include page="/WEB-INF/view/product/productDetail_qna.jsp"/>
+					</c:when>
 				
-				<div class="section menu single">
-					<div class="title">메뉴<a class="menu" href="/product/detail/5432?menu">더보기&gt;</a></div>
-					<div class="body">
-						<a class="i_wrap menu border_radius soft" href="/product/detail/5432?menu">
-							<i class="image" style="background-image:url(&quot;${dto.photo_img}&quot;)"></i>
-						</a>
-					</div>
-				</div>
-				<hr>
-						
-				<div class="section editor single">
-					<div class="title">포잉 에디터의 평</div>
-					<div class="body">
-						<div class="editor_comment">
-							<i class="image border_radius circle" style="background-image:url(${dto.editer_img});"></i>
-							<div class="name">${dto.e_name }</div>
-							<div class="comment">
-								${dto.e_content }
-							</div>
-						</div>
-						<a href="/restaurant/detail/37984" class="more">레스토랑 정보 더 자세히 알아보기&gt;</a>
-					</div><!-- body -->
-				</div>
-			</div><!-- body -->
-		
+					<c:otherwise>
+					<% System.out.println("c:otherwise"); %>
+						<jsp:include page="/WEB-INF/view/rest/rest_info.jsp"/>
+					</c:otherwise>
+				</c:choose>
 			</div><!-- content -->
 		
 			<div id="sidebar_wrap" class="detail">
 				<button class="sidebar buy border_radius soft" data-id="5432" data-cart="true" tabindex="-1">바로 구매하기</button>
 				<button class="sidebar addCart border_radius soft" tabindex="-1">장바구니 담기</button>
-
 				<script>
-				
-		$(".empty favorite").click(function() {
-			alert("fav click");
-		});		
+				$(".empty favorite").click(function() {
+					alert("fav click");
+				});		
+				$("#sidebar_wrap>.buy").click(function(){
+					if(poing.account.checkLoginState()) {
+						var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+						var options = [];
 		
-		$("#sidebar_wrap>.buy").click(function(){
-			if(poing.account.checkLoginState()) {
-				var url = "/Poing/popup/reserve_coupon.do?p_num=${param.p_num}";
-				
-				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
-				var options = [];
-
-				if(selected.length === 0) {
-					$.popup("/Poing/pick/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
-					return;
-				}
-				for(var i=0; i<selected.length; ++i)
-				{
-					var op = selected.eq(i);
-					options[i] = {
-							id: op.data('id') , count: op.find(".count_box>input").val()
-							};
-					//alert( $.param(options[i]) );
-					url += "&" + $.param(options[i]);
-				}
-				//?id=4&count=4&id=2&count=5				
-				//alert( url )
-				$.popup(url);
-
-			}
-		});
-		///////////////////////////////////////////////////////////////////////////////////////////////////////
-		$("#sidebar_wrap>.addCart").click(function(){
-			if(poing.account.checkLoginState()) {
-				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
-				var options = [];
-
-				if(selected.length === 0) {
-					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
-					return;
-				}
-
-				for(var i=0; i<selected.length; ++i)
-				{
-					var op = selected.eq(i);
-					options[i] = {
-							id: op.data('id'), count: op.find(".count_box>input").val()
-							};
-				}
-				
-			
-				$.ajax({
-					'url': "/Poing/popup/basket_confirm.do",
-					'method': "POST",
-					'dataType': "JSON",
-					'data': {'options': options},
-					'success':function(response) {
-						if(response.status)
+						if(selected.length === 0) {
+							$.popup("/Poing/pick/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
+							return;
+						}else{
+							$.popup("/Poing/popup/reserve_coupon.do?p_num=${param.p_num}");
+						}
+						for(var i=0; i<selected.length; ++i)
 						{
-                            ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
-                            $.popup("confirm", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
-                                location.href="/Poing/product/productCart.do";
-                            });
-						} else {
-                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
-                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
-                        }
+							var op = selected.eq(i);
+							options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+						}
+		
+						$.ajax({
+							'url': "/pay/addCart.do",
+							'method': "POST",
+							'dataType': "JSON",
+							'data': {'options': options},
+							'success':function(response) {
+								if(response.status) {
+									$.popup("reserve_coupon", {'id':response.data.cart_id, 'mode':'buy'});
+								} else {
+		                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
+		                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
+		                        }
+							}
+						});
 					}
 				});
-			}
-		});
-	</script>
+				$("#sidebar_wrap>.addCart").click(function(){
+					if(poing.account.checkLoginState()) {
+						var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+						var options = [];
+		
+						if(selected.length === 0) {
+							$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
+							return;
+						}else{
+							
+						}
+		
+						for(var i=0; i<selected.length; ++i)
+						{
+							var op = selected.eq(i);
+							options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+						}
+						
+					
+						$.ajax({
+							'url': "/Poing/popup/cart.do",
+							'method': "POST",
+							'dataType': "JSON",
+							'data': {'options': options},
+							'success':function(response) {
+								if(response.status)
+								{
+		                            //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
+		                            $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
+		                                location.href="/Poing/product/productCart.do";
+		                            });
+								} else {
+		                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
+		                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
+		                        }
+							}
+						});
+					}
+				});
+				</script>
 				<div id="recommend_coupon" class="sidebar">
 				<div class="title">이 달의 추천 티켓</div>
 				<ul class="list">

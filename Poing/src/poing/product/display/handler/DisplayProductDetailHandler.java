@@ -24,8 +24,6 @@ public class DisplayProductDetailHandler implements CommandHandler {
 				member_num = mdto.getM_no();
 				dto = service.select(p_num,member_num);
 			}
-					
-			
 			request.setAttribute("dto", dto);
 			
 		} catch (Exception e) { 

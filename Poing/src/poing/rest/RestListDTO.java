@@ -22,6 +22,8 @@ public class RestListDTO {
 	private String rest_food_type; // varchar2(30) -- 음식종류
 	private float rest_lat; //num 위도
 	private float rest_long; //num 경도
+	private int rest_fav; //찜하기 추적
+	
 
 	
 	public float getRest_lat() {
@@ -147,6 +149,12 @@ public class RestListDTO {
 	@Override
 	public String toString() {
 		return rest_name+rest_seq;
+	}
+	public int getRest_fav() {
+		return rest_fav;
+	}
+	public void setRest_fav(int rest_fav) {
+		this.rest_fav = rest_fav;
 	}
 
 

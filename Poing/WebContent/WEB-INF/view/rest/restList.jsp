@@ -76,6 +76,12 @@
 	}
 	sb.append("] ");
 	
+	
+	//MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+	int member_num = 0;
+	//if(mdto==null) member_num = 0;
+	//else member_num = mdto.getM_no();
+	
 %>
 <body>
 
@@ -115,8 +121,13 @@
 								예약 ${dto.rest_reservation_cnt}&nbsp; 리뷰
 								${dto.rest_review_cnt}&nbsp; 조회수 ${dto.rest_view_cnt} <br>
 								<button class="" data-type="poing.restaurants.favorite"
-									data-id="35740" onclick='return false;'>
+									data-id="${dto.rest_seq }" onclick='return false;'>
+									<c:if test="${dto.rest_fav eq 1 }">
+									<i class="icon favorite on"></i>
+									</c:if>
+									<c:if test="${dto.rest_fav eq 0 }">
 									<i class="icon favorite "></i>
+									</c:if>
 								</button>
 							</div>
 							<div class="bottom">

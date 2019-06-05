@@ -244,19 +244,19 @@
 							type = "on";
 
 						$.ajax({
-							url: "/main/ajaxfavorite.do",
+							url: "/Poing/rest/ajax/restListFavAjax.do",
 							method: 'post',
 							dataType: 'json',
 							data: {
 								"type": type,
-								"id": $(this).data("id")
+								"id": $(this).data("id")  //session Id
 							},
 							//context:this,
 							success: function (res) {
 								var data = $.parseQuery(this.data);
 								var btn = $("button[data-type='poing.restaurants.favorite'][data-id=" + data.id + "]");
 
-								if (data.type == 'on') {
+								if (data.type == 'on') {   //type이 on으로 넘어오면 찜하기
 									btn.addClass('on')
 										.children("i").addClass('on');
 									$.popup("/Poing/pick/popup/confirm.do", {

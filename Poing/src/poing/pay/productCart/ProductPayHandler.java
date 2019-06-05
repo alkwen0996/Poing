@@ -7,8 +7,6 @@ import org.json.simple.JSONObject;
 
 import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
-import poing.product.ProductDTO;
-import poing.product.reserva_ticDTO;
 import poing.product.display.service.ProductPayService;
 
 public class ProductPayHandler implements CommandHandler {

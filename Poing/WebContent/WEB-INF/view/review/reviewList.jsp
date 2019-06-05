@@ -1,32 +1,30 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang = "ko">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<title>리뷰</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/js/main.js"></script>
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/js/slider.js"></script>
-	<style>
-			<%@include file="/css/style.css" %>
-			<%@include file="/css/poing.slider.css" %>
-	</style>
+<meta charset="UTF-8">
+<title>리뷰</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/main.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/slider.js"></script>
+<style>
+<%@include file="/css/style.css" %>
+<%@include file="/css/poing.slider.css" %>
+</style>
 </head>
-<%
-	
-%>
 <body>
 	<div id="wrap" class="">
-		
-		<jsp:include page="/WEB-INF/layout/header.jsp"/>
-		
+
+		<jsp:include page="/WEB-INF/layout/header.jsp" />
+
 		<!-- container -->
 		<div id="container" class="">
 			<!-- 상단에 배너가 있는 레이아웃 -->
@@ -110,173 +108,179 @@
 
 					<div class="section realtime">
 						<div class="filter">
-							<a href="?type=all" class="all" >모든 사용자</a> 
-							<a href="?type=follower" class="follower ">팔로잉</a>
+							<a href="?type=all" class="all">모든 사용자</a> <a
+								href="?type=follower" class="follower ">팔로잉</a>
 							<script type="text/javascript">
 								$("div.filter > a.${ type eq null ? all : type}").addClass("selected")
 							</script>
 						</div>
 						<div class="title">실시간 리뷰</div>
-						<c:forEach var = "dto" items = "${list }" varStatus = "status">
-						<div class="body review_wrap">
-						
-							<c:forEach var = "dto" items = "${list }" varStatus = "status">
-							<div class="review" data-id="${dto.rev_no }" data-place="${dto.rest_no }"
-								data-place-name="${dto.rest_name }">
-								<a class="author" href="/Poing/timeline.do?id=${dto.m_no }"> <span
-									class="thumbnail"
-									style="display: inline-block; background-image: url(&quot;${realPath}${ dto.m_img ne null ? dto.m_img : applicationScope.baseprofile }&quot;);"></span>
-									<div class="info">
-										<p class="name">${dto.m_name }</p>
-										<p class="stat">${ dto.m_revcnt } 리뷰, ${ dto.m_ercnt } 팔로워</p>
-									</div>
-									<c:if test="${ authUser.m_no ne dto.m_no }">
-										<button class="follow ${ dto.amIfollow?'on':' '}" type="button"
-											data-type="poing.user.follow" data-id="${ dto.m_no }" tabindex="-1">
-											<i class="icon follow ${ dto.amIfollow?'on':' '}"></i>팔로우
-										</button>
-									</c:if>
-								</a> <a class="place" href="/Poing/rest/detail.do?rest_seq=${ dto.rest_no }">
-									<button class="favorite " type="button"
-										data-type="poing.restaurants.favorite" data-id="${ dto.rest_no }"
-										tabindex="-1">
-										<i class="icon heart small "></i>매장찜
-									</button>
-									<p class="name">${dto.rest_name}</p>
-									<p class="info">${dto.rest_loc}</p>
-								</a>
-								<div class="body">
-									<div class="time  loaded" style="display: block;">${dto.rev_wtime}</div>
-									<div class="grade">
-										
-										<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
-											<c:if test="${i <= dto.rev_starpoint / 10 }">
-												<c:if test = "${i%2 ne 0 }"><i class="icon star medium odd active" data-id="" data-index="${status.count }" style=""></i></c:if>
-												<c:if test = "${i%2 eq 0 }"><i class="icon star medium even active" data-id="" data-index="${status.count }" style=""></i></c:if>
+							<div class="body review_wrap">
+								<c:forEach var="dto" items="${list }" varStatus="status">
+									<div class="review" data-id="${dto.rev_no }"
+										data-place="${dto.rest_no }"
+										data-place-name="${dto.rest_name }">
+										<a class="author" href="/Poing/timeline.do?id=${dto.m_no }">
+											<span class="thumbnail"
+											style="display: inline-block; background-image: url(&quot;${realPath}${ dto.m_img ne null ? dto.m_img : applicationScope.baseprofile }&quot;);"></span>
+											<div class="info">
+												<p class="name">${dto.m_name }</p>
+												<p class="stat">${ dto.m_revcnt }리뷰, ${ dto.m_ercnt }
+													팔로워</p>
+											</div> <c:if test="${ authUser.m_no ne dto.m_no }">
+												<button class="follow ${ dto.amIfollow?'on':' '}"
+													type="button" data-type="poing.user.follow"
+													data-id="${ dto.m_no }" tabindex="-1">
+													<i class="icon follow ${ dto.amIfollow?'on':' '}"></i>팔로우
+												</button>
 											</c:if>
-										</c:forEach>
-										<span id="pointComment" style="display:inline-block;vertical-align:super;" data-id="${ dto.rev_no }" data-grade="${ dto.rev_starpoint }"></span>
-										<script type="text/javascript">
+										</a> <a class="place"
+											href="/Poing/rest/detail.do?rest_seq=${ dto.rest_no }">
+											<button class="favorite " type="button"
+												data-type="poing.restaurants.favorite"
+												data-id="${ dto.rest_no }" tabindex="-1">
+												<i class="icon heart small "></i>매장찜
+											</button>
+											<p class="name">${dto.rest_name}</p>
+											<p class="info">${dto.rest_loc}</p>
+										</a>
+										<div class="body">
+											<div class="time  loaded" style="display: block;">${dto.rev_wtime}</div>
+											<div class="grade">
+
+												<c:forEach varStatus="status" var="i" begin="1" end="10"
+													step="1">
+													<c:if test="${i <= dto.rev_starpoint / 10 }">
+														<c:if test="${i%2 ne 0 }">
+															<i class="icon star medium odd active" data-id=""
+																data-index="${status.count }" style=""></i>
+														</c:if>
+														<c:if test="${i%2 eq 0 }">
+															<i class="icon star medium even active" data-id=""
+																data-index="${status.count }" style=""></i>
+														</c:if>
+													</c:if>
+												</c:forEach>
+												<span id="pointComment"
+													style="display: inline-block; vertical-align: super;"
+													data-id="${ dto.rev_no }"
+													data-grade="${ dto.rev_starpoint }"></span>
+												<script type="text/javascript">
 											//$("#pointComment").text("${ dto.rev_starpoint/10 } / " + ratingText[${ dto.rev_starpoint/10 }]);
 										</script>
-									</div>
-								<div class="text" data-truncated="">${dto.rev_content }</div>
-
-
-								<div class="photo" data-id="${dto.rev_no }">
-									<c:if test="${dto.images ne null}">
-										<c:forEach items="${dto.images }" var="image_dto">
-											<button class="empty i_wrap"
-												data-type="poing.popup.photoReviewViewerPopup"
-												data-id="${dto.rev_no }" data-index="0"
-												data-image-selector=".photo[data-id=${dto.rev_no }]>button>i"
-												tabindex="-1">
-												<i class="image border_radius soft"
-													data-origin="${ realPath }${ image_dto }"
-													style="background-image: url(&quot;${ realPath }${ image_dto }&quot;); display: inline-block;"
-													title="${ dto.rest_name } 유저리뷰 이미지"></i>
-											</button>
-										</c:forEach>
-									</c:if>
-								</div>
-
-								<button class="like_list"
-									data-type="poing.reviews.actions.user.showLikers"
-									data-id="${dto.rev_no }" tabindex="-1">
-									김수한님, jwjwjw님 외 12명이 좋아합니다.
-								</button>
-								<div class="action">
-									<button class="like ${ dto.amIlike?'on':' '}" type="button"
-										data-type="poing.reviews.actions.user.like" data-id="${dto.rev_no }"
-										tabindex="-1">
-										<i class="icon like ${ dto.amIlike?'on':' '}"></i>
-										<p>
-											좋아요 <span>${dto.like_cnt }</span>
-										</p>
-									</button>
-									<button class="favorite ${ dto.amIpick?'on':' '}" type="button"
-										data-type="poing.reviews.actions.user.favorite"
-										data-id="${dto.rev_no }" tabindex="-1">
-										<i class="icon heart small ${ dto.amIpick?'on':' '}"></i>
-										<p>
-											찜하기 <span>${dto.pick_cnt }</span>
-										</p>
-									</button>
-									<button class="comment" type="button"
-										data-type="poing.reviews.actions.user.loadComments"
-										data-id="${dto.rev_no }" tabindex="-1">
-										<i class="icon balloon"></i>
-										<p>
-											댓글 <span>${dto.commend_cnt}</span>
-										</p>
-									</button>
-									<c:if test="${ authUser.m_no eq dto.m_no }">
-										<div class="article">
-											<button class="edit"
-												data-type="poing.reviews.actions.auth.modify2"
-												data-id="${ dto.rev_no }" tabindex="-1">수정하기</button>
-											<button class="delete"
-												data-type="poing.reviews.actions.auth.remove"
-												data-id="${ dto.rev_no }" tabindex="-1">삭제하기</button>
-										</div>
-									</c:if>
-								</div>
-							</div>
-							<div class="comment_list ">
-								<c:if test="${ dto.cdto ne null }">
-									<div class="comment">
-										<a class="thumbnail"
-											style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : applicationScope.baseprofile }')"
-											href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
-										<div class="author">
-											<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
-											<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
-											<p class="text">${ dto.cdto.rc_content }</p>
-											<c:if test="${ dto.cdto.m_no eq authUser.m_no }">
-											<div class="action">
-												<button type="button" class="edit"
-													data-type="poing.reviews.comment.modify" data-id="${ dto.cdto.rc_no }">수정하기</button>
-												<button type="button" class="delete"
-													data-type="poing.reviews.comment.remove" data-id="${ dto.cdto.rc_no }">삭제하기</button>
 											</div>
+											<div class="text" data-truncated="">${dto.rev_content }</div>
+
+
+											<div class="photo" data-id="${dto.rev_no }">
+												<c:if test="${dto.images ne null}">
+													<c:forEach items="${dto.images }" var="image_dto">
+														<button class="empty i_wrap"
+															data-type="poing.popup.photoReviewViewerPopup"
+															data-id="${dto.rev_no }" data-index="0"
+															data-image-selector=".photo[data-id=${dto.rev_no }]>button>i"
+															tabindex="-1">
+															<i class="image border_radius soft"
+																data-origin="${ realPath }${ image_dto }"
+																style="background-image: url(&quot;${ realPath }${ image_dto }&quot;); display: inline-block;"
+																title="${ dto.rest_name } 유저리뷰 이미지"></i>
+														</button>
+													</c:forEach>
+												</c:if>
+											</div>
+
+											<button class="like_list"
+												data-type="poing.reviews.actions.user.showLikers"
+												data-id="${dto.rev_no }" tabindex="-1">김수한님,
+												jwjwjw님 외 12명이 좋아합니다.</button>
+											<div class="action">
+												<button class="like ${ dto.amIlike?'on':' '}" type="button"
+													data-type="poing.reviews.actions.user.like"
+													data-id="${dto.rev_no }" tabindex="-1">
+													<i class="icon like ${ dto.amIlike?'on':' '}"></i>
+													<p>
+														좋아요 <span>${dto.like_cnt }</span>
+													</p>
+												</button>
+												<button class="favorite ${ dto.amIpick?'on':' '}"
+													type="button"
+													data-type="poing.reviews.actions.user.favorite"
+													data-id="${dto.rev_no }" tabindex="-1">
+													<i class="icon heart small ${ dto.amIpick?'on':' '}"></i>
+													<p>
+														찜하기 <span>${dto.pick_cnt }</span>
+													</p>
+												</button>
+												<button class="comment" type="button"
+													data-type="poing.reviews.actions.user.loadComments"
+													data-id="${dto.rev_no }" tabindex="-1">
+													<i class="icon balloon"></i>
+													<p>
+														댓글 <span>${dto.commend_cnt}</span>
+													</p>
+												</button>
+												<c:if test="${ authUser.m_no eq dto.m_no }">
+													<div class="article">
+														<button class="edit"
+															data-type="poing.reviews.actions.auth.modify2"
+															data-id="${ dto.rev_no }" tabindex="-1">수정하기</button>
+														<button class="delete"
+															data-type="poing.reviews.actions.auth.remove"
+															data-id="${ dto.rev_no }" tabindex="-1">삭제하기</button>
+													</div>
+												</c:if>
+											</div>
+										</div>
+										<div class="comment_list ">
+											<c:if test="${ dto.cdto ne null }">
+												<div class="comment">
+													<a class="thumbnail"
+														style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : applicationScope.baseprofile }')"
+														href="/Poing/timeline.do?id=${ dto.cdto.m_no }"></a>
+													<div class="author">
+														<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
+														<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
+														<p class="text">${ dto.cdto.rc_content }</p>
+														<c:if test="${ dto.cdto.m_no eq authUser.m_no }">
+															<div class="action">
+																<button type="button" class="edit"
+																	data-type="poing.reviews.comment.modify"
+																	data-id="${ dto.cdto.rc_no }">수정하기</button>
+																<button type="button" class="delete"
+																	data-type="poing.reviews.comment.remove"
+																	data-id="${ dto.cdto.rc_no }">삭제하기</button>
+															</div>
+														</c:if>
+													</div>
+												</div>
 											</c:if>
 										</div>
+										<div class="write">
+											<span class="thumbnail"
+												style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : applicationScope.baseprofile }')"></span>
+											<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
+										</div>
 									</div>
-								</c:if>
+								</c:forEach>
 							</div>
-							<div class="write">
-							<span class="thumbnail"
-								style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : applicationScope.baseprofile }')"></span>
-							<textarea data-id="${ dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
+							<div id="review_pagination">
+								<div class="page-list">
+									<ul class="pagination" onselectstart="return false;">
+									
+										<li class="prevAll">&lt;&lt;</li>
+										<li class="prev">&lt;</li>
+										<c:forEach var="i" begin="${paging.startPageNo }" end="${paging.endPageNo}">
+											<li class="page active ${i eq paging.cpage?'active':'' }" data-page="i">${ i }</li>
+										</c:forEach>
+										<li class="next">&gt;</li>
+										<li class="nextAll">&gt;&gt;</li>
+									</ul>
+								</div>
 							</div>
-						</div>
-					</div>
-					</c:forEach>
-
-						<div id="review_pagination">
-							<div class="page-list">
-								<ul class="pagination" onselectstart="return false;">
-									<li class="prevAll">&lt;&lt;</li>
-									<li class="prev">&lt;</li>
-									<li class="page active" data-page="1">1</li>
-									<li class="page" data-page="2">2</li>
-									<li class="page" data-page="3">3</li>
-									<li class="page" data-page="4">4</li>
-									<li class="page" data-page="5">5</li>
-									<li class="page" data-page="6">6</li>
-									<li class="page" data-page="7">7</li>
-									<li class="page" data-page="8">8</li>
-									<li class="page" data-page="9">9</li>
-									<li class="page" data-page="10">10</li>
-									<li class="next">&gt;</li>
-									<li class="nextAll">&gt;&gt;</li>
-								</ul>
-							</div>
-						</div>
 					</div>
 				</div>
-			<jsp:include page="/WEB-INF/view/slideBar/Slidebar_BestReview.jsp"></jsp:include>
-			<script>
+				<jsp:include page="/WEB-INF/view/slideBar/Slidebar_BestReview.jsp"></jsp:include>
+				<script>
 		$(document).ready(function(){
 		    new Pagination({'selector':'#review_pagination', 
 		                    'current_page':1, 
@@ -462,14 +466,16 @@
 			});
 		});
 	</script>
-			</div><!-- content_wrap end -->
-		</div><!-- container end -->
-		
-		<jsp:include page="/WEB-INF/layout/popup_wrap_review.jsp"/>
+			</div>
+			<!-- content_wrap end -->
+		</div>
+		<!-- container end -->
+
+		<jsp:include page="/WEB-INF/layout/popup_wrap_review.jsp" />
 	</div>
-		<!-- wrap end -->
-	<jsp:include page="/WEB-INF/layout/footer.jsp"/>
-	
-	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"/>
+	<!-- wrap end -->
+	<jsp:include page="/WEB-INF/layout/footer.jsp" />
+
+	<jsp:include page="/WEB-INF/layout/javascript/default.jsp" />
 </body>
 </html>

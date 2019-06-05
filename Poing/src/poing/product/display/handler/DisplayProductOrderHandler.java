@@ -1,16 +1,11 @@
 package poing.product.display.handler;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONObject;
 
 import poing.mvc.CommandHandler;
 import poing.product.ProductDTO;
 import poing.product.display.service.DisplayProductDetailService;
-import poing.product.display.service.DisplayProductListService;
 
 public class DisplayProductOrderHandler implements CommandHandler {
 

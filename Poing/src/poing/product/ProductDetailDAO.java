@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 
@@ -43,9 +44,49 @@ public class ProductDetailDAO {
 		return result;
 	};
 	
-	public boolean deletePayCart(Connection conn, int reserva_tic_seq) throws SQLException {
+	public static List<RefundTicketDTO> selectRefund_tic(Connection conn) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" delete reserve_tic where reserva_tic_seq = ? ");
+		sql.append(" select p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img,op_cnt,op_price from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq where p_state='환불완료' ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<RefundTicketDTO> list2 = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+//			pstmt.setInt(1, reserva_tic_seq);
+			rs = pstmt.executeQuery();
+			RefundTicketDTO rtdto = null;
+			while(rs.next()) {
+				rtdto = new RefundTicketDTO();
+				rtdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
+				rtdto.setRest_name(rs.getString("rest_name"));
+				rtdto.setP_st_ed_date(rs.getString("p_st_ed_date"));
+				rtdto.setOp_name(rs.getString("op_name"));
+				rtdto.setC_date(rs.getString("c_date"));
+				rtdto.setParty_size(rs.getInt("party_size"));
+				rtdto.setPhoto_img(rs.getString("photo_img"));
+				rtdto.setOp_cnt(rs.getInt("op_cnt"));
+				rtdto.setOp_price(rs.getInt("op_price"));
+				rtdto.setP_dc_money(rs.getInt("p_dc_money"));
+				list2.add(rtdto);
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return list2;
+	}
+	
+	public boolean updatePayCart(Connection conn, int reserva_tic_seq) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" update reserve_tic set p_state = '환불완료' where p_state = '결제완료' and reserva_tic_seq = ? ");
 		PreparedStatement pstmt = null;
 		boolean result = false;
 		

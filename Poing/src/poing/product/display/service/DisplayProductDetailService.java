@@ -3,6 +3,7 @@ package poing.product.display.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 
@@ -10,6 +11,8 @@ import com.util.ConnectionProvider;
 
 import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
+import poing.product.RefundTicketDTO;
+import poing.product.ReserveTicketDTO;
 
 
 public class DisplayProductDetailService {
@@ -25,11 +28,22 @@ public class DisplayProductDetailService {
 		}
 	}
 	
+	public List<RefundTicketDTO> selectRefund_tic() {
+		RefundTicketDTO rtdto = new RefundTicketDTO();
+		boolean result2 = true;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			List<RefundTicketDTO> list2 = ProductDetailDAO.selectRefund_tic(conn);
+			
+			return list2;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	public boolean deletePayCart(int reserva_tic_seq) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			 result2 = dao.deletePayCart(conn, reserva_tic_seq);
+			 result2 = dao.updatePayCart(conn, reserva_tic_seq);
 			 
 			 return result2;
 		} catch (SQLException e) {

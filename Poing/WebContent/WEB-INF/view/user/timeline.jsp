@@ -2,6 +2,19 @@
 <%@page import="poing.review.display.service.DisplayReviewService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+<!--
+#pointCharge{
+display: inline-block;
+background-color: #c91b3c;
+color: #ffffff;
+padding: 3px 8px;
+    border-radius: 7px;
+    margin-left: 10px;
+
+}
+-->
+</style>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,7 +64,7 @@
 								<div class="message border_radius circle">프로필 사진 바꾸기</div>
 							</div>
 						</c:if>
-
+													
 						<c:if test="${authUser.m_no ne mdto.m_no}" >
 							<div id="user_image" class="user_image i_wrap">
 								<i class="image border_radius circle"
@@ -65,6 +78,7 @@
 							<c:if test="${authUser.m_no eq mdto.m_no}" >
 								<div class="point">${ mdto.rp_seq } P</div>
 								<i class="icon question"></i>
+								<button id="pointCharge">포인트 충전</button>
 							</c:if>
 						</div><!-- name -->
 						<div class="intro">${ mdto.m_selfintro }</div>
@@ -80,9 +94,9 @@
 						</c:if>	
 						
 						<div class="info">
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a>
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 3</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation&totalmoney=${param.totalmoney}">예약 2</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review&totalmoney=${param.totalmoney}">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant&totalmoney=${param.totalmoney}">찜한 매장 3</a>
 							<button class="empty item" tabindex="-1">
 								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
@@ -99,21 +113,21 @@
 					<c:when test="${authUser.m_no eq mdto.m_no}">
 						<ul class="tab">
 							<li class="reservation item"><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation&totalmoney=${param.totalmoney}">예약</a></li>
 							<li class="coupon item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=coupon">티켓</a></li>
 							<li class="review item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review&totalmoney=${param.totalmoney}">리뷰</a></li>
 							<li class="restaurant item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant&totalmoney=${param.totalmoney}">찜</a></li>
 							<li class="alert item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert&totalmoney=${param.totalmoney}">소식</a></li>
 							<li class="payment item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
 							<li class="friends item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends&totalmoney=${param.totalmoney}">친구찾기</a></li>
 							<li class="setting item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting&totalmoney=${param.totalmoney}">설정</a></li>
 						</ul>
 						
 						<c:choose>
@@ -189,15 +203,15 @@
 							<%-- tab=payment 이라면  아직 미구현--%>
 							
 							<c:when test="${ param.tab eq 'payment'}">
-								<%-- <c:choose>
+								<c:choose>
 									<c:when test="${ param.type eq null || param.type eq 'my'}">
 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
 									</c:when>
 									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose> --%>
+<%-- 									<c:otherwise> --%>
+<%-- 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include> --%>
+<%-- 									</c:otherwise> --%>
+								</c:choose>
 							</c:when>
 							
 							<%-- tab=friends 이라면--%>
@@ -292,6 +306,27 @@
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	
 </div> <!-- wrap end -->
-
+<script>
+	$("#pointCharge").click(function () {
+//  		$.ajax({
+//  			url: '/Poing/product/cartDelete.do',
+//  			method: 'post',
+//  			dataType: 'JSON',
+//  			data:{
+//  				reserva_tic_seq : $(this).attr('data'),
+//  				totalmoney : ${param.totalmoney},
+//  				id :${param.id}
+//  			},
+//  			success: function (res) {
+//  				if (res.status2) {
+			$.popup('/Poing/popup/pointCharge.do');
+//  				setTimeout(location.reload.bind(location), 1000);
+			
+//  				}else{
+//  				}
+//  			}
+//  		});
+	});
+	</script>
 </body>
 </html>

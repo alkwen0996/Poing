@@ -5,11 +5,11 @@
 
 <div class="body empty coupon ">
 	<div class="filter">
-		<a href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=all"
+		<a href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=all&totalmoney=${param.totalmoney}"
 			class="first selected">전체보기</a> <a
-			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=useable">사용
+			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=useable&totalmoney=${param.totalmoney}">사용
 			예정 티켓</a> <a
-			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=unuseable">이미
+			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=unuseable&totalmoney=${param.totalmoney}">이미
 			사용한 티켓</a>
 	</div>
 
@@ -41,14 +41,14 @@
 						<div class="count">${dto.party_size }명</div>
 					</td>
 					<td class="status"><span class="">결제완료</span>
-						<button class="jindong" data="${dto.reserva_tic_seq}">환불하기</button>
+						<button class="refund" data="${dto.reserva_tic_seq}" style="">환불하기</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</c:forEach>
 	<script>
-	$("button.jindong").click(function () {
+	$("button.refund").click(function () {
 		$.ajax({
 			url: '/Poing/product/cartDelete.do',
 			method: 'post',
@@ -62,6 +62,7 @@
 				if (res.status2) {
 				$.popup('/Poing/popup/deleteCart.do');
 				setTimeout(location.reload.bind(location), 1000);
+				
 				}else{
 				}
 			}

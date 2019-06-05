@@ -11,7 +11,9 @@ import poing.member.display.service.DisplayTimelineService;
 import poing.mvc.CommandHandler;
 import poing.news_notice.NewsDTO;
 import poing.news_notice.NoticeDTO;
+import poing.product.RefundTicketDTO;
 import poing.product.ReserveTicketDTO;
+import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDTO;
@@ -22,9 +24,14 @@ public class DisplayTimelineHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ProductPayService service = new ProductPayService();
+		DisplayProductDetailService service2 = new DisplayProductDetailService();
 
 		List<ReserveTicketDTO> list1 = service.selectReserva_tic();
 		request.setAttribute("list1", list1);
+		
+		List<RefundTicketDTO> list2 = service2.selectRefund_tic();
+		request.setAttribute("list2", list2);
+		//////////////////////////////////////////////////////////////////////
 
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");

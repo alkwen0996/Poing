@@ -5,8 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import oracle.net.aso.p;
 import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
+import poing.product.Paging;
+import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
 import poing.review.display.service.DisplayReviewService;
 
@@ -16,7 +19,7 @@ public class DisplayReviewHandler implements CommandHandler{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		System.out.println("DisplayReviewHandler process()");
-		
+		int cpage = request.getParameter("pg") == null ? 1 : Integer.parseInt(request.getParameter("pg"));
 		DisplayReviewService service = new DisplayReviewService();
 		String type = request.getParameter("type");
 		if(type == null)
@@ -29,9 +32,10 @@ public class DisplayReviewHandler implements CommandHandler{
 		if (authUser != null) {
 			m_no = authUser.getM_no();
 		}
-		List<ReviewDTO> list = service.select(type, m_no);
+		Paging paging = service.getPaing(cpage, "all", 0);
+		List<ReviewDTO> list = service.select(type, m_no, cpage);
 		request.setAttribute("list", list);
-		
+		request.setAttribute("paging", paging);
 		return "review/reviewList";
 	}
 	

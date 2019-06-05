@@ -1,8 +1,8 @@
-package poing.news_notice;
+package poing.notice;
 
 import java.sql.Date;
 
-public class NoticeDTO {
+public class PoingNoticeDTO {
 	private int notice_no;
 	private int notice_m_no;
 	private int notice_m_name;

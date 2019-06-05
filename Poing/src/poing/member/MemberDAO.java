@@ -18,10 +18,6 @@ import poing.product.ReserveTicketDTO;
 
 public class MemberDAO {
 	
-	
-	
-	
-	
 	public static int selectID(Connection conn, String email) {
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT m_no FROM member ");
@@ -270,9 +266,13 @@ public class MemberDAO {
 	public boolean updateWebName(Connection conn, int memberID, String webName) throws SQLException {
 		//이름 변경
 		boolean result = false;
-		
-		
-		
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE member SET m_name = ?");
+		sql.append(" WHERER m_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, webName);
+		pstmt.setInt(2, memberID);
+		result = pstmt.executeUpdate()==0?false:true;
 		return result;
 	}
 	
@@ -280,18 +280,25 @@ public class MemberDAO {
 		//예약자명 변경
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" UPDATE member SET m_name = ? ");
-		
-		
+		sql.append(" UPDATE member SET m_nickname = ?");
+		sql.append(" WHERER m_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, name);
+		pstmt.setInt(2, memberID);
+		result = pstmt.executeUpdate()==0?false:true;
 		return result;
 	}
 
-	public boolean updateSelfIntro(Connection conn, int memberID, String webName) throws SQLException {
+	public boolean updateSelfIntro(Connection conn, int memberID, String selfIntro) throws SQLException {
 		//예약자명 변경
 		boolean result = false;
-		
-		
-		
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE member SET m_name = ?");
+		sql.append(" WHERER m_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, selfIntro);
+		pstmt.setInt(2, memberID);
+		result = pstmt.executeUpdate()==0?false:true;
 		return result;
 	}
 

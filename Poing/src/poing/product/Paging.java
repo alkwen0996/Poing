@@ -16,12 +16,6 @@ public class Paging {
 	private int bpage;
 	private int StotalCount;
 
-	public int getStotalCount() {
-		return StotalCount;
-	}
-	public void setStotalCount(int stotalCount) {
-		StotalCount = stotalCount;
-	}
 	public int getBpage() {
 		return bpage;
 	}
@@ -134,5 +128,11 @@ public class Paging {
 		} else {
 			this.setNextPageno(((pageNo + 1) > finalPage ? finalPage : (pageNo + 1)));
 		}		
-	}	
+	}
+	public int getStotalCount() {
+		return StotalCount;
+	}
+	public void setStotalCount(int stotalCount) {
+		StotalCount = stotalCount;
+	}
 }

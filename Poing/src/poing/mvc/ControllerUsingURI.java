@@ -77,19 +77,19 @@ public class ControllerUsingURI extends HttpServlet{
 			dispatcher.forward(request, response);
 			return;
 		}
-		if(command.equals("/templete/UserNotice.ejs")) {
+		if(command.equals("/template/UserNotice.ejs")) {
 			String viewPage = "/WEB-INF/view/popup/UserNoticeejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
-		if(command.equals("/templete/PoingNotice.ejs")) {
+		if(command.equals("/template/PoingNotice.ejs")) {
 			String viewPage = "/WEB-INF/view/popup/PoingNoticeejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			return;
 		}
-		if (command.equals("/templete/review_comment.ejs")) { //ejs별도처리
+		if (command.equals("/template/review_comment.ejs")) { //ejs별도처리
 			String viewPage = "/WEB-INF/view/review/commentsejs";
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);

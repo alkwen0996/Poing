@@ -29,7 +29,7 @@
 
 <!--Header-part-->
 <div id="header">
-  <h1><a href="dashboard.html">Matrix Admin</a></h1>
+  <h1><a href="dashboard.ad">Matrix Admin</a></h1>
 </div>
 <!--close-Header-part--> 
 
@@ -42,7 +42,7 @@
         <li class="divider"></li>
         <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
         <li class="divider"></li>
-        <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+        <li><a href="login.ad"><i class="icon-key"></i> Log Out</a></li>
       </ul>
     </li>
     <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
@@ -57,7 +57,7 @@
       </ul>
     </li>
     <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
-    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
+    <li class=""><a title="" href="login.ad"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a></li>
   </ul>
 </div>
 
@@ -72,35 +72,35 @@
 
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard2</a>
   <ul>
-    <li ><a href="index.html"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li> <a href="charts.html"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
-    <li> <a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
-    <li><a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.html"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
+    <li ><a href="index.ad"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li> <a href="charts.ad"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
+    <li> <a href="widgets.ad"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
+    <li><a href="tables.ad"><i class="icon icon-th"></i> <span>Tables</span></a></li>
+    <li><a href="grid.ad"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
-        <li><a href="form-common.html">Basic Form</a></li>
-        <li><a href="form-validation.html">Form with Validation</a></li>
-        <li><a href="form-wizard.html">Form with Wizard</a></li>
+        <li><a href="form-common.ad">Basic Form</a></li>
+        <li><a href="form-validation.ad">Form with Validation</a></li>
+        <li><a href="form-wizard.ad">Form with Wizard</a></li>
       </ul>
     </li>
-    <li><a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.html"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
+    <li><a href="buttons.ad"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
+    <li><a href="interface.ad"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
     <li class="submenu active"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
       <ul>
-        <li><a href="index2.html">Dashboard2</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="invoice.html">Invoice</a></li>
-        <li><a href="chat.html">Chat option</a></li>
+        <li><a href="index2.ad">Dashboard2</a></li>
+        <li><a href="gallery.ad">Gallery</a></li>
+        <li><a href="calendar.ad">Calendar</a></li>
+        <li><a href="invoice.ad">Invoice</a></li>
+        <li><a href="chat.ad">Chat option</a></li>
       </ul>
     </li>
     <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
       <ul>
-        <li><a href="error403.html">Error 403</a></li>
-        <li><a href="error404.html">Error 404</a></li>
-        <li><a href="error405.html">Error 405</a></li>
-        <li><a href="error500.html">Error 500</a></li>
+        <li><a href="error403.ad">Error 403</a></li>
+        <li><a href="error404.ad">Error 404</a></li>
+        <li><a href="error405.ad">Error 405</a></li>
+        <li><a href="error500.ad">Error 500</a></li>
       </ul>
     </li>
     <li class="content"> <span>Monthly Bandwidth Transfer</span>
@@ -121,7 +121,7 @@
 </div>
 <div id="content">
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
+    <div id="breadcrumb"> <a href="index.ad" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
   </div>
   <div  class="quick-actions_homepage">
     <ul class="quick-actions">

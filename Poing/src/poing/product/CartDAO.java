@@ -78,8 +78,8 @@ public class CartDAO {
 
 	public List<ProductDTO> CartList(Connection conn) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select * from totalcart t ");
-		sql.append(" join cart c on t.cart_seq = c.cart_seq ");
+		sql.append(" select distinct c.cart_seq, c.party_size, c.message, c.c_date, p.p_name, p.p_st_ed_date, p.p_num from cart c ");
+		sql.append(" join totalcart t on t.cart_seq = c.cart_seq ");
 		sql.append(" join p_option o on t.op_seq = o.op_seq ");
 		sql.append(" join p_product p on o.p_num = p.p_num  ");
 		
@@ -94,16 +94,9 @@ public class CartDAO {
 			while (rs.next()) {
 				dto = new ProductDTO();
 				dto.setP_num(rs.getInt("p_num"));
-				dto.setOp_seq(rs.getInt("op_seq"));
-				dto.setOp_cnt(rs.getInt("op_cnt"));
 				dto.setCart_seq(rs.getInt("cart_seq"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
-				dto.setOp_name(rs.getString("op_name"));
-				dto.setOp_price(rs.getInt("op_price"));
-				dto.setOp_cnt(rs.getInt("op_cnt"));
-				dto.setOp_min_cnt(rs.getInt("op_min_cnt"));
-				dto.setOp_max_cnt(rs.getInt("op_max_cnt"));
 				dto.setMessage(rs.getString("message"));
 				dto.setParty_size(rs.getInt("party_size"));
 				dto.setC_date(rs.getString("c_date"));
@@ -121,6 +114,47 @@ public class CartDAO {
 		return list;
 		
 	}
+	
+	public List<ProductDTO> OptionList(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select * from p_option o ");
+		sql.append(" join totalcart t on t.op_seq = o.op_seq ");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductDTO> option = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			ProductDTO dto = null;
+			while (rs.next()) {
+				dto = new ProductDTO();
+				dto.setP_num(rs.getInt("p_num"));
+				dto.setOp_seq(rs.getInt("op_seq"));
+				dto.setOp_cnt(rs.getInt("op_cnt"));
+				dto.setCart_seq(rs.getInt("cart_seq"));
+				dto.setOp_name(rs.getString("op_name"));
+				dto.setOp_price(rs.getInt("op_price"));
+				dto.setOp_cnt(rs.getInt("op_cnt"));
+				dto.setOp_min_cnt(rs.getInt("op_min_cnt"));
+				dto.setOp_max_cnt(rs.getInt("op_max_cnt"));
+				option.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}try {
+			pstmt.close();
+			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return option;
+		
+	}
+	
+	
 	
 	 public boolean deleteCart(Connection conn, int cart_seq) throws SQLException {
 	      StringBuffer sql = new StringBuffer();
@@ -163,8 +197,8 @@ public class CartDAO {
 	 
 	 public List<ProductDTO> selectoption(Connection conn, int cart_seq) {
 			StringBuffer sql = new StringBuffer();
-			sql.append(" select * from totalcart t ");
-			sql.append(" join cart c on t.cart_seq = c.cart_seq ");
+			sql.append(" select distinct c.cart_seq, c.party_size, c.message, c.c_date, p.p_name, p.p_st_ed_date, p.p_num from cart c ");
+			sql.append(" join totalcart t on t.cart_seq = c.cart_seq ");
 			sql.append(" join p_option o on t.op_seq = o.op_seq ");
 			sql.append(" join p_product p on o.p_num = p.p_num  ");
 			sql.append(" where c.cart_seq = ? ");
@@ -181,16 +215,9 @@ public class CartDAO {
 				while (rs.next()) {
 					dto = new ProductDTO();
 					dto.setP_num(rs.getInt("p_num"));
-					dto.setOp_seq(rs.getInt("op_seq"));
-					dto.setOp_cnt(rs.getInt("op_cnt"));
 					dto.setCart_seq(rs.getInt("cart_seq"));
 					dto.setP_name(rs.getString("p_name"));
 					dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
-					dto.setOp_name(rs.getString("op_name"));
-					dto.setOp_price(rs.getInt("op_price"));
-					dto.setOp_cnt(rs.getInt("op_cnt"));
-					dto.setOp_min_cnt(rs.getInt("op_min_cnt"));
-					dto.setOp_max_cnt(rs.getInt("op_max_cnt"));
 					dto.setMessage(rs.getString("message"));
 					dto.setParty_size(rs.getInt("party_size"));
 					dto.setC_date(rs.getString("c_date"));
@@ -208,8 +235,70 @@ public class CartDAO {
 			return list;
 			
 		} 
+	 public List<ProductDTO> Selectoption(Connection conn, int cart_seq) {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" select * from p_option o ");
+			sql.append(" join totalcart t on t.op_seq = o.op_seq ");
+			sql.append(" where t.cart_seq = ? ");
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<ProductDTO> option = new ArrayList<>();
+			
+			try {
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, cart_seq);
+				rs = pstmt.executeQuery();
+				ProductDTO dto = null;
+				while (rs.next()) {
+					dto = new ProductDTO();
+					dto.setP_num(rs.getInt("p_num"));
+					dto.setOp_seq(rs.getInt("op_seq"));
+					dto.setOp_cnt(rs.getInt("op_cnt"));
+					dto.setCart_seq(rs.getInt("cart_seq"));
+					dto.setOp_name(rs.getString("op_name"));
+					dto.setOp_price(rs.getInt("op_price"));
+					dto.setOp_cnt(rs.getInt("op_cnt"));
+					dto.setOp_min_cnt(rs.getInt("op_min_cnt"));
+					dto.setOp_max_cnt(rs.getInt("op_max_cnt"));
+					option.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}		
+			return option;
+			
+		}
 	 
-	 /*public boolean updateOption1(Connection conn, int cart_seq) {
+	 public boolean deleteOption(Connection conn, int cart_seq, int op_seq) throws SQLException {
+	      StringBuffer sql = new StringBuffer();
+	      
+	      sql.append(" delete totalcart where cart_seq = ? and op_seq = ? ");
+	      
+	      PreparedStatement pstmt = null;
+	      
+	      boolean result = false;
+	      try{
+	    	  pstmt = conn.prepareStatement(sql.toString());
+	    	  pstmt.setInt(1, cart_seq);
+	    	  pstmt.setInt(2, op_seq);
+	    	  result = pstmt.executeUpdate()==0? false:true;
+	    	  pstmt.close();
+	    	  conn.close();
+	      } catch (SQLException e) {
+		}
+	     
+	      return result;
+
+	   }
+	 
+	 public boolean updateOption1(Connection conn, int cart_seq) {
 		 StringBuffer sql = new StringBuffer();
 		 sql.append(" delete from totalcart where cart_seq = ? ");
 		 PreparedStatement pstmt = null;
@@ -252,5 +341,5 @@ public class CartDAO {
 			e.printStackTrace();
 		}
 		return result;
-	}*/
+	}
 }

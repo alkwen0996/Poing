@@ -70,7 +70,9 @@
 							</thead>
 
 							<tbody>
-							<c:forEach items="${list }" var="dto">
+							
+							<c:forEach items="${list}" var="dto">
+							
 								<tr class="selected" data-id="${dto.cart_seq }" data-valid="false">
 									<td class="select"><input type="checkbox" class="single"
 										checked=""></td>
@@ -86,13 +88,14 @@
 											유효기간: <span>${dto.p_st_ed_date }</span>
 										</div>
 									
-										
+									<c:forEach items="${option }" var="opt">	
+									<c:if test="${dto.cart_seq eq opt.cart_seq }">
 										<ul class="options">
-											<li data-id="${dto.op_seq }" data-min="${dto.op_min_cnt }" data-limit="${dto.op_max_cnt }">
-												<div class="name">${dto.op_name }</div>
-												<div class="price" data-value="${dto.op_price }">${dto.op_price }원</div>
+											<li data-id="${opt.op_seq }" data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }">
+												<div class="name">${opt.op_name }</div>
+												<div class="price" data-value="${opt.op_price }">${opt.op_price }원</div>
 												<div class="count_box">
-													<input type="text" value="${dto.op_cnt }" disabled="">
+													<input type="text" value="${opt.op_cnt }" disabled="">
 													<button type="button" class="increase" tabindex="-1">
 														<i></i>
 													</button>
@@ -104,10 +107,11 @@
 													<span></span>원
 												</div>
 												<button type="button" class="reset" data-id="${dto.cart_seq }"
-													data-opt="17324" tabindex="-1"></button>	
+													data-opt="${opt.op_seq }" tabindex="-1"></button>	
 											</li>
 										</ul>
-								
+										</c:if>
+									</c:forEach>
 										</td>
 								 <c:if test="${dto.message && dto.c_date eq null }">
 									<td class="reserve">
@@ -126,12 +130,14 @@
 									</td>
 								</c:if>	
 								</tr>
-								</tbody>
+									
 							</c:forEach>
+							
+								</tbody>
 						</table>
 						
 						<div class="total">
-							<span class="label">총 결제금액: </span> <span class="value">3,524,000원</span>
+							<span class="label">총 결제금액: </span> <span class="value">원</span>
 						</div>
 					</div>
 
@@ -220,16 +226,16 @@ $(document).ready(function(){
         var opt_id = [ $(this).data('opt') ];
         var msg = $(this).siblings(".name").text() + "<br>삭제하시겠습니까?";
 
-        $.popup("confirm", {'text': msg}, function(){
+        $.popup("/Poing/popup/optionconfirm.do", {'text': msg}, function(){
             $.ajax({
-                'url':'/Poing/popup/cart.do',
-                'type':'GET', 
+                'url':"/Poing/option/deleteOption.do",
+                'type':"post", 
                 'context': this,
-                //'data':{'id':id, 'options':opt_id},
+                'data':{'id':id, 'options':opt_id},
                 success: function(){ 
                     $(".pay>.section.list>table tr[data-id="+id+"]>td.info>ul.options>li[data-id="+opt_id[0]+"]").remove();
                     if( $(".pay>.section.list>table tr[data-id="+id+"]>td.info>ul.options>li").length === 0 )
-                        location.reload();
+                    	location.href = "/Poing/product/productCart.do";
 
                     update_prices();
                 }

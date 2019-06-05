@@ -11,11 +11,11 @@ public class DeleteCartService {
    
    public boolean deleteCart(int cart_seq) {
       CartDAO cartdao = new CartDAO();
-      boolean result2 = true;
+      boolean result = true;
       try(Connection conn = ConnectionProvider.getConnection()){
-            result2 = cartdao.deleteCart(conn, cart_seq);
+            result = cartdao.deleteCart(conn, cart_seq);
             
-            return result2;
+            return result;
       } catch (SQLException e) {
          throw new RuntimeException(e);
       }

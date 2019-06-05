@@ -48,8 +48,7 @@ public class DisplayCartService {
 	   }
    
    public List<ProductDTO> select() {
-		ProductDAO dao = ProductDAO.getInstance();
-		
+			
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			List<ProductDTO> list = cartdao.CartList(conn);
 			// 로그 처리
@@ -60,5 +59,15 @@ public class DisplayCartService {
 			throw new RuntimeException(e);
 		}
 	}
+   
+   public List<ProductDTO> selectop() {
+	   try(Connection conn = ConnectionProvider.getConnection()) {
+		   List<ProductDTO> option = cartdao.OptionList(conn);
+		   
+		   return option;
+	   } catch (SQLException e) {
+		   throw new RuntimeException(e);
+	}
+   }
    
 }

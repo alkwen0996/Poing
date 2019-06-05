@@ -22,7 +22,7 @@ public class UpdateCartHandler implements CommandHandler{
 		
 		boolean result = service.updatecart(party_size, message, c_date, cart_seq);
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("res", result);
+		jsonObject.put("status", result);
 		request.setAttribute("jsonData", jsonObject);
 		
 		return "cart/changeCart";

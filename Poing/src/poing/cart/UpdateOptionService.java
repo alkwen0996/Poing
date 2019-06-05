@@ -24,4 +24,16 @@ public class UpdateOptionService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public List<ProductDTO> selectop(int cart_seq){
+		CartDAO cartdao = new CartDAO();
+		
+		try(Connection conn = ConnectionProvider.getConnection()) {
+			List<ProductDTO> option = cartdao.Selectoption(conn, cart_seq);
+			
+			return option;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

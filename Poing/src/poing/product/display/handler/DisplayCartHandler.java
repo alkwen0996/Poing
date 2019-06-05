@@ -19,11 +19,14 @@ public class DisplayCartHandler implements CommandHandler{
 	   try{
 		   DisplayCartService service = new DisplayCartService();
 		   List<ProductDTO> list = service.select();
+		   List<ProductDTO> option = service.selectop();
+			request.setAttribute("option", option);
 		   request.setAttribute("list", list);
 	   } catch (Exception e) {
 		   e.printStackTrace();
 	}
       return "product/productCart";
    }
+
 
 }

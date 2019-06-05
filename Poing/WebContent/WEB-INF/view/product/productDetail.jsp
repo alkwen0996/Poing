@@ -87,7 +87,7 @@
 									<span class="main">할인</span><br> <span class="sub">
 										OFF</span>
 								</div>
-								<span class="reduced">${dto.discount }원</span><br> <span
+								<span class="reduced">${dto.p_dc_money }원</span><br> <span
 									class="original">${dto.p_origin_money }</span>
 							</div>
 							<div id="left_time">

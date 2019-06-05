@@ -35,6 +35,7 @@ public class DisplayProductCartHandler implements CommandHandler {
 		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");  
 		int m_no = mdto.getM_no();
 		int cart_seq = cartservice.insertbasket(m_no);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@" + cart_seq);
 		String[] ids = request.getParameterValues("id");
 		String[] counts = request.getParameterValues("count");
 

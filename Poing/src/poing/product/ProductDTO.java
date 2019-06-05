@@ -9,7 +9,7 @@ public class ProductDTO {
 	private String p_name;
 	private String p_type;
 	private int p_origin_money;
-	private String discount;
+	private String p_dc_money;
 	private String p_option;
 	private int e_seq;
 	private int img_seq;
@@ -96,12 +96,11 @@ public class ProductDTO {
 		this.p_origin_money = p_origin_money;
 	}
 	
-	
-	public String getDiscount() {
-		return discount;
+	public String getP_dc_money() {
+		return p_dc_money;
 	}
-	public void setDiscount(String discount) {
-		this.discount = discount;
+	public void setP_dc_money(String p_dc_money) {
+		this.p_dc_money = p_dc_money;
 	}
 	public String getP_option() {
 		return p_option;

@@ -21,6 +21,9 @@ public class UpdateOptionHandler implements CommandHandler{
 		try{
 			   UpdateOptionService service = new UpdateOptionService();
 			   List<ProductDTO> list = service.select(cart_seq);
+			   List<ProductDTO> option = service.selectop(cart_seq);
+			   
+			   request.setAttribute("option", option);
 			   request.setAttribute("list", list);
 		   } catch (Exception e) {
 			   e.printStackTrace();

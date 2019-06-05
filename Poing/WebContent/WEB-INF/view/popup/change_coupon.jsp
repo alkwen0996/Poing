@@ -425,9 +425,9 @@
 			};
 			
 			$.ajax({
-			'url' : '/Poing/cart/changeCart.do',
-			'method' : 'POST',
-			'dataType' : 'json',
+			'url' : "/Poing/cart/changeCart.do",
+			'method' : "POST",
+			'dataType' : "json",
 			'data' : params,
 			'success' : function(res) {
 				if (res) {

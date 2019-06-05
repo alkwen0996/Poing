@@ -7,9 +7,8 @@ import org.json.simple.JSONObject;
 
 import poing.mvc.CommandHandler;
 
-/*public class ConfirmOptionHandler implements CommandHandler{
+public class ConfirmOptionHandler implements CommandHandler{
 
-	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		ConfirmOptionService service = new ConfirmOptionService();
@@ -21,11 +20,10 @@ import poing.mvc.CommandHandler;
 		boolean result1 = service.deleteoption(cart_seq);
 		boolean result = service.updateOption(cart_seq, op_seq, op_cnt);
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("res", result);
+		jsonObject.put("status", result);
 		request.setAttribute("jsonData", jsonObject);
 		
 		return "/cart/updateCart";
 	}
 
 }
-*/

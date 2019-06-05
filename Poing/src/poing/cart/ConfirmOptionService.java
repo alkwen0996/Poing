@@ -9,13 +9,16 @@ import poing.product.CartDAO;
 
 public class ConfirmOptionService {
 	
-	/*public boolean deleteoption(int cart_seq) {
+	public boolean deleteoption(int cart_seq) {
 		CartDAO cartdao = new CartDAO();
 		boolean result = true;
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			result = cartdao.updateOption1(conn, cart_seq);
-			
-			return result;
+			if (result == true) {
+	            return true;
+	         }else {
+	            return false;
+	         }
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -34,5 +37,5 @@ public class ConfirmOptionService {
 	      } catch (SQLException e) {
 	         throw new RuntimeException(e);
 	      }
-	   }*/
+	   }
 }

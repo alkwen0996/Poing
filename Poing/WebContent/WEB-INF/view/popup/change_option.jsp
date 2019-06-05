@@ -1,5 +1,6 @@
 <%@page import="poing.product.ProductDTO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -9,58 +10,70 @@
 </head>
 <body>
 
-<div id="coupon_option">
-	<i class="icon popup_close" data-close></i>
-	<div class="body">
-		<div class="title">옵션선택</div>
-		
-	<c:forEach items="${list }" var="dto">
-		<div class="info">
-			<i class="image" style="background-image:url(http://c2.poing.co.kr/MRI-original/MjAxOTA1/15583131855ce1f8e1aa8b5.png)"></i>
-			<span class="name">${dto.p_name}</span>
-		</div>
+	<div id="coupon_option">
+		<i class="icon popup_close" data-close></i>
+		<div class="body">
+			<div class="title">옵션선택</div>
 
-		<div class="option">
-			<span class="label">선택 옵션</span>
-			<i class="icon arrow small red down"></i>
-			<ul class="list" style="z-index:99">
-				                    <li class="" data-id="${dto.op_seq }" data-price="${dto.op_price }" data-min="${dto.op_min_cnt }" data-limit="${dto.op_max_cnt }">
-						<span class="title">${dto.op_name }</span>
-						<span class="price">${dto.op_price }</span>
-					</li>
+			<c:forEach items="${list }" var="dto">
+				<div class="info">
+					<i class="image"
+						style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxOTA1/15583131855ce1f8e1aa8b5.png)"></i>
+					<span class="name">${dto.p_name}</span>
+				</div>
+				<div class="option">
+					<span class="label">선택 옵션</span> <i
+						class="icon arrow small red down"></i>
+					<ul class="list" style="z-index: 99">
+						<c:forEach items="${option }" var="opt">
+							<c:if test="${dto.cart_seq eq opt.cart_seq }">
+								<li class="" data-id="${opt.op_seq }"
+									data-price="${opt.op_price }" data-min="${opt.op_min_cnt }"
+									data-limit="${opt.op_max_cnt }"><span class="title">${opt.op_name }</span>
+									<span class="price">${opt.op_price }</span></li>
+							</c:if>
+						</c:forEach>
 					</ul>
+				</div>
+				<p class="comment">* ${dto.p_name }의 다른 상품을 선택하시려면 위 옵션을 선택해주세요.</p>
+
+				<ul class="selected">
+					<c:forEach items="${option }" var="opt">
+						<c:if test="${dto.cart_seq eq opt.cart_seq }">
+							<li data-id="${opt.op_seq }"><span class="name">${opt.op_name }</span>
+								<div class="count_box">
+									<input type="text" value="${opt.op_cnt }"
+										data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }"
+										disabled>
+									<button type="button" class="increase">
+										<i></i>
+									</button>
+									<button type="button" class="decrease">
+										<i></i>
+									</button>
+								</div>
+								<button type="button" class="reset"></button>
+								<div class="price" data-price="${opt.op_price }">${opt.op_price }원</div>
+							</li>
+						</c:if>
+					</c:forEach>
+				</ul>
+
+				<div class="total">
+					<span class="label">총 상품금액</span> <span class="value">원</span>
+				</div>
+			</c:forEach>
 		</div>
-
-		<p class="comment">* ${dto.p_name }의 다른 상품을 선택하시려면 위 옵션을 선택해주세요.</p>
-
-		<ul class="selected">
-							<li data-id="${dto.op_seq }">
-					<span class="name">${dto.op_name }</span>
-					<div class="count_box">
-		                <input type="text" value="${dto.op_cnt }" data-min="${dto.op_min_cnt }" data-limit="${dto.op_max_cnt }" disabled>
-		                <button type="button" class="increase"><i></i></button>
-		                <button type="button" class="decrease"><i></i></button>
-		            </div>
-		            <button type="button" class="reset"></button>
-		            <div class="price" data-price="${dto.op_price }">${dto.op_price }원</div>
-				</li>
-					</ul>
-
-		<div class="total">
-			<span class="label">총 상품금액</span>
-			<span class="value">원</span>
+		<div class="buttons">
+			<button type="button" class="accept" data-id="${dto.cart_seq }"
+				data-close>확인</button>
+			<button type="button" class="deny" data-close>취소</button>
 		</div>
-</c:forEach>		
 	</div>
-	<div class="buttons">
-		<button type="button" class="accept" data-id="${dto.cart_seq }" data-close>확인</button>
-		<button type="button" class="deny" data-close>취소</button>
-	</div>
-</div>
-<script>
+	<script>
 (function(){
 	$("#coupon_option>.buttons>.accept").one("click", function(){
-		var url = "/Poing/cart/changeCart.do?"
+		var url = "/Poing/cart/optionCart.do?"
 		var id = $(this).data('id');
         var options = $("#coupon_option>.body>.selected>li");
         var data = [];
@@ -82,11 +95,11 @@
             //'data': {'id': id, 'options': data},
             'success': function(res) { 
                 
-            	//res = JSON.parse(res);
+            	res = JSON.parse(res);
                 if(res.status)
                 {
                     noticePopupInit({message:'옵션을 변경하였습니다.'});
-                    location.reload();
+                    location.href = "/Poing/product/productCart.do";
                 }
                 else 
                     noticePopupInit({message:'옵션 변경에 실패했습니다.'});

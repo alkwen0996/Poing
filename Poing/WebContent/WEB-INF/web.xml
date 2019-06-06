@@ -59,20 +59,18 @@
     <url-pattern>*.ejs</url-pattern> 
   </servlet-mapping>
   
-  
-  
   <servlet>
-    <servlet-name>ControllerUsingURIAdmin</servlet-name>
-    <servlet-class>admin.mvc.AdminControllerUsingURI</servlet-class>
+    <servlet-name>ControllerUsingURIOwner</servlet-name>
+    <servlet-class>owner.mvc.OwnerControllerUsingURI</servlet-class>
     <init-param>
       <param-name>configFile</param-name>
-      <param-value>/WEB-INF/admin/commandHandlerForAdmin.properties</param-value>
+      <param-value>/WEB-INF/owner/commandHandlerForOwner.properties</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ControllerUsingURIAdmin</servlet-name>
-    <url-pattern>*.ad</url-pattern> 
+    <servlet-name>ControllerUsingURIOwner</servlet-name>
+    <url-pattern>*.ow</url-pattern> 
   </servlet-mapping>
 
 </web-app>

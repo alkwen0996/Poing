@@ -2112,7 +2112,7 @@
 											
 											$("#nav_auto_complete>ul>li").on("click", function()
 											{
-												location.href = "/restaurant/detail/" + $(this).data("id");
+												location.href = "/Poing/rest/detail.do?rest_seq=" + $(this).data("id");
 											});
 											$("#nav_search").children("img#nav_loader").hide();
 											$("#nav_search").addClass("auto_complete");

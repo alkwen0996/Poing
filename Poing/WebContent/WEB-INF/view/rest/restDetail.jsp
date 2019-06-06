@@ -228,7 +228,7 @@
 						</li>
 					</ul>
 					<script type="text/javascript">
-						$("#content > ul > li.item.${param.tab ne null ? param.tab : info}").addClass("selected");
+						$("#content > ul > li.item.${param.tab ne null ? param.tab : 'info'}").addClass("selected");
 					</script>
 					<!-- product 부분 -->
 					

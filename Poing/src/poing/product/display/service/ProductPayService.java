@@ -7,13 +7,15 @@ import java.util.List;
 import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
+import poing.product.ProductDetailDAO;
+import poing.product.RefundTicketDTO;
 import poing.product.ReserveTicketDTO;
 
 public class ProductPayService {
-	public List<ReserveTicketDTO> selectReserva_tic() {
+	public List<RefundTicketDTO> selectReserva_tic() {
 		ReserveTicketDTO rdto = new ReserveTicketDTO();
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			List<ReserveTicketDTO> list1 = MemberDAO.selectReserva_tic(conn);
+			List<RefundTicketDTO> list1 = ProductDetailDAO.selectReserva_tic(conn);
 			// 로그 처리
 			// 
 			//

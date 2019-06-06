@@ -94,9 +94,9 @@ padding: 3px 8px;
 						</c:if>	
 						
 						<div class="info">
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation&totalmoney=${param.totalmoney}">예약 2</a>
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review&totalmoney=${param.totalmoney}">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant&totalmoney=${param.totalmoney}">찜한 매장 3</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 3</a>
 							<button class="empty item" tabindex="-1">
 								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
@@ -113,21 +113,21 @@ padding: 3px 8px;
 					<c:when test="${authUser.m_no eq mdto.m_no}">
 						<ul class="tab">
 							<li class="reservation item"><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation&totalmoney=${param.totalmoney}">예약</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약</a></li>
 							<li class="coupon item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=coupon">티켓</a></li>
 							<li class="review item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review&totalmoney=${param.totalmoney}">리뷰</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰</a></li>
 							<li class="restaurant item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant&totalmoney=${param.totalmoney}">찜</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜</a></li>
 							<li class="alert item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert&totalmoney=${param.totalmoney}">소식</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
 							<li class="payment item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
 							<li class="friends item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends&totalmoney=${param.totalmoney}">친구찾기</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li>
 							<li class="setting item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting&totalmoney=${param.totalmoney}">설정</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
 						
 						<c:choose>

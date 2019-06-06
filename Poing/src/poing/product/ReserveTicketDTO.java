@@ -1,21 +1,43 @@
 package poing.product;
 
 public class ReserveTicketDTO {
-private int p_num;
-private int m_no;
-private int cart_seq;
+	private int p_num;
+	private int m_no;
+	private int cart_seq;
+	private int reserva_tic_seq;
+	private String rest_name;
+	private String p_st_ed_date;
+	private String op_name;
+	private String c_date;
+	private int party_size;
+	private String photo_img;
+	private int op_cnt;
+	private int op_price;
+	private int p_dc_money;
 
-private int reserva_tic_seq;
-private String rest_name;
-private String p_st_ed_date;
-private String op_name;
-private String c_date;
-private int party_size;
-private String photo_img;
 
 
 
 
+
+public int getOp_cnt() {
+	return op_cnt;
+}
+public void setOp_cnt(int op_cnt) {
+	this.op_cnt = op_cnt;
+}
+public int getOp_price() {
+	return op_price;
+}
+public void setOp_price(int op_price) {
+	this.op_price = op_price;
+}
+public int getP_dc_money() {
+	return p_dc_money;
+}
+public void setP_dc_money(int p_dc_money) {
+	this.p_dc_money = p_dc_money;
+}
 public int getReserva_tic_seq() {
 	return reserva_tic_seq;
 }

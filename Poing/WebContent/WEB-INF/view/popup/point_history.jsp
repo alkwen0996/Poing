@@ -8,7 +8,7 @@
 		<div class="title">포잉 포인트</div>
 
 		<p class="remain">
-			<i class="icon point"></i> 잔여 포인트: <span>4,000P</span>
+			<i class="icon point"></i> 잔여 포인트: <span>${authUser.rp_seq }</span>
 		</p>
 		<table class="list">
 			<thead>

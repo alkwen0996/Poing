@@ -39,6 +39,24 @@ public class DisplayProductDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+	public int insertCart(int m_no, String c_date, int party_size, String message,ArrayList<Integer> ids,ArrayList<Integer> counts) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
+		boolean result1 = false;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+//			conn.setAutoCommit(false);
+			int cart_seq = dao.insertCart(conn, m_no, c_date, party_size, message);
+//			 conn.commit();
+			return cart_seq;
+			/*			if (cart_seq>=1 && result1 == true) {
+				return true;
+			}else {
+				return false;
+			}*/
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public boolean deletePayCart(int reserva_tic_seq) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result2 = true;
@@ -51,23 +69,18 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public int insertCart(int m_no, String c_date, int party_size, String message,ArrayList<Integer> ids,ArrayList<Integer> counts) {
-		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
-		boolean result1 = false;
+	public boolean updateState(int reserva_tic_seq) {
+		ProductDetailDAO dao = new ProductDetailDAO();		
+		boolean result3 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-//			conn.setAutoCommit(false);
-			 int cart_seq = dao.insertCart(conn, m_no, c_date, party_size, message);
-//			 conn.commit();
-			 return cart_seq;
-/*			if (cart_seq>=1 && result1 == true) {
-				return true;
-			}else {
-				return false;
-			}*/
+			result3 = dao.updateState(conn, reserva_tic_seq);
+			
+			return result3;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
+	
 
 	public boolean insertTotalCart(int cart_seq,ArrayList<Integer> ids,ArrayList<Integer> counts) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		

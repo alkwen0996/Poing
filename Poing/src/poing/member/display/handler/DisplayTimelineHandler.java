@@ -1,6 +1,7 @@
 package poing.member.display.handler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +27,13 @@ public class DisplayTimelineHandler implements CommandHandler {
 		ProductPayService service = new ProductPayService();
 		DisplayProductDetailService service2 = new DisplayProductDetailService();
 
-		List<ReserveTicketDTO> list1 = service.selectReserva_tic();
+		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
 		request.setAttribute("list1", list1);
 		
-		List<RefundTicketDTO> list2 = service2.selectRefund_tic();
+		List<RefundTicketDTO> list2 = service2.selectRefund_tic();//환불 되고나서
 		request.setAttribute("list2", list2);
 		//////////////////////////////////////////////////////////////////////
-
+		
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");

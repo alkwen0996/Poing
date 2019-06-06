@@ -7,9 +7,16 @@
 <%-- 		<a href="/Poing/timeline.do?id=${ param.id }&tab=alert&type=my" class="first selected">내 소식</a>  --%>
 <%-- 		<a href="/Poing/timeline.do?id=${ param.id }&tab=alert&type=poing" class="">포잉 알림</a> --%>
 <!-- 	</div> -->
-<%
+<style>
+<!--
+.updateState{
+background: #c91b3c;
+color: #ffffff;
 
-%>
+}
+-->
+</style>
+
 <div class="body empty payment refund">
 					<c:forEach items="${list2}" var="dto" varStatus="status">
                     <table>
@@ -33,7 +40,8 @@
                                                                             <li>${dto.op_name } - ${dto.op_cnt }개</li>                                                                    </ul>
                             </td>
                             <td class="status">
-                                                                <span class="refund">환불 완료</span>
+                                                                <span class="refund">환불 완료</span><br>
+                                                                <button class="updateState" data="${dto.reserva_tic_seq}">삭제하기</button>
                                                             </td>
                             <td class="pay_info">
                                 <div class="section info">
@@ -66,4 +74,25 @@
                                     </tbody>
             </table>
             </c:forEach>
+            <script>
+	$("button.updateState").click(function () {
+		$.ajax({
+			url: '/Poing/product/deleteRefund.do',
+			method: 'post',
+			dataType: 'JSON',
+			data:{
+				reserva_tic_seq : $(this).attr('data')
+			},
+			success: function (res) {
+				if (res.status) {
+				$.popup('/Poing/pick/popup/confirm.do', {'text': '삭제가 완료되었습니다.'});
+				setTimeout(location.reload.bind(location), 1000);
+				
+				}else{
+				}
+			}
+		});
+	})
+	</script>
+	
         	</div>

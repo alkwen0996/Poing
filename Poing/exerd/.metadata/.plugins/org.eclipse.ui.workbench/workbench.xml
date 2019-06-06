@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="16" version="2.0">
 <workbenchAdvisor/>
-<window height="1047" maximized="true" width="974" x="-7" y="0">
+<window height="1047" maximized="true" width="974" x="536" y="-9">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
 </perspectiveBar>
 <coolbarLayout locked="0">
 <coolItem id="group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="99" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="103" y="22"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
 <coolItem id="com.tomato.devkit.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="57" y="22"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="57" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="114" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="122" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -25,10 +25,24 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="시퀀스" partName="시퀀스" path="C:/Class/Poing/Poing/exerd/PoingDB/시퀀스" title="시퀀스" tooltip="PoingDB/시퀀스" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/시퀀스"/>
+<editorState selectionLength="0" selectionOffset="0"/>
+</editor>
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="통합본.exerd" partName="통합본.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/통합본.exerd" title="통합본.exerd" tooltip="PoingDB/통합본.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/통합본.exerd"/>
+</editor>
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="기존" partName="기존" path="C:/Class/Poing/Poing/exerd/PoingDB/기존" title="기존" tooltip="PoingDB/기존" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/기존"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.pde.runtime.LogView" partName="Error Log">
@@ -43,8 +57,7 @@
 <element path="/PoingDB"/>
 </expanded>
 <selection>
-<element path="/PoingDB/untitled.exerd"/>
-<element path="/PoingDB/시퀀스"/>
+<element path="/PoingDB/통합본.exerd"/>
 </selection>
 </viewState>
 </view>
@@ -66,15 +79,15 @@
 </view>
 <view id="org.eclipse.search.ui.views.SearchView" partName="검색">
 <viewState isPinned="false">
-<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
 <view IMemento.internal.id="com.tomato.exerd.core.searchpage" org.eclipse.search.lastActivation="1"/>
+<view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
 </viewState>
 </view>
 <view id="org.eclipse.gef.ui.palette_view" partName="Palette">
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.views.ResourceNavigator" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -178,7 +191,26 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PoingDB/시퀀스"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/untitled.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/newsNotice.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/poing_oracle.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
+</editors>
+<item historyLabel="시퀀스" index="0">
+<position/>
+</item>
+<item historyLabel="untitled.exerd" index="1"/>
+<item historyLabel="newsNotice.exerd" index="2"/>
+<item historyLabel="untitled.exerd" index="1"/>
+<item historyLabel="newsNotice.exerd" index="2"/>
+<item historyLabel="untitled.exerd" index="1"/>
+<item historyLabel="newsNotice.exerd" index="2"/>
+<item historyLabel="poing_oracle.exerd" index="3"/>
+<item active="true" historyLabel="통합본.exerd" index="4"/>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -195,17 +227,20 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="시퀀스" tooltip="PoingDB/시퀀스">
-<persistable path="/PoingDB/시퀀스"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="poing_oracle.exerd" tooltip="PoingDB/poing_oracle.exerd">
+<persistable path="/PoingDB/poing_oracle.exerd"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="newsNotice.exerd" tooltip="PoingDB/newsNotice.exerd">
+<persistable path="/PoingDB/newsNotice.exerd"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="untitled.exerd" tooltip="PoingDB/untitled.exerd">
 <persistable path="/PoingDB/untitled.exerd"/>
 </file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="시퀀스" tooltip="PoingDB/시퀀스">
+<persistable path="/PoingDB/시퀀스"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="sample.exerd" tooltip="PoingDB/sample.exerd">
 <persistable path="/PoingDB/sample.exerd"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="poing_oracle.exerd" tooltip="PoingDB/poing_oracle.exerd">
-<persistable path="/PoingDB/poing_oracle.exerd"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="untitled.exerd" tooltip="ProjectPoing/untitled.exerd">
 <persistable path="/ProjectPoing/untitled.exerd"/>

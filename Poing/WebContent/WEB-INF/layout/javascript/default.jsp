@@ -1998,8 +1998,9 @@
 		var auto_complete_cursor = -1;
 		var auto_complete_prev = null;
 
-		$("#nav_search>input").on("keydown keyup", function (e) {
+		$("#nav_search>input").on("keyup", function (e) {
 			// enter key
+			console.log($(this).val());
 			if (e.keyCode === 13) {
 				if (e.type === "keydown") {
 					var item = $("#nav_auto_complete>ul>li.selected");
@@ -2058,59 +2059,60 @@
 			}
 			// other key
 			else {
-				if (auto_complete_current != $(this).val()) {
-					if (auto_complete_cursor >= 0) {
+				if(auto_complete_current != $(this).val())
+				{
+					if(auto_complete_cursor >= 0)
+					{
 						$($("#nav_auto_complete>ul>li")[auto_complete_cursor]).removeClass("selected");
 						auto_complete_cursor = -1;
 					}
 
-					if ($(this).val().length > 0) {
-						if (typeof auto_complete_table[$(this).val()] == "undefined") {
+					if($(this).val().length > 0)
+					{
+						if(typeof auto_complete_table[$(this).val()] == "undefined")
+						{
 							//auto_complete_table[$(this).val()] = "waiting";
 							$("#nav_search").children("img#nav_loader").show();
 
-							if (auto_complete_prev) {
+							if(auto_complete_prev) {
 								auto_complete_prev.abort();
 								auto_complete_prev = null;
 							}
 							auto_complete_prev = $.ajax({
-								url: "Poing/restaurant/Search.do" + encodeURIComponent($(this).val()),
+								url: "/Poing/restaurant/search.do?searchWord="+encodeURIComponent($(this).val()),
 								method: "get",
 								dataType: "json",
-								success: function (response) {
-									if (response.status) {
+								success: function(response)
+								{
+									if(response.status)
+									{
 										auto_complete_table[response.meta.ac_keyword] = $("<ul>");
-										$.each(response.data.ac_keywords, function (e) {
-											var esc = response.meta.ac_keyword.replace(
-												/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-											if (this.name.search(esc) >= 0) {
+										$.each(response.data.ac_keywords, function(e)
+										{
+		                                    var esc = response.meta.ac_keyword.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+											if(this.name.search(esc) >= 0)
+											{
 												var src = this.name;
 												var pos = this.name.search(esc);
 
-												this.name = src.slice(0, pos) +
-													"<span class='highlight'>" + response.meta
-													.ac_keyword + "</span>" + src.slice(pos +
-														response.meta.ac_keyword.length)
+												this.name = src.slice(0, pos) + "<span class='highlight'>" + response.meta.ac_keyword + "</span>" + src.slice(pos+response.meta.ac_keyword.length)
 											}
 
 											auto_complete_table[response.meta.ac_keyword].append(
-												$("<li>").addClass("border_radius soft")
-												.append(
-													$("<div>").addClass("name").html(this.name)
-												).append(
-													$("<div>").addClass("desc").html(this
-														.description)).attr("data-id", this.id)
+												$("<li>").addClass("border_radius soft").append(
+													$("<div>").addClass("name").html(this.name)).append(
+													$("<div>").addClass("desc").html(this.description)).attr("data-id", this.id)
 											);
 										});
 
-										if ($("#nav_search>input").val() == response.meta.ac_keyword) {
+										if($("#nav_search>input").val() == response.meta.ac_keyword)
+										{
 											$("#nav_auto_complete").html("");
-											$("#nav_auto_complete").append(auto_complete_table[response
-												.meta.ac_keyword]);
-
-											$("#nav_auto_complete>ul>li").on("click", function () {
-												location.href = "/restaurant/detail/" + $(this)
-													.data("id");
+											$("#nav_auto_complete").append(auto_complete_table[response.meta.ac_keyword]);
+											
+											$("#nav_auto_complete>ul>li").on("click", function()
+											{
+												location.href = "/restaurant/detail/" + $(this).data("id");
 											});
 											$("#nav_search").children("img#nav_loader").hide();
 											$("#nav_search").addClass("auto_complete");
@@ -2118,21 +2120,26 @@
 									}
 								}
 							})
-						} else if (typeof auto_complete_table[$(this).val()] == "object") {
+						}
+						else if(typeof auto_complete_table[$(this).val()] == "object")
+						{
 							$("#nav_auto_complete").html("");
 							$("#nav_auto_complete").append(auto_complete_table[$(this).val()]);
-
-							$("#nav_auto_complete>ul>li").on("click", function () {
+									
+							$("#nav_auto_complete>ul>li").on("click", function()
+							{
 								location.href = "/restaurant/detail/" + $(this).data("id");
 							});
 							$("#nav_search").children("img#nav_loader").hide();
 							$("#nav_search").addClass("auto_complete");
 						}
-					} else {
+					}
+					else
+					{
 						$("#nav_search").children("img#nav_loader").hide();
 						$("#nav_search").removeClass("auto_complete");
 					}
-
+					
 					auto_complete_current = $(this).val();
 				}
 			}

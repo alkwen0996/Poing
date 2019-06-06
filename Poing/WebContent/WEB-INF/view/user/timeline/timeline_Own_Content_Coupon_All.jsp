@@ -13,7 +13,7 @@
 			사용한 티켓</a>
 	</div>
 
-	<c:forEach items="${list1}" var="dto" varStatus="status">
+	<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
 		<table>
 			<thead>
 				<tr>

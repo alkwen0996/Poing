@@ -12,19 +12,17 @@ $(".sort_list>.item").on("click", function () {
 	}
 });
 
-function reviewPaging(page) {
-	location.search = "?review&page=" + page + "&type=" + "uo";
+function reviewPaging(page)
+{
+	location.search = "?id=${param.id}&tab=review&pg=" + page + "&type=${param.type}";
 }
-
 new Pagination({
-	selector: '#review_pagination',
-	current_page: 1,
-	per_page: 5,
-	total_page: 1,
-	event: reviewPaging
+	selector : '#review_pagination',
+	current_page : ${ paging.curPage },
+	per_page : 5,
+	total_page : ${ paging.numberOfBlocks },
+	event : reviewPaging
 });
-
-
 
 
 

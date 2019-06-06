@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ReviewDTO {
-	
+
 	private int rev_no;
 	private int rest_no;
 	private Date rev_wtime;
@@ -28,10 +28,10 @@ public class ReviewDTO {
 	private int commend_cnt;
 	private CommentDTO cdto;
 	private ArrayList<String> images = null;
-	
+
 	public ReviewDTO() {
 	}
-	
+
 	public ReviewDTO(ResultSet rs, int m_no) throws SQLException {
 		this.rev_no = rs.getInt("rev_no");
 		this.rest_no = rs.getInt("rest_no");
@@ -49,7 +49,7 @@ public class ReviewDTO {
 		this.commend_cnt = rs.getInt("commend_cnt");
 		this.like_cnt = rs.getInt("like_cnt");
 		this.pick_cnt = rs.getInt("pick_cnt");
-		
+
 		if(m_no != -1) {
 			this.amIfollow = rs.getInt("amIfollow")==1?true:false;
 			this.amIlike = rs.getInt("amIlike")==1?true:false;
@@ -70,14 +70,11 @@ public class ReviewDTO {
 		this.m_img = rs.getString("m_img");
 		this.m_ercnt = rs.getInt("m_ercnt");
 		this.m_revcnt = rs.getInt("m_revcnt");
-		this.commend_cnt = rs.getInt("commend_cnt");
-		this.amIlike = rs.getInt("amIlike")==1?true:false;
-		this.amIpick = rs.getInt("amIpick")==1?true:false;
 		this.like_cnt = rs.getInt("like_cnt");
 		this.commend_cnt = rs.getInt("commend_cnt");
 		this.pick_cnt = rs.getInt("pick_cnt");
 	}
-	public ReviewDTO(ResultSet rs, String main) throws SQLException {
+	public ReviewDTO(ResultSet rs, String type) throws SQLException {
 		this.rev_no = rs.getInt("rev_no");
 		this.rest_no = rs.getInt("rest_no");
 		this.rev_content = rs.getString("rev_content");
@@ -92,7 +89,25 @@ public class ReviewDTO {
 		this.m_ercnt = rs.getInt("m_ercnt");
 		this.m_revcnt = rs.getInt("m_revcnt");
 	}
-	
+	public ReviewDTO(ResultSet rs, String type, int m_no) throws SQLException {
+		if (type.equals("write")) {
+			this.rev_no = rs.getInt("rev_no");
+			this.rest_no = rs.getInt("rest_no");
+			this.rev_content = rs.getString("rev_content");
+			this.rev_wtime = rs.getDate("rev_wtime");
+			this.rev_starpoint = rs.getInt("rev_starpoint");
+			this.rest_name = rs.getString("rest_name");
+			this.rest_loc = rs.getString("rest_loc");
+			this.rest_img = rs.getString("rest_img");
+			this.like_cnt = rs.getInt("like_cnt");
+			this.commend_cnt = rs.getInt("commend_cnt");
+			this.pick_cnt = rs.getInt("pick_cnt");
+			if (m_no != -1) {
+				this.amIlike = rs.getInt("amIlike")==1?true:false;
+				this.amIpick = rs.getInt("amIpick")==1?true:false;
+			}
+		}
+	}
 	public String getRest_name() {
 		return rest_name;
 	}
@@ -225,5 +240,5 @@ public class ReviewDTO {
 	public void setAmIpick(boolean amIpick) {
 		this.amIpick = amIpick;
 	}
-	
+
 }

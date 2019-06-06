@@ -267,7 +267,7 @@ public class MemberDAO {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" UPDATE member SET m_name = ?");
-		sql.append(" WHERER m_no = ? ");
+		sql.append(" WHERE m_no = ? ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, webName);
 		pstmt.setInt(2, memberID);
@@ -280,7 +280,7 @@ public class MemberDAO {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" UPDATE member SET m_nickname = ?");
-		sql.append(" WHERER m_no = ? ");
+		sql.append(" WHERE m_no = ? ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, name);
 		pstmt.setInt(2, memberID);
@@ -292,10 +292,23 @@ public class MemberDAO {
 		//예약자명 변경
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" UPDATE member SET m_name = ?");
-		sql.append(" WHERER m_no = ? ");
+		sql.append(" UPDATE member SET m_selfintro = ?");
+		sql.append(" WHERE m_no = ? ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, selfIntro);
+		pstmt.setInt(2, memberID);
+		result = pstmt.executeUpdate()==0?false:true;
+		return result;
+	}
+	
+	public boolean updatePassword(Connection conn, int memberID, String password) throws SQLException {
+		//예약자명 변경
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE member SET m_pw = ?");
+		sql.append(" WHERE m_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, password);
 		pstmt.setInt(2, memberID);
 		result = pstmt.executeUpdate()==0?false:true;
 		return result;
@@ -393,7 +406,32 @@ public class MemberDAO {
 		
 		return list;
 	}// displayNotice
-
-
+	public boolean checkCurrentPassword(Connection conn, int memberID, String current_password) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT m_pw FROM member WHERE m_no = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, memberID);
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			result = current_password.equals(rs.getString("m_pw"));
+		}
+		return result;
+	}
+	public static boolean amIFollow(Connection conn, int memberID, int my_no) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT COUNT(*) amifollow FROM follow ");
+		sql.append(" WHERE follower_seq = ? AND following_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, memberID);
+		pstmt.setInt(2, my_no);
+		
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			result = rs.getInt("amifollow")!=0?true:false;
+		}
+		return result;
+	}
 }// class
 

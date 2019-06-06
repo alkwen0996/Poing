@@ -7,36 +7,55 @@
 		<tbody>
 			<tr>
 				<td class="title">이름</td>
-				<td class="value"><span>고지용</span>
+				<td class="value"><span>${ mdto.m_name }</span>
 					<button type="button" tabindex="-1">변경하기</button>
 
 					<form>
-						<input type="text" name="web_name" value="고지용">
+						<input type="text" name="web_name" value="${ mdto.m_name }">
 						<button type="submit" tabindex="-1">변경</button>
 					</form></td>
 			</tr>
 			<tr>
 				<td class="title">자기소개</td>
-				<td class="value"><span>안녕하세요</span>
+				<td class="value"><span>${ mdto.m_selfintro }</span>
 					<button type="button" tabindex="-1">변경하기</button>
 
 					<form>
-						<textarea name="simple_introduction">안녕하세요</textarea>
+						<textarea name="simple_introduction">${ mdto.m_selfintro }</textarea>
 						<button type="submit" tabindex="-1">변경</button>
 					</form></td>
 			</tr>
 			<tr class="">
 				<td class="title">예약자명</td>
-				<td class="value"><span>더블드래곤</span>
+				<td class="value"><span>${ mdto.m_nickname }</span>
 					<button type="button" tabindex="-1">변경하기</button>
 
 					<form>
 						<label> <span>새 예약자명</span> <input type="text" name="name"
-							value="더블드래곤">
+							value="${ mdto.m_nickname }">
 						</label>
 						<button type="submit" tabindex="-1">변경</button>
-
-					</form></td>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td class="title">비밀번호</td>
+				<td class="value"><span>**********</span>
+					<button type="button" tabindex="-1">변경하기</button>
+					<form>
+						<label> 
+							<span>현재 비밀번호</span> <input type="password" name="current_password">
+						</label> 
+						<label> 
+							<span>새 비밀번호</span> <input type="password" name="password">
+						</label> 
+						<label> 
+							<span>새 비밀번호 확인</span> <input type="password" name="password2">
+						</label>
+						<button type="submit" tabindex="-1">비밀번호 변경</button>
+						<input type="hidden" name="type" value="password">
+					</form>
+					</td>
 			</tr>
 			<!-- <tr class="">
 				<td class="title">전화번호</td>
@@ -221,7 +240,7 @@
 		</tbody>
 	</table>
 
-	<a href="/user/leave" class="leave">회원 탈퇴</a>
+	<a href="/Poing/user/leave.do" class="leave">회원 탈퇴</a>
 </div>
 
 <script>
@@ -243,27 +262,27 @@
         // 변경 리퀘스트
         $("#setting.body>table>tbody>tr>.value form").submit(function(){
             $.ajax({
-                'url': '/user/setting',
+                'url': '/Poing/user/setting.do',
                 'type': 'POST',
                 'data': $(this).serializeArray(),
                 'success': function(res) {
                     res = $.parseJSON(res);
                     if(res.status == true) {
-                        $.popup("confirm", {'text':'변경이 완료되었습니다.', 'alert':true}, function() {
+                        $.popup("/Poing/popup/confirm.do", {'text':'변경이 완료되었습니다.', 'alert':true}, function() {
                             location.reload();
                         });
                     } else {
                         //전화번호 변경
                         if(res.error.code == 506 || res.error.code == 505) {
-                            $.popup("confirm", {'text':res.error.message, 'alert':true});
+                            $.popup("/Poing/popup/confirm.do", {'text':res.error.message, 'alert':true});
                             return false;
                         }
                         //비밀번호 변경
                         if(res.error.code == 507 || res.error.code == 508) {
-                            $.popup("confirm", {'text':res.error.message, 'alert':true});
+                            $.popup("/Poing/popup/confirm.do", {'text':res.error.message, 'alert':true});
                             return false;
                         }
-                        $.popup("confirm", {'text':'변경에 실패하였습니다. 다시 시도해주세요.', 'alert':true});
+                        $.popup("/Poing/popup/confirm.do", {'text':'변경에 실패하였습니다. 다시 시도해주세요.', 'alert':true});
                     }
                 }
             });
@@ -279,14 +298,14 @@
             param[name] = $this.val();
 
             $.ajax({
-                url: '/user/' + target,
+                url: '/Poing/user/' + target + ".do",
                 type: 'POST',
                 data: param,
             });
         });
 
         // 인증번호 전송
-        $("#setting.body>table>tbody>tr>.value form>button.confirm").click(function(){
+        /* $("#setting.body>table>tbody>tr>.value form>button.confirm").click(function(){
             var number = $(this).parent().get(0).phone.value;
 
             $.ajax({
@@ -297,14 +316,14 @@
                     $.popup("confirm", {'text':'인증번호가 발송되었습니다.', 'alert':true});
                 }
             });
-        });
+        }); */
         // 체크박스 값 변경하면 submit 이벤트 발생하도록.
         $("#setting.body>table>tbody>tr>.value>div>form").change(function(){
             $(this).submit();
         });
 
         // 기본 카드 변경
-        $("#setting.body>table.card .list>li>input[type=radio]").change(function(){
+        /* $("#setting.body>table.card .list>li>input[type=radio]").change(function(){
             $.ajax({
                 url: '/user/setCardInfo',
                 type: 'POST',
@@ -320,9 +339,9 @@
                         $.popup("confirm", {'text': '기본카드 재설정이 완료되었습니다.', 'alert':true});
                 }
             });
-        });
+        }); */
         // 카드 삭제
-        $("#setting.body>table.card .list>li>button.delete").click(function() {
+        /* $("#setting.body>table.card .list>li>button.delete").click(function() {
             if( $(this).prevAll("input").is(":checked") ) {
                 $.popup("confirm", {'text':'기본 사용 카드는 삭제하실 수 없습니다. 다른 카드를 기본 사용 카드로 설정 후 삭제하세요.', 'alert':true});
                 return;
@@ -357,11 +376,11 @@
                     });
                 }
             );
-        });
+        }); */
 
         // 카드 등록
-        $("#setting.body>table.card .add>button").click(function() {
+       /*  $("#setting.body>table.card .add>button").click(function() {
             $.popup("add_card");
-        });
+        }); */
     });
 </script>

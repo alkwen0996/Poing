@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import poing.member.MemberDTO;
 import poing.member.display.service.DisplayTimelineService;
 import poing.mvc.CommandHandler;
-import poing.news_notice.NewsDTO;
-import poing.news_notice.NoticeDTO;
+import poing.notice.PoingNoticeDTO;
+import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
 import poing.product.ReserveTicketDTO;
 import poing.product.display.service.ProductPayService;
@@ -98,8 +98,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
 				return null;
 			}
-			ArrayList<NewsDTO> nnlist = displayTimelineService.getNewsDTO(memberID);
-			ArrayList<NoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
+			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
+			ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
 			request.setAttribute("nnlist", nnlist);
 			request.setAttribute("nlist", nlist);
 		}

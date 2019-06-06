@@ -84,8 +84,8 @@
 					MemberDTO authUser = (MemberDTO)session.getAttribute("authUser");
 					MemberDTO mdto = (MemberDTO)request.getAttribute("mdto");
 					
-					System.out.println("line 77 " + authUser.getM_no());
-					System.out.println("line 77 " + mdto.getM_no());
+					/* System.out.println("line 77 " + authUser.getM_no());
+					System.out.println("line 77 " + mdto.getM_no()); */
 					%>
 				</div>
 			</div>

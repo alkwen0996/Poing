@@ -181,10 +181,12 @@ public class ReviewDAO {
 			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_no = rev.rev_no AND m_no = ?) amIlike ");
 			sql.append( ",(SELECT COUNT(*) FROM pick WHERE review_num = rev.rev_no AND m_no = ?) amIpick ");
 		}
+		
 		sql.append( "FROM review rev ");
 		sql.append( "JOIN p_restaurant rest ON rev.rest_no =  rest.rest_seq ");
 		sql.append( "JOIN member mem ON rev.m_no = mem.m_no ");
 		sql.append( "WHERE rev.rev_no = ? ");
+		
 		sql.append( "ORDER BY rev_wtime DESC ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

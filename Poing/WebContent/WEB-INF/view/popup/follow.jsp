@@ -69,7 +69,7 @@
                                         if(user.profile_image)
                                             user.profile = user.profile_image.thumbnail.url;
                                         user.state = user.follow_state? 'on':'';
-                                        user.me = (user.id == "${ param.id }");
+                                        user.me = (user.id == "${ authUser.m_no }");
 
                                         el += new EJS({url: '/Poing/popup/follow.ejs'}).render(user);
                                     }

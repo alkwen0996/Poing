@@ -3,8 +3,17 @@
 	pageEncoding="UTF-8"%>
 <%
 JSONObject jsonData = new JSONObject();
-boolean result = (Boolean)request.getAttribute("result");
-jsonData.put("status", result);
+boolean status = (Boolean)request.getAttribute("status");
+jsonData.put("status", status);
+if(request.getAttribute("errorMessage") != null)
+{
+	int errorCode = (int)request.getAttribute("errorCode");
+	String errorMessage = (String)request.getAttribute("errorMessage");
+	JSONObject error = new JSONObject();
+	error.put("code", errorCode);
+	error.put("message", errorMessage);
+	jsonData.put("error", error);
+}
 %>
 <%= jsonData %>
 

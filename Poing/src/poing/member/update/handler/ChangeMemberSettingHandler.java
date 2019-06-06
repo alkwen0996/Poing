@@ -3,6 +3,7 @@ package poing.member.update.handler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import poing.member.MemberDAO;
 import poing.member.MemberDTO;
 import poing.member.update.service.ChangeMemberSettingService;
 import poing.mvc.CommandHandler;
@@ -32,9 +33,23 @@ public class ChangeMemberSettingHandler implements CommandHandler{
 			String name = request.getParameter("name");
 			result = changeMemberSettingService.changeMemberName(memberID, name);
 			break;
-
 		default:
-			request.setAttribute("status", result);
+			if (request.getParameter("type").equals("password"))
+			{
+				String current_password = request.getParameter("current_password");
+				String password = request.getParameter("password");
+				String password2 = request.getParameter("password2");
+				if (!password.equals(password2)) {
+					request.setAttribute("errorMessage", "변경할 비밀번호가 일치하지 않습니다.");
+					request.setAttribute("errorCode", 507);
+				}
+				else if (!changeMemberSettingService.checkPassword(memberID, current_password)) {
+					request.setAttribute("errorMessage", "현재 비밀번호가 일치하지 않습니다.");
+					request.setAttribute("errorCode", 508);
+				}
+				else
+					result = changeMemberSettingService.changeMemberPassword(memberID, password);
+			}
 		}
 		request.setAttribute("status", result);
 		return "user/changeSettingResult";

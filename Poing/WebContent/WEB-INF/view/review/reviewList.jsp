@@ -151,14 +151,10 @@
 												<c:forEach varStatus="status" var="i" begin="1" end="10"
 													step="1">
 													<c:if test="${i <= dto.rev_starpoint / 10 }">
-														<c:if test="${i%2 ne 0 }">
-															<i class="icon star medium odd active" data-id=""
-																data-index="${status.count }" style=""></i>
-														</c:if>
-														<c:if test="${i%2 eq 0 }">
-															<i class="icon star medium even active" data-id=""
-																data-index="${status.count }" style=""></i>
-														</c:if>
+														<c:if test="${i%2 ne 0 }"><i class="icon star medium odd active" data-id=""
+																data-index="${status.count }" style=""></i></c:if>
+														<c:if test="${i%2 eq 0 }"><i class="icon star medium even active" data-id=""
+																data-index="${status.count }" style=""></i></c:if>
 													</c:if>
 												</c:forEach>
 												<span id="pointComment"
@@ -264,18 +260,7 @@
 								</c:forEach>
 							</div>
 							<div id="review_pagination">
-								<div class="page-list">
-									<ul class="pagination" onselectstart="return false;">
-									
-										<li class="prevAll">&lt;&lt;</li>
-										<li class="prev">&lt;</li>
-										<c:forEach var="i" begin="${paging.startPageNo }" end="${paging.endPageNo}">
-											<li class="page active ${i eq paging.cpage?'active':'' }" data-page="i">${ i }</li>
-										</c:forEach>
-										<li class="next">&gt;</li>
-										<li class="nextAll">&gt;&gt;</li>
-									</ul>
-								</div>
+								
 							</div>
 					</div>
 				</div>
@@ -283,9 +268,9 @@
 				<script>
 		$(document).ready(function(){
 		    new Pagination({'selector':'#review_pagination', 
-		                    'current_page':1, 
+		                    'current_page':${ paging.curPage }, 
 		                    'per_page':10, 
-		                    'total_page':7924, 
+		                    'total_page':${ paging.numberOfBlocks }, 
 		                    'event':function(page) {
 		                        var sep = {};
 		                        if(location.search.substr(1).length > 0)

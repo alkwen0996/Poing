@@ -1,5 +1,12 @@
 package poing.product;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.util.ConnectionProvider;
+
+import poing.review.ReviewDAO;
+
 public class Paging {
 	private int pageSize = 12; // 게시글 수
 	private int firstPageNo; // 첫 번째 페이지 번호
@@ -12,21 +19,16 @@ public class Paging {
 	private int totalCount; // 게시 글 전체 수
 	private int doubleprevPageNo;
 	private int doublenextPageNo;
-	private int cpage;
+	private int curPage;
 	private int bpage;
 	private int StotalCount;
-
+	private int numberOfBlocks;
+	
 	public int getBpage() {
 		return bpage;
 	}
 	public void setBpage(int bpage) {
 		this.bpage = bpage;
-	}
-	public int getCpage() {
-		return cpage;
-	}
-	public void setCpage(int cpage) {
-		this.cpage = cpage;
 	}
 	public int getDoubleprevPageNo() {
 		return doubleprevPageNo;
@@ -134,5 +136,58 @@ public class Paging {
 	}
 	public void setStotalCount(int stotalCount) {
 		StotalCount = stotalCount;
+	}
+	public int getNumberOfBlocks() {
+		return numberOfBlocks;
+	}
+	public void setNumberOfBlocks(int numberOfBlocks) {
+		this.numberOfBlocks = numberOfBlocks;
+	}
+	public int getCurPage() {
+		return curPage;
+	}
+	public void setCurPage(int curPage) {
+		this.curPage = curPage;
+	}
+	public static Paging getReviewPaing(int num, String type, int curPage) throws SQLException {
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		int totalCount = 0;
+		Paging paging = new Paging();
+		paging.setPageSize(5);
+		switch (type) {
+		case "write":
+			totalCount = ReviewDAO.countMyWriteReview(conn, num);
+			break;
+		case "like":
+			totalCount = ReviewDAO.countMyWriteReview(conn, num);
+			break;
+		case "rest":
+			totalCount = ReviewDAO.countRestReview(conn, num);
+			break;
+		case "follow":
+			totalCount = ReviewDAO.countMyFollowReview(conn, num);
+			break;
+		default:
+			totalCount = ReviewDAO.countReview(conn);
+			paging.setPageSize(7);
+			break;
+		}
+		paging.setCurPage(curPage); //현재페이지 수
+		
+		int numberOfBlocks = (int) Math.ceil(totalCount / (double)paging.getPageSize()); //총 페이지 수
+		int numberOfBlock = paging.getPageSize(); //출력되는 페이지수
+		
+		int startPageNo = (curPage-1)/numberOfBlock * numberOfBlock + 1;
+		int endPageNo = startPageNo + numberOfBlock - 1;
+		if(endPageNo > numberOfBlocks)
+			endPageNo = numberOfBlocks;
+		
+		//paging.setPageNo(pageNo);\
+		paging.setStartPageNo(startPageNo);
+		paging.setEndPageNo(endPageNo);
+		paging.setNumberOfBlocks(numberOfBlocks);
+		conn.close();
+		return paging;
 	}
 }

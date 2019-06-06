@@ -228,7 +228,7 @@
 						</li>
 					</ul>
 					<script type="text/javascript">
-						$("#content > ul > li.item.${param.tab}").addClass("selected");
+						$("#content > ul > li.item.${param.tab ne null ? param.tab : info}").addClass("selected");
 					</script>
 					<!-- product 부분 -->
 					
@@ -255,9 +255,7 @@
 						
 						<c:when test="${ param.tab eq 'map' }">
 						<% System.out.println("map"); %>
-							<div class="body first last">
-								<div id="map"></div>
-							</div>
+							<jsp:include page="/WEB-INF/view/rest/rest_map.jsp"/>
 						</c:when>
 						
 						<c:otherwise>

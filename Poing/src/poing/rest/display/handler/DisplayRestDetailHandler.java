@@ -33,8 +33,10 @@ public class DisplayRestDetailHandler implements CommandHandler
 			}
 			
 			else if (tab.equals("review")) {
-				String type = (String) request.getAttribute("type");
-				ArrayList<ReviewDTO> list = DisplayRestDetailReviewService.getRestReviewList(rest_seq, m_no, type);
+				String type = (String) request.getParameter("type");
+				int curPage = request.getParameter("page")==null?1:Integer.parseInt("page");
+				ArrayList<ReviewDTO> list = DisplayRestDetailReviewService.getRestReviewList(rest_seq, m_no, type, curPage);
+				request.setAttribute("paging", "");
 				request.setAttribute("list", list);
 			}
 			request.setAttribute("dto", dto);

@@ -30,7 +30,7 @@ public class DisplaySearchHandler implements CommandHandler {
 
 		Paging paging = new Paging();
 		//paging.setPageNo(pageNo);\
-		paging.setCpage(cpage);
+		paging.setCurPage(cpage);
 		paging.setPageSize(12);
 		paging.setStotalCount(StotalCount);
 		paging.setStartPageNo(startPageNo);

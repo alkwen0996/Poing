@@ -33,4 +33,20 @@ public class ChangeMemberSettingService {
 		conn.close();
 		return result;
 	}
+	public boolean changeMemberPassword(int memberID, String password) throws SQLException {
+		boolean result = false;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		result = memberDAO.updatePassword(conn, memberID, password);
+		conn.close();
+		return result;
+	}
+	public boolean checkPassword(int memberID, String current_password) throws SQLException {
+		boolean result = false;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		result = memberDAO.checkCurrentPassword(conn, memberID, current_password);
+		conn.close();
+		return result;
+	}
 }

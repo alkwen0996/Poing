@@ -58,13 +58,18 @@
 									style="width:100%;height:100%;background-image:url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 							</div>
 						</c:if>
-
+						
 						<div class="name">
 							<span>${ mdto.m_name }</span>
-							
 							<c:if test="${authUser.m_no eq mdto.m_no}" >
 								<div class="point">${ mdto.rp_seq } P</div>
 								<i class="icon question"></i>
+							</c:if>
+							<c:if test="${authUser.m_no ne mdto.m_no}" >
+								<button class="gray_red_fill border_radius soft ${ amIFollow?'on':'' }"
+									data-type="poing.user.follow" data-id="${ mdto.m_no }" tabindex="-1">
+									<i class="icon follow "></i> <span>팔로우</span>
+								</button>
 							</c:if>
 						</div><!-- name -->
 						<div class="intro">${ mdto.m_selfintro }</div>
@@ -118,7 +123,6 @@
 						
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'reservation'}">
-								<%-- <div id="reservation" class="body empty"> --%>
 								<c:choose>
 									<c:when test="${ param.type eq null || param.type eq 'recent'}">
 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_Recent.jsp"></jsp:include>
@@ -128,13 +132,11 @@
 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_Past.jsp"></jsp:include>
 									</c:otherwise>
 								</c:choose>
-								<%-- <div id="reservation" class="body empty"> end --%>
 							</c:when>
 
 							<%-- tab=coupon 이라면 --%>
 							
 							<c:when test="${ param.tab eq 'coupon'}">
-								<%-- <div id="reservation" class="body empty"> --%>
 								<c:choose>
 									<c:when test="${ param.type eq null || param.type eq 'all'}">
 										<jsp:include
@@ -149,7 +151,6 @@
 											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Coupon_UnUseable.jsp"></jsp:include>
 									</c:when>
 								</c:choose>
-								<%-- <div id="reservation" class="body empty"> end--%>
 							</c:when>
 							
 							<%-- tab=review 이라면--%>
@@ -189,15 +190,9 @@
 							<%-- tab=payment 이라면  아직 미구현--%>
 							
 							<c:when test="${ param.tab eq 'payment'}">
-								<%-- <c:choose>
-									<c:when test="${ param.type eq null || param.type eq 'my'}">
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
-									</c:when>
-									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose> --%>
+								<c:when test="${ param.type eq null || param.type eq 'my'}">
+									<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
+								</c:when>
 							</c:when>
 							
 							<%-- tab=friends 이라면--%>
@@ -214,6 +209,9 @@
 							
 							</c:otherwise>
 						</c:choose>
+						<script>
+							$("ul.tab li.${param.tab ne null ? param.tab : 'reservation'}").addClass("selected");
+						</script>
 					</c:when>
 					
 					
@@ -236,13 +234,13 @@
 							</c:when>
 							
 						</c:choose>
+						<script>
+							$("ul.tab li.${param.tab ne null ? param.tab : 'review'}").addClass("selected");
+						</script>
 					</c:otherwise>
 
 				</c:choose>
 			</div>
-			<script>
-				$("ul.tab li.<%=request.getParameter("tab")%>").addClass("selected");
-			</script>
 			<!-- content end -->
 
 			<!-- slide bar -->

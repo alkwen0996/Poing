@@ -10,7 +10,7 @@
 		<a href="/Poing/timeline.do?id=${ param.id }&tab=reservation&type=past" class="">지나간 예약</a>
 	</div>
 	<div class="list">
-		<c:forEach items="${list}" var="dto" varStatus="status">
+		<c:forEach items="${reserve_list}" var="dto" varStatus="status">
 		<div class="reservation">
 			<a class="i_wrap image" href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq }"> <i
 				class="image border_radius hard"

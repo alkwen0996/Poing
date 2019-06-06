@@ -12,7 +12,7 @@
 <script src='fullcalendar/packages/core/locales-all.js'></script>
 
 <%
-ArrayList<RestTimlineReserveDTO> list = (ArrayList<RestTimlineReserveDTO>)request.getAttribute("list");
+ArrayList<RestTimlineReserveDTO> list = (ArrayList<RestTimlineReserveDTO>)request.getAttribute("reserve_list");
 String reserveDate = "";
 for( int i=0 ; i<list.size(); i++) {
 	if(i==0) reserveDate += "{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";

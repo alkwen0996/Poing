@@ -28,7 +28,7 @@ public class DisplayProductListHandler implements CommandHandler {
 		
 		Paging paging = new Paging();
 		//paging.setPageNo(pageNo);\
-		paging.setCpage(cpage);
+		paging.setCurPage(cpage);
 		paging.setPageSize(12);
 		paging.setTotalCount(totalCount);
 		paging.setStartPageNo(startPageNo);

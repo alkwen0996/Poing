@@ -75,11 +75,11 @@
 							</li>
 							<c:forEach begin="${paging.startPageNo }"
 								end="${paging.endPageNo}" step="1" var="cpage">
-								<c:if test="${cpage ne paging.cpage }">
+								<c:if test="${cpage ne paging.curPage }">
 									<li class="page" data-page="${cpage}"><a
 										href="list.do?pg=${cpage}">${cpage}</a></li>
 								</c:if>
-								<c:if test="${cpage eq paging.cpage }">
+								<c:if test="${cpage eq paging.curPage }">
 									<li class="page active" data-page="${cpage}"><a
 										href="list.do?pg=${cpage}">${cpage}</a></li>
 								</c:if>

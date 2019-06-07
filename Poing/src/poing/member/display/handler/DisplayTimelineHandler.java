@@ -23,8 +23,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ProductPayService service = new ProductPayService();
 
-		List<ReserveTicketDTO> list1 = service.selectReserva_tic();
-		request.setAttribute("list1", list1);
+		//List<ReserveTicketDTO> list1 = service.selectReserva_tic();
+		//request.setAttribute("list1", list1);
 
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
@@ -36,7 +36,16 @@ public class DisplayTimelineHandler implements CommandHandler {
 		int memberID = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = displayTimelineService.getMemberDTO(memberID);
 		System.out.println("DisplayTimelineHandler.java line 22 mdto:" + mdto);
-		ArrayList<RestTimlineReserveDTO> list = displayTimelineService.getReseveRestDTO(memberID);
+		
+		
+		ArrayList<RestTimlineReserveDTO> list = null;
+		if (tab.equals("reservation")) {
+			String reservTab = "past";
+			if (type==null || type.equals("recent")) reservTab ="recent";
+			list = displayTimelineService.getReseveRestDTO(memberID, reservTab);
+		}
+		
+		
 		request.setAttribute("mdto", mdto);
 		request.setAttribute("list", list);
 		

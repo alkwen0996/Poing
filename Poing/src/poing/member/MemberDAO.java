@@ -224,9 +224,11 @@ public class MemberDAO {
 		return result==0?false:true;
 	}//updateProfileImage
 
-	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID) throws SQLException {
-
-		String sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? ";
+	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID, String type) throws SQLException {
+		
+		String sql="";
+		if (type.equals("past")) sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? and r_reserve_date < sysdate ";
+		else sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? and r_reserve_date >= sysdate ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 

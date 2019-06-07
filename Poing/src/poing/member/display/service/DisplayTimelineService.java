@@ -28,13 +28,13 @@ public class DisplayTimelineService {
 		conn.close();
 		return mdto;
 	}
-	public ArrayList<RestTimlineReserveDTO> getReseveRestDTO(int memberID) throws SQLException {
+	public ArrayList<RestTimlineReserveDTO> getReseveRestDTO(int memberID, String type) throws SQLException {
 		
 		Connection conn = ConnectionProvider.getConnection();
-		ArrayList<RestTimlineReserveDTO> list = mdao.getReserveRest(conn,memberID);
+		ArrayList<RestTimlineReserveDTO> list = mdao.getReserveRest(conn,memberID, type);
 		
 		conn.close();	
-		System.out.println("displaytimlineService : 예약리스트 처리도어  list에 담김");
+		System.out.println("displaytimlineService : 예약리스트 처리되어  list에 담김");
 		return list;
 	}
 	public ArrayList<ReviewDTO> getMyWriteReview(int memberID) throws SQLException {

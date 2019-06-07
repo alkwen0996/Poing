@@ -1154,6 +1154,11 @@
 			},
 
 			reservation: {
+				addloading: function () {
+					var id = $(this).data('id');
+					location.href = "/Poing/rest/detail.do?rest_seq="+id;
+				},
+				
 				add: function () {
 					var id = $(this).data('id');
 					if (poing.account.checkLoginState("예약을 하시려면 로그인/회원가입이 필요합니다.<br><br>지금 로그인/회원가입을 하시겠습니까?")) {

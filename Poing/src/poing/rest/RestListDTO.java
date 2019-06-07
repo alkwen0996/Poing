@@ -23,6 +23,8 @@ public class RestListDTO {
 	private float rest_lat; //num 위도
 	private float rest_long; //num 경도
 	private int rest_fav; //찜하기 추적
+	private int totalpage;
+	private int totalcount;
 	
 
 	
@@ -155,6 +157,18 @@ public class RestListDTO {
 	}
 	public void setRest_fav(int rest_fav) {
 		this.rest_fav = rest_fav;
+	}
+	public int getTotalpage() {
+		return totalpage;
+	}
+	public void setTotalpage(int totalpage) {
+		this.totalpage = totalpage;
+	}
+	public int getTotalcount() {
+		return totalcount;
+	}
+	public void setTotalcount(int totalcount) {
+		this.totalcount = totalcount;
 	}
 
 

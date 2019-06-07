@@ -33,7 +33,7 @@ padding: 3px 8px;
 	<meta charset="UTF-8">
 	<title>
 		Poing - ${ mdto.m_name }님의 담벼락입니다.		
-	</title>
+	</title> 
 </head>
 <body class="vsc-initialized">
 <!-- body wrap -->

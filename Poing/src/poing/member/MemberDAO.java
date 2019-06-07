@@ -14,7 +14,7 @@ import poing.news_notice.NoticeDTO;
 import poing.rest.RestTimlineReserveDTO;
 
 import poing.product.ProductDTO;
-import poing.product.ReserveTicketDTO;
+import poing.product.PointHistoryDTO;
 
 public class MemberDAO {
 	
@@ -82,32 +82,39 @@ public class MemberDAO {
 	}
 	
 	public static boolean chargePoint(Connection conn,int chargePoint, int m_no){
-		boolean result = false;
+		boolean result1 = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update member set rp_seq= rp_seq+? where m_no = ? ");
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, chargePoint);
 			pstmt.setInt(2, m_no);
 			//
-			result = pstmt.executeUpdate()==0? false:true;
-			if(result == true) {
-				sql.append("insert into pointUseHistory () values ()");
-				pstmt.setInt(1, m_no);
+			result1 = pstmt.executeUpdate()==0? false:true;
+			
+			if(result1) {
+				String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,?,sysdate,'포인트를 충전했습니다.',?)";
+				pstmt2 = conn.prepareStatement(sql2);
+				pstmt2.setInt(1, m_no);
+				pstmt2.setInt(2, chargePoint);
+				boolean result2 = pstmt2.executeUpdate()==0? false:true;
+				System.out.println("chargePoint");
 			}
 			// 
 			pstmt.close();
+			pstmt2.close();
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result;
+		return result1;
 	}
 	
 	
-	public static boolean selectRp_seq(Connection conn,int rp_seq,int totalmoney, String m_email){
+	public static boolean selectRp_seq(Connection conn, int m_no,int rp_seq,int totalmoney, String m_email){
 		System.out.println("진입성공");
 		System.out.println("rp_seq="+rp_seq);
 		System.out.println("totalmoney="+totalmoney);
@@ -116,6 +123,7 @@ public class MemberDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update member set rp_seq = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, rp_seq);
@@ -123,7 +131,15 @@ public class MemberDAO {
 			pstmt.setString(3, m_email);
 			 
 			result2 = pstmt.executeUpdate()==0? false:true;
-			System.out.println(result2);
+			if(result2) {
+				String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,?,sysdate,'결제 포인트를 차감했습니다.',?)";
+				pstmt2 = conn.prepareStatement(sql2);
+				pstmt2.setInt(1, m_no);
+				pstmt2.setInt(2, totalmoney);
+				boolean result3 = pstmt2.executeUpdate()==0? false:true;
+				System.out.println("selectRp_seq");
+			}
+			
 			pstmt.close();
 			conn.close();
 		} catch (SQLException e) {

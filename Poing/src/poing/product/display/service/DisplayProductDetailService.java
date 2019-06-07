@@ -12,7 +12,7 @@ import com.util.ConnectionProvider;
 import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
-import poing.product.ReserveTicketDTO;
+import poing.product.PointHistoryDTO;
 
 
 public class DisplayProductDetailService {
@@ -23,6 +23,29 @@ public class DisplayProductDetailService {
 			result = dao.updateTotalmoney(conn, totalmoney, id);
 			
 			return result;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public PointHistoryDTO selectRownum() {
+		boolean result2 = true;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			PointHistoryDTO rtdto = ProductDetailDAO.selectRownum(conn);
+			
+			return rtdto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<PointHistoryDTO> PointHistory() {
+		PointHistoryDTO rtdto = new PointHistoryDTO();
+		boolean result2 = true;
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn);
+			
+			return list3;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -57,11 +80,11 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public boolean deletePayCart(int reserva_tic_seq) {
+	public boolean updatePayCart(int reserva_tic_seq, int m_no, int totalmoney) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			 result2 = dao.updatePayCart(conn, reserva_tic_seq);
+			 result2 = dao.updatePayCart(conn, reserva_tic_seq, m_no, totalmoney);
 			 
 			 return result2;
 		} catch (SQLException e) {

@@ -13,7 +13,7 @@ import poing.mvc.CommandHandler;
 import poing.news_notice.NewsDTO;
 import poing.news_notice.NoticeDTO;
 import poing.product.RefundTicketDTO;
-import poing.product.ReserveTicketDTO;
+import poing.product.PointHistoryDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 import poing.rest.RestTimlineReserveDTO;
@@ -32,6 +32,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 		
 		List<RefundTicketDTO> list2 = service2.selectRefund_tic();//환불 되고나서
 		request.setAttribute("list2", list2);
+		
+		
 		//////////////////////////////////////////////////////////////////////
 		
 		System.out.println("DisplayTimelineHandler.java process");

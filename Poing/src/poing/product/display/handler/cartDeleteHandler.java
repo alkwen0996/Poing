@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
 import poing.product.ProductDTO;
 import poing.product.RefundTicketDTO;
-import poing.product.ReserveTicketDTO;
+import poing.product.PointHistoryDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 
@@ -27,10 +28,12 @@ public class cartDeleteHandler implements CommandHandler {
 		int totalmoney = Integer.parseInt(request.getParameter("totalmoney"));
 		System.out.println("토탈머니=" + totalmoney);
 		int id = Integer.parseInt(request.getParameter("id"));
+		MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+		int m_no = mdto.getM_no();
 
 		System.out.println(reserva_tic_seq);
 		result1 = service.updateTotalmoney(totalmoney, id);
-		result2 = service.deletePayCart(reserva_tic_seq);
+		result2 = service.updatePayCart(reserva_tic_seq, m_no ,totalmoney);
 		
 //			List<RefundTicketDTO> list2 = service.selectRefund_tic(reserva_tic_seq);
 

@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 import poing.mvc.CommandHandler;
 import poing.product.ProductDTO;
 import poing.product.RefundTicketDTO;
-import poing.product.ReserveTicketDTO;
+import poing.product.PointHistoryDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 

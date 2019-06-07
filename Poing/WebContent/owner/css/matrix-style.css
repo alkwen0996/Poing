@@ -537,7 +537,7 @@ hr{ border-top-color:#dadada;}
 .widget-title, .modal-header, .table th, div.dataTables_wrapper .ui-widget-header {
 	 background:#efefef;
 	border-bottom: 1px solid #CDCDCD;
-	height: 36px;  
+	height: 55px;  
 }
 .widget-title .nav-tabs {
 	border-bottom: 0 none; 
@@ -579,7 +579,7 @@ hr{ border-top-color:#dadada;}
 	font-weight: bold;
 	padding: 12px;
 	line-height: 12px;
-	margin: 0;
+	/* margin: 0; */
 }
 .widget-title .buttons {
 	float: right;
@@ -633,6 +633,7 @@ hr{ border-top-color:#dadada;}
 	float: left;
 	height: 40px;
 	margin-right: 10px;
+	margin-left: 10px;
 	margin-top: 5px;
 	padding: 2px;
 	width: 40px;

@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
-<!--
+
 #pointCharge{
 display: inline-block;
 background-color: #c91b3c;
@@ -13,8 +13,8 @@ padding: 3px 8px;
     margin-left: 10px;
 
 }
--->
 </style>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,6 +24,7 @@ padding: 3px 8px;
 		<%@include file="/css/style.css" %>
 		<%@include file="/css/poing.slider.css" %>
 	</style>
+	
 	<script type="text/javascript" 
         src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"

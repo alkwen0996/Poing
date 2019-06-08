@@ -13,7 +13,6 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
-import poing.product.ReserveTicketDTO;
 import poing.news_notice.NewsDTO;
 import poing.news_notice.NoticeDTO;
 import poing.product.RefundTicketDTO;
@@ -31,6 +30,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 		ProductPayService service = new ProductPayService();
 		DisplayProductDetailService service2 = new DisplayProductDetailService();
 
+//		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
+//		request.setAttribute("list1", list1);
 		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
 		request.setAttribute("list1", list1);
 		
@@ -84,9 +85,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
 				return null;
 			}
-			ProductPayService service = new ProductPayService();
-			List<ReserveTicketDTO> rev_tic_list = service.selectReserva_tic();
-			request.setAttribute("rev_tic_list", rev_tic_list);
+//			ProductPayService service5 = new ProductPayService();
+//			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
+//			request.setAttribute("rev_tic_list", rev_tic_list);
+			
 		}
 		else if (tab.equals("review"))
 		{
@@ -129,6 +131,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
 				return null;
 			}
+			
+			
 		}
 		else if (tab.equals("friends"))
 		{

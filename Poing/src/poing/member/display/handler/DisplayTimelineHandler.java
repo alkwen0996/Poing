@@ -1,7 +1,6 @@
 package poing.member.display.handler;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +12,7 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
-import poing.product.ReserveTicketDTO;
-import poing.news_notice.NewsDTO;
-import poing.news_notice.NoticeDTO;
 import poing.product.RefundTicketDTO;
-import poing.product.PointHistoryDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 import poing.rest.RestTimlineReserveDTO;
@@ -31,10 +26,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 		ProductPayService service = new ProductPayService();
 		DisplayProductDetailService service2 = new DisplayProductDetailService();
 
-		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
+		List<RefundTicketDTO> list1 = service.selectReserva_tic();//결제완료 티켓 출력
 		request.setAttribute("list1", list1);
 		
-		List<RefundTicketDTO> list2 = service2.selectRefund_tic();//환불 되고나서
+		List<RefundTicketDTO> list2 = service2.selectRefund_tic();//환불 티켓
 		request.setAttribute("list2", list2);
 		
 		
@@ -84,9 +79,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
 				return null;
 			}
-			ProductPayService service = new ProductPayService();
-			List<ReserveTicketDTO> rev_tic_list = service.selectReserva_tic();
-			request.setAttribute("rev_tic_list", rev_tic_list);
+//			ProductPayService service = new ProductPayService();
+//			List<ReserveTicketDTO> rev_tic_list = service.selectReserva_tic();
+//			request.setAttribute("rev_tic_list", rev_tic_list);
 		}
 		else if (tab.equals("review"))
 		{

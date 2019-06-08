@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 
@@ -17,12 +18,48 @@ public class ProductDetailDAO {
 	public static ProductDetailDAO getInstance() {
 		return displaydao;
 	}
-	
+	public static List<RefundTicketDTO> selectReserva_tic(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select op_cnt,p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img,op_cnt,op_price from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq where p_state='결제완료' ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			RefundTicketDTO rdto = null;
+			while(rs.next()) {
+			rdto = new RefundTicketDTO();
+			rdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
+			rdto.setRest_name(rs.getString("rest_name"));
+			rdto.setP_st_ed_date(rs.getString("p_st_ed_date"));
+			rdto.setOp_name(rs.getString("op_name"));
+			rdto.setC_date(rs.getString("c_date"));
+			rdto.setParty_size(rs.getInt("party_size"));
+			rdto.setPhoto_img(rs.getString("photo_img"));
+			rdto.setP_dc_money(rs.getInt("p_dc_money"));
+			rdto.setOp_cnt(rs.getInt("op_cnt"));
+			list1.add(rdto);
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return list1;
+	}
 	
 
 	public ProductDetailDAO() {}
 	
-	public boolean updateTotalmoney(Connection conn, int totalmoney, int id) throws SQLException {
+	public boolean updateTotalmoney(Connection conn, String totalmoney, int id) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update member set rp_seq = rp_seq + ? where m_no = ? ");
 		PreparedStatement pstmt = null;
@@ -30,7 +67,7 @@ public class ProductDetailDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, totalmoney);
+			pstmt.setString(1, totalmoney);
 			pstmt.setInt(2, id);
 			result = pstmt.executeUpdate()==0? false:true;
 			
@@ -43,18 +80,148 @@ public class ProductDetailDAO {
 		return result;
 	};
 	
-	public boolean deletePayCart(Connection conn, int reserva_tic_seq) throws SQLException {
+	public static List<RefundTicketDTO> selectRefund_tic(Connection conn) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" delete reserve_tic where reserva_tic_seq = ? ");
+		sql.append(" select p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img,op_cnt,op_price from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq where p_state='환불완료' ");
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<RefundTicketDTO> list2 = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			RefundTicketDTO rtdto = null;
+			while(rs.next()) {
+				rtdto = new RefundTicketDTO();
+				rtdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
+				rtdto.setRest_name(rs.getString("rest_name"));
+				rtdto.setP_st_ed_date(rs.getString("p_st_ed_date"));
+				rtdto.setOp_name(rs.getString("op_name"));
+				rtdto.setC_date(rs.getString("c_date"));
+				rtdto.setParty_size(rs.getInt("party_size"));
+				rtdto.setPhoto_img(rs.getString("photo_img"));
+				rtdto.setOp_cnt(rs.getInt("op_cnt"));
+				rtdto.setOp_price(rs.getInt("op_price"));
+				rtdto.setP_dc_money(rs.getInt("p_dc_money"));
+				list2.add(rtdto);
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return list2;
+	}
+	
+	public static List<PointHistoryDTO> PointHistory(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select * from pointUseHistory ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<PointHistoryDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			PointHistoryDTO phdto = null;
+			while(rs.next()) {
+				phdto = new PointHistoryDTO();
+				phdto.setPointUseHistory_seq(rs.getInt("pointUseHistory_seq"));
+				phdto.setM_no(rs.getInt("m_no"));
+				phdto.setEventSysdate(rs.getString("eventSysdate"));
+				phdto.setUseContent(rs.getString("useContent"));
+				phdto.setPointRecord(rs.getString("pointRecord"));
+				list.add(phdto);
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return list;
+	}
+	public static PointHistoryDTO selectRownum(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select rownum from pointUseHistory ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		PointHistoryDTO phdto = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				phdto = new PointHistoryDTO();
+				phdto.setRownum(rs.getInt("rownum"));
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		
+		return phdto;
+	}
+	
+	public boolean updateState(Connection conn, int reserva_tic_seq) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" update reserve_tic set p_state = '삭제완료' where p_state = '환불완료' and reserva_tic_seq = ? ");
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, reserva_tic_seq);
+			result = pstmt.executeUpdate()==0? false:true;
+			
+			pstmt.close();
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	};
+	
+	public boolean updatePayCart(Connection conn, int reserva_tic_seq, int m_no, String totalmoney) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" update reserve_tic set p_state = '환불완료' where p_state = '결제완료' and reserva_tic_seq = ? ");
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		boolean result = false;
 		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 				pstmt.setInt(1, reserva_tic_seq);
 				result = pstmt.executeUpdate()==0? false:true;
+				if(result) {
+					String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,차감된금액  ?,sysdate,'티켓을 환불했습니다.',?)";
+					pstmt2 = conn.prepareStatement(sql2);
+					pstmt2.setInt(1, m_no);
+					pstmt2.setString(2, totalmoney);
+					boolean result2 = pstmt2.executeUpdate()==0? false:true;
+					System.out.println("updatePayCart");
+				}
 				
 			pstmt.close();
+			pstmt2.close();
 			conn.close();
 		}catch (SQLException e) {
 			e.printStackTrace();

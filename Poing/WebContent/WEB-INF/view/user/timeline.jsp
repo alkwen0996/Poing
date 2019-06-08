@@ -2,6 +2,19 @@
 <%@page import="poing.review.display.service.DisplayReviewService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+<!--
+#pointCharge{
+display: inline-block;
+background-color: #c91b3c;
+color: #ffffff;
+padding: 3px 8px;
+    border-radius: 7px;
+    margin-left: 10px;
+
+}
+-->
+</style>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,7 +33,7 @@
 	<meta charset="UTF-8">
 	<title>
 		Poing - ${ mdto.m_name }님의 담벼락입니다.		
-	</title>
+	</title> 
 </head>
 <body class="vsc-initialized">
 <!-- body wrap -->
@@ -51,7 +64,7 @@
 								<div class="message border_radius circle">프로필 사진 바꾸기</div>
 							</div>
 						</c:if>
-
+													
 						<c:if test="${authUser.m_no ne mdto.m_no}" >
 							<div id="user_image" class="user_image i_wrap">
 								<i class="image border_radius circle"
@@ -64,6 +77,7 @@
 							<c:if test="${authUser.m_no eq mdto.m_no}" >
 								<div class="point">${ mdto.rp_seq } P</div>
 								<i class="icon question"></i>
+								<button id="pointCharge">포인트 충전</button>
 							</c:if>
 							<c:if test="${authUser.m_no ne mdto.m_no}" >
 								<button class="gray_red_fill border_radius soft ${ amIFollow?'on':'' }"
@@ -290,6 +304,27 @@
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	
 </div> <!-- wrap end -->
-
+<script>
+	$("#pointCharge").click(function () {
+//  		$.ajax({
+//  			url: '/Poing/product/cartDelete.do',
+//  			method: 'post',
+//  			dataType: 'JSON',
+//  			data:{
+//  				reserva_tic_seq : $(this).attr('data'),
+//  				totalmoney : ${param.totalmoney},
+//  				id :${param.id}
+//  			},
+//  			success: function (res) {
+//  				if (res.status2) {
+			$.popup('/Poing/popup/pointCharge.do');
+//  				setTimeout(location.reload.bind(location), 1000);
+			
+//  				}else{
+//  				}
+//  			}
+//  		});
+	});
+	</script>
 </body>
 </html>

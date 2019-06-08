@@ -17,9 +17,12 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/popup/deleteCart.do")) {
 			return "popup/deleteCart";
 		}
-		else if (command.equals("/popup/point_history.do")) {
-			return "popup/point_history";
+		else if (command.equals("/popup/pointCharge.do")) {
+			return "popup/pointCharge";
 		}
+//		else if (command.equals("/popup/point_history.do")) {
+//			return "popup/point_history";
+//		}
 		else if (command.equals("/popup/level_qna.do")) {
 			return "popup/level_qna";
 		}

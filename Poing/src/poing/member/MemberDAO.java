@@ -13,7 +13,7 @@ import poing.rest.RestTimlineReserveDTO;
 import poing.notice.UserNoticeDTO;
 import poing.notice.PoingNoticeDTO;
 import poing.product.ProductDTO;
-import poing.product.ReserveTicketDTO;
+import poing.product.PointHistoryDTO;
 
 public class MemberDAO {
 	
@@ -55,41 +55,7 @@ public class MemberDAO {
 		return mdto;
 	}
 	
-	public static List<ReserveTicketDTO> selectReserva_tic(Connection conn) {
-		StringBuffer sql = new StringBuffer();
-		sql.append(" select reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq ");
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<ReserveTicketDTO> list1 = new ArrayList<>();
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			rs = pstmt.executeQuery();
-			ReserveTicketDTO rdto = null;
-			while(rs.next()) {
-			rdto = new ReserveTicketDTO();
-			rdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
-			rdto.setRest_name(rs.getString("rest_name"));
-			rdto.setP_st_ed_date(rs.getString("p_st_ed_date"));
-			rdto.setOp_name(rs.getString("op_name"));
-			rdto.setC_date(rs.getString("c_date"));
-			rdto.setParty_size(rs.getInt("party_size"));
-			rdto.setPhoto_img(rs.getString("photo_img"));
-			list1.add(rdto);
-			};
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pstmt.close();
-				rs.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}	
-		
-		return list1;
-	}
+	
 	
 	public static boolean insertReserve_tic(Connection conn, int p_num, int m_no, int cart_seq){
 		boolean result1 = false;
@@ -114,8 +80,40 @@ public class MemberDAO {
 		return result1;
 	}
 	
+	public static boolean chargePoint(Connection conn,int chargePoint, int m_no){
+		boolean result1 = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" update member set rp_seq= rp_seq+? where m_no = ? ");
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, chargePoint);
+			pstmt.setInt(2, m_no);
+			//
+			result1 = pstmt.executeUpdate()==0? false:true;
+			
+			if(result1) {
+				String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,?,sysdate,'포인트를 충전했습니다.',?)";
+				pstmt2 = conn.prepareStatement(sql2);
+				pstmt2.setInt(1, m_no);
+				pstmt2.setInt(2, chargePoint);
+				boolean result2 = pstmt2.executeUpdate()==0? false:true;
+				System.out.println("chargePoint");
+			}
+			// 
+			pstmt.close();
+			pstmt2.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result1;
+	}
 	
-	public static boolean selectRp_seq(Connection conn,int rp_seq,int totalmoney, String m_email){
+	
+	public static boolean selectRp_seq(Connection conn, int m_no,int rp_seq,int totalmoney, String m_email){
 		System.out.println("진입성공");
 		System.out.println("rp_seq="+rp_seq);
 		System.out.println("totalmoney="+totalmoney);
@@ -124,6 +122,7 @@ public class MemberDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update member set rp_seq = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, rp_seq);
@@ -131,7 +130,15 @@ public class MemberDAO {
 			pstmt.setString(3, m_email);
 			 
 			result2 = pstmt.executeUpdate()==0? false:true;
-			System.out.println(result2);
+			if(result2) {
+				String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,?,sysdate,'결제 포인트를 차감했습니다.',?)";
+				pstmt2 = conn.prepareStatement(sql2);
+				pstmt2.setInt(1, m_no);
+				pstmt2.setInt(2, totalmoney);
+				boolean result3 = pstmt2.executeUpdate()==0? false:true;
+				System.out.println("selectRp_seq");
+			}
+			
 			pstmt.close();
 			conn.close();
 		} catch (SQLException e) {

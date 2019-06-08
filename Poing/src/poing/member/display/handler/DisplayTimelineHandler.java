@@ -1,6 +1,7 @@
 package poing.member.display.handler;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,11 @@ import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
 import poing.product.ReserveTicketDTO;
+import poing.news_notice.NewsDTO;
+import poing.news_notice.NoticeDTO;
+import poing.product.RefundTicketDTO;
+import poing.product.PointHistoryDTO;
+import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDTO;
@@ -22,6 +28,19 @@ public class DisplayTimelineHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ProductPayService service = new ProductPayService();
+		DisplayProductDetailService service2 = new DisplayProductDetailService();
+
+		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
+		request.setAttribute("list1", list1);
+		
+		List<RefundTicketDTO> list2 = service2.selectRefund_tic();//환불 되고나서
+		request.setAttribute("list2", list2);
+		
+		
+		//////////////////////////////////////////////////////////////////////
+		
+		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
 

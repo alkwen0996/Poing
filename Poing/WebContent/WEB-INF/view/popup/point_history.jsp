@@ -1,6 +1,16 @@
+<%@page import="poing.product.PointHistoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%  PointHistoryDTO phdto = (PointHistoryDTO)request.getAttribute("phdto");
+	int rownum = phdto.getRownum();
+	if(rownum % 5 == 0){
+		rownum = rownum/5;
+				}
+	else if(rownum % 5 != 0){
+		rownum = rownum/5 +1;
+		};
+	%>
 
 <div id="point_history">
 	<i class="icon popup_close" data-close></i>
@@ -8,28 +18,26 @@
 		<div class="title">포잉 포인트</div>
 
 		<p class="remain">
-			<i class="icon point"></i> 잔여 포인트: <span>4,000P</span>
+			<i class="icon point"></i> 잔여 포인트: <span>${authUser.rp_seq }</span>
 		</p>
 		<table class="list">
 			<thead>
+			
 				<tr>
 					<th class="date">날짜</th>
 					<th class="body">적립 / 사용 내역</th>
 					<th class="point">포인트</th>
 				</tr>
 			</thead>
+			<c:forEach items="${list3}" var="dto" varStatus="status">
 			<tbody>
 				<tr data-index="0">
-					<td>2019.5.17</td>
-					<td>레벨 업 포인트 적립</td>
-					<td class="point">1,000P</td>
-				</tr>
-				<tr data-index="1">
-					<td>2019.4.29</td>
-					<td>가입 축하 포인트 적립</td>
-					<td class="point">3,000P</td>
+					<td>${dto.eventSysdate }</td>
+					<td>${dto.useContent }</td>
+					<td class="point">${dto.pointRecord }p</td>
 				</tr>
 			</tbody>
+			</c:forEach>
 		</table>
 
 		<div id="point_pages"></div>
@@ -42,7 +50,7 @@
 	new Pagination({'selector':'#point_pages', 
 					'current_page':1,
 					'per_page':5, 
-					'total_page':1, 
+					'total_page':<%=rownum%>, 
 					'processActive': true,
 					'event':function(page) {
 						var elements = $("#point_history .list>tbody>tr").hide();

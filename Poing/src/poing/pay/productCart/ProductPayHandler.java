@@ -24,6 +24,7 @@ public class ProductPayHandler implements CommandHandler {
 		int p_num = Integer.parseInt(request.getParameter("p_num"));
 		int m_no = Integer.parseInt(request.getParameter("m_no"));
 		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
+		
 		String m_email = request.getParameter("m_email");
 		System.out.println(m_no);
 		System.out.println(p_num);
@@ -40,7 +41,7 @@ public class ProductPayHandler implements CommandHandler {
 		System.out.println(m_email);
 		boolean result1 = service.insertReserve_tic(p_num, m_no, cart_seq);
 		System.out.println(result1);
-		boolean result2 = service.selectRp_seq(rp_seq, totalmoney, m_email, point);
+		boolean result2 = service.selectRp_seq(m_no,rp_seq, totalmoney, m_email, point);
 		System.out.println(result2);
 		
 		if (result2) {

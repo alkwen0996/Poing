@@ -25,7 +25,7 @@ public class GetMyRestReviewListHandler implements CommandHandler{
 		review_list = getMyRestReviewService.getMyRestReviewList(authOwner, "time", 1);
 		
 		request.setAttribute("review_list", review_list);
-		return "review_tables";
+		return "rest_review_tables";
 	}
 	
 }

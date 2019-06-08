@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workbench progressCount="16" version="2.0">
 <workbenchAdvisor/>
-<window height="1038" maximized="true" width="976" x="952" y="0">
+<window height="1038" maximized="true" width="976" x="365" y="-9">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -39,18 +39,18 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/시퀀스"/>
 <editorState selectionLength="0" selectionOffset="367"/>
 </editor>
-<editor id="com.tomato.exerd.editor.DiagramEditor" name="관리자.exerd" partName="관리자.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/관리자.exerd" title="관리자.exerd" tooltip="PoingDB/관리자.exerd" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/관리자.exerd"/>
-</editor>
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="통합본.exerd" partName="통합본.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/통합본.exerd" title="통합본.exerd" tooltip="PoingDB/통합본.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/통합본.exerd"/>
 </editor>
-<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="newsNotice.exerd" partName="newsNotice.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/newsNotice.exerd" title="newsNotice.exerd" tooltip="PoingDB/newsNotice.exerd" workbook="DefaultEditorWorkbook">
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="newsNotice.exerd" partName="newsNotice.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/newsNotice.exerd" title="newsNotice.exerd" tooltip="PoingDB/newsNotice.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/newsNotice.exerd"/>
 </editor>
-<editor id="org.eclipse.ui.DefaultTextEditor" name="수정사항" partName="수정사항" path="C:/Class/Poing/Poing/exerd/PoingDB/수정사항" title="수정사항" tooltip="PoingDB/수정사항" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="org.eclipse.ui.DefaultTextEditor" name="수정사항" partName="수정사항" path="C:/Class/Poing/Poing/exerd/PoingDB/수정사항" title="수정사항" tooltip="PoingDB/수정사항" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/수정사항"/>
-<editorState selectionLength="0" selectionOffset="64"/>
+<editorState selectionLength="10" selectionOffset="903"/>
+</editor>
+<editor id="com.tomato.exerd.editor.DiagramEditor" name="관리자.exerd" partName="관리자.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/관리자.exerd" title="관리자.exerd" tooltip="PoingDB/관리자.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/관리자.exerd"/>
 </editor>
 </editors>
 <views>
@@ -66,7 +66,7 @@
 <element path="/PoingDB"/>
 </expanded>
 <selection>
-<element path="/PoingDB/수정사항"/>
+<element path="/PoingDB/시퀀스"/>
 </selection>
 </viewState>
 </view>
@@ -96,7 +96,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="org.eclipse.ui.DefaultTextEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -203,8 +203,6 @@
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PoingDB/시퀀스"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/관리자.exerd"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/관리자.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
@@ -212,75 +210,75 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PoingDB/시퀀스"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PoingDB/수정사항"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/관리자.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/PoingDB/수정사항"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/관리자.exerd"/>
 </editors>
-<item historyLabel="시퀀스" index="0">
-<position/>
-</item>
-<item historyLabel="통합본.exerd" index="2"/>
-<item historyLabel="시퀀스" index="0">
-<position/>
-</item>
-<item historyLabel="관리자.exerd" index="1"/>
-<item historyLabel="시퀀스" index="0">
-<position info="not_deleted" x="277" y="1"/>
-</item>
-<item historyLabel="관리자.exerd" index="1"/>
-<item historyLabel="시퀀스" index="0">
-<position info="not_deleted" x="282" y="0"/>
-</item>
-<item historyLabel="관리자.exerd" index="1"/>
-<item historyLabel="시퀀스" index="0">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="관리자.exerd" index="1"/>
-<item historyLabel="통합본.exerd" index="2"/>
-<item historyLabel="관리자.exerd" index="1"/>
-<item historyLabel="시퀀스" index="0">
-<position info="not_deleted" x="312" y="0"/>
-</item>
-<item historyLabel="통합본.exerd" index="3"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="3"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="3"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="3"/>
-<item historyLabel="관리자.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="통합본.exerd" index="1"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="통합본.exerd" index="1"/>
+<item historyLabel="관리자.exerd" index="2"/>
 <item historyLabel="시퀀스" index="0">
 <position info="not_deleted" x="634" y="0"/>
 </item>
-<item historyLabel="관리자.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="통합본.exerd" index="1"/>
+<item historyLabel="관리자.exerd" index="2"/>
 <item historyLabel="통합본.exerd" index="3"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="5"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="5"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="5"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="통합본.exerd" index="5"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="통합본.exerd" index="5"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="통합본.exerd" index="5"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="관리자.exerd" index="4"/>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="시퀀스" index="7">
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="통합본.exerd" index="3"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="통합본.exerd" index="3"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="통합본.exerd" index="3"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="통합본.exerd" index="3"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="통합본.exerd" index="3"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="2"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="시퀀스" index="5">
 <position info="not_deleted" x="367" y="0"/>
 </item>
-<item historyLabel="newsNotice.exerd" index="6"/>
-<item historyLabel="수정사항" index="8">
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="수정사항" index="6">
 <position/>
 </item>
+<item historyLabel="통합본.exerd" index="7"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="8"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
 <item historyLabel="통합본.exerd" index="9"/>
-<item active="true" historyLabel="newsNotice.exerd" index="6"/>
+<item historyLabel="수정사항" index="10">
+<position info="not_deleted" x="1089" y="0"/>
+</item>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="수정사항" index="10">
+<position info="not_deleted" x="416" y="0"/>
+</item>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="통합본.exerd" index="9"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="수정사항" index="10">
+<position info="not_deleted" x="445" y="0"/>
+</item>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="newsNotice.exerd" index="4"/>
+<item active="true" historyLabel="수정사항" index="10">
+<position info="not_deleted" x="445" y="0"/>
+</item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -298,6 +296,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="관리자.exerd" tooltip="PoingDB/관리자.exerd">
+<persistable path="/PoingDB/관리자.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="수정사항" tooltip="PoingDB/수정사항">
 <persistable path="/PoingDB/수정사항"/>
 </file>
@@ -306,9 +307,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="newsNotice.exerd" tooltip="PoingDB/newsNotice.exerd">
 <persistable path="/PoingDB/newsNotice.exerd"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="관리자.exerd" tooltip="PoingDB/관리자.exerd">
-<persistable path="/PoingDB/관리자.exerd"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="기존" tooltip="PoingDB/기존">
 <persistable path="/PoingDB/기존"/>

@@ -22,6 +22,8 @@ public class ProductDetailDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select op_cnt,p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img,op_cnt,op_price from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq where p_state='결제완료' ");
 		PreparedStatement pstmt = null;
+		
+		
 		ResultSet rs = null;
 		ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
 		try {

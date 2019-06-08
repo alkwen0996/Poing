@@ -42,17 +42,3 @@ ALTER TABLE editer_review
 		REFERENCES editer (
 			e_seq
 		);
-		
-
-/* 배너 이미지 */
-CREATE TABLE banner_img (
-	banner_seq NUMBER NOT NULL, /* 시배너 이미지 번호 */
-	banner_img VARCHAR2(200) /* 이미지 경로 */
-);
-
-ALTER TABLE banner_img
-	ADD
-		CONSTRAINT PK_banner_img
-		PRIMARY KEY (
-			banner_seq
-		);

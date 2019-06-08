@@ -16,7 +16,7 @@ import poing.product.PointHistoryDTO;
 
 
 public class DisplayProductDetailService {
-	public boolean updateTotalmoney(int totalmoney, int id) {
+	public boolean updateTotalmoney(String totalmoney, int id) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
@@ -80,7 +80,7 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public boolean updatePayCart(int reserva_tic_seq, int m_no, int totalmoney) {
+	public boolean updatePayCart(int reserva_tic_seq, int m_no, String totalmoney) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	

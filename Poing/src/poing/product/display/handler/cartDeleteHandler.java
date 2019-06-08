@@ -25,7 +25,7 @@ public class cartDeleteHandler implements CommandHandler {
 
 		DisplayProductDetailService service = new DisplayProductDetailService();
 		int reserva_tic_seq = Integer.parseInt(request.getParameter("reserva_tic_seq"));
-		int totalmoney = Integer.parseInt(request.getParameter("totalmoney"));
+		String totalmoney = request.getParameter("totalmoney");
 		System.out.println("토탈머니=" + totalmoney);
 		int id = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");

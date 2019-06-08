@@ -59,7 +59,7 @@ public class ProductDetailDAO {
 
 	public ProductDetailDAO() {}
 	
-	public boolean updateTotalmoney(Connection conn, int totalmoney, int id) throws SQLException {
+	public boolean updateTotalmoney(Connection conn, String totalmoney, int id) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update member set rp_seq = rp_seq + ? where m_no = ? ");
 		PreparedStatement pstmt = null;
@@ -67,7 +67,7 @@ public class ProductDetailDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, totalmoney);
+			pstmt.setString(1, totalmoney);
 			pstmt.setInt(2, id);
 			result = pstmt.executeUpdate()==0? false:true;
 			
@@ -200,7 +200,7 @@ public class ProductDetailDAO {
 		return result;
 	};
 	
-	public boolean updatePayCart(Connection conn, int reserva_tic_seq, int m_no, int totalmoney) throws SQLException {
+	public boolean updatePayCart(Connection conn, int reserva_tic_seq, int m_no, String totalmoney) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update reserve_tic set p_state = '환불완료' where p_state = '결제완료' and reserva_tic_seq = ? ");
 		PreparedStatement pstmt = null;
@@ -212,10 +212,10 @@ public class ProductDetailDAO {
 				pstmt.setInt(1, reserva_tic_seq);
 				result = pstmt.executeUpdate()==0? false:true;
 				if(result) {
-					String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,차감된금액  ?,sysdate,'티켓을 환불했습니다.','-?')";
+					String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,차감된금액  ?,sysdate,'티켓을 환불했습니다.',?)";
 					pstmt2 = conn.prepareStatement(sql2);
 					pstmt2.setInt(1, m_no);
-					pstmt2.setInt(2, totalmoney);
+					pstmt2.setString(2, totalmoney);
 					boolean result2 = pstmt2.executeUpdate()==0? false:true;
 					System.out.println("updatePayCart");
 				}

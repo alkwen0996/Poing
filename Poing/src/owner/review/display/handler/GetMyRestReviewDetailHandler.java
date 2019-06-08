@@ -21,7 +21,7 @@ public class GetMyRestReviewDetailHandler implements CommandHandler{
 		ArrayList<CommentDTO> comment_list = getMyRestReviewDetailService.getReviewCommentList(rev_no);
 		request.setAttribute("reviewDTO", reviewDTO);
 		request.setAttribute("comment_list", comment_list);
-		return "review_detail";
+		return "rest_review_detail";
 	}
 	
 	

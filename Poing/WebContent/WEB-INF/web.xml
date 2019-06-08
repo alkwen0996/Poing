@@ -51,6 +51,8 @@
   <filter-mapping>
     <filter-name>checkOwnerLogin</filter-name>
     <url-pattern>/owner/index.ow</url-pattern>
+    <url-pattern>/owner/rest_image.ow</url-pattern>
+    <url-pattern>/owner/review_tables.ow</url-pattern>
   </filter-mapping>
   
   <servlet>

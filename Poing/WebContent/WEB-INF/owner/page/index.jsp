@@ -17,7 +17,6 @@
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 <%@include file="/owner/css/jquery.gritter.css" %>
 </style>
-
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 </head>
@@ -48,6 +47,7 @@
         <li class="bg_lg"> <a href="calendar.ow"> <i class="icon-calendar"></i> Calendar</a> </li>
         <li class="bg_lr"> <a href="error404.ow"> <i class="icon-info-sign"></i> Error</a> </li>
         <li class="bg_lr"> <a href="review_tables.ow"> <i class="icon-comment"></i> 리뷰</a> </li>
+        <li class="bg_lr"> <a href="rest_image.ow"> <i class="icon-picture"></i>갤러리</a> </li>
 
       </ul>
     </div>

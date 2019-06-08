@@ -11,12 +11,12 @@
 		<%@include file="/css/style.css" %>
 		<%@include file="/css/poing.slider.css" %>
 	</style>
-	<script type="text/javascript" 
-        src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/main.js"></script>
+		src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/slider.js"></script>
+		src="<%=request.getContextPath()%>/js/main.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/slider.js"></script>
 	<meta charset="UTF-8">
 	<title>
 		Poing - ${ mdto.m_name }님의 담벼락입니다.		
@@ -115,8 +115,8 @@
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
 							<li class="payment item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
-							<li class="friends item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li>
+							<%-- <li class="friends item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li> --%>
 							<li class="setting item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
@@ -195,11 +195,6 @@
 								</c:when>
 							</c:when>
 							
-							<%-- tab=friends 이라면--%>
-							<c:when test="${ param.tab eq 'friends'}">
-								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Friend.jsp"></jsp:include>
-							</c:when>
-
 							<%-- tab=setting 이라면--%>
 
 							<c:when test="${ param.tab eq 'setting'}">
@@ -286,7 +281,6 @@
 	
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/popup_wrap_rest.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	
 </div> <!-- wrap end -->

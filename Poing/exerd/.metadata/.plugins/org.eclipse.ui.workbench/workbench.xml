@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="16" version="2.0">
+<workbench progressCount="9" version="2.0">
 <workbenchAdvisor/>
-<window height="1047" maximized="true" width="974" x="536" y="-9">
+<window height="1038" width="976" x="-8" y="0">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -33,11 +33,11 @@
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.ui.DefaultTextEditor" name="시퀀스" partName="시퀀스" path="C:/Class/Poing/Poing/exerd/PoingDB/시퀀스" title="시퀀스" tooltip="PoingDB/시퀀스" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.ui.DefaultTextEditor" name="시퀀스" partName="시퀀스" path="C:/Class/Poing/Poing/exerd/PoingDB/시퀀스" title="시퀀스" tooltip="PoingDB/시퀀스" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/시퀀스"/>
-<editorState selectionLength="174" selectionOffset="189"/>
+<editorState selectionLength="0" selectionOffset="634"/>
 </editor>
-<editor id="com.tomato.exerd.editor.DiagramEditor" name="관리자.exerd" partName="관리자.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/관리자.exerd" title="관리자.exerd" tooltip="PoingDB/관리자.exerd" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="관리자.exerd" partName="관리자.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/관리자.exerd" title="관리자.exerd" tooltip="PoingDB/관리자.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/PoingDB/관리자.exerd"/>
 </editor>
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="통합본.exerd" partName="통합본.exerd" path="C:/Class/Poing/Poing/exerd/PoingDB/통합본.exerd" title="통합본.exerd" tooltip="PoingDB/통합본.exerd" workbook="DefaultEditorWorkbook">
@@ -87,7 +87,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.DefaultTextEditor" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -203,6 +203,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/관리자.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/통합본.exerd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/PoingDB/관리자.exerd"/>
 </editors>
 <item historyLabel="시퀀스" index="0">
 <position/>
@@ -251,23 +253,29 @@
 <item historyLabel="관리자.exerd" index="7"/>
 <item historyLabel="통합본.exerd" index="9"/>
 <item historyLabel="관리자.exerd" index="7"/>
-<item active="true" historyLabel="시퀀스" index="5">
+<item historyLabel="시퀀스" index="5">
 <position info="not_deleted" x="312" y="0"/>
 </item>
+<item historyLabel="통합본.exerd" index="10"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="통합본.exerd" index="10"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="통합본.exerd" index="10"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="통합본.exerd" index="10"/>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="시퀀스" index="5">
+<position info="not_deleted" x="634" y="0"/>
+</item>
+<item historyLabel="관리자.exerd" index="11"/>
+<item historyLabel="통합본.exerd" index="10"/>
+<item active="true" historyLabel="관리자.exerd" index="11"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="leftFolder"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@aea4b9"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@65bb85"/>
-<trimItem IMemento.internal.id="rightFolder"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -275,7 +283,6 @@
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
-<trimItem IMemento.internal.id="bottomFolder"/>
 </trimArea>
 </trimLayout>
 </window>

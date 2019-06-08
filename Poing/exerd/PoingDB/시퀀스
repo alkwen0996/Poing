@@ -16,3 +16,31 @@ ALTER TABLE owner
 		REFERENCES restaurant (
 			rest_seq
 		);
+		
+		
+		
+
+/* 레스토랑 이미지 */
+CREATE TABLE rest_img (
+	ri_seq NUMBER NOT NULL, /* 레스토랑 이미지 번호 */
+	rest_seq NUMBER, /* 레스토랑 코드번호 */
+	rest_img VARCHAR(100) /* 이미지 경로 */
+);
+
+ALTER TABLE rest_img
+	ADD
+		CONSTRAINT PK_rest_img
+		PRIMARY KEY (
+			ri_seq
+		);
+		
+
+ALTER TABLE rest_img
+	ADD
+		CONSTRAINT FK_restaurant_TO_rest_img
+		FOREIGN KEY (
+			rest_seq
+		)
+		REFERENCES restaurant (
+			rest_seq
+		);

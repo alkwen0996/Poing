@@ -12,7 +12,7 @@
 				<div id="nav_shading" class="shading_bg scroll_enable"></div>
 				<!-- logo section -->
 				<a id="nav_logo" href="/Poing/main.do"><img class="logo"
-					src="http://c1.poing.co.kr/original/images/logo.png"></a>
+					src="/Poing/upload/icon/logo.png"></a>
 
 				<div id="nav_city">
 					<span>서울 / 수도권</span> <i class="icon"></i>

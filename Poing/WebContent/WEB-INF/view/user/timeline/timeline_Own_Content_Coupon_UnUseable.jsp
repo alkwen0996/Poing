@@ -24,7 +24,7 @@
 		</thead>
 
 		<tbody>
-			<c:forEach items="${list2}" var="dto" varStatus="status">
+			<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
 				<tr>
 					<td class="order"><span class="date">예약일<br>${dto.c_date}</span>
 						<span class="id">369496</span></td>

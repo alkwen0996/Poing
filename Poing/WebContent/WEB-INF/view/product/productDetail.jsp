@@ -27,6 +27,7 @@
 </head>
 <%
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
+	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
 	MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 	int member_num = 0;
 	if(mdto==null) member_num = 0;
@@ -153,10 +154,10 @@
 						</li>
 					</ul>
 					<script type="text/javascript">
-						$("#content > ul > li.${param.tab ne null ? param.tab : info}").addClass("selected");
+						$("#content > ul > li.${param.tab ne null ? param.tab : 'info'}").addClass("selected");
 					</script>
 					<c:choose>
-						<c:when test="${ param.tab eq 'info' }">
+						<c:when test="${ param.tab eq null || param.tab eq 'info' }">
 							<%
 								System.out.println("info");
 							%>
@@ -324,30 +325,7 @@
 									}
 								});
 					</script>
-					<div id="recommend_coupon" class="sidebar">
-						<div class="title">이 달의 추천 티켓</div>
-						<ul class="list">
-							<li class="item"><a class="i_wrap"
-								href="/product/detail/4944"> <i
-									class="image border_radius soft"
-									style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxOTAy/15498688985c611f62da01c.png)"></i>
-							</a>
-								<div class="desc">
-									<div class="name">라쿠치나</div>
-									<div class="comment">29주년 기념 선셋 프로모션</div>
-								</div></li>
-							<li class="item"><a class="i_wrap"
-								href="/product/detail/5420"> <i
-									class="image border_radius soft"
-									style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxOTAz/15528738755c8ef99368d99.png)"></i>
-							</a>
-								<div class="desc">
-									<div class="name">부아</div>
-									<div class="comment">타이퀴진 마니아를 위한 태국 북부&amp;남부 음식</div>
-								</div></li>
-						</ul>
-						<a href="/seoul/product/list">티켓 더보기</a>
-					</div>
+					<jsp:include page="/WEB-INF/view/slideBar/Slidebar_Coupon.jsp"></jsp:include>
 				</div>
 			</div>
 		</div>

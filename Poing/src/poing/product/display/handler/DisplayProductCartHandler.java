@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import jdk.nashorn.api.scripting.JSObject;
 import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
 import poing.product.ProductDTO;

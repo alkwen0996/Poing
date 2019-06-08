@@ -15,11 +15,11 @@ public class ProductPayService {
 	public List<RefundTicketDTO> selectReserva_tic() {
 		PointHistoryDTO rdto = new PointHistoryDTO();
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			List<RefundTicketDTO> list1 = ProductDetailDAO.selectReserva_tic(conn);
+			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn);
 			// 로그 처리
 			// 
 			//
-			return list1;
+			return list;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

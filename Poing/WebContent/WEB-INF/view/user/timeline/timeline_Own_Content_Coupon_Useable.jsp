@@ -15,7 +15,7 @@
 			사용한 티켓</a>
 	</div>
 	<% 
-	ArrayList<RefundTicketDTO> list = (ArrayList<RefundTicketDTO>) request.getAttribute("list1");
+	ArrayList<RefundTicketDTO> list = (ArrayList<RefundTicketDTO>) request.getAttribute("rev_tic_list");
 	Iterator<RefundTicketDTO> ir = list.iterator();
 	while (ir.hasNext()) {
 		RefundTicketDTO refundTicketDTO = (RefundTicketDTO) ir.next();
@@ -33,7 +33,7 @@
 		</thead>
 
 		<tbody>
-			<c:forEach items="${list1}" var="dto" varStatus="status">
+			<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
 				<tr>
 					<td class="info"><a href="/product/detail/5468"> <i
 							class="image" style="background-image:url(${dto.photo_img});"></i>

@@ -28,6 +28,16 @@ public class DisplayProductDetailService {
 		}
 	}
 	
+	public ProductDTO selectProductDetail(int p_num) {
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			ProductDTO dto = ProductDetailDAO.selectProductDetail(conn, p_num);
+			
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public PointHistoryDTO selectRownum() {
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	

@@ -212,7 +212,7 @@ public class ProductDetailDAO {
 				pstmt.setInt(1, reserva_tic_seq);
 				result = pstmt.executeUpdate()==0? false:true;
 				if(result) {
-					String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,차감된금액  ?,sysdate,'티켓을 환불했습니다.',?)";
+					String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval, ?,sysdate,'티켓을 환불했습니다.',?)";
 					pstmt2 = conn.prepareStatement(sql2);
 					pstmt2.setInt(1, m_no);
 					pstmt2.setString(2, totalmoney);
@@ -354,6 +354,43 @@ public class ProductDetailDAO {
 	}
 	
 	
+	public static ProductDTO selectProductDetail(Connection conn, int p_num){
+		String sql = " select * from tic_menu_info m join tic_use_case c on m.p_num = c.p_num join tic_guideInfo g on g.p_num = m.p_num join tic_validate v on v.p_num = m.p_num join tic_cancel_change h on h.p_num = m.p_num where m.p_num = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, p_num);
+			rs = pstmt.executeQuery();
+			
+			dto = new ProductDTO();
+			rs.next();
+			dto.setTic_menu_info_content(rs.getString("tic_menu_info_content"));
+			dto.setTicg_content(rs.getString("ticg_content"));
+			dto.setTic_validate_content(rs.getString("tic_validate_content"));
+			dto.setTic_cancel_content(rs.getString("tic_cancel_content"));
+			dto.setTic_use_case_content(rs.getString("tic_use_case_content"));
+			dto.setTic_use_case_title(rs.getString("tic_use_case_title"));
+			dto.setTic_cancel_change_title(rs.getString("tic_cancel_change_title"));
+			dto.setTic_validate_title(rs.getString("tic_validate_title"));
+			dto.setTicg_title(rs.getString("ticg_title"));
+			dto.setTic_menu_info_title(rs.getString("tic_menu_info_title"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return dto;	
+	}
 	public ProductDTO selectdisplay(Connection conn, int p_num){
 		String sql = " select * from p_product p join editer_review e on p.e_seq = e.e_seq join product_img i on p.img_seq = i.img_seq join p_restaurant r on r.p_num = p.p_num where p.p_num = ? ";
 		PreparedStatement pstmt = null;
@@ -386,16 +423,7 @@ public class ProductDetailDAO {
 				dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
 				dto.setP_dc_money(rs.getInt("p_dc_money"));
-//				dto.setP_content_1(rs.getString("p_content_1"));
-//				dto.setP_content_2(rs.getString("p_content_2"));
-//				dto.setP_content_3(rs.getString("p_content_3"));
-//				dto.setP_content_4(rs.getString("p_content_4"));
-//				dto.setP_content_5(rs.getString("p_content_5"));
-//				dto.setMenu_info_title(rs.getString("menu_info_title"));
-//				dto.setP_use_time_title(rs.getString("p_use_time_title"));
-//				dto.setAdvice_title(rs.getString("advice_title"));
-//				dto.setCancel_change_title(rs.getString("cancel_change_title"));
-//				dto.setUse_case_title(rs.getString("use_case_title"));
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

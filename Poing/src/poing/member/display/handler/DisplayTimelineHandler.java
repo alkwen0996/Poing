@@ -13,10 +13,7 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
-import poing.news_notice.NewsDTO;
-import poing.news_notice.NoticeDTO;
 import poing.product.RefundTicketDTO;
-import poing.product.PointHistoryDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 import poing.rest.RestTimlineReserveDTO;
@@ -29,17 +26,6 @@ public class DisplayTimelineHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ProductPayService service = new ProductPayService();
 		DisplayProductDetailService service2 = new DisplayProductDetailService();
-
-//		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
-//		request.setAttribute("list1", list1);
-		List<RefundTicketDTO> list1 = service.selectReserva_tic();//환불 하기
-		request.setAttribute("list1", list1);
-		
-		List<RefundTicketDTO> list2 = service2.selectRefund_tic();//환불 되고나서
-		request.setAttribute("list2", list2);
-		
-		
-		//////////////////////////////////////////////////////////////////////
 		
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
@@ -84,11 +70,11 @@ public class DisplayTimelineHandler implements CommandHandler {
 			{
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
 				return null;
+			}else {
+			ProductPayService service5 = new ProductPayService();
+			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
+			request.setAttribute("rev_tic_list", rev_tic_list);
 			}
-//			ProductPayService service5 = new ProductPayService();
-//			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
-//			request.setAttribute("rev_tic_list", rev_tic_list);
-			
 		}
 		else if (tab.equals("review"))
 		{
@@ -130,8 +116,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 			{
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
 				return null;
+			}else {
+			List<RefundTicketDTO> payment_list = service2.selectRefund_tic();//환불 되고나서
+			request.setAttribute("payment_list", payment_list);
 			}
-			
 			
 		}
 		else if (tab.equals("friends"))

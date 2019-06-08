@@ -440,5 +440,16 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	public boolean updateMemberLeave(Connection conn, int m_no) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE member SET m_leavedate = sysdate ");
+		sql.append(" WHERE m_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, m_no);
+		
+		result = pstmt.executeUpdate()==0?false:true;
+		return result;
+	}
 }// class
 

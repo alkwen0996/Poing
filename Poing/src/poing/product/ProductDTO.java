@@ -30,77 +30,79 @@ public class ProductDTO {
 	private String message;
 	private int op_price;
 	private String c_date;
-	private String p_content_1;
-	private String p_content_2;
-	private String p_content_3;
-	private String p_content_4;
-	private String p_content_5;
-	private String menu_info_title;
-	private String p_use_time_title;
-	private String advice_title;
-	private String cancel_change_title;
-	private String use_case_title;
+	private String tic_menu_info_content;
+	private String ticg_content;
+	private String tic_validate_content;
+	private String tic_cancel_content;
+	private String tic_use_case_content;
+	private String tic_use_case_title;
+	private String tic_cancel_change_title;
+	private String tic_validate_title;
+	private String ticg_title;
+	private String tic_menu_info_title;
 	
-	public String getMenu_info_title() {
-		return menu_info_title;
-	}
-	public void setMenu_info_title(String menu_info_title) {
-		this.menu_info_title = menu_info_title;
-	}
-	public String getP_content_1() {
-		return p_content_1;
-	}
-	public void setP_content_1(String p_content_1) {
-		this.p_content_1 = p_content_1;
-	}
-	public String getP_content_2() {
-		return p_content_2;
-	}
-	public void setP_content_2(String p_content_2) {
-		this.p_content_2 = p_content_2;
-	}
-	public String getP_content_3() {
-		return p_content_3;
-	}
-	public void setP_content_3(String p_content_3) {
-		this.p_content_3 = p_content_3;
-	}
-	public String getP_content_4() {
-		return p_content_4;
-	}
-	public void setP_content_4(String p_content_4) {
-		this.p_content_4 = p_content_4;
-	}
-	public String getP_content_5() {
-		return p_content_5;
-	}
-	public void setP_content_5(String p_content_5) {
-		this.p_content_5 = p_content_5;
-	}
 	
-	public String getP_use_time_title() {
-		return p_use_time_title;
+	
+	
+	public String getTic_menu_info_content() {
+		return tic_menu_info_content;
 	}
-	public void setP_use_time_title(String p_use_time_title) {
-		this.p_use_time_title = p_use_time_title;
+	public void setTic_menu_info_content(String tic_menu_info_content) {
+		this.tic_menu_info_content = tic_menu_info_content;
 	}
-	public String getAdvice_title() {
-		return advice_title;
+	public String getTicg_content() {
+		return ticg_content;
 	}
-	public void setAdvice_title(String advice_title) {
-		this.advice_title = advice_title;
+	public void setTicg_content(String ticg_content) {
+		this.ticg_content = ticg_content;
 	}
-	public String getCancel_change_title() {
-		return cancel_change_title;
+	public String getTic_validate_content() {
+		return tic_validate_content;
 	}
-	public void setCancel_change_title(String cancel_change_title) {
-		this.cancel_change_title = cancel_change_title;
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
 	}
-	public String getUse_case_title() {
-		return use_case_title;
+	public String getTic_cancel_content() {
+		return tic_cancel_content;
 	}
-	public void setUse_case_title(String use_case_title) {
-		this.use_case_title = use_case_title;
+	public void setTic_cancel_content(String tic_cancel_content) {
+		this.tic_cancel_content = tic_cancel_content;
+	}
+	public String getTic_use_case_content() {
+		return tic_use_case_content;
+	}
+	public void setTic_use_case_content(String tic_use_case_content) {
+		this.tic_use_case_content = tic_use_case_content;
+	}
+	public String getTic_use_case_title() {
+		return tic_use_case_title;
+	}
+	public void setTic_use_case_title(String tic_use_case_title) {
+		this.tic_use_case_title = tic_use_case_title;
+	}
+	public String getTic_cancel_change_title() {
+		return tic_cancel_change_title;
+	}
+	public void setTic_cancel_change_title(String tic_cancel_change_title) {
+		this.tic_cancel_change_title = tic_cancel_change_title;
+	}
+	public String getTic_validate_title() {
+		return tic_validate_title;
+	}
+	public void setTic_validate_title(String tic_validate_title) {
+		this.tic_validate_title = tic_validate_title;
+	}
+	public String getTicg_title() {
+		return ticg_title;
+	}
+	public void setTicg_title(String ticg_title) {
+		this.ticg_title = ticg_title;
+	}
+	public String getTic_menu_info_title() {
+		return tic_menu_info_title;
+	}
+	public void setTic_menu_info_title(String tic_menu_info_title) {
+		this.tic_menu_info_title = tic_menu_info_title;
 	}
 	public String getOp_name() {
 		return op_name;

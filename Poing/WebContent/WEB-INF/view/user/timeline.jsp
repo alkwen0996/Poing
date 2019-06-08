@@ -2,35 +2,39 @@
 <%@page import="poing.review.display.service.DisplayReviewService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<style>
-
-#pointCharge{
-display: inline-block;
-background-color: #c91b3c;
-color: #ffffff;
-padding: 3px 8px;
-    border-radius: 7px;
-    margin-left: 10px;
-
-}
-</style>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
-
+	
+	<style type="text/css">
+	.pointCharge{
+	    display: inline-block;
+    font-size: 16px;
+    background: #c91b3c;
+    padding: 3px 8px;
+    border-radius: 7px;
+    margin-left: 10px;
+    cursor: pointer;
+    vertical-align: middle;
+	}
+	
+	</style>
+	
 	<style>
 		<%@include file="/css/style.css" %>
 		<%@include file="/css/poing.slider.css" %>
+		
 	</style>
 	
 	<script type="text/javascript" 
         src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/main.js"></script>
+		src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/slider.js"></script>
+		src="<%=request.getContextPath()%>/js/main.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/slider.js"></script>
 	<meta charset="UTF-8">
 	<title>
 		Poing - ${ mdto.m_name }님의 담벼락입니다.		
@@ -130,8 +134,8 @@ padding: 3px 8px;
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
 							<li class="payment item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
-							<li class="friends item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li>
+							<%-- <li class="friends item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li> --%>
 							<li class="setting item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
@@ -202,19 +206,20 @@ padding: 3px 8px;
 								</c:choose>
 							</c:when>
 							
-							<%-- tab=payment 이라면  아직 미구현--%>
+							<%-- tab=payment 이라면--%>
 							
 							<c:when test="${ param.tab eq 'payment'}">
-								<c:when test="${ param.type eq null || param.type eq 'my'}">
-									<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
-								</c:when>
+								 <c:choose>
+									<c:when test="${ param.type eq null || param.type eq 'my'}">
+										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
+									</c:when>
+									
+<%-- 									<c:otherwise> --%>
+<%-- 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include> --%>
+<%-- 									</c:otherwise> --%>
+								</c:choose> --
 							</c:when>
 							
-							<%-- tab=friends 이라면--%>
-							<c:when test="${ param.tab eq 'friends'}">
-								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Friend.jsp"></jsp:include>
-							</c:when>
-
 							<%-- tab=setting 이라면--%>
 
 							<c:when test="${ param.tab eq 'setting'}">
@@ -301,7 +306,6 @@ padding: 3px 8px;
 	
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/popup_wrap_rest.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	
 </div> <!-- wrap end -->

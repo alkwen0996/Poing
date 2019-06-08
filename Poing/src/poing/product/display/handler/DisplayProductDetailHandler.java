@@ -16,6 +16,10 @@ public class DisplayProductDetailHandler implements CommandHandler {
 		try {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			int p_num = Integer.parseInt(request.getParameter("p_num"));
+			
+			ProductDTO dto2 = service.selectProductDetail(p_num);
+			request.setAttribute("dto2", dto2);
+			
 			ProductDTO dto = service.select(p_num);
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 			int member_num;

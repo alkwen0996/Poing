@@ -1,4 +1,4 @@
-
+/* css */
 .ui-helper-reset,
 .ui-menu {
   outline: 0;
@@ -4935,7 +4935,7 @@ div#header {
   color: #fff
 }
 
-#banner.timeline>.inner_wrap>.inner>.name>button {
+#banner > div.inner_wrap > div > div.name > button {
   width: 70px;
   height: 27px;
   padding: 0 8px;
@@ -4947,26 +4947,26 @@ div#header {
   font-size: 0
 }
 
-#banner.timeline>.inner_wrap>.inner>.name>button.on {
+#banner > div.inner_wrap > div > div.name > button.on {
   background: #c91b3c;
   border: 1px solid #c91b3c
 }
 
-#banner.timeline>.inner_wrap>.inner>.name>button>* {
+#banner > div.inner_wrap > div > div.name > button>* {
   vertical-align: middle
 }
 
-#banner.timeline>.inner_wrap>.inner>.name>button>i {
+#banner > div.inner_wrap > div > div.name > button>i {
   background-position: -708px -124px;
   width: 16px;
   height: 16px
 }
 
-#banner.timeline>.inner_wrap>.inner>.name>button>i.on {
+#banner > div.inner_wrap > div > div.name > button>i.on {
   background-position: -733px -125px
 }
 
-#banner.timeline>.inner_wrap>.inner>.name>button>span {
+#banner > div.inner_wrap > div > div.name > button>span {
   font-size: 11px
 }
 

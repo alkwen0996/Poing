@@ -130,7 +130,16 @@
 
   function w(e, t, n) {
       var r, i, o, s, a = e.style;
-      return n = n || _e(e), n && (s = n.getPropertyValue(t) || n[t]), n && ("" !== s || Z.contains(e.ownerDocument, e) || (s = Z.style(e, t)), Be.test(s) && Ie.test(t) && (r = a.width, i = a.minWidth, o = a.maxWidth, a.minWidth = a.maxWidth = a.width = s, s = n.width, a.width = r, a.minWidth = i, a.maxWidth = o)), void 0 !== s ? s + "" : s
+      return n = n || _e(e), n && (s = n.getPropertyValue(t) || n[t]),
+      			n && ("" !== s || Z.contains(e.ownerDocument, e) || (s = Z.style(e, t)),
+      			Be.test(s) && Ie.test(t) && 
+      				(r = a.width, i = a.minWidth, 
+    				  o = a.maxWidth, 
+    				  a.minWidth = a.maxWidth = a.width = s,
+    				  s = n.width, a.width = r, 
+    				  a.minWidth = i, 
+    				  a.maxWidth = o)), 
+    				  void 0 !== s ? s + "" : s
   }
 
   function T(e, t) {
@@ -16464,7 +16473,15 @@ PoingSlider.Create = function(i) {
 };
 
 function PoingUploader(e) {
-  return arguments.callee.caller != PoingUploader.Create ? (console.error("[PoingUploader]", "should be created by only PoingUploader.Create"), null) : (this.option = e, this.files = [], this.uploader = document.createElement("iframe"), $(this.uploader).attr("src", this.option.iframe_src), $(this.uploader).attr("style", "display:none;"), void document.body.appendChild(this.uploader))
+  return arguments.callee.caller != PoingUploader.Create ?
+		  (console.error("[PoingUploader]", "should be created by only PoingUploader.Create"), null) :(
+			  this.option = e, 
+			  this.files = [], 
+			  this.uploader = document.createElement("iframe"), 
+			  $(this.uploader).attr("src", this.option.iframe_src), 
+			  $(this.uploader).attr("style", "display:none;"), 
+			  void document.body.appendChild(this.uploader)
+		  )
 }
 PoingUploader.Create = function(e) {
   var t = {
@@ -16478,7 +16495,9 @@ PoingUploader.Create = function(e) {
   return new PoingUploader(o)
 }, PoingUploader.addFileToUploader = function() {
   var e = this.uploader.contentDocument || this.uploader.contentWindow.document,
-      t = (e.getElementById(this.option.form_id), e.getElementById(this.option.input_id), e.getElementById(this.option.file_id));
+      t = (e.getElementById(this.option.form_id), 
+		   e.getElementById(this.option.input_id), 
+		   e.getElementById(this.option.file_id));
   null != t ? (this.files.push({
       file_type: $(t).attr("file_type"),
       file_data: $(t).attr("file_data")

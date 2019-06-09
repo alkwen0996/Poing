@@ -16,13 +16,13 @@ public class WriteReviewService {
 
 	public int writeReview(ReviewDTO rdto) throws WriteReviewError {
 		System.out.println("WriteReviewService");
-		ReviewDAO dao = ReviewDAO.getInstance();
+		ReviewDAO dao = new ReviewDAO();
 		Connection conn = null;
 
 		try {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
-			int insertedCount = dao.writeReview(conn, rdto);
+			int insertedCount = dao.insertReview(conn, rdto);
 			conn.commit();
 			conn.close();
 			return insertedCount;

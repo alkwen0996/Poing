@@ -28,7 +28,7 @@ public class DisplayProductListHandler implements CommandHandler {
 		
 		Paging paging = new Paging();
 		//paging.setPageNo(pageNo);\
-		paging.setCpage(cpage);
+		paging.setCurPage(cpage);
 		paging.setPageSize(12);
 		paging.setTotalCount(totalCount);
 		paging.setStartPageNo(startPageNo);
@@ -39,7 +39,6 @@ public class DisplayProductListHandler implements CommandHandler {
 		try {
 			DisplayProductListService service = new DisplayProductListService();
 			List<ProductDTO> list = service.select(cpage);
-			System.out.println(list);
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 		} catch (Exception e) { 

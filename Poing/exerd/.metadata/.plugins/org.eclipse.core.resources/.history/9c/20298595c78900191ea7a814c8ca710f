@@ -1,0 +1,44 @@
+에디터 리뷰는 레스토랑에 종속되며 티켓과 종속을 끊고 레스토랑과 참조
+
+에디터(관리자)접속용 테이블 생성
+
+/* 에디터리뷰 */
+CREATE TABLE editer_review (
+	er_seq NUMBER NOT NULL, /* 에디터 리뷰 코드번호 */
+	e_seq NUMBER, /* 에디터 코드번호 */
+	er_content VARCHAR2(1000), /* 에디터 리뷰 콘텐트 */
+	rest_seq NUMBER /* 레스토랑 코드번호 */
+);
+
+ALTER TABLE editer_review
+	ADD
+		CONSTRAINT PK_editer_review
+		PRIMARY KEY (
+			er_seq
+		);
+
+/* 에디터(관리자) */
+CREATE TABLE editer (
+	e_seq NUMBER NOT NULL, /* 에디터 코드번호 */
+	e_id VARCHAR2(100) NOT NULL, /* 에디터 아이디 */
+	e_pw VARCHAR2(200) NOT NULL, /* 에디터 비밀번호 */
+	e_name VARCHAR2(100) NOT NULL, /* 에디터 이름 */
+	e_img VARCHAR2(200) /* 에디터 사진 */
+);
+
+ALTER TABLE editer
+	ADD
+		CONSTRAINT PK_editer
+		PRIMARY KEY (
+			e_seq
+		);
+
+ALTER TABLE editer_review
+	ADD
+		CONSTRAINT FK_editer_TO_editer_review
+		FOREIGN KEY (
+			e_seq
+		)
+		REFERENCES editer (
+			e_seq
+		);

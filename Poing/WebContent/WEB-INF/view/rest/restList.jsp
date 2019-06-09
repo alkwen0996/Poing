@@ -1,15 +1,11 @@
 <%@page import="poing.rest.RestListDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="poing.rest.RestListDAO"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel='stylesheet' type='text/css'
-	href='<%=request.getContextPath()%>/css/app.css?v=1557742885314'>
 <style>
 <%@include file="/css/style.css"%> 
 </style> 
@@ -21,8 +17,6 @@
 	src="<%=request.getContextPath()%>/js/slider.js"></script>
 <meta charset="UTF-8">
 <title>Poing 레스토랑 리스트 테스트</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="">
 <style>
  #map {
@@ -36,7 +30,6 @@
 </head>
 <% 
 	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("list");
-	System.out.println("restList.jsp list : " + list);
 	int size = list.size();
 	
 	StringBuffer sb = new StringBuffer();
@@ -82,7 +75,6 @@
 		}	
 	}
 	sb.append("] ");
-	System.out.println(sb.toString());
 	
 %>
 <body>

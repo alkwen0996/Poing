@@ -11,5 +11,7 @@
 </div>
 
 <script>
-
+$(".buttons>.deny").click(function() {
+	location.href="/Poing/product/productCart.do";
+});
 </script>

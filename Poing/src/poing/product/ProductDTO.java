@@ -2,6 +2,7 @@ package poing.product;
 
 public class ProductDTO {
 	
+	private int rest_seq;
 	private int p_num;
 	private String r_type;
 	private String rest_name;
@@ -21,18 +22,27 @@ public class ProductDTO {
 	private String p_st_ed_date;
 	private int pick;
 	private int p_min_count;
-    private int p_min_Personnel;
-    private int cart_seq;
-    private String op_name;
-    private int op_cnt;
-    private int party_size;
-    private String message;
-    private int op_price;
-    private String c_date;
     private int op_min_cnt;
     private int op_max_cnt;
     private int op_seq;
-    
+    private int p_min_Personnel;
+	private int cart_seq;
+	private String op_name;
+	private int op_cnt;
+	private int party_size;
+	private String message;
+	private int op_price;
+	private String c_date;
+	private String tic_menu_info_content;
+	private String ticg_content;
+	private String tic_validate_content;
+	private String tic_cancel_content;
+	private String tic_use_case_content;
+	private String tic_use_case_title;
+	private String tic_cancel_change_title;
+	private String tic_validate_title;
+	private String ticg_title;
+	private String tic_menu_info_title;
     
     
     public int getOp_seq() {
@@ -52,6 +62,133 @@ public class ProductDTO {
 	}
 	public void setOp_max_cnt(int op_max_cnt) {
 		this.op_max_cnt = op_max_cnt;
+
+	public String getTic_menu_info_content() {
+		return tic_menu_info_content;
+	}
+	public void setTic_menu_info_content(String tic_menu_info_content) {
+		this.tic_menu_info_content = tic_menu_info_content;
+	}
+	public String getTicg_content() {
+		return ticg_content;
+	}
+	public void setTicg_content(String ticg_content) {
+		this.ticg_content = ticg_content;
+	}
+	public String getTic_validate_content() {
+		return tic_validate_content;
+	}
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
+	}
+	public String getTic_cancel_content() {
+		return tic_cancel_content;
+	}
+	public void setTic_cancel_content(String tic_cancel_content) {
+		this.tic_cancel_content = tic_cancel_content;
+	}
+	public String getTic_use_case_content() {
+		return tic_use_case_content;
+	}
+	public void setTic_use_case_content(String tic_use_case_content) {
+		this.tic_use_case_content = tic_use_case_content;
+	}
+	public String getTic_use_case_title() {
+		return tic_use_case_title;
+	}
+	public void setTic_use_case_title(String tic_use_case_title) {
+		this.tic_use_case_title = tic_use_case_title;
+	}
+	public String getTic_cancel_change_title() {
+		return tic_cancel_change_title;
+	}
+	public void setTic_cancel_change_title(String tic_cancel_change_title) {
+		this.tic_cancel_change_title = tic_cancel_change_title;
+	}
+	public String getTic_validate_title() {
+		return tic_validate_title;
+	}
+	public void setTic_validate_title(String tic_validate_title) {
+		this.tic_validate_title = tic_validate_title;
+	}
+	public String getTicg_title() {
+		return ticg_title;
+	}
+	public void setTicg_title(String ticg_title) {
+		this.ticg_title = ticg_title;
+	}
+	public String getTic_menu_info_title() {
+		return tic_menu_info_title;
+	}
+	public void setTic_menu_info_title(String tic_menu_info_title) {
+		this.tic_menu_info_title = tic_menu_info_title;
+	}
+	public String getOp_name() {
+		return op_name;
+	}
+	public void setOp_name(String op_name) {
+		this.op_name = op_name;
+	}
+	public int getOp_cnt() {
+		return op_cnt;
+	}
+	public void setOp_cnt(int op_cnt) {
+		this.op_cnt = op_cnt;
+	}
+	public int getParty_size() {
+		return party_size;
+	}
+	public void setParty_size(int party_size) {
+		this.party_size = party_size;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	public int getOp_price() {
+		return op_price;
+	}
+	public void setOp_price(int op_price) {
+		this.op_price = op_price;
+	}
+	public String getC_date() {
+		return c_date;
+	}
+	public void setC_date(String c_date) {
+		this.c_date = c_date;
+	}
+	public int getCart_seq() {
+		return cart_seq;
+	}
+	public void setCart_seq(int cart_seq) {
+		this.cart_seq = cart_seq;
+	}
+	public int getP_min_count() {
+		return p_min_count;
+	}
+	public void setP_min_count(int p_min_count) {
+		this.p_min_count = p_min_count;
+	}
+	public int getP_min_Personnel() {
+		return p_min_Personnel;
+	}
+	public void setP_min_Personnel(int p_min_Personnel) {
+		this.p_min_Personnel = p_min_Personnel;
+	}
+	
+	public int getRest_seq() {
+		return rest_seq;
+	}
+	public void setRest_seq(int rest_seq) {
+		this.rest_seq = rest_seq;
+	}
+	public String getP_st_ed_date() {
+		return p_st_ed_date;
+	}
+	public void setP_st_ed_date(String p_st_ed_date) {
+		this.p_st_ed_date = p_st_ed_date;
 	}
 	public int getP_num() {
 		return p_num;
@@ -150,73 +287,11 @@ public class ProductDTO {
 	public void setEditer_img(String editer_img) {
 		this.editer_img = editer_img;
 	}
-	public String getP_st_ed_date() {
-		return p_st_ed_date;
-	}
-	public void setP_st_ed_date(String p_st_ed_date) {
-		this.p_st_ed_date = p_st_ed_date;
-	}
+	
 	public int getPick() {
 		return pick;
 	}
 	public void setPick(int pick) {
 		this.pick = pick;
 	}
-	public int getP_min_count() {
-		return p_min_count;
-	}
-	public void setP_min_count(int p_min_count) {
-		this.p_min_count = p_min_count;
-	}
-	public int getP_min_Personnel() {
-		return p_min_Personnel;
-	}
-	public void setP_min_Personnel(int p_min_Personnel) {
-		this.p_min_Personnel = p_min_Personnel;
-	}
-	public int getCart_seq() {
-		return cart_seq;
-	}
-	public void setCart_seq(int cart_seq) {
-		this.cart_seq = cart_seq;
-	}
-	public String getOp_name() {
-		return op_name;
-	}
-	public void setOp_name(String op_name) {
-		this.op_name = op_name;
-	}
-	public int getOp_cnt() {
-		return op_cnt;
-	}
-	public void setOp_cnt(int op_cnt) {
-		this.op_cnt = op_cnt;
-	}
-	public int getParty_size() {
-		return party_size;
-	}
-	public void setParty_size(int party_size) {
-		this.party_size = party_size;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	public int getOp_price() {
-		return op_price;
-	}
-	public void setOp_price(int op_price) {
-		this.op_price = op_price;
-	}
-	public String getC_date() {
-		return c_date;
-	}
-	public void setC_date(String c_date) {
-		this.c_date = c_date;
-	}
-	
-	
-	
 }

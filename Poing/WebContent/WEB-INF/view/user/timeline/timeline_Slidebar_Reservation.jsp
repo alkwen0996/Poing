@@ -1,167 +1,64 @@
+<%@page import="poing.rest.RestTimlineReserveDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+		<%@include file="/fullcalendar/packages/core/main.css" %>
+		<%@include file="/fullcalendar/packages/daygrid/main.css" %>
+</style>
+<script src='fullcalendar/packages/core/main.js'></script>
+<script src='fullcalendar/packages/daygrid/main.js'></script>
+<script src='fullcalendar/packages/core/locales-all.js'></script>
 
-<div id="reservation_calendar" class="sidebar">
-		<div class="title">예약 캘린더</div>
-		<div class="calendar hasDatepicker" id="dp1558673024945">
-			<div
-				class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
-				style="display: block;">
-				<div
-					class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-					<a class="ui-datepicker-prev ui-corner-all" data-handler="prev"
-						data-event="click" title="Prev"><span
-						class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a
-						class="ui-datepicker-next ui-corner-all" data-handler="next"
-						data-event="click" title="Next"><span
-						class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-					<div class="ui-datepicker-title">
-						<span class="ui-datepicker-month">5월</span>&nbsp;<span
-							class="ui-datepicker-year">2019</span>
-					</div>
-				</div>
-				<table class="ui-datepicker-calendar">
-					<thead>
-						<tr>
-							<th class="ui-datepicker-week-end"><span title="Sunday">일</span></th>
-							<th><span title="Monday">월</span></th>
-							<th><span title="Tuesday">화</span></th>
-							<th><span title="Wednesday">수</span></th>
-							<th><span title="Thursday">목</span></th>
-							<th><span title="Friday">금</span></th>
-							<th class="ui-datepicker-week-end"><span title="Saturday">토</span></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td
-								class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled date-sunday"><span
-								class="ui-state-default">28</span></td>
-							<td
-								class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled "><span
-								class="ui-state-default">29</span></td>
-							<td
-								class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled "><span
-								class="ui-state-default">30</span></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">1</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">2</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">3</a></td>
-							<td class=" ui-datepicker-week-end date-saturday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">4</a></td>
-						</tr>
-						<tr>
-							<td class=" ui-datepicker-week-end date-sunday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">5</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">6</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">7</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">8</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">9</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">10</a></td>
-							<td class=" ui-datepicker-week-end date-saturday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">11</a></td>
-						</tr>
-						<tr>
-							<td class=" ui-datepicker-week-end date-sunday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">12</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">13</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">14</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">15</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">16</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">17</a></td>
-							<td class=" ui-datepicker-week-end date-saturday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">18</a></td>
-						</tr>
-						<tr>
-							<td class=" ui-datepicker-week-end date-sunday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">19</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">20</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">21</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">22</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">23</a></td>
-							<td
-								class=" ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a
-								class="ui-state-default ui-state-highlight ui-state-active ui-state-hover"
-								href="#">24</a></td>
-							<td class=" ui-datepicker-week-end date-saturday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">25</a></td>
-						</tr>
-						<tr>
-							<td class=" ui-datepicker-week-end date-sunday"
-								data-handler="selectDay" data-event="click" data-month="4"
-								data-year="2019"><a class="ui-state-default" href="#">26</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">27</a></td>
-							<td class=" " data-handler="selectDay" data-event="click"
-								data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">28</a></td>
-							<td class=" date-recentReserve" data-handler="selectDay"
-								data-event="click" data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">29</a></td>
-							<td class=" date-recentReserve" data-handler="selectDay"
-								data-event="click" data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">30</a></td>
-							<td class=" date-recentReserve" data-handler="selectDay"
-								data-event="click" data-month="4" data-year="2019"><a
-								class="ui-state-default" href="#">31</a></td>
-							<td
-								class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled date-saturday"><span
-								class="ui-state-default">1</span></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="desc">
-			<span class="recent"></span> <span class="text margin">방문 예정</span>
-			<span class="past"></span> <span class="text">지나간 예약</span> <span
-				class="coupon"></span> <span class="text">티켓 사용</span>
-		</div>
-	</div>
+<%
+ArrayList<RestTimlineReserveDTO> list = (ArrayList<RestTimlineReserveDTO>)request.getAttribute("reserve_list");
+String reserveDate = "";
+for( int i=0 ; i<list.size(); i++) {
+	if(i==0) reserveDate += "{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
+	else reserveDate += ",{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
+}
+
+%>
+<script>
+<%-- 
+document.addEventListener('DOMContentLoaded', function() {
+	  var calendarEl = document.getElementById('calendar_created');
+
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    plugins: [ 'dayGrid' ],
+	    locale: 'ko',	    
+	    header: {
+	      left: 'prev',
+	      center: 'title',
+	      right: 'next'
+	    },
+	    formatdate: {
+	    	day: 'dd'
+	    },
+	    events: [
+	    	<%=reserveDate%>
+	    ]
+	    
+	    
+	  });
+	  
+	  calendar.render();
+	});
+ --%>	
+/* 
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar_created');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      }); */
+
+</script>
+<div id='calendar_created'></div>
 
 <script>
 $(document).ready(function(){
@@ -206,5 +103,36 @@ $(document).ready(function(){
             }, this)
         });
     });
+    //
+    var calendarEl = document.getElementById('calendar_created');
+
+	  var calendar = new FullCalendar.Calendar(calendarEl, {
+	    plugins: [ 'dayGrid' ],
+	    locale: 'ko',	    
+	    header: {
+	      left: 'prev',
+	      center: 'title',
+	      right: 'next'
+	    },
+	    formatdate: {
+	    	day: 'dd'
+	    },
+	    events: [
+	    	<%=reserveDate%>
+	    ]
+	    
+	    
+	  });
+	  
+	  calendar.render();
+	  $(".fc-day-number").each(function(index,item) {
+		  $(this).text( $(this).text().substring(0, $(this).text().length-1) );  
+	});
+			  
+	$("[type=button]").click(function() {
+		$(".fc-day-number").each(function(index,item) {
+			  $(this).text( $(this).text().substring(0, $(this).text().length-1) );  
+		});
+	});	  										
 });
 </script>

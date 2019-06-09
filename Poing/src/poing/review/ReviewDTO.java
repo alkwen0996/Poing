@@ -2,53 +2,112 @@ package poing.review;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class ReviewDTO {
-	
-	private int rev_seq;
-	private int rest_seq;
+
+	private int rev_no;
+	private int rest_no;
 	private Date rev_wtime;
 	private String rev_content;
-	private int rev_m_seq;
+	private int m_no;
 	private int rev_starpoint;
 	private String rest_name;
 	private String rest_loc;
+	private String rest_img;
 	private String m_name;
 	private String m_img;
 	private int m_ercnt;
 	private int m_revcnt;
-	
-	
-	
+	private int like_cnt;
+	private int pick_cnt;
+	private boolean amIfollow;
+	private boolean amIlike;
+	private boolean amIpick;
+	private int commend_cnt;
+	private CommentDTO cdto;
+	private ArrayList<String> images = null;
+
 	public ReviewDTO() {
 	}
-	public ReviewDTO(HttpServletRequest request) {
-		this.rev_seq = Integer.parseInt(request.getParameter("rev_seq"));
-		this.rest_seq = Integer.parseInt(request.getParameter("rest_seq"));
-		this.rev_content = request.getParameter("rev_content");
-		this.rev_m_seq = Integer.parseInt(request.getParameter("rev_m_seq"));
-		this.rev_starpoint = Integer.parseInt(request.getParameter("rev_starpoint"));
-	}
-	
-	public ReviewDTO(ResultSet rs) throws SQLException {
-		this.rev_seq = rs.getInt("rev_seq");
-		this.rest_seq = rs.getInt("rest_seq");
+
+	public ReviewDTO(ResultSet rs, int m_no) throws SQLException {
+		this.rev_no = rs.getInt("rev_no");
+		this.rest_no = rs.getInt("rest_no");
 		this.rev_content = rs.getString("rev_content");
-		this.rev_m_seq = rs.getInt("rev_m_seq");
+		this.m_no = rs.getInt("m_no");
+		this.rev_wtime = rs.getDate("rev_wtime");
 		this.rev_starpoint = rs.getInt("rev_starpoint");
 		this.rest_name = rs.getString("rest_name");
 		this.rest_loc = rs.getString("rest_loc");
+		this.rest_img = rs.getString("rest_img");
 		this.m_name = rs.getString("m_name");
 		this.m_img = rs.getString("m_img");
 		this.m_ercnt = rs.getInt("m_ercnt");
 		this.m_revcnt = rs.getInt("m_revcnt");
-		this.rev_wtime = rs.getDate("rev_wtime");
+		this.commend_cnt = rs.getInt("commend_cnt");
+		this.like_cnt = rs.getInt("like_cnt");
+		this.pick_cnt = rs.getInt("pick_cnt");
+
+		if(m_no != -1) {
+			this.amIfollow = rs.getInt("amIfollow")==1?true:false;
+			this.amIlike = rs.getInt("amIlike")==1?true:false;
+			this.amIpick = rs.getInt("amIpick")==1?true:false;
+		}
 	}
-	
-	
+	public ReviewDTO(ResultSet rs) throws SQLException {
+		this.rev_no = rs.getInt("rev_no");
+		this.rest_no = rs.getInt("rest_no");
+		this.rev_content = rs.getString("rev_content");
+		this.m_no = rs.getInt("m_no");
+		this.rev_wtime = rs.getDate("rev_wtime");
+		this.rev_starpoint = rs.getInt("rev_starpoint");
+		this.rest_name = rs.getString("rest_name");
+		this.rest_loc = rs.getString("rest_loc");
+		this.rest_img = rs.getString("rest_img");
+		this.m_name = rs.getString("m_name");
+		this.m_img = rs.getString("m_img");
+		this.m_ercnt = rs.getInt("m_ercnt");
+		this.m_revcnt = rs.getInt("m_revcnt");
+		this.like_cnt = rs.getInt("like_cnt");
+		this.commend_cnt = rs.getInt("commend_cnt");
+		this.pick_cnt = rs.getInt("pick_cnt");
+	}
+	public ReviewDTO(ResultSet rs, String type) throws SQLException {
+		this.rev_no = rs.getInt("rev_no");
+		this.rest_no = rs.getInt("rest_no");
+		this.rev_content = rs.getString("rev_content");
+		this.m_no = rs.getInt("m_no");
+		this.rev_wtime = rs.getDate("rev_wtime");
+		this.rev_starpoint = rs.getInt("rev_starpoint");
+		this.rest_name = rs.getString("rest_name");
+		this.rest_loc = rs.getString("rest_loc");
+		this.rest_img = rs.getString("rest_img");
+		this.m_name = rs.getString("m_name");
+		this.m_img = rs.getString("m_img");
+		this.m_ercnt = rs.getInt("m_ercnt");
+		this.m_revcnt = rs.getInt("m_revcnt");
+	}
+	public ReviewDTO(ResultSet rs, String type, int m_no) throws SQLException {
+		if (type.equals("write")) {
+			this.rev_no = rs.getInt("rev_no");
+			this.rest_no = rs.getInt("rest_no");
+			this.rev_content = rs.getString("rev_content");
+			this.rev_wtime = rs.getDate("rev_wtime");
+			this.rev_starpoint = rs.getInt("rev_starpoint");
+			this.rest_name = rs.getString("rest_name");
+			this.rest_loc = rs.getString("rest_loc");
+			this.rest_img = rs.getString("rest_img");
+			this.like_cnt = rs.getInt("like_cnt");
+			this.commend_cnt = rs.getInt("commend_cnt");
+			this.pick_cnt = rs.getInt("pick_cnt");
+			if (m_no != -1) {
+				this.amIlike = rs.getInt("amIlike")==1?true:false;
+				this.amIpick = rs.getInt("amIpick")==1?true:false;
+			}
+		}
+	}
 	public String getRest_name() {
 		return rest_name;
 	}
@@ -73,18 +132,6 @@ public class ReviewDTO {
 	public void setM_ercnt(int m_ercnt) {
 		this.m_ercnt = m_ercnt;
 	}
-	public int getRev_seq() {
-		return rev_seq;
-	}
-	public void setRev_seq(int rev_seq) {
-		this.rev_seq = rev_seq;
-	}
-	public int getRest_seq() {
-		return rest_seq;
-	}
-	public void setRest_seq(int rest_seq) {
-		this.rest_seq = rest_seq;
-	}
 	public Date getRev_wtime() {
 		return rev_wtime;
 	}
@@ -96,12 +143,6 @@ public class ReviewDTO {
 	}
 	public void setRev_content(String rev_content) {
 		this.rev_content = rev_content;
-	}
-	public int getRev_m_seq() {
-		return rev_m_seq;
-	}
-	public void setRev_m_seq(int rev_m_seq) {
-		this.rev_m_seq = rev_m_seq;
 	}
 	public int getRev_starpoint() {
 		return rev_starpoint;
@@ -121,5 +162,83 @@ public class ReviewDTO {
 	public void setM_img(String m_img) {
 		this.m_img = m_img;
 	}
-	
+	public boolean isAmIfollow() {
+		return amIfollow;
+	}
+	public void setAmIfollow(boolean amIfollow) {
+		this.amIfollow = amIfollow;
+	}
+	public int getLike_cnt() {
+		return like_cnt;
+	}
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
+	}
+	public boolean isAmIlike() {
+		return amIlike;
+	}
+	public void setAmIlike(boolean amIlike) {
+		this.amIlike = amIlike;
+	}
+	public int getCommend_cnt() {
+		return commend_cnt;
+	}
+	public void setCommend_cnt(int commend_cnt) {
+		this.commend_cnt = commend_cnt;
+	}
+	public CommentDTO getCdto() {
+		return cdto;
+	}
+	public void setCdto(CommentDTO cdto) {
+		this.cdto = cdto;
+	}
+
+	public int getRev_no() {
+		return rev_no;
+	}
+
+	public void setRev_no(int rev_no) {
+		this.rev_no = rev_no;
+	}
+
+	public int getRest_no() {
+		return rest_no;
+	}
+
+	public void setRest_no(int rest_no) {
+		this.rest_no = rest_no;
+	}
+
+	public int getM_no() {
+		return m_no;
+	}
+
+	public void setM_no(int m_no) {
+		this.m_no = m_no;
+	}
+
+	public ArrayList<String> getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList<String> images) {
+		this.images = images;
+	}
+
+	public int getPick_cnt() {
+		return pick_cnt;
+	}
+
+	public void setPick_cnt(int pick_cnt) {
+		this.pick_cnt = pick_cnt;
+	}
+
+	public boolean isAmIpick() {
+		return amIpick;
+	}
+
+	public void setAmIpick(boolean amIpick) {
+		this.amIpick = amIpick;
+	}
+
 }

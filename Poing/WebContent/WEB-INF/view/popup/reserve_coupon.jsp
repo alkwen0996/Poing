@@ -407,6 +407,7 @@
 		$(
 				"#reserve_coupon div.calendar .ui-datepicker-calendar td:not(.ui-state-disabled):first")
 				.click();
+
 		$("#reserve_coupon>.buttons>.accept").on("click", reservation);
 		// 예약
 		function reservation(e) {
@@ -415,6 +416,7 @@
 			var reserve = $("#reserve_coupon form").get(0);
 			var date = reserve.date.value + " " + reserve.time.value;
 			var mode = $("#mode").val();
+
 			var params = {
 				'date' : date, //날짜
 				'party_size' : reserve.party_size.value, //인원수
@@ -428,6 +430,7 @@
 			'method' : 'POST',
 			'dataType' : 'json',
 			'data' : params,
+
 			'success' : function(res) {
 				if (res) {
 					if (res.status) {

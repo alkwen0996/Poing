@@ -1,3 +1,5 @@
+<%@page import="poing.rest.RestTimlineReserveDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,159 +10,29 @@
 		<a href="/Poing/timeline.do?id=${ param.id }&tab=reservation&type=past" class="">지나간 예약</a>
 	</div>
 	<div class="list">
+		<c:forEach items="${reserve_list}" var="dto" varStatus="status">
 		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/12197"> <i
+			<a class="i_wrap image" href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq }"> <i
 				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/54d2da80d20c7846060003ce.png);"></i>
+				style="background-image: url(https://pbs.twimg.com/media/D1dZVehWwAATF8a.jpg);"></i>
 			</a>
 
 			<div class="info">
 				<div class="name">
-					<a href="/restaurant/detail/12197">딘 타이 펑 (명동중앙점)</a> <span
-						class="label blue border_radius soft">예약 대기</span>
+					<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq }">${dto.rest_name }</a> <span
+						class="label blue border_radius soft">${dto.r_reserve_status}</span>
 				</div>
-				<div class="date">예약정보: 2019.5.29 (수) 오전 11:00</div>
-				<div class="party_size">인원: 1명</div>
+				<div class="date">예약정보: ${dto.r_reserve_date} ${dto.r_reserve_hour}</div>
+				<div class="party_size">인원: ${dto.r_reserve_numofpeople }</div>
 			</div>
 
 			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324324"
+				data-type="poing.reservation.edit" data-id="${dto.r_reserve_seq},${dto.rest_seq}"
 				tabindex="-1">변경 / 취소</button>
 		</div>
-		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/13087"> <i
-				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxOTA0/15565285705cc6bdbae63eb.png);"></i>
-			</a>
-
-			<div class="info">
-				<div class="name">
-					<a href="/restaurant/detail/13087">도미닉</a> <span
-						class="label blue border_radius soft">예약 대기</span>
-				</div>
-				<div class="date">예약정보: 2019.5.30 (목) 오후 2:00</div>
-				<div class="party_size">인원: 1명</div>
-
-
-
-			</div>
-
-			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324332"
-				tabindex="-1">변경 / 취소</button>
-		</div>
-		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/38180"> <i
-				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxODA3/15323218295b556025aabc0.png);"></i>
-			</a>
-
-			<div class="info">
-				<div class="name">
-					<a href="/restaurant/detail/38180">루프808</a> <span
-						class="label blue border_radius soft">예약 대기</span>
-				</div>
-				<div class="date">예약정보: 2019.5.31 (금) 오전 10:00</div>
-				<div class="party_size">인원: 1명</div>
-
-
-
-			</div>
-
-			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324340"
-				tabindex="-1">변경 / 취소</button>
-		</div>
-		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/37392"> <i
-				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxODA0/15233374655acc48f98e24d.jpeg);"></i>
-			</a>
-
-			<div class="info">
-				<div class="name">
-					<a href="/restaurant/detail/37392">빌리스 테이블 (도산공원점)</a> <span
-						class="label blue border_radius soft">예약 대기</span>
-				</div>
-				<div class="date">예약정보: 2019.5.31 (금) 오전 11:30</div>
-				<div class="party_size">인원: 1명</div>
-
-
-
-			</div>
-
-			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324348"
-				tabindex="-1">변경 / 취소</button>
-		</div>
-		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/6943"> <i
-				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzA3/14996526375962e21de1c30.jpeg);"></i>
-			</a>
-
-			<div class="info">
-				<div class="name">
-					<a href="/restaurant/detail/6943">초록바구니</a> <span
-						class="label blue border_radius soft">예약 대기</span>
-				</div>
-				<div class="date">예약정보: 2019.5.31 (금) 오후 12:00</div>
-				<div class="party_size">인원: 1명</div>
-
-
-
-			</div>
-
-			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324344"
-				tabindex="-1">변경 / 취소</button>
-		</div>
-		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/30752"> <i
-				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzAx/1484296917587892d5c63bd.jpeg);"></i>
-			</a>
-
-			<div class="info">
-				<div class="name">
-					<a href="/restaurant/detail/30752">스시현</a> <span
-						class="label blue border_radius soft">예약 대기</span>
-				</div>
-				<div class="date">예약정보: 2019.5.31 (금) 오후 6:30</div>
-				<div class="party_size">인원: 1명</div>
-
-
-
-			</div>
-
-			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324328"
-				tabindex="-1">변경 / 취소</button>
-		</div>
-		<div class="reservation">
-			<a class="i_wrap image" href="/restaurant/detail/11760"> <i
-				class="image border_radius hard"
-				style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/57b6a1f8668a483e1a000019.png);"></i>
-			</a>
-
-			<div class="info">
-				<div class="name">
-					<a href="/restaurant/detail/11760">탑클라우드 23</a> <span
-						class="label blue border_radius soft">예약 대기</span>
-				</div>
-				<div class="date">예약정보: 2019.6.27 (목) 오전 11:30</div>
-				<div class="party_size">인원: 1명</div>
-
-
-
-			</div>
-
-			<button class="red border_radius soft"
-				data-type="poing.reservation.edit" data-id="1324336"
-				tabindex="-1">변경 / 취소</button>
-		</div>
+		</c:forEach>
 	</div>
-
+	
 	<!-- 
 	만약 데이터가 없다면 아래 blank div태그를 출력
 	<div class="blank">

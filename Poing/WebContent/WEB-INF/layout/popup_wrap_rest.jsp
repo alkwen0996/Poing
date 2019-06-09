@@ -40,6 +40,9 @@
 		style="display: none; z-index: 10000; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: url(http://c1.poing.co.kr/original/images/spiffygif_52x52.gif) no-repeat center center black; opacity: 0.6; filter: alpha(opacity = 60);"></i>
 
 
+
+
+
 	<div id="reportShading" class="shading_bg"></div>
 	<div id="report_popup">
 		<i class="icon close"></i>
@@ -101,7 +104,7 @@
 				class="count"></span>
 		</div>
 
-		<div class="popup-row confirm">
+		<%-- <div class="popup-row confirm">
 			<div class="box">
 				<i class="icon person"></i> <input id="reserve_name" type="text"
 					class="name" placeholder="성함을 입력해주세요.">
@@ -121,7 +124,7 @@
 				인증번호가 도착하지 않으셨나요?&nbsp;&nbsp;<span>재전송</span>
 			</div>
 
-		</div>
+		</div> --%>
 
 		<div class="popup-row comment">
 			<textarea id="reserve_comment" rows="5" placeholder="요청사항을 적어주세요."></textarea>

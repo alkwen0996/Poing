@@ -26,8 +26,13 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			DisplayOptionService oservice = new DisplayOptionService();
 			List<OptionDTO> pp = oservice.select(p_num);
+			int p_num = Integer.parseInt(request.getParameter("p_num"));
+			
+			ProductDTO dto2 = service.selectProductDetail(p_num);
+			request.setAttribute("dto2", dto2);
+			
+			ProductDTO dto = service.select(p_num);
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-			ProductDTO dto = null;
 			int member_num;
 			if(mdto==null) {dto = service.select(p_num);
 			} else {
@@ -41,6 +46,9 @@ public class DisplayProductDetailHandler implements CommandHandler {
 				e.printStackTrace();
 		}
 		return "product/productDetail";
+	}
+
+	public static void main(String[] args) {
 	}
 
 }

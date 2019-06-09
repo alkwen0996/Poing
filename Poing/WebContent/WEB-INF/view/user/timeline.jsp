@@ -1,31 +1,45 @@
 <%@page import="poing.member.MemberDTO"%>
+<%@page import="poing.review.display.service.DisplayReviewService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	System.out.println("request mdto: "+request.getAttribute("mdto"));
-	System.out.println("session mdto: "+session.getAttribute("authUser"));
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
-
+	
+	<style type="text/css">
+	.pointCharge{
+	    display: inline-block;
+    font-size: 16px;
+    background: #c91b3c;
+    padding: 3px 8px;
+    border-radius: 7px;
+    margin-left: 10px;
+    cursor: pointer;
+    vertical-align: middle;
+	}
+	
+	</style>
+	
 	<style>
 		<%@include file="/css/style.css" %>
 		<%@include file="/css/poing.slider.css" %>
+		
 	</style>
+	
 	<script type="text/javascript" 
         src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/main.js"></script>
+		src="<%=request.getContextPath()%>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"
-		src="<%= request.getContextPath() %>/js/slider.js"></script>
+		src="<%=request.getContextPath()%>/js/main.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/slider.js"></script>
 	<meta charset="UTF-8">
 	<title>
 		Poing - ${ mdto.m_name }님의 담벼락입니다.		
-	</title>
+	</title> 
 </head>
-
 <body class="vsc-initialized">
 <!-- body wrap -->
 <div id="wrap" class="">
@@ -39,37 +53,42 @@
 			<div id="banner" class="user">
 				<div class="i_wrap background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 				</div>
 				<div class="i_wrap blur background">
 					<i class="image profile_image shading middle"
-						style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+						style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 				</div>
 				<div class="inner_wrap">
 					<div class="inner">
-						
 						<c:if test="${authUser.m_no eq mdto.m_no}" >
 							<div id="change_user_image" class="user_image i_wrap">
 								<i class="image border_radius circle profile_image"
-									style="width: 100%; height: 100%; background-image: url(${ mdto.m_img })"></i>
+									style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 								<div class="shading border_radius circle"></div>
 								<div class="message border_radius circle">프로필 사진 바꾸기</div>
 							</div>
 						</c:if>
-
+													
 						<c:if test="${authUser.m_no ne mdto.m_no}" >
 							<div id="user_image" class="user_image i_wrap">
 								<i class="image border_radius circle"
-									style="width:100%;height:100%;background-image:url(${ mdto.m_img })"></i>
+									style="width:100%;height:100%;background-image:url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
 							</div>
 						</c:if>
-
+						
 						<div class="name">
 							<span>${ mdto.m_name }</span>
-							
 							<c:if test="${authUser.m_no eq mdto.m_no}" >
 								<div class="point">${ mdto.rp_seq } P</div>
 								<i class="icon question"></i>
+								<button id="pointCharge">포인트 충전</button>
+							</c:if>
+							<c:if test="${authUser.m_no ne mdto.m_no}" >
+								<button class="gray_red_fill border_radius soft ${ amIFollow?'on':'' }"
+									data-type="poing.user.follow" data-id="${ mdto.m_no }" tabindex="-1">
+									<i class="icon follow "></i> <span>팔로우</span>
+								</button>
 							</c:if>
 						</div><!-- name -->
 						<div class="intro">${ mdto.m_selfintro }</div>
@@ -85,9 +104,9 @@
 						</c:if>	
 						
 						<div class="info">
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a> <a
-							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 1</a> <a
-							   class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 1</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 3</a>
 							<button class="empty item" tabindex="-1">
 								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
@@ -115,19 +134,14 @@
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
 							<li class="payment item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
-							<li class="friends item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li>
+							<%-- <li class="friends item "><a
+								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li> --%>
 							<li class="setting item "><a
 								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
 						</ul>
 						
-						<%MemberDTO mdto = (MemberDTO) session.getAttribute("authUser");
-						  System.out.println("timeline.jsp line80 : " + mdto);%>
-						<!--  -->
-						
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'reservation'}">
-								<%-- <div id="reservation" class="body empty"> --%>
 								<c:choose>
 									<c:when test="${ param.type eq null || param.type eq 'recent'}">
 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_Recent.jsp"></jsp:include>
@@ -137,13 +151,11 @@
 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Reservation_Past.jsp"></jsp:include>
 									</c:otherwise>
 								</c:choose>
-								<%-- <div id="reservation" class="body empty"> end --%>
 							</c:when>
 
 							<%-- tab=coupon 이라면 --%>
 							
 							<c:when test="${ param.tab eq 'coupon'}">
-								<%-- <div id="reservation" class="body empty"> --%>
 								<c:choose>
 									<c:when test="${ param.type eq null || param.type eq 'all'}">
 										<jsp:include
@@ -158,21 +170,12 @@
 											page="/WEB-INF/view/user/timeline/timeline_Own_Content_Coupon_UnUseable.jsp"></jsp:include>
 									</c:when>
 								</c:choose>
-								<%-- <div id="reservation" class="body empty"> end--%>
 							</c:when>
 							
 							<%-- tab=review 이라면--%>
 							
 							<c:when test="${ param.tab eq 'review'}">
-								<c:choose>
-									<c:when test="${ param.type eq null || param.type eq 'write'}">
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Write.jsp"></jsp:include>
-									</c:when>
-									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Like.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose>
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review.jsp"></jsp:include>
 							</c:when>
 							
 							<%-- tab=restaurant 이라면--%>
@@ -203,25 +206,20 @@
 								</c:choose>
 							</c:when>
 							
-							<%-- tab=payment 이라면  아직 미구현--%>
+							<%-- tab=payment 이라면--%>
 							
 							<c:when test="${ param.tab eq 'payment'}">
-								<%-- <c:choose>
+								 <c:choose>
 									<c:when test="${ param.type eq null || param.type eq 'my'}">
 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Buy.jsp"></jsp:include>
 									</c:when>
 									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose> --%>
+<%-- 									<c:otherwise> --%>
+<%-- 										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Pay_Refund.jsp"></jsp:include> --%>
+<%-- 									</c:otherwise> --%>
+								</c:choose> --
 							</c:when>
 							
-							<%-- tab=friends 이라면--%>
-							<c:when test="${ param.tab eq 'friends'}">
-								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Own_Content_Friend.jsp"></jsp:include>
-							</c:when>
-
 							<%-- tab=setting 이라면--%>
 
 							<c:when test="${ param.tab eq 'setting'}">
@@ -231,6 +229,9 @@
 							
 							</c:otherwise>
 						</c:choose>
+						<script>
+							$("ul.tab li.${param.tab ne null ? param.tab : 'reservation'}").addClass("selected");
+						</script>
 					</c:when>
 					
 					
@@ -244,15 +245,7 @@
 						</ul>
 						<c:choose>
 							<c:when test="${ param.tab eq null || param.tab eq 'review'}">
-								<c:choose>
-									<c:when test="${ param.type eq null || param.type eq 'write'}">
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Write.jsp"></jsp:include>
-									</c:when>
-									
-									<c:otherwise>
-										<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review_Like.jsp"></jsp:include>
-									</c:otherwise>
-								</c:choose>
+								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Common_Content_Review.jsp"></jsp:include>
 							</c:when>
 
 							<%-- tab=restaurant 이라면 --%>
@@ -261,13 +254,13 @@
 							</c:when>
 							
 						</c:choose>
+						<script>
+							$("ul.tab li.${param.tab ne null ? param.tab : 'review'}").addClass("selected");
+						</script>
 					</c:otherwise>
 
 				</c:choose>
 			</div>
-			<script>
-				$("ul.tab li.<%=request.getParameter("tab")%>").addClass("selected");
-			</script>
 			<!-- content end -->
 
 			<!-- slide bar -->
@@ -312,11 +305,31 @@
 		
 	
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
-	
-	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/popup_wrap_rest.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	
 </div> <!-- wrap end -->
-
+<script>
+	$("#pointCharge").click(function () {
+//  		$.ajax({
+//  			url: '/Poing/product/cartDelete.do',
+//  			method: 'post',
+//  			dataType: 'JSON',
+//  			data:{
+//  				reserva_tic_seq : $(this).attr('data'),
+//  				totalmoney : ${param.totalmoney},
+//  				id :${param.id}
+//  			},
+//  			success: function (res) {
+//  				if (res.status2) {
+			$.popup('/Poing/popup/pointCharge.do');
+//  				setTimeout(location.reload.bind(location), 1000);
+			
+//  				}else{
+//  				}
+//  			}
+//  		});
+	});
+	</script>
 </body>
 </html>

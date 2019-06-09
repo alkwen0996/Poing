@@ -4,6 +4,7 @@
 
 <div id="scripts">
 	<script>
+		var rnumNrest_seq = 0;
 		var console = console || {
 			"log": function () {}
 		};
@@ -258,14 +259,14 @@
 								if (data.type == 'on') {
 									btn.addClass('on')
 										.children("i").addClass('on');
-									$.popup("confirm", {
+									$.popup("/Poing/pick/popup/confirm.do", {
 										'text': "매장을 찜하셨습니다.",
 										'alert': true
 									});
 								} else if (data.type == 'off') {
 									btn.removeClass('on')
 										.children("i").removeClass('on');
-									$.popup("confirm", {
+									$.popup("/Poing/pick/popup/confirm.do", {
 										'text': "찜을 취소하셨습니다.",
 										'alert': true
 									});
@@ -288,7 +289,7 @@
 						var idx = 0;
 
 						if (files.length + $list.children().length > 20) {
-							$.popup("confirm", {
+							$.popup("/Poing/pick/popup/confirm.do", {
 								'text': "사진 등록은 최대 20장까지 가능합니다.",
 								single: true
 							});
@@ -377,7 +378,7 @@
 											form.append("index", i + 1);
 
 											$.ajax({
-												url: "/review/ajaxsendreviewphoto",
+												url: "/Poing/review/ajaxsendreviewphoto.do",
 												method: "post",
 												contentType: false,
 												processData: false,
@@ -515,7 +516,7 @@
 							var action = parent_review.children(".action");
 
 							$.ajax({
-								url: "/review/ajaxmodifyreview",
+								url: "/Poing/review/ajaxmodifyreview.do",
 								method: "post",
 								dataType: "json",
 								data: {
@@ -641,7 +642,7 @@
 							review.find(".action, .time").show();
 
 							$.ajax({
-								url: "/review/ajaxModifyReview",
+								url: "/Poing/review/ajaxModifyReview.do",
 								method: "POST",
 								data: {
 									id: id,
@@ -679,7 +680,7 @@
 									message: "리뷰를 삭제하시겠습니까?",
 									ok: function () {
 										$.ajax({
-											url: "/review/ajaxremovereview",
+											url: "/Poing/review/ajaxremovereview.do",
 											method: "post",
 											dataType: "json",
 											data: {
@@ -716,7 +717,7 @@
 								}
 
 								$.ajax({
-									url: "/review/ajaxlike",
+									url: "/Poing/review/ajaxlike.do",
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -726,31 +727,21 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this)
-												.data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]")
-												.html(res.data.like_count);
-											noticePopupInit({
-												message: "리뷰를 좋아요 하셨습니다."
-											});
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											noticePopupInit({message: "리뷰를 좋아요 하셨습니다."});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this)
-												.data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
 											selector.find("span:not(.text)").text(res.data.like_count);
-											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]")
-												.html(res.data.like_count);
-											noticePopupInit({
-												message: "좋아요를 취소하셨습니다."
-											});
+											$("span[data-type='poing.reviews.actions.user.like'][data-id=" + $(this).data("id") + "]").html(res.data.like_count);
+											noticePopupInit({message: "좋아요를 취소하셨습니다."});
 										} else {
-											noticePopupInit({
-												message: "리뷰를 좋아요 하는데 실패했습니다."
-											});
+											noticePopupInit({message: "리뷰를 좋아요 하는데 실패했습니다."});
 										}
 									}
 								});
@@ -768,7 +759,7 @@
 								}
 
 								$.ajax({
-									url: "/review/ajaxfavorite",
+									url: "/Poing/review/ajaxfavorite.do",
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -778,31 +769,27 @@
 									context: this,
 									success: function (res) {
 										if (res.status && !$(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
-												this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.addClass('on');
 											selector.children("i").addClass('on');
-											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
-												"]").html(res.data.selection_review_count);
-											$.popup("confirm", {
+											selector.find("span:not(.text)").text(res.data.pick_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.pick_count);
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "리뷰를 찜하셨습니다.",
 												'alert': true
 											});
 										} else if (res.status && $(this).hasClass("on")) {
-											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(
-												this).data("id") + "]");
+											var selector = $("button[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]");
 											selector.removeClass('on');
 											selector.children("i").removeClass('on');
-											selector.find("span:not(.text)").text(res.data.selection_review_count);
-											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") +
-												"]").html(res.data.selection_review_count);
-											$.popup("confirm", {
+											selector.find("span:not(.text)").text(res.data.pick_count);
+											$("span[data-type='poing.reviews.actions.user.favorite'][data-id=" + $(this).data("id") + "]").html(res.data.pick_count);
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "찜을 취소하셨습니다.",
 												'alert': true
 											});
 										} else {
-											$.popup("confirm", {
+											$.popup("/Poing/pick/popup/confirm.do", {
 												'text': "리뷰를 찜하지 못했습니다.",
 												'alert': true
 											});
@@ -832,7 +819,7 @@
 							if (isOpen) {
 								list.find(".comment_list>.comment").addClass('old');
 								$.ajax({
-									url: '/review/getComments',
+									url: '/Poing/review/getComments.do',
 									type: 'POST',
 									data: {
 										id: id
@@ -856,9 +843,9 @@
 										if (res) {
 											target.parent(".review").find("button.comment>p>span").text(res.length);
 											for (var i = 0; i < res.length; ++i) {
-												res[i].me = (res[i].user_id == '');
+												res[i].me = (res[i].user_id == '${authUser.m_no}');
 												var parse = new EJS({
-													url: '/template/review_comment.ejs'
+													url: '/Poing/template/review_comment.ejs'
 												}).render(res[i]);
 												target.append(parse);
 											}
@@ -1026,7 +1013,7 @@
 							if (poing.reviews.comment.isSending == false) {
 								poing.reviews.comment.isSending = true;
 								$.ajax({
-									url: '/review/ajaxsendreviewcomment',
+									url: '/Poing/review/ajaxsendreviewcomment.do',
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -1057,7 +1044,7 @@
 							if (poing.reviews.comment.isSending == false) {
 								poing.reviews.comment.isSending = true;
 								$.ajax({
-									url: '/review/ajaxsendreviewcomment',
+									url: '/Poing/review/ajaxsendreviewcomment.do',
 									method: 'post',
 									dataType: 'json',
 									data: {
@@ -1104,7 +1091,7 @@
 							$textarea.on("keydown", function (e) {
 								if (e.keyCode == 13) { // enter
 									$.ajax({
-										url: "/review/ajaxmodifycomment",
+										url: "/Poing/review/ajaxmodifycomment.do",
 										method: "post",
 										dataType: "json",
 										data: {
@@ -1139,7 +1126,7 @@
 								message: "댓글을 삭제하시겠습니까?",
 								ok: $.proxy(function () {
 									$.ajax({
-										url: "/review/ajaxremovecomment",
+										url: "/Poing/review/ajaxremovecomment.do",
 										method: "post",
 										dataType: "json",
 										data: {
@@ -1177,7 +1164,9 @@
 							method: "post",
 							dataType: 'json',
 							data: {
-								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test
+								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test_ok
+								'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }",
+								'r_name': "${ dto.rest_name eq null ? '' : dto.rest_name }"
 							},
 							async: false
 						}).success(function (data) {
@@ -1202,12 +1191,15 @@
 				edit: function () {
 					$("#reserveShading").show();
 					var id = $(this).data('id');
+					rnumNrest_seq = $(this).data('id');
 					$.ajax({
-						url: '/restaurant/AjaxReserveInfo',
+						url: '/Poing/popup/reserve_edit_rest.do',
 						method: "post",
 						dataType: 'json',
 						data: {
-							'id': id
+							'id': id,
+							'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }",
+							'r_name': "${ dto.rest_name eq null ? '' : dto.rest_name }"
 						},
 						async: false
 					}).success(function (response) {
@@ -1225,14 +1217,14 @@
 							for (var i = 0; i < response.place.food_types.length; i++)
 								data.info_str += " · " + response.place.food_types[i];
 						}
-
+						
 						var temp = response.reservation_date.split(' ')[1].split(':');
 						data.time = temp[0] + ":" + temp[1];
 						data.message = response.message;
 
 						place_id = data.place_id;
 						reserve_popup_init(data.place_name, data.info_str, data.reserve_setting, data.id);
-
+						
 						$("#pre-reserve").show();
 
 						// 인원 선택
@@ -1324,8 +1316,7 @@
 							},
 							context: this,
 							success: function (res) {
-								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data(
-										"id") + "]").hasClass("on")) {
+								if (res.status == true && !$("button[data-type='poing.user.follow'][data-id=" + $(this).data("id") + "]").hasClass("on")) {
 									if ($(".inner[data-type=following]>.item[data-id=" + $(this).data("id") + "]").length == 0) {
 										$(".inner[data-type=following]>.item").removeClass("last");
 										$(".inner[data-type=following]").append(
@@ -1353,30 +1344,21 @@
 											$(".inner[data-type=following]").children(".item:nth-last-child(2)").addClass("last");
 										}
 									}
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) +
-									1);
-									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this)
-										.data("id") + "'] #follow").html()) + 1);
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass(
-										'on');
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass(
-										'on');
-									noticePopupInit({
-										message: "팔로우 하셨습니다."
-									});
-								} else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this)
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) +	1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").
+										html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) + 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").addClass('on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").addClass('on');
+									noticePopupInit({message: "팔로우 하셨습니다."});
+								} 
+								else if (res.status == true && $("button[data-type='poing.user.follow'][data-id=" + $(this)
 										.data("id") + "]").hasClass("on")) {
-									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) -
-									1);
-									$("li[data-id='" + $(this).data("id") + "'] #follow").html(Number($("li[data-id='" + $(this)
-										.data("id") + "'] #follow").html()) - 1);
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass(
-										'on');
-									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i")
-										.removeClass('on');
-									noticePopupInit({
-										message: "팔로우를 취소하셨습니다."
-									});
+									$("li[data-type='followed'] span").html(Number($("li[data-type='followed'] span").html()) -	1);
+									$("li[data-id='" + $(this).data("id") + "'] #follow").
+										html(Number($("li[data-id='" + $(this).data("id") + "'] #follow").html()) - 1);
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']").removeClass('on');
+									$("button[data-type='poing.user.follow'][data-id='" + $(this).data("id") + "']>i").removeClass('on');
+									noticePopupInit({message: "팔로우를 취소하셨습니다."});
 								} else {
 									if (res.error.code == 510) {
 										noticePopupInit({
@@ -1463,7 +1445,7 @@
 						if ($("#photoReviewViewerPopup").data("id") != review_id) {
 							$("#photoReviewViewerPopup>.section.review>.inner").html("");
 							$.ajax({
-								url: "/review/ajaxrenderreview",
+								url: "/Poing/review/ajaxrenderreview.do",
 								method: "get",
 								data: {
 									"id": review_id,
@@ -1618,7 +1600,7 @@
 									review_id = img_review_id;
 
 									$.ajax({
-										url: "/review/ajaxrenderreview",
+										url: "/review/ajaxrenderreview.do",
 										method: "get",
 										data: {
 											"id": img_review_id,
@@ -1760,15 +1742,77 @@
 		
 		//productDeatil.do일때 
 		<c:if test="${ command eq '/product/detail.do' }">
-			<% System.out.println("default.jsp line 1668: /product/detail.do" ); %>
 			<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
+			<% System.out.println("default.jsp line 1668: productDetail.jsp" ); %>
+			<c:choose>
+				<c:when test="${ param.tab eq null || param.tab eq 'info' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=info" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'photo' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'review' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'menu' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'map' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+				<c:otherwise>
+					<% System.out.println("param 없음"); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:otherwise>
+			</c:choose>
 		</c:if>
 
 		//restDeatil.do일때 
 		<c:if test="${ command eq '/rest/detail.do' }">
-			<% System.out.println("default.jsp line 1668: /rest/detail.do" ); %>
 			<jsp:include page="/WEB-INF/layout/javascript/restDetail.jsp"></jsp:include>
+			<% System.out.println("default.jsp line 1668: restDetail.jsp" ); %>
+			<c:choose>
+				<c:when test="${ param.tab eq null || param.tab eq 'info' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=info" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'photo' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=photo" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_photo.jsp"></jsp:include>
+				</c:when>
+	
+				<c:when test="${ param.tab eq 'review' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=review" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_review.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'menu' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=menu" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_menu.jsp"></jsp:include>
+				</c:when>
+				
+				<c:when test="${ param.tab eq 'map' }">
+					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+				<c:otherwise>
+					<% System.out.println("param 없음"); %>
+					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
+				</c:otherwise>
+			</c:choose>
+			
 		</c:if>
+		
 		
 		//review페이지일때 review.jsp
 		<c:if test="${ command eq '/review.do' }">
@@ -1824,7 +1868,7 @@
 				var uploader = PoingUploader.Create({
 					afterAddFile: function (file) {
 						$.ajax({
-							url: "/user/uploadprofileimage",
+							url: "/Poing/user/uploadprofileimage.do",
 							method: "post",
 							dataType: "json",
 							data: {
@@ -1836,10 +1880,11 @@
 									$("i.profile_image").css("background-image", "url(" + "'data:" + file
 										.file_type + ";base64," + file.file_data + "')");
 									if (ie < 9) {
-										$("i.profile_image").css("filter",
-											"progid:DXImageTransform.Microsoft.AlphaImageLoader(src=" +
-											"data:" + file.file_type + ";base64," + file.file_data +
-											", sizingMethod='scale')");
+										$("i.profile_image").css(
+												"filter",
+												"progid:DXImageTransform.Microsoft.AlphaImageLoader(src=data:" + file.file_type 
+														+ ";base64," + file.file_data +	", sizingMethod='scale')"
+										);
 										location.reload(true);
 									}
 									noticePopupInit({
@@ -1873,12 +1918,7 @@
 				});
 			});
 
-		</c:if>
-
-
-
-
-
+		</c:if> //end timeline.do
 
 
 
@@ -1958,8 +1998,9 @@
 		var auto_complete_cursor = -1;
 		var auto_complete_prev = null;
 
-		$("#nav_search>input").on("keydown keyup", function (e) {
+		$("#nav_search>input").on("keyup", function (e) {
 			// enter key
+			console.log($(this).val());
 			if (e.keyCode === 13) {
 				if (e.type === "keydown") {
 					var item = $("#nav_auto_complete>ul>li.selected");
@@ -2018,59 +2059,60 @@
 			}
 			// other key
 			else {
-				if (auto_complete_current != $(this).val()) {
-					if (auto_complete_cursor >= 0) {
+				if(auto_complete_current != $(this).val())
+				{
+					if(auto_complete_cursor >= 0)
+					{
 						$($("#nav_auto_complete>ul>li")[auto_complete_cursor]).removeClass("selected");
 						auto_complete_cursor = -1;
 					}
 
-					if ($(this).val().length > 0) {
-						if (typeof auto_complete_table[$(this).val()] == "undefined") {
+					if($(this).val().length > 0)
+					{
+						if(typeof auto_complete_table[$(this).val()] == "undefined")
+						{
 							//auto_complete_table[$(this).val()] = "waiting";
 							$("#nav_search").children("img#nav_loader").show();
 
-							if (auto_complete_prev) {
+							if(auto_complete_prev) {
 								auto_complete_prev.abort();
 								auto_complete_prev = null;
 							}
 							auto_complete_prev = $.ajax({
-								url: "Poing/restaurant/Search.do" + encodeURIComponent($(this).val()),
+								url: "/Poing/restaurant/search.do?searchWord="+encodeURIComponent($(this).val()),
 								method: "get",
 								dataType: "json",
-								success: function (response) {
-									if (response.status) {
+								success: function(response)
+								{
+									if(response.status)
+									{
 										auto_complete_table[response.meta.ac_keyword] = $("<ul>");
-										$.each(response.data.ac_keywords, function (e) {
-											var esc = response.meta.ac_keyword.replace(
-												/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-											if (this.name.search(esc) >= 0) {
+										$.each(response.data.ac_keywords, function(e)
+										{
+		                                    var esc = response.meta.ac_keyword.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+											if(this.name.search(esc) >= 0)
+											{
 												var src = this.name;
 												var pos = this.name.search(esc);
 
-												this.name = src.slice(0, pos) +
-													"<span class='highlight'>" + response.meta
-													.ac_keyword + "</span>" + src.slice(pos +
-														response.meta.ac_keyword.length)
+												this.name = src.slice(0, pos) + "<span class='highlight'>" + response.meta.ac_keyword + "</span>" + src.slice(pos+response.meta.ac_keyword.length)
 											}
 
 											auto_complete_table[response.meta.ac_keyword].append(
-												$("<li>").addClass("border_radius soft")
-												.append(
-													$("<div>").addClass("name").html(this.name)
-												).append(
-													$("<div>").addClass("desc").html(this
-														.description)).attr("data-id", this.id)
+												$("<li>").addClass("border_radius soft").append(
+													$("<div>").addClass("name").html(this.name)).append(
+													$("<div>").addClass("desc").html(this.description)).attr("data-id", this.id)
 											);
 										});
 
-										if ($("#nav_search>input").val() == response.meta.ac_keyword) {
+										if($("#nav_search>input").val() == response.meta.ac_keyword)
+										{
 											$("#nav_auto_complete").html("");
-											$("#nav_auto_complete").append(auto_complete_table[response
-												.meta.ac_keyword]);
-
-											$("#nav_auto_complete>ul>li").on("click", function () {
-												location.href = "/restaurant/detail/" + $(this)
-													.data("id");
+											$("#nav_auto_complete").append(auto_complete_table[response.meta.ac_keyword]);
+											
+											$("#nav_auto_complete>ul>li").on("click", function()
+											{
+												location.href = "/Poing/rest/detail.do?rest_seq=" + $(this).data("id");
 											});
 											$("#nav_search").children("img#nav_loader").hide();
 											$("#nav_search").addClass("auto_complete");
@@ -2078,26 +2120,33 @@
 									}
 								}
 							})
-						} else if (typeof auto_complete_table[$(this).val()] == "object") {
+						}
+						else if(typeof auto_complete_table[$(this).val()] == "object")
+						{
 							$("#nav_auto_complete").html("");
 							$("#nav_auto_complete").append(auto_complete_table[$(this).val()]);
-
-							$("#nav_auto_complete>ul>li").on("click", function () {
+									
+							$("#nav_auto_complete>ul>li").on("click", function()
+							{
 								location.href = "/restaurant/detail/" + $(this).data("id");
 							});
 							$("#nav_search").children("img#nav_loader").hide();
 							$("#nav_search").addClass("auto_complete");
 						}
-					} else {
+					}
+					else
+					{
 						$("#nav_search").children("img#nav_loader").hide();
 						$("#nav_search").removeClass("auto_complete");
 					}
-
+					
 					auto_complete_current = $(this).val();
 				}
 			}
 		});
 
+		
+		// 포잉 알림 news/notice
 		// notice section
 		$("#nav_notice>.i_wrap").on("click", function (e) {
 			if ($("#nav_mynews_list").html() == "")
@@ -2106,7 +2155,7 @@
 			e.stopPropagation();
 			$("#nav_notice_list").toggle();
 			$.ajax({
-				url: '/user/noticeCheck',
+				url: '/Poing/user/noticeCheck.do',
 				method: 'post',
 				dataType: 'json',
 				success: function (res) {
@@ -2137,13 +2186,13 @@
 
 			if ($("#nav_mynews_list").html() == "") {
 				$.ajax({
-					url: '/user/UserNotice',
+					url: '/Poing/user/UserNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/UserNotice.ejs'
+							url: '/Poing/templete/UserNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2164,13 +2213,13 @@
 
 			if ($("#nav_poingnews_list").html() == "") {
 				$.ajax({
-					url: '/user/PoingNotice',
+					url: '/Poing/user/PoingNotice.do',
 					type: 'get',
 					success: function (res) {
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/template/PoingNotice.ejs'
+							url: '/Poing/templete/PoingNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2183,7 +2232,10 @@
 			} else
 				$("#nav_poingnews_list").show();
 		});
-
+// 포잉 알림 news/notice
+		
+		
+		
 		$("#nav_mynews_list").on("click", ".item", function () {
 			var type = $(this).data("type");
 			var target = $(this).data("target");
@@ -2198,7 +2250,7 @@
 						message: "해당 리뷰로 이동하는 도중<br><br>문제가 발생했습니다."
 					});
 				else
-					location.href = "/restaurant/detail/" + additional + "?review=" + target;
+					location.href = "/Poing/rest/detail.do?rest_seq=" + rest_seq + "&tab=review";
 			} else if (type == "follow" || type == "fb_join") {
 				if (target == "")
 					noticePopupInit({
@@ -2215,7 +2267,7 @@
 			var additional = $(this).data("additional");
 
 			if (type == 'write_review')
-				location.href = "/restaurant/detail/" + $(this).data('target') + "?review";
+				location.href = "/Poing/rest/detail.do/" + $(this).data('target') + "?review";
 			else if ((additional == "" && target == "") &&
 				(type == "accept_reservation" ||
 					type == "change_reservation" ||
@@ -2471,7 +2523,31 @@
 			});
 			// search button
 			$("#nav_btn").click(function () {
-				window.search({
+				var pop = $.unique($("#nav_area #pop-list input:checked").map(function () { return $(this).val(); }).get()).join(',');
+				var add = $.unique($("#nav_area #add input:checked").map(function () { return $(this).val(); }).get()).join(',');
+				var searchWord = $("#nav_search>input").val();
+				var food_type = $("#nav_genre ul input:not(#food_all):checked").map(function () { return $(this).val(); }).get().join(',')
+				var loc_href = "/Poing/rest/list.do?";
+				
+				
+				var queryParams = {
+						pop: pop,
+						add: add,
+						searchWord: searchWord,
+						food_type: food_type
+						};
+				
+				function isEmpty(value){
+					  return value == null || value == "";
+					}
+				
+				for(key in queryParams) if(isEmpty(queryParams[key])) delete queryParams[key];
+				
+				var param = $.param( queryParams );
+				
+				var loc_href = "/Poing/rest/list.do?"+param;
+				location.href = loc_href; 
+				 /* window.search({
 					set: {
 						place_area: $.unique($("#nav_area ul input:checked").map(function () {
 							return $(this).val();
@@ -2485,7 +2561,7 @@
 						'table_styles', 'liquors', 'parking', 'order_rule', 'theme_childe_sub3',
 						'theme_childe_url', 'r_num', 'page'
 					]
-				});
+				}); */ 
 			});
 			// box button click
 			$("#nav_container>.search.sel>.box>button").click(function () {

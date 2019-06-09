@@ -1769,6 +1769,7 @@
 					<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
 					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
 				</c:when>
+				
 				<c:otherwise>
 					<% System.out.println("param 없음"); %>
 					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>
@@ -2097,7 +2098,7 @@
 
 												this.name = src.slice(0, pos) + "<span class='highlight'>" + response.meta.ac_keyword + "</span>" + src.slice(pos+response.meta.ac_keyword.length)
 											}
-
+											// http://localhost/Poing/product/detail.do?p_num=1&tab=qna
 											auto_complete_table[response.meta.ac_keyword].append(
 												$("<li>").addClass("border_radius soft").append(
 													$("<div>").addClass("name").html(this.name)).append(

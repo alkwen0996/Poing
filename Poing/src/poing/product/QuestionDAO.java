@@ -15,7 +15,8 @@ public class QuestionDAO {
 	
 	public QuestionDAO() {}
 	
-	public List<QuestionDTO> selectDisplay(Connection conn,String memberID){
+	public List<QuestionDTO> selectDisplay(Connection conn,int memberID){
+		System.out.println("QuestionDAO displayl");
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select q.*,m.m_name m_name ");
 		sql.append(" from question q join member m on q.q_m_no = m.m_no ");

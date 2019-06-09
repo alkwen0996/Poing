@@ -15,7 +15,7 @@ public class ReplyDAO {
 	
 	public ReplyDAO() {}
 	public List<ReplyDTO> selectDisplay(Connection conn , int memberID){
-		
+		System.out.println("ReplyDAO display");
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select * from reply ");
 		

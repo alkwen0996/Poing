@@ -109,5 +109,20 @@ public class DisplayProductDetailService {
 			throw new RuntimeException(e);
 		}
 	}
-
-}
+	
+	public ArrayList<ProductDTO> select_qna(int p_num) {
+		System.out.println("select_qna");
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();
+		Connection conn = null;
+		ArrayList<ProductDTO> list_qna = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			list_qna	 = dao.selectdisplay_QnA(conn, p_num);
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list_qna;
+	}// select
+}// class

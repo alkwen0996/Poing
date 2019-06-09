@@ -13,6 +13,7 @@ import poing.news_notice.NewsDTO;
 import poing.news_notice.NoticeDTO;
 import poing.product.ReserveTicketDTO;
 import poing.product.display.service.ProductPayService;
+import poing.rest.RestListDTO;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDTO;
 
@@ -58,6 +59,13 @@ public class DisplayTimelineHandler implements CommandHandler {
 				review_list = displayTimelineService.getMyPickReview(memberID);
 			}
 			request.setAttribute("review_list", review_list);
+		}
+		
+		ArrayList<RestListDTO> pick_rest_list = null;
+		int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
+		if (tab.equals("restaurant")) {
+			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
+			request.setAttribute("pick_rest_list", pick_rest_list);
 		}
 	
 		ArrayList<NewsDTO> nnlist = displayTimelineService.getNewsDTO(memberID);

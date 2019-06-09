@@ -9,6 +9,7 @@ import poing.member.MemberDAO;
 import poing.member.MemberDTO;
 import poing.news_notice.NewsDTO;
 import poing.news_notice.NoticeDTO;
+import poing.rest.RestListDTO;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
@@ -75,4 +76,12 @@ public class DisplayTimelineService {
 		System.out.println("displaytimlineService : 알림 list에 담김");
 		return nlist;
 	}// getNoticeDTO
+	public ArrayList<RestListDTO> getPickRestList(int memberID, int page) throws SQLException {
+		Connection conn = ConnectionProvider.getConnection();
+		ArrayList<RestListDTO> nlist = mdao.PickRestList(conn, memberID, page);
+		
+		conn.close();
+		System.out.println("displaytimlineService : 알림 list에 담김");
+		return nlist;
+	}
 }// class

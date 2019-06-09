@@ -2177,7 +2177,7 @@
 		});
 
 		$("#nav_cart").on("click", function () {
-			location.href = "/pay";
+			location.href = "/Poing/product/productCart.do";
 		});
 		$("#nav_mynews_btn").on("click", function () {
 			$("#nav_mynews_btn").addClass("selected");

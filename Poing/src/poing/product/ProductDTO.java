@@ -10,7 +10,7 @@ public class ProductDTO {
 	private String p_name;
 	private String p_type;
 	private int p_origin_money;
-	private String p_dc_money;
+	private int p_dc_money;
 	private String p_option;
 	private int e_seq;
 	private int img_seq;
@@ -62,7 +62,7 @@ public class ProductDTO {
 	}
 	public void setOp_max_cnt(int op_max_cnt) {
 		this.op_max_cnt = op_max_cnt;
-
+	}
 	public String getTic_menu_info_content() {
 		return tic_menu_info_content;
 	}
@@ -233,10 +233,10 @@ public class ProductDTO {
 		this.p_origin_money = p_origin_money;
 	}
 	
-	public String getP_dc_money() {
+	public int getP_dc_money() {
 		return p_dc_money;
 	}
-	public void setP_dc_money(String p_dc_money) {
+	public void setP_dc_money(int p_dc_money) {
 		this.p_dc_money = p_dc_money;
 	}
 	public String getP_option() {

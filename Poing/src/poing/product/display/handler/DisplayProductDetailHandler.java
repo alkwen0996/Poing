@@ -26,7 +26,7 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			DisplayOptionService oservice = new DisplayOptionService();
 			List<OptionDTO> pp = oservice.select(p_num);
-			int p_num = Integer.parseInt(request.getParameter("p_num"));
+			p_num = Integer.parseInt(request.getParameter("p_num"));
 			
 			ProductDTO dto2 = service.selectProductDetail(p_num);
 			request.setAttribute("dto2", dto2);

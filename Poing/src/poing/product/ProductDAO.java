@@ -47,7 +47,7 @@ public class ProductDAO {
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
-				dto.setP_dc_money(rs.getString("p_dc_money"));
+				dto.setP_dc_money(rs.getInt("p_dc_money"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -97,7 +97,7 @@ public class ProductDAO {
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
-				dto.setP_dc_money(rs.getString("p_dc_money"));
+				dto.setP_dc_money(rs.getInt("p_dc_money"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {

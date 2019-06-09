@@ -14,6 +14,7 @@ public class ConfirmOptionService {
 		boolean result = true;
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			result = cartdao.updateOption1(conn, cart_seq);
+			conn.close();
 			if (result == true) {
 	            return true;
 	         }else {
@@ -29,6 +30,7 @@ public class ConfirmOptionService {
 	      boolean result = false;
 	      try (Connection conn = ConnectionProvider.getConnection()) {   
 	          result = cartdao.updateOption(conn, cart_seq, op_seq, op_cnt);
+	          conn.close();
 	         if (result == true) {
 	            return true;
 	         }else {

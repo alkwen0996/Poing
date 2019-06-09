@@ -14,6 +14,7 @@ public class DeleteOptionService {
 	      boolean result = false;
 	      try (Connection conn = ConnectionProvider.getConnection()) {   
 	          result = cartdao.deleteOption(conn, cart_seq, op_seq);
+	          conn.close();
 	         if (result == true) {
 	            return true;
 	         }else {

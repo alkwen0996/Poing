@@ -16,6 +16,7 @@ public class UpdateOptionService {
 		
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			List<ProductDTO> list = cartdao.selectoption(conn, cart_seq);
+			conn.close();
 			// 로그 처리
 			// 
 			//

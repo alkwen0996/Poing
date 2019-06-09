@@ -357,7 +357,12 @@ public class ProductDetailDAO {
 	
 	
 	public static ProductDTO selectProductDetail(Connection conn, int p_num){
-		String sql = " select * from tic_menu_info m join tic_use_case c on m.p_num = c.p_num join tic_guideInfo g on g.p_num = m.p_num join tic_validate v on v.p_num = m.p_num join tic_cancel_change h on h.p_num = m.p_num where m.p_num = ? ";
+		String sql = " select * from tic_menu_info m "
+				+ "join tic_use_case c on m.p_num = c.p_num "
+				+ "join tic_guideInfo g on g.p_num = m.p_num "
+				+ "join tic_validate v on v.p_num = m.p_num "
+				+ "join tic_cancel_change h on h.p_num = m.p_num "
+				+ "where m.p_num = ? ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
@@ -414,7 +419,6 @@ public class ProductDetailDAO {
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
-				dto.setP_dc_money(rs.getString("p_dc_money"));
 				dto.setP_option(rs.getString("p_option"));
 				dto.setImg_seq(rs.getInt("img_seq"));
 				dto.setE_name(rs.getString("e_name"));
@@ -463,7 +467,7 @@ public class ProductDetailDAO {
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
-				dto.setP_dc_money(rs.getString("p_dc_money"));
+				dto.setP_dc_money(rs.getInt("p_dc_money"));
 				dto.setP_option(rs.getString("p_option"));
 				dto.setE_seq(rs.getInt("e_seq"));
 				dto.setImg_seq(rs.getInt("img_seq"));

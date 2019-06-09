@@ -14,6 +14,7 @@ public class UpdateCartService {
 		boolean result = true;
 		try(Connection conn = ConnectionProvider.getConnection()) {
 			result = cartdao.updateCart(conn, party_size, message, c_date, cart_seq);
+			conn.close();
 			
 			return result;
 		} catch (SQLException e) {

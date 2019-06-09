@@ -14,6 +14,7 @@ public class DeleteCartService {
       boolean result = true;
       try(Connection conn = ConnectionProvider.getConnection()){
             result = cartdao.deleteCart(conn, cart_seq);
+            conn.close();
             
             return result;
       } catch (SQLException e) {

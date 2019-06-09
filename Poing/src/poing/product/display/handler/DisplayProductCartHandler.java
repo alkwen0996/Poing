@@ -12,9 +12,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
-import javafx.print.JobSettings;
-import jdk.nashorn.api.scripting.JSObject;
-import jdk.nashorn.internal.runtime.options.Options;
 import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
 import poing.product.CartDAO;

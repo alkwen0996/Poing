@@ -305,7 +305,7 @@ $(document).ready(function(){
 
     // 쇼핑 계속하기
     $(".pay.cart>.buttons>.back, .pay.cart tr.empty button").click(function(){
-        location.href="/product/list";
+        location.href="/Poing/product/list";
     });
     // 바로 구매하기
     $(".pay.cart>.buttons>.link").click(function(){

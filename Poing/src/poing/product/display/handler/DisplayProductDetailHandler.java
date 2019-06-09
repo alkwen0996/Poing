@@ -32,6 +32,7 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			request.setAttribute("dto2", dto2);
 			
 			ProductDTO dto = service.select(p_num);
+			ArrayList<ProductDTO> list_qna = service.select_qna(p_num);
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 			int member_num;
 			if(mdto==null) {dto = service.select(p_num);

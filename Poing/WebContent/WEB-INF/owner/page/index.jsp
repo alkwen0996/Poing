@@ -49,7 +49,7 @@
 		       <li class="bg_lg"> <a href="calendar.ow"> <i class="icon-calendar"></i> Calendar</a> </li>
 		       <li class="bg_lr"> <a href="error404.ow"> <i class="icon-info-sign"></i> Error</a> </li> -->
 				<li class="bg_lr">
-					<a href="review_tables.ow"> 
+					<a href="review_info.ow"> 
 					<i class="icon-info-sign"></i>레스토랑 정보
 					</a>
 				</li>

@@ -13,7 +13,7 @@
    int p_num = Integer.parseInt(request.getParameter("id")); //product num
    System.out.println("ajaxfav.jsp pnum="+p_num);
    MemberDTO dto = (MemberDTO)request.getSession().getAttribute("authUser");
-   int m_num= dto.getM_no();
+   int m_num= dto.getM_seq();
    System.out.println("ajaxfav.jsp m_num="+m_num);
    
    String sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?) ";

@@ -24,4 +24,18 @@ public class RestDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public RestListDTO select(int rest_seq, int m_no) {
+		RestDetailDAO dao = RestDetailDAO.getInstance();	
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			RestListDTO dto = dao.selectdisplay(conn, rest_seq, m_no);
+			int rev_cnt = ReviewDAO.countRestReview(conn, rest_seq);
+			dto.setRest_review_cnt(rev_cnt);
+			
+			// 
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

@@ -22,14 +22,18 @@
  #map {
         height: 100%;
       }
+.page active > a:link { color: #969696; text-decoration: none;}
+.page > a:visited { color: #969696; text-decoration: none;}
+.page > a:hover { color: #969696; text-decoration: none;}
+
 </style>
 <script>
 	$(document).ready(function() {
 	});
 </script>
 </head>
-<% 
-	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("list");
+<%
+	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("map");
 	int size = list.size();
 	
 	StringBuffer sb = new StringBuffer();
@@ -39,42 +43,85 @@
 	sb.append("[");
 	for (int i=0; i<list.size(); i++){
 		if(i==0) {
-			rlat = list.get(i).getRest_lat();
-			rlong = list.get(i).getRest_long();
-			info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
-					+ list.get(i).getRest_name()
-					+"<br><span>" +list.get(i).getRest_loc()
-					+"</span></div></div></div>";
-			url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
-			sb.append("{ lat: ");
-			sb.append(rlat);
-			sb.append(", lng: ");
-			sb.append(rlong);
-			sb.append(", info: '");
-			sb.append(info);
-			sb.append("', url: '");
-			sb.append(url);
-			sb.append("' } ");
+	rlat = list.get(i).getRest_lat();
+	rlong = list.get(i).getRest_long();
+	info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
+			+ list.get(i).getRest_name()
+			+"<br><span>" +list.get(i).getRest_loc()
+			+"</span></div></div></div>";
+	url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
+	sb.append("{ lat: ");
+	sb.append(rlat);
+	sb.append(", lng: ");
+	sb.append(rlong);
+	sb.append(", info: '");
+	sb.append(info);
+	sb.append("', url: '");
+	sb.append(url);
+	sb.append("' } ");
 		} else {
-			rlat = list.get(i).getRest_lat();
-			rlong = list.get(i).getRest_long();
-			info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
-					+ list.get(i).getRest_name()
-					+"<br><span>" +list.get(i).getRest_loc()
-					+"</span></div></div></div>";
-			url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
-			sb.append(",{ lat: ");
-			sb.append(rlat);
-			sb.append(", lng: ");
-			sb.append(rlong);
-			sb.append(", info: '");
-			sb.append(info);
-			sb.append("', url: '");
-			sb.append(url);
-			sb.append("' } ");
+	rlat = list.get(i).getRest_lat();
+	rlong = list.get(i).getRest_long();
+	info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
+			+ list.get(i).getRest_name()
+			+"<br><span>" +list.get(i).getRest_loc()
+			+"</span></div></div></div>";
+	url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
+	sb.append(",{ lat: ");
+	sb.append(rlat);
+	sb.append(", lng: ");
+	sb.append(rlong);
+	sb.append(", info: '");
+	sb.append(info);
+	sb.append("', url: '");
+	sb.append(url);
+	sb.append("' } ");
 		}	
 	}
 	sb.append("] ");
+	
+	
+	//MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+	int member_num = 0;
+	//if(mdto==null) member_num = 0;
+	//else member_num = mdto.getM_no();
+	
+	ArrayList<RestListDTO> list1 = (ArrayList<RestListDTO>) request.getAttribute("list");
+	int totalcount = 0;
+	int totalpage = 0;
+	if (list1 != null) {
+		totalcount = list1.get(0).getTotalcount();
+		totalpage = list1.get(0).getTotalpage();
+	}
+	int cpage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
+	int prev = cpage > 1 ? cpage - 1 : 1;
+	int next = cpage + 1 > totalpage ? totalpage : cpage + 1;
+	int startPage = ((cpage - 1) / 10) * 10 + 1;
+	int endPage = startPage + 10 - 1;
+	if (endPage > totalpage)
+		endPage = totalpage;
+	url = request.getRequestURI().toString();
+	//pop=2%2C5&add=103%2C105&searchWord=aa&food_type=200%2C12
+	String newurl = "";
+	int ucnt = 0;
+	if (request.getParameter("pop") != null) {
+		newurl += "pop=" + request.getParameter("pop");
+		ucnt++;
+	}
+	if (request.getParameter("pop") != null) {
+		if (ucnt > 0)newurl += "&pop=" + request.getParameter("pop");
+		else newurl += "pop=" + request.getParameter("pop");
+		ucnt++;
+	}
+	if (request.getParameter("add") != null) {
+		if (ucnt > 0) newurl += "&add=" + request.getParameter("add");
+		else newurl += "add=" + request.getParameter("add");
+		ucnt++;
+	}
+	if (request.getParameter("searchWord") != null) {
+		if (ucnt > 0) newurl += "&searchWord=" + request.getParameter("searchWord");
+		else newurl += "searchWord=" + request.getParameter("searchWord");
+	}
 	
 %>
 <body>
@@ -87,18 +134,17 @@
 		<div id="content_wrap">
 			<div id="content" class="search">
 				<div class="result">
-					총 <span class="highlight"></span><%=size%>개가 검색되었습니다.
+					총 <span class="highlight"><%=totalcount%></span>개가 검색되었습니다.
 				</div>
 `
 				<ul class="sort_order_spread">
-					<li class="selected" data-order="">에디터 추천순</li>
 					<li class="" data-order="average_grade">별점순</li>
 					<li class="" data-order="reservation">예약순</li>
 					<li class="" data-order="view">조회순</li>
 				</ul>
-				
+
 				<div class="list">
-					<c:forEach items="${list1}" var="dto" varStatus="status">
+					<c:forEach items="${list}" var="dto" varStatus="status">
 						<c:if test="${status.index % 3 ne 0 }">
 							<div class="element  medium ">
 						</c:if>
@@ -115,8 +161,13 @@
 								예약 ${dto.rest_reservation_cnt}&nbsp; 리뷰
 								${dto.rest_review_cnt}&nbsp; 조회수 ${dto.rest_view_cnt} <br>
 								<button class="" data-type="poing.restaurants.favorite"
-									data-id="35740" onclick='return false;'>
+									data-id="${dto.rest_seq }" onclick='return false;'>
+									<c:if test="${dto.rest_fav eq 1 }">
+									<i class="icon favorite on"></i>
+									</c:if>
+									<c:if test="${dto.rest_fav eq 0 }">
 									<i class="icon favorite "></i>
+									</c:if>
 								</button>
 							</div>
 							<div class="bottom">
@@ -129,18 +180,21 @@
 							<div class="place_info">
 								<div class="rating">
 									<div class="stars">
-
-
-										<span class='star odd active'></span><span
-											class='star even active'></span><span
-											class='star odd active'></span><span
-											class='star even active'></span><span
-											class='star odd active'></span><span
-											class='star even active'></span><span
-											class='star odd active'></span><span
-											class='star even active'></span><span class='star odd '></span><span
-											class='star even '></span>
+										<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
+												<c:if test="${i <= ((dto.rest_starpoint*2)+(((dto.rest_starpoint*2)%1>0.5)?(1-((dto.rest_starpoint*2)%1))%1:-((dto.rest_starpoint*2)%1)))}">
+													<c:if test="${i%2 ne 0 }"><span class="star odd active"></span></c:if>
+													<c:if test="${i%2 eq 0 }">
+														<span class="star even active" ></span>
+													</c:if>
+												</c:if>
+												<c:if test="${i > ((dto.rest_starpoint*2)+(((dto.rest_starpoint*2)%1>0.5)?(1-((dto.rest_starpoint*2)%1))%1:-((dto.rest_starpoint*2)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
+													<c:if test="${i%2 eq 0 }">
+														<span class="star even "></span>
+													</c:if>
+												</c:if>
+											</c:forEach>
 									</div>
+
 									<div class="grade">${dto.rest_starpoint}점</div>
 								</div>
 								<div class="budget">${dto.rest_budget_type}</div>
@@ -154,45 +208,41 @@
 
 						<div class="btn">
 							<button type="button" class="reserve"
-								data-type="poing.reservation.add" data-id="35740">예약하기</button>
-							<a href="/restaurant/detail/35740?review" class="review ">리뷰
+								data-type="poing.reservation.addloading" data-id="${dto.rest_seq}">예약하기</button>
+							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review" class="review ">리뷰
 								쓰기</a>
 						</div>
-					</div>
-				</c:forEach>
-			</div>
-
-				<div id="pager">
-				<div class="page-list">
-				<ul class="pagination" onselectstart="return false;">
-				
-				<li class="prevAll">
-					<a href="list.do?pg=${paging.doubleprevPageNo }">&lt;&lt;</a>
-				</li>
-				
-				<li class="prev">
-					<a href="list.do?pg=${paging.prevPageNo}">&lt;</a>
-				</li>
-				
-				<c:forEach begin="${paging.firstPageNo }" end="${paging.finalPageNo}" step="1" var="cpage">	
-					<c:if test="${cpage ne paging.cpage }"><li class="page" data-page="${cpage }"><a href="list.do?pg=${cpage}">${cpage}</a></li></c:if>
-					<c:if test="${cpage eq paging.cpage }"><li class="page active" data-page="${cpage }"><a href="list.do?pg=${cpage}">${cpage}</a></li></c:if>
-				</c:forEach>
-
-				<li class="next">
-					<a href="list.do?pg=${paging.nextPageno}">&gt;</a>
-				</li>
-				
-				<li class="nextAll">
-					<a href="list.do?pg=${paging.doublenextPageNo }">&gt;&gt;</a>
-				</li>
-				
-				</ul>
 				</div>
-			</div>
+				</c:forEach>
+					<div id="pager">
+						<div class="page-list">
+							<ul class="pagination" onselectstart="return false;">
+								
+								<li class="prevAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=1">&lt;&lt;</a></li>
+								<li class="prev"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=prev%>">&lt;</a></li>
+								<c:if test="${list eq null }">
+									<li class="page active" data-page="1"><a style="color: #c91b3c !important"  href="/Poing/rest/list.do?<%=newurl%>&page=1">${status.index}</a></li>
+								</c:if>
+								<c:if test="${list ne null }">
+									<c:forEach begin="<%=startPage%>" end="<%=endPage%>" step="1" varStatus="status">
+									<c:if test="${status.index ne cpage }">
+										<li class="page" data-page="${status.index}"><a href="/Poing/rest/list.do?<%=newurl%>&page=${status.index}">${status.index}</a></li>
+									</c:if>
+									<c:if test="${status.index eq cpage }">
+										<li class="page active" data-page="${status.index}"><a style="color: #c91b3c !important" href="/Poing/rest/list.do?<%=newurl%>&page=${status.index}">${status.index}</a></li>
+									</c:if>
+									</c:forEach>
+								</c:if>
+								<li class="next"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=next%>">&gt;</a></li>
+								<li class="nextAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=totalpage%>">&gt;&gt;</a></li>
+
+							</ul>
+						</div>
+					</div>
+
+				</div>
 		</div>
 	</div>
-
 
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	
@@ -203,6 +253,8 @@
 </div>
 
 <script>
+
+
 function initMap() {
 
 	  var map = new google.maps.Map(document.getElementById('map'), {

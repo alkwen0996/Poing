@@ -244,19 +244,19 @@
 							type = "on";
 
 						$.ajax({
-							url: "/main/ajaxfavorite.do",
+							url: "/Poing/rest/ajax/restListFavAjax.do",
 							method: 'post',
 							dataType: 'json',
 							data: {
 								"type": type,
-								"id": $(this).data("id")
+								"id": $(this).data("id")  //session Id
 							},
 							//context:this,
 							success: function (res) {
 								var data = $.parseQuery(this.data);
 								var btn = $("button[data-type='poing.restaurants.favorite'][data-id=" + data.id + "]");
 
-								if (data.type == 'on') {
+								if (data.type == 'on') {   //type이 on으로 넘어오면 찜하기
 									btn.addClass('on')
 										.children("i").addClass('on');
 									$.popup("/Poing/pick/popup/confirm.do", {
@@ -1154,6 +1154,11 @@
 			},
 
 			reservation: {
+				addloading: function () {
+					var id = $(this).data('id');
+					location.href = "/Poing/rest/detail.do?rest_seq="+id;
+				},
+				
 				add: function () {
 					var id = $(this).data('id');
 					if (poing.account.checkLoginState("예약을 하시려면 로그인/회원가입이 필요합니다.<br><br>지금 로그인/회원가입을 하시겠습니까?")) {
@@ -1770,6 +1775,11 @@
 					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
 				</c:when>
 				
+				<c:when test="${ param.tab eq '' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+			
 				<c:otherwise>
 					<% System.out.println("param 없음"); %>
 					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>

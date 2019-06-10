@@ -63,8 +63,9 @@
 									${dto.rest_reservation_cnt}건 / 리뷰 ${dto.rest_review_cnt}건 / 조회
 									${dto.rest_view_cnt}건</div>
 								<button class="empty " data-type="poing.restaurants.favorite"
-									data-id="" tabindex="-1">
-									찜하기<i class="icon heart large "></i>
+									data-id="${dto.rest_seq }" tabindex="-1">
+									찜하기<c:if test="${dto.rest_fav eq 1 }"><i class="icon heart large on"></i></c:if>
+									<c:if test="${dto.rest_fav eq 0 }">	<i class="icon favorite "></i></c:if>
 								</button>
 							</div>
 							<ul class="info_list">

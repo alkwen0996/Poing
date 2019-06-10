@@ -17,7 +17,8 @@ public class ReplyDAO {
 	public List<ReplyDTO> selectDisplay(Connection conn , int memberID){
 		System.out.println("ReplyDAO display");
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select * from reply ");
+		sql.append(" select * from tic_reply r "
+				+ "join editor e on r.e_seq = e.e_seq ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -31,7 +32,7 @@ public class ReplyDAO {
 				rdto.setReply_seq(rs.getInt("reply_seq"));
 				rdto.setReply_ctime(rs.getString("reply_ctime"));
 				rdto.setReply_content(rs.getString("reply_content"));
-				rdto.setAdmin_seq(rs.getInt("admin_seq"));
+				rdto.setE_name(rs.getString("e_name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

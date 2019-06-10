@@ -10,7 +10,7 @@
 	<ul class="notice_list my">
 	
 	<c:forEach items="${nnlist }" var = "mdto" varStatus="status">
-		<li class="item" data-type="like_review" data-target="193260"
+		<li class="item" data-type="${mdto.un_push_type }" data-target="${mdto.un_target_id }"
 			data-additional="28347">
 			<div class="i_wrap">
 				<i class="image border_radius circle"

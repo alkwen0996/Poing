@@ -9,7 +9,6 @@
 	
 	<style type="text/css">
 	.pointCharge{
-	    display: inline-block;
     font-size: 16px;
     background: #c91b3c;
     padding: 3px 8px;

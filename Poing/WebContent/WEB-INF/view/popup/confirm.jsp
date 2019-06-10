@@ -8,7 +8,6 @@
 		<button type="button" class="deny" data-close>취소</button>
 	</div>
 </div>
-
 <script>
 			$.popup.interval = setTimeout(function(){ 
 			$("#popup").animate({'opacity':0}, 500, function() {

@@ -357,12 +357,18 @@ public class ProductDetailDAO {
 	
 	
 	public static ProductDTO selectProductDetail(Connection conn, int p_num){
-		String sql = " select * from tic_menu_info m join tic_use_case c on m.p_num = c.p_num join tic_guideInfo g on g.p_num = m.p_num join tic_validate v on v.p_num = m.p_num join tic_cancel_change h on h.p_num = m.p_num where m.p_num = ? ";
+		String sql = " select * from tic_menu_info m "
+				+ "join tic_use_case c on m.p_num = c.p_num "
+				+ "join tic_guideInfo g on g.p_num = m.p_num "
+				+ "join tic_validate v on v.p_num = m.p_num "
+				+ "join tic_cancel_change h on h.p_num = m.p_num "
+				+ "where m.p_num = ? ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
 			
 			pstmt.setInt(1, p_num);
 			rs = pstmt.executeQuery();
@@ -414,7 +420,6 @@ public class ProductDetailDAO {
 				dto.setP_name(rs.getString("p_name"));
 				dto.setP_type(rs.getString("p_type"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
-				dto.setP_dc_money(rs.getInt("p_dc_money"));
 				dto.setP_option(rs.getString("p_option"));
 				dto.setImg_seq(rs.getInt("img_seq"));
 				dto.setE_name(rs.getString("e_name"));
@@ -444,8 +449,10 @@ public class ProductDetailDAO {
 		String sql = " select * from p_product p join editer_review e on p.e_seq = e.e_seq join product_img i on p.img_seq = i.img_seq join p_restaurant r on r.p_num = p.p_num where p.p_num = ? ";
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt_qna = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
+		ResultSet rs_qna = null;
 		ProductDTO dto = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		// 
@@ -483,6 +490,33 @@ public class ProductDetailDAO {
 				dto.setPick(rs2.getInt("cnt"));
 				System.out.println("productdetail DAO : cnt = "+rs2.getInt("cnt"));
 				
+				// qna
+				StringBuffer sql_qna = new StringBuffer();
+				sql_qna.append(" select * " + 
+						" from p_product p " + 
+						" join editer_review e on p.e_seq = e.e_seq " + 
+						" join product_img i on p.img_seq = i.img_seq " + 
+						" join p_restaurant r on r.p_num = p.p_num " + 
+						" join (select q_m_no,q_ctime,q_content,q_seq,q_tic_seq, " + 
+						" reply_seq,reply_ctime,reply_content,admin_seq " + 
+						"  from question q  " + 
+						" join reply rp on q_reply_seq = reply_seq) qrp on q_tic_seq = p.p_num " + 
+						" where p.p_num = ? ");
+				pstmt_qna = conn.prepareCall(sql_qna.toString());
+				pstmt_qna.setInt(1, p_num);
+				rs_qna = pstmt_qna.executeQuery();
+				while(rs_qna.next()) {
+					//dto.setE_name(rs_qna.getString("e_name"));
+					dto.setQ_content(rs_qna.getString("q_content"));
+					dto.setQ_ctime(rs_qna.getString("q_ctime"));
+					dto.setReply_seq(rs_qna.getInt("reply_seq"));
+					dto.setReply_content(rs_qna.getString("reply_content"));
+					dto.setReply_ctime(rs_qna.getString("reply_ctime"));
+					dto.setAdmin_seq(rs_qna.getInt("admin_seq"));
+				}
+				
+				
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -496,4 +530,90 @@ public class ProductDetailDAO {
 		}	
 		return dto;	
 	}
-}
+	
+	public ArrayList<ProductDTO> selectdisplay_QnA(Connection conn, int p_num) {
+		
+		PreparedStatement pstmt_qna = null;
+		ResultSet rs_qna = null;
+		ProductDTO dto = null;
+		ArrayList<ProductDTO> list =null;
+		
+		StringBuffer sql_qna = new StringBuffer();
+		sql_qna.append(" select * " + 
+				" from p_product p " + 
+				" join editer_review e on p.e_seq = e.e_seq " + 
+				" join product_img i on p.img_seq = i.img_seq " + 
+				" join p_restaurant r on r.p_num = p.p_num " + 
+				" join (select q_m_no,q_ctime,q_content,q_seq,q_tic_seq, " + 
+				" reply_seq,reply_ctime,reply_content,admin_seq " + 
+				"  from question q  " + 
+				" join reply rp on q_reply_seq = reply_seq) qrp on q_tic_seq = p.p_num " + 
+				" where p.p_num = ? ");
+		
+		try {
+				dto = new ProductDTO();
+				// qna
+				
+				pstmt_qna = conn.prepareCall(sql_qna.toString());
+				pstmt_qna.setInt(1, p_num);
+				rs_qna = pstmt_qna.executeQuery();
+				
+				if(rs_qna.next()) {
+					list = new ArrayList<>();
+					do {
+						//dto.setE_name(rs_qna.getString("e_name"));
+						dto.setP_num(rs_qna.getInt("p_num"));
+						dto.setQ_content(rs_qna.getString("q_content"));
+						dto.setQ_ctime(rs_qna.getString("q_ctime"));
+						dto.setReply_seq(rs_qna.getInt("reply_seq"));
+						dto.setReply_content(rs_qna.getString("reply_content"));
+						dto.setReply_ctime(rs_qna.getString("reply_ctime"));
+						dto.setAdmin_seq(rs_qna.getInt("admin_seq"));
+						dto.setE_name(rs_qna.getString("e_name"));
+						list.add(dto);
+					}while(rs_qna.next());
+				}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt_qna.close();
+				rs_qna.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return list;	
+	}//selectdisplay_QnA
+	
+	public int insertQnA(Connection conn, ProductDTO pdto) {
+		int result = 0;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" insert into question values ");
+		sql.append(" (seq_question.nextval, ? , sysdate, ? ,?,null) ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, pdto.getE_seq());
+			pstmt.setString(2, pdto.getQ_content());
+			pstmt.setInt(3, pdto.getQ_tic_seq());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return result;
+	} //insertQnA
+	
+}//class

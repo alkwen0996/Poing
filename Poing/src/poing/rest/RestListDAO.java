@@ -69,18 +69,18 @@ public class RestListDAO {
 	public ArrayList<ReviewSearchDTO> selectSimpleRestInfo(Connection conn, String searchWord) throws SQLException
 	{
 		StringBuffer sql = new StringBuffer();
-		sql.append(" WITH rest_list AS( ");
+		sql.append(" WITH temp2 AS( ");
 		sql.append(" SELECT ROWNUM AS no, temp.* ");
 		sql.append(" FROM ");
 		sql.append(" ( ");
 		sql.append("    SELECT rest_seq, rest_name, rest_loc ");
-		sql.append("    FROM restaurant ");
+		sql.append("    FROM p_restaurant ");
 		sql.append("    WHERE REGEXP_LIKE(rest_name, ?, 'i') OR REGEXP_LIKE(rest_loc, ?, 'i') ");
 		//sql.append("    ORDER BY rest_name ");
 		sql.append("    )temp ");
 		sql.append(" ) ");
-		sql.append(" SELECT rest_list.* FROM rest_list ");
-		sql.append(" WHERE rest_list.no BETWEEN 1 AND 5 ");
+		sql.append(" SELECT temp2.* FROM temp2 ");
+		sql.append(" WHERE temp2.no BETWEEN 1 AND 5 ");
 
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, searchWord);

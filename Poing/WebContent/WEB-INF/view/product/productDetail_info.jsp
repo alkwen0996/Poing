@@ -61,7 +61,7 @@
 	</div>
 	<hr>
 	<div class="section menu single">
-				<div class="title">메뉴<a class="menu" href="/product/detail/3204?menu">더보기&gt;</a></div>
+				<div class="title">메뉴<a class="menu" href="/Poing/product/detail.do?p_num=${param.p_num }&tab=menu">더보기&gt;</a></div>
 				<div class="body">
 											
 						<a class="i_wrap menu border_radius soft" href="/product/detail/3204?menu">

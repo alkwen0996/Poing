@@ -71,7 +71,7 @@
 
 							<tbody>
 							
-							<c:forEach items="${list}" var="dto">
+							<%-- <c:forEach items="${list}" var="dto">
 							
 								<tr class="selected" data-id="${dto.cart_seq }" data-valid="false">
 									<td class="select"><input type="checkbox" class="single"
@@ -131,6 +131,109 @@
 								</c:if>	
 								</tr>
 									
+							</c:forEach> --%>
+							
+							<c:forEach items="${list}" var="dto">
+								<c:if test="${dto.message eq null && dto.c_date eq null && dto.party_size == 0 }">
+									<tr class="selected" data-id="${dto.cart_seq }" data-valid="false">
+									<td class="select"><input type="checkbox" class="single"
+										checked=""></td>
+									<td class="info"><a class="image"
+										href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank"> 
+										<i class="image border_radius medium"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA4/15347464725b7a5f686730b.png);"></i>
+									</a>
+										<button type="button" class="option border_radius soft"
+											data-id="${dto.cart_seq }" tabindex="-1">옵션변경</button> 
+											<a class="name" href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank">${dto.p_name }</a>
+										<div class="valid_date">
+											유효기간: <span>${dto.p_st_ed_date }</span>
+										</div>
+									
+									<c:forEach items="${option }" var="opt">	
+									<c:if test="${dto.cart_seq eq opt.cart_seq }">
+										<ul class="options">
+											<li data-id="${opt.op_seq }" data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }">
+												<div class="name">${opt.op_name }</div>
+												<div class="price" data-value="${opt.op_price }">${opt.op_price }원</div>
+												<div class="count_box">
+													<input type="text" value="${opt.op_cnt }" disabled="">
+													<button type="button" class="increase" tabindex="-1">
+														<i></i>
+													</button>
+													<button type="button" class="decrease" tabindex="-1">
+														<i></i>
+													</button>
+												</div>
+												<div class="total_price">
+													<span></span>원
+												</div>
+												<button type="button" class="reset" data-id="${dto.cart_seq }"
+													data-opt="${opt.op_seq }" tabindex="-1"></button>	
+											</li>
+										</ul>
+										</c:if>
+									</c:forEach>
+										</td>
+										<td class="reserve">
+										<p>예약일을 지정해주세요.</p>
+										<button type="button" class="reserve" data-id="${dto.cart_seq }"
+											data-mode="cart" tabindex="-1">예약하기</button>
+									</td>
+										</tr>
+								</c:if>
+							</c:forEach>
+							
+							<c:forEach items="${list}" var="dto">
+								<c:if test="${dto.message ne null || dto.c_date ne null || dto.party_size != 0 }">
+									<tr class="selected" data-id="${dto.cart_seq }" data-valid="true">
+									<td class="select"><input type="checkbox" class="single"
+										checked=""></td>
+									<td class="info"><a class="image"
+										href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank"> 
+										<i class="image border_radius medium"
+											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA4/15347464725b7a5f686730b.png);"></i>
+									</a>
+										<button type="button" class="option border_radius soft"
+											data-id="${dto.cart_seq }" tabindex="-1">옵션변경</button> 
+											<a class="name" href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank">${dto.p_name }</a>
+										<div class="valid_date">
+											유효기간: <span>${dto.p_st_ed_date }</span>
+										</div>
+									
+									<c:forEach items="${option }" var="opt">	
+									<c:if test="${dto.cart_seq eq opt.cart_seq }">
+										<ul class="options">
+											<li data-id="${opt.op_seq }" data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }">
+												<div class="name">${opt.op_name }</div>
+												<div class="price" data-value="${opt.op_price }">${opt.op_price }원</div>
+												<div class="count_box">
+													<input type="text" value="${opt.op_cnt }" disabled="">
+													<button type="button" class="increase" tabindex="-1">
+														<i></i>
+													</button>
+													<button type="button" class="decrease" tabindex="-1">
+														<i></i>
+													</button>
+												</div>
+												<div class="total_price">
+													<span></span>원
+												</div>
+												<button type="button" class="reset" data-id="${dto.cart_seq }"
+													data-opt="${opt.op_seq }" tabindex="-1"></button>	
+											</li>
+										</ul>
+										</c:if>
+									</c:forEach>
+										<td class="reserve">
+										<div class="date">날짜:${dto.c_date } </div>
+										<div class="count">인원: ${dto.party_size }</div>
+										<div class="comment">요청사항: <span>${dto.message }</span></div>
+										<button type="button" class="reserve" data-id="${dto.cart_seq }"
+											data-mode="cart" tabindex="-1">예약하기</button>
+										</td>
+									</tr>
+								</c:if>
 							</c:forEach>
 							
 								</tbody>
@@ -305,7 +408,7 @@ $(document).ready(function(){
 
     // 쇼핑 계속하기
     $(".pay.cart>.buttons>.back, .pay.cart tr.empty button").click(function(){
-        location.href="/Poing/product/list";
+        location.href="/Poing/product/list.do";
     });
     // 바로 구매하기
     $(".pay.cart>.buttons>.link").click(function(){
@@ -313,7 +416,7 @@ $(document).ready(function(){
         var data = [];
 
         if(checked.length == 0) {
-            $.popup("confirm", {'text':'상품을 선택해주세요!', 'alert':true});
+            $.popup("/Poing/popup/checkTicket.do", {'text':'상품을 선택해주세요!', 'alert':true});
             return;
         }
 
@@ -322,13 +425,14 @@ $(document).ready(function(){
             var target = checked.eq(i);
 
             if(target.data('valid') == false) {
-                $.popup("confirm", {'text':'선택한 티켓의 예약일시를 설정해주세요.', 'alert':true});
+                $.popup("/Poing/popup/checkReserve.do", {'text':'선택한 티켓의 예약일시를 설정해주세요.', 'alert':true});
                 return;
             }
             data.push(target.data('id'));
         }
+        alert(data);
 
-        $.ajax({'url':'/pay/cartValidCheck',
+        $.ajax({'url':'/Poing/cart/cartValidCheck.do',
             'type':'POST',
             'async': false,
             'data':{'cart_ids':data},

@@ -7,7 +7,7 @@
 		type="javax.sql.DataSource"
 		driverClassName="oracle.jdbc.OracleDriver"
 		url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
-		username="poing"
+		username="test"
 		password="poing" 
 		maxTotal="20"
 		maxIdle="10" 

@@ -21,6 +21,7 @@ public class DisplaySearchService {
         int end = (pageNo-1) * numberOfBlock + numberOfBlock;
 		try (Connection conn = ConnectionProvider.getConnection()) {	
 			List<ProductDTO> search = dao.sselectdisplay(conn, first, end, bpage);
+			conn.close();
 			// 로그 처리
 			// 
 			//

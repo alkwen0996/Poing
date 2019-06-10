@@ -20,6 +20,7 @@ public class DisplayProductListService {
         
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			List<ProductDTO> list = dao.selectdisplay(conn, first, end);
+			conn.close();
 			// 로그 처리
 			// 
 			//

@@ -104,6 +104,12 @@ public class PopupHandler implements CommandHandler {
 		else if(command.equals("/user/noticeCheck.do")) {
 			return "popup/noticeCheck_json";
 		}
+		else if (command.equals("/popup/checkTicket.do")) {
+			return "popup/checkTicket";
+		}
+		else if(command.equals("/popup/checkReserve.do")) {
+			return "popup/checkReserve";
+		}
 		else {
 			return null;			
 		}

@@ -4,7 +4,9 @@ public class ReplyDTO {
 	private int reply_seq;
 	private String reply_ctime;
 	private String reply_content;
-	private int admin_seq;
+	private String e_name;
+	private String e_seq;
+	private int q_seq;
 	
 	public int getReply_seq() {
 		return reply_seq;
@@ -24,14 +26,25 @@ public class ReplyDTO {
 	public void setReply_content(String reply_content) {
 		this.reply_content = reply_content;
 	}
-
-	public int getAdmin_seq() {
-		return admin_seq;
+	public String getE_name() {
+		return e_name;
 	}
-	public void setAdmin_seq(int admin_seq) {
-		this.admin_seq = admin_seq;
+	public void setE_name(String e_name) {
+		this.e_name = e_name;
 	}
+	public String getE_seq() {
+		return e_seq;
+	}
+	public void setE_seq(String e_seq) {
+		this.e_seq = e_seq;
+	}
+	public int getQ_seq() {
+		return q_seq;
+	}
+	public void setQ_seq(int q_seq) {
+		this.q_seq = q_seq;
+	}
+	
 	
 		
-	
 }

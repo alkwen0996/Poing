@@ -70,7 +70,7 @@
     <url-pattern>*.ejs</url-pattern> 
   </servlet-mapping>
   
-<!--    <servlet>
+ <servlet>
     <servlet-name>ControllerUsingURIOwner</servlet-name>
     <servlet-class>owner.mvc.OwnerControllerUsingURI</servlet-class>
     <init-param>
@@ -83,5 +83,5 @@
     <servlet-name>ControllerUsingURIOwner</servlet-name>
     <url-pattern>*.ow</url-pattern> 
   </servlet-mapping>
-  -->
+
 </web-app>

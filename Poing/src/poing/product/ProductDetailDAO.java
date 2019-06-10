@@ -507,12 +507,12 @@ public class ProductDetailDAO {
 				rs_qna = pstmt_qna.executeQuery();
 				while(rs_qna.next()) {
 					//dto.setE_name(rs_qna.getString("e_name"));
-					dto.setQ_content(rs_qna.getString("q_content"));
+				/*	dto.setQ_content(rs_qna.getString("q_content"));
 					dto.setQ_ctime(rs_qna.getString("q_ctime"));
 					dto.setReply_seq(rs_qna.getInt("reply_seq"));
 					dto.setReply_content(rs_qna.getString("reply_content"));
 					dto.setReply_ctime(rs_qna.getString("reply_ctime"));
-					dto.setAdmin_seq(rs_qna.getInt("admin_seq"));
+					dto.setAdmin_seq(rs_qna.getInt("admin_seq"));*/
 				}
 				
 				
@@ -563,12 +563,12 @@ public class ProductDetailDAO {
 					do {
 						//dto.setE_name(rs_qna.getString("e_name"));
 						dto.setP_num(rs_qna.getInt("p_num"));
-						dto.setQ_content(rs_qna.getString("q_content"));
+						/*dto.setQ_content(rs_qna.getString("q_content"));
 						dto.setQ_ctime(rs_qna.getString("q_ctime"));
 						dto.setReply_seq(rs_qna.getInt("reply_seq"));
 						dto.setReply_content(rs_qna.getString("reply_content"));
 						dto.setReply_ctime(rs_qna.getString("reply_ctime"));
-						dto.setAdmin_seq(rs_qna.getInt("admin_seq"));
+						dto.setAdmin_seq(rs_qna.getInt("admin_seq"));*/
 						dto.setE_name(rs_qna.getString("e_name"));
 						list.add(dto);
 					}while(rs_qna.next());
@@ -599,8 +599,8 @@ public class ProductDetailDAO {
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, pdto.getE_seq());
-			pstmt.setString(2, pdto.getQ_content());
-			pstmt.setInt(3, pdto.getQ_tic_seq());
+			/*pstmt.setString(2, pdto.getQ_content());
+			pstmt.setInt(3, pdto.getQ_tic_seq());*/
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

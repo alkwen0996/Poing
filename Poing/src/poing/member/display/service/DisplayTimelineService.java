@@ -7,6 +7,9 @@ import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
 import poing.member.MemberDTO;
+import poing.news_notice.NewsDTO;
+import poing.news_notice.NoticeDTO;
+import poing.rest.RestListDTO;
 import poing.notice.UserNoticeDTO;
 import poing.notice.PoingNoticeDTO;
 import poing.rest.RestTimlineReserveDTO;
@@ -28,13 +31,13 @@ public class DisplayTimelineService {
 		conn.close();
 		return mdto;
 	}
-	public ArrayList<RestTimlineReserveDTO> getReseveRestDTO(int memberID) throws SQLException {
+	public ArrayList<RestTimlineReserveDTO> getReseveRestDTO(int memberID, String type) throws SQLException {
 		
 		Connection conn = ConnectionProvider.getConnection();
-		ArrayList<RestTimlineReserveDTO> list = mdao.getReserveRest(conn,memberID);
+		ArrayList<RestTimlineReserveDTO> list = mdao.getReserveRest(conn,memberID, type);
 		
 		conn.close();	
-		System.out.println("displaytimlineService : 예약리스트 처리도어  list에 담김");
+		System.out.println("displaytimlineService : 예약리스트 처리되어  list에 담김");
 		return list;
 	}
 	public ArrayList<ReviewDTO> getWriteReview(int memberID, int curPage, int my_no) throws SQLException {
@@ -75,6 +78,13 @@ public class DisplayTimelineService {
 		System.out.println("displaytimlineService : 알림 list에 담김");
 		return nlist;
 	}// getNoticeDTO
+	public ArrayList<RestListDTO> getPickRestList(int memberID, int page) throws SQLException {
+		Connection conn = ConnectionProvider.getConnection();
+		ArrayList<RestListDTO> nlist = mdao.PickRestList(conn, memberID, page);
+		
+		conn.close();
+		System.out.println("displaytimlineService : 알림 list에 담김");
+		return nlist;
 	
 	public static boolean amIFollow(int memberID, int my_no) throws SQLException {
 		if (my_no == -1) {

@@ -87,7 +87,7 @@
 		<div id="content_wrap">
 			<div id="content" class="search">
 				<div class="result">
-					총 <span class="highlight"></span>${paging.totalCount} <%=size%>개가 검색되었습니다.
+					총 <span class="highlight"></span><%=size%>개가 검색되었습니다.
 				</div>
 `
 				<ul class="sort_order_spread">
@@ -96,9 +96,9 @@
 					<li class="" data-order="reservation">예약순</li>
 					<li class="" data-order="view">조회순</li>
 				</ul>
-
+				
 				<div class="list">
-					<c:forEach items="${list}" var="dto" varStatus="status">
+					<c:forEach items="${list1}" var="dto" varStatus="status">
 						<c:if test="${status.index % 3 ne 0 }">
 							<div class="element  medium ">
 						</c:if>
@@ -158,12 +158,41 @@
 							<a href="/restaurant/detail/35740?review" class="review ">리뷰
 								쓰기</a>
 						</div>
-				</div>
+					</div>
+				</c:forEach>
+			</div>
+
+				<div id="pager">
+				<div class="page-list">
+				<ul class="pagination" onselectstart="return false;">
+				
+				<li class="prevAll">
+					<a href="list.do?pg=${paging.doubleprevPageNo }">&lt;&lt;</a>
+				</li>
+				
+				<li class="prev">
+					<a href="list.do?pg=${paging.prevPageNo}">&lt;</a>
+				</li>
+				
+				<c:forEach begin="${paging.firstPageNo }" end="${paging.finalPageNo}" step="1" var="cpage">	
+					<c:if test="${cpage ne paging.cpage }"><li class="page" data-page="${cpage }"><a href="list.do?pg=${cpage}">${cpage}</a></li></c:if>
+					<c:if test="${cpage eq paging.cpage }"><li class="page active" data-page="${cpage }"><a href="list.do?pg=${cpage}">${cpage}</a></li></c:if>
 				</c:forEach>
 
+				<li class="next">
+					<a href="list.do?pg=${paging.nextPageno}">&gt;</a>
+				</li>
+				
+				<li class="nextAll">
+					<a href="list.do?pg=${paging.doublenextPageNo }">&gt;&gt;</a>
+				</li>
+				
+				</ul>
+				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 	

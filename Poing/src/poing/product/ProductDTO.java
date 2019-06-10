@@ -22,7 +22,10 @@ public class ProductDTO {
 	private String p_st_ed_date;
 	private int pick;
 	private int p_min_count;
-	private int p_min_Personnel;
+    private int op_min_cnt;
+    private int op_max_cnt;
+    private int op_seq;
+    private int p_min_Personnel;
 	private int cart_seq;
 	private String op_name;
 	private int op_cnt;
@@ -40,10 +43,26 @@ public class ProductDTO {
 	private String tic_validate_title;
 	private String ticg_title;
 	private String tic_menu_info_title;
-	
-	
-	
-	
+    
+    
+    public int getOp_seq() {
+		return op_seq;
+	}
+	public void setOp_seq(int op_seq) {
+		this.op_seq = op_seq;
+	}
+	public int getOp_min_cnt() {
+		return op_min_cnt;
+	}
+	public void setOp_min_cnt(int op_min_cnt) {
+		this.op_min_cnt = op_min_cnt;
+	}
+	public int getOp_max_cnt() {
+		return op_max_cnt;
+	}
+	public void setOp_max_cnt(int op_max_cnt) {
+		this.op_max_cnt = op_max_cnt;
+	}
 	public String getTic_menu_info_content() {
 		return tic_menu_info_content;
 	}
@@ -213,6 +232,7 @@ public class ProductDTO {
 	public void setP_origin_money(int p_origin_money) {
 		this.p_origin_money = p_origin_money;
 	}
+	
 	public int getP_dc_money() {
 		return p_dc_money;
 	}
@@ -267,13 +287,11 @@ public class ProductDTO {
 	public void setEditer_img(String editer_img) {
 		this.editer_img = editer_img;
 	}
+	
 	public int getPick() {
 		return pick;
 	}
 	public void setPick(int pick) {
 		this.pick = pick;
 	}
-	
-	
-	
 }

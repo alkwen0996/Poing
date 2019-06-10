@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
 <head>
 	
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
@@ -69,7 +68,7 @@
             </thead>
 
             <tbody>
-                                        <tr class="selected" data-id="1299328" data-valid="true">
+                          <tr class="selected" data-id="1299328" data-valid="true">
                             <td class="select">
                                 <input type="checkbox" class="single" checked="">
                             </td>
@@ -93,7 +92,7 @@
                                             <div class="total_price"><span>93,100</span>원</div>
                                             <button type="button" class="reset" data-id="1299328" data-opt="19044" tabindex="-1"></button>
                                         </li>
-                                                                    </ul>
+                               </ul>
                             </td>
                             <td class="reserve">
                                                                     <div class="date">날짜: 2019.5.29 오후 6:00</div>
@@ -103,7 +102,7 @@
                                     <button type="button" class="edit" data-id="1299328" data-mode="cart" tabindex="-1">예약변경</button>
                                                             </td>
                         </tr>
-                                            <tr class="selected" data-id="1299320" data-valid="true">
+                        <tr class="selected" data-id="1299320" data-valid="true">
                             <td class="select">
                                 <input type="checkbox" class="single" checked="">
                             </td>
@@ -1158,4 +1157,3 @@ $(document).ready(function(){
 	
 
 </body>
-</html>

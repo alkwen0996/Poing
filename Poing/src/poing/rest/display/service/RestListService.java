@@ -15,6 +15,7 @@ public class RestListService {
 		RestListDAO dao = RestListDAO.getInstance();	
 		try (Connection conn = ConnectionProvider.getConnection()) {	
 			List<RestListDTO> list = dao.selectdisplay(conn);
+			
 			// 로그 처리
 			// 
 			//

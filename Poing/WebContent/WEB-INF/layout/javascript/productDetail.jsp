@@ -127,6 +127,10 @@ $(function () {
 
 		if (li.data('min') <= value + add && value + add <= li.data('limit'))
 			value += add;
+		else if (value + add < li.data('limit'))
+			noticePopupInit({
+				message: '구매 가능한 최소 수량입니다.'
+			})
 		else if (value + add > li.data('limit'))
 			noticePopupInit({
 				message: '구매 가능한 최대 수량입니다.'

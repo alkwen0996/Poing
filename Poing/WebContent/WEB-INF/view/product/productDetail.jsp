@@ -53,8 +53,8 @@
                <div class="inner_wrap">
                   <div class="inner">
                      <div class="header">
-                        <span class="name">${dto.rest_name }</span> <span class="info">${dto.r_location }-${dto.r_type }</span>
-                        <button class="empty favorite " data-id="${dto.p_num}"
+                        <span class="name">${dto.rest_name }</span> <span class="info">${dto.rest_address }-${dto.rest_foodinfo }</span>
+                        <button class="empty favorite " data-id=""
                            tabindex="-1">
                            <%
                               if (dto.getPick() == 1) {
@@ -77,11 +77,6 @@
                                     style="background-image: url(${dto.photo_img})"
                                     title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
                               </div>
-                              <div class="i_wrap slice" style="top: 0px; left: -100%;">
-                                 <i class="image" data-index="1"
-                                    style="background-image: url(${dto.editer_img})"
-                                    title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-                              </div>
 
                            </div>
                         </div>
@@ -94,7 +89,7 @@
                               class="original">${dto.p_origin_money }</span>
                         </div>
                         <div id="left_time">
-                           		남은시간 <span>9일 23:06:11</span>
+                                 남은시간 <span>9일 23:06:11</span>
                         </div>
                         <div class="dropbox">
                            <div class="label">
@@ -103,10 +98,10 @@
                            </div>
                            <ul class="items" style="display: none;">
                               <c:forEach items="${pp }" var="op">
-									<li class="" data-id="${op.op_seq }" data-min="${op.op_min_cnt }" data-limit="${op.op_max_cnt }">
-										<span class="option"><span>${op.op_name}</span></span><span class="price">${op.op_price }</span>
-									</li>
-								</c:forEach>
+                           <li class="" data-id="${op.tic_option_seq }" data-min="${op.tic_op_min_cnt }" data-limit="${op.tic_op_max_cnt }">
+                              <span class="option"><span>${op.tic_op_name}</span></span><span class="price">${op.tic_dc_price }</span>
+                          </li> 
+                        </c:forEach>
                            </ul>
 
                         </div>
@@ -129,19 +124,19 @@
             <div id="content" class="detail coupon ${ param.tab }">
                <ul class="tab">
                   <li class="item info"><a
-                     href="/Poing/product/detail.do?p_num=${param.p_num }&tab=info">상제정보</a>
+                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=info">상제정보</a>
                   </li>
                   <li class="item photo"><a
-                     href="/Poing/product/detail.do?p_num=${param.p_num }&tab=photo">포토</a>
+                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=photo">포토</a>
                   </li>
                   <li class="item menu"><a
-                     href="/Poing/product/detail.do?p_num=${param.p_num }&tab=menu">메뉴</a>
+                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=menu">메뉴</a>
                   </li>
                   <li class="item map"><a
-                     href="/Poing/product/detail.do?p_num=${param.p_num }&tab=map">지도</a>
+                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=map">지도</a>
                   </li>
                   <li class="item qna"><a
-                     href="/Poing/product/detail.do?p_num=${param.p_num }&tab=qna">상품문의</a>
+                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=qna">상품문의</a>
                   </li>
                </ul>
                <script type="text/javascript">
@@ -210,7 +205,7 @@
                      .click(
                         function () {
                            if (poing.account.checkLoginState()) {
-                              var url = "/Poing/popup/reserve_coupon.do?p_num=${param.p_num}";
+                              var url = "/Poing/popup/reserve_coupon.do?p_num=${param.tic_seq}";
 
                               var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
                               var options = [];
@@ -243,44 +238,44 @@
                            }
                         });
                   $("#sidebar_wrap>.addCart").click(function(){
-          			if(poing.account.checkLoginState()) {
-          				var url = "/Poing/popup/cart.do?";
-          				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
-          				var options = [];
-          				if(selected.length === 0) {
-          					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
-          					return;
-          				}
-          				for(var i=0; i<selected.length; ++i)
-          				{
-          				
-          					var op = selected.eq(i);
-          					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
-          					url += "&" + $.param(options[i]);
-          				}
-          				
-          				$.ajax({
-          				
-          					//'url': "/Poing/popup/cart.do",
-          					'url': url,
-          					'method': "GET",
-          					'dataType': "JSON",
-          					//'data': {'options': options},
-          					'success':function(response) {
-          						if(response.status)
-          						{
+                   if(poing.account.checkLoginState()) {
+                      var url = "/Poing/popup/cart.do?";
+                      var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+                      var options = [];
+                      if(selected.length === 0) {
+                         $.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
+                         return;
+                      }
+                      for(var i=0; i<selected.length; ++i)
+                      {
+                      
+                         var op = selected.eq(i);
+                         options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+                         url += "&" + $.param(options[i]);
+                      }
+                      
+                      $.ajax({
+                      
+                         //'url': "/Poing/popup/cart.do",
+                         'url': url,
+                         'method': "GET",
+                         'dataType': "JSON",
+                         //'data': {'options': options},
+                         'success':function(response) {
+                            if(response.status)
+                            {
                                       //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
                                       $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
                                           location.href="/Poing/product/productCart.do";
                                       });
-          						} else {
+                            } else {
                                       if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
                                       else $.popup("confirm", {'text': response.error.message, 'alert':true});
                                   }
-          					}
-          				});
-          			}
-          		});
+                         }
+                      });
+                   }
+                });
                </script>
                <jsp:include page="/WEB-INF/view/slideBar/Slidebar_Coupon.jsp"></jsp:include>
             </div>

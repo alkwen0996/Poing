@@ -18,32 +18,32 @@
 			<c:forEach items="${list }" var="dto">
 				<div class="info">
 					<i class="image"
-						style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxOTA1/15583131855ce1f8e1aa8b5.png)"></i>
-					<span class="name">${dto.p_name}</span>
+						style="background-image: url(${dto.tic_img})"></i>
+					<span class="name">${dto.rest_name}</span>
 				</div>
 				<div class="option">
 					<span class="label">선택 옵션</span> <i
 						class="icon arrow small red down"></i>
 					<ul class="list" style="z-index: 99">
 						<c:forEach items="${option }" var="opt">
-							<c:if test="${dto.cart_seq eq opt.cart_seq }">
-								<li class="" data-id="${opt.op_seq }"
-									data-price="${opt.op_price }" data-min="${opt.op_min_cnt }"
-									data-limit="${opt.op_max_cnt }"><span class="title">${opt.op_name }</span>
-									<span class="price">${opt.op_price }</span></li>
+							<c:if test="${dto.tic_cart_seq eq opt.tic_cart_seq }">
+								<li class="" data-id="${opt.tic_option_seq }"
+									data-price="${opt.tic_dc_price }" data-min="${opt.tic_op_min_cnt }"
+									data-limit="${opt.tic_op_max_cnt }"><span class="title">${opt.tic_op_name }</span>
+									<span class="price">${opt.tic_dc_price }</span></li>
 							</c:if>
 						</c:forEach>
 					</ul>
 				</div>
-				<p class="comment">* ${dto.p_name }의 다른 상품을 선택하시려면 위 옵션을 선택해주세요.</p>
+				<p class="comment">* ${dto.rest_name }의 다른 상품을 선택하시려면 위 옵션을 선택해주세요.</p>
 
 				<ul class="selected">
 					<c:forEach items="${option }" var="opt">
-						<c:if test="${dto.cart_seq eq opt.cart_seq }">
-							<li data-id="${opt.op_seq }"><span class="name">${opt.op_name }</span>
+						<c:if test="${dto.tic_cart_seq eq opt.tic_cart_seq }">
+							<li data-id="${opt.tic_option_seq }"><span class="name">${opt.tic_op_name }</span>
 								<div class="count_box">
-									<input type="text" value="${opt.op_cnt }"
-										data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }"
+									<input type="text" value="${opt.tic_op_purchas_cnt }"
+										data-min="${opt.tic_op_min_cnt }" data-limit="${opt.tic_op_max_cnt }"
 										disabled>
 									<button type="button" class="increase">
 										<i></i>
@@ -53,7 +53,7 @@
 									</button>
 								</div>
 								<button type="button" class="reset"></button>
-								<div class="price" data-price="${opt.op_price }">${opt.op_price }원</div>
+								<div class="price" data-price="${opt.tic_dc_price }">${opt.tic_dc_price }원</div>
 							</li>
 						</c:if>
 					</c:forEach>

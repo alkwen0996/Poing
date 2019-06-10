@@ -17,8 +17,8 @@ public class InsertQnAHandler implements CommandHandler{
 		ProductDTO pdto = new ProductDTO();
 		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
 		
-		pdto.setQ_seq(Integer.parseInt(request.getParameter("id")));
-		pdto.setQ_content(request.getParameter("text"));
+		/*pdto.setQ_seq(Integer.parseInt(request.getParameter("id")));
+		pdto.setQ_content(request.getParameter("text"));*/
 		pdto.setE_name(mdto.getM_name());
 		
 		int result =0;

@@ -227,10 +227,11 @@ public class MemberDAO {
 		return result==0?false:true;
 	}//updateProfileImage
 
-	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID) throws SQLException {
-
-		String sql = "SELECT * FROM rest_reserve "
-				+    "JOIN restaurant rest on rest_reserve.rr_rest_seq = rest.rest_seq WHERE rest_reserve.rr_m_seq =? ";
+	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID, String type) throws SQLException {
+		
+		String sql="";
+		if (type.equals("past")) sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? and r_reserve_date < sysdate ";
+		else sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? and r_reserve_date >= sysdate ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -402,6 +403,85 @@ public class MemberDAO {
 
 		return list;
 	}// displayNotice
+	public ArrayList<RestListDTO> PickRestList(Connection conn, int memberID, int current_page) {
+		String sql = " select rownum ynum, x.* from ( select * from p_restaurant a join (select * from pick where m_no = "+memberID+" and rest_no is not null) b on a.rest_seq = b.rest_no  ) x ";
+
+	PreparedStatement pstmt = null;
+	PreparedStatement pstmt2 = null;
+	ResultSet rs = null;
+	ResultSet rs2 = null;
+	ArrayList<RestListDTO> list = new ArrayList<>();
+	int totalcount = 0;
+	int countlist = 12;
+	int countPage = 10; 
+	int totalpage = 0;
+	
+	int start =0;
+	int end = 0;
+	
+	try {
+		pstmt2 = conn.prepareStatement("select count(*) totalcount from ( "+sql+" )");
+		rs2 = pstmt2.executeQuery();
+		rs2.next();
+		if(rs2.getInt("totalcount")==0) return null;
+		totalcount = rs2.getInt(1);
+		totalpage = totalcount / countlist;
+		if (totalcount % countlist > 0) totalpage++;
+		if (totalpage < current_page) current_page = totalpage;
+		if ( current_page <0) current_page = 1;
+
+		start = (current_page-1)*12+1;
+		end = current_page*12>totalcount?totalcount:current_page*12;
+		System.out.println("start= "+start);
+		System.out.println("end= "+end);
+		
+		pstmt = conn.prepareStatement("select y.* from ( "+sql+" where rownum<=?) y where ynum>=? " );
+		pstmt.setInt(2, start);
+		pstmt.setInt(1, end);
+		rs = pstmt.executeQuery();
+		RestListDTO dto = null;
+		while (rs.next()) {
+			dto = new RestListDTO();
+			dto.setRest_seq(rs.getInt("rest_seq"));
+			dto.setRest_name(rs.getString("rest_name"));
+			dto.setRest_tel(rs.getString("rest_tel"));
+			dto.setRest_hour(rs.getString("rest_hour"));
+			dto.setRest_menu(rs.getString("rest_menu"));
+			dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
+			dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
+			dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
+			dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
+			dto.setRest_loc(rs.getString("rest_loc"));
+			dto.setRest_tic_code(rs.getInt("p_num"));
+			dto.setRest_line_exp(rs.getString("rest_line_exp"));
+			dto.setRest_alchol(rs.getString("rest_alchol"));
+			dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
+			dto.setRest_add_info(rs.getString("rest_add_info"));
+			dto.setRest_budget_type(rs.getString("rest_budget_type"));
+			dto.setRest_table_type(rs.getString("rest_table_type"));
+			dto.setRest_food_type(rs.getString("rest_food_type"));
+			dto.setRest_lat(rs.getFloat("rest_lat"));
+			dto.setRest_long(rs.getFloat("rest_long"));
+			list.add(dto);
+		}
+		if(list!=null) {
+			list.get(0).setTotalpage(totalpage);
+			list.get(0).setTotalcount(totalcount);				
+		}
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			pstmt.close();
+			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}	
+	return list;	
+	}
 	public boolean checkCurrentPassword(Connection conn, int memberID, String current_password) throws SQLException {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();

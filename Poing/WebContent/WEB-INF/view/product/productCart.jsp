@@ -134,30 +134,30 @@
 							</c:forEach> --%>
 							
 							<c:forEach items="${list}" var="dto">
-								<c:if test="${dto.message eq null && dto.c_date eq null && dto.party_size == 0 }">
-									<tr class="selected" data-id="${dto.cart_seq }" data-valid="false">
+								<c:if test="${dto.tic_request eq null && dto.tic_reserve_date eq null && dto.tic_num_of_people == 0 }">
+									<tr class="selected" data-id="${dto.tic_cart_seq }" data-valid="false">
 									<td class="select"><input type="checkbox" class="single"
 										checked=""></td>
 									<td class="info"><a class="image"
-										href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank"> 
+										href="/Poing/product/detail.do?tic_seq=${dto.tic_seq }" target="_blank"> 
 										<i class="image border_radius medium"
-											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA4/15347464725b7a5f686730b.png);"></i>
+											style="background-image: url(${dto.tic_img});"></i>
 									</a>
 										<button type="button" class="option border_radius soft"
-											data-id="${dto.cart_seq }" tabindex="-1">옵션변경</button> 
-											<a class="name" href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank">${dto.p_name }</a>
+											data-id="${dto.tic_cart_seq }" tabindex="-1">옵션변경</button> 
+											<a class="name" href="/Poing/product/detail.do?p_num=${dto.tic_seq }" target="_blank">${dto.rest_name }</a>
 										<div class="valid_date">
-											유효기간: <span>${dto.p_st_ed_date }</span>
+											유효기간: <span>${dto.tic_validate_content }</span>
 										</div>
 									
 									<c:forEach items="${option }" var="opt">	
-									<c:if test="${dto.cart_seq eq opt.cart_seq }">
+									<c:if test="${dto.tic_cart_seq eq opt.tic_cart_seq }">
 										<ul class="options">
-											<li data-id="${opt.op_seq }" data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }">
-												<div class="name">${opt.op_name }</div>
-												<div class="price" data-value="${opt.op_price }">${opt.op_price }원</div>
+											<li data-id="${opt.tic_option_seq }" data-min="${opt.tic_op_min_cnt }" data-limit="${opt.tic_op_max_cnt }">
+												<div class="name">${opt.tic_op_name }</div>
+												<div class="price" data-value="${opt.tic_dc_price }">${opt.tic_dc_price }원</div>
 												<div class="count_box">
-													<input type="text" value="${opt.op_cnt }" disabled="">
+													<input type="text" value="${opt.tic_op_purchas_cnt }" disabled="">
 													<button type="button" class="increase" tabindex="-1">
 														<i></i>
 													</button>
@@ -168,8 +168,8 @@
 												<div class="total_price">
 													<span></span>원
 												</div>
-												<button type="button" class="reset" data-id="${dto.cart_seq }"
-													data-opt="${opt.op_seq }" tabindex="-1"></button>	
+												<button type="button" class="reset" data-id="${dto.tic_cart_seq }"
+													data-opt="${opt.tic_option_seq }" tabindex="-1"></button>	
 											</li>
 										</ul>
 										</c:if>
@@ -177,7 +177,7 @@
 										</td>
 										<td class="reserve">
 										<p>예약일을 지정해주세요.</p>
-										<button type="button" class="reserve" data-id="${dto.cart_seq }"
+										<button type="button" class="reserve" data-id="${dto.tic_cart_seq }"
 											data-mode="cart" tabindex="-1">예약하기</button>
 									</td>
 										</tr>
@@ -185,30 +185,30 @@
 							</c:forEach>
 							
 							<c:forEach items="${list}" var="dto">
-								<c:if test="${dto.message ne null || dto.c_date ne null || dto.party_size != 0 }">
-									<tr class="selected" data-id="${dto.cart_seq }" data-valid="true">
+								<c:if test="${dto.tic_request ne null || dto.tic_reserve_date ne null || dto.tic_num_of_people != 0 }">
+									<tr class="selected" data-id="${dto.tic_cart_seq }" data-valid="true">
 									<td class="select"><input type="checkbox" class="single"
 										checked=""></td>
 									<td class="info"><a class="image"
-										href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank"> 
+										href="/Poing/product/detail.do?tic_seq=${dto.tic_seq }" target="_blank"> 
 										<i class="image border_radius medium"
-											style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA4/15347464725b7a5f686730b.png);"></i>
+											style="background-image: url(${dto.tic_img});"></i>
 									</a>
 										<button type="button" class="option border_radius soft"
-											data-id="${dto.cart_seq }" tabindex="-1">옵션변경</button> 
-											<a class="name" href="/Poing/product/detail.do?p_num=${dto.p_num }" target="_blank">${dto.p_name }</a>
+											data-id="${dto.tic_cart_seq }" tabindex="-1">옵션변경</button> 
+											<a class="name" href="/Poing/product/detail.do?tic_seq=${dto.tic_seq }" target="_blank">${dto.rest_name }</a>
 										<div class="valid_date">
-											유효기간: <span>${dto.p_st_ed_date }</span>
+											유효기간: <span>${dto.tic_validate_content }</span>
 										</div>
 									
 									<c:forEach items="${option }" var="opt">	
-									<c:if test="${dto.cart_seq eq opt.cart_seq }">
+									<c:if test="${dto.tic_cart_seq eq opt.tic_cart_seq }">
 										<ul class="options">
-											<li data-id="${opt.op_seq }" data-min="${opt.op_min_cnt }" data-limit="${opt.op_max_cnt }">
-												<div class="name">${opt.op_name }</div>
-												<div class="price" data-value="${opt.op_price }">${opt.op_price }원</div>
+											<li data-id="${opt.tic_option_seq }" data-min="${opt.tic_op_min_cnt }" data-limit="${opt.tic_op_max_cnt }">
+												<div class="name">${opt.tic_op_name }</div>
+												<div class="price" data-value="${opt.tic_dc_price }">${opt.tic_dc_price }원</div>
 												<div class="count_box">
-													<input type="text" value="${opt.op_cnt }" disabled="">
+													<input type="text" value="${opt.tic_op_purchas_cnt }" disabled="">
 													<button type="button" class="increase" tabindex="-1">
 														<i></i>
 													</button>
@@ -219,17 +219,17 @@
 												<div class="total_price">
 													<span></span>원
 												</div>
-												<button type="button" class="reset" data-id="${dto.cart_seq }"
-													data-opt="${opt.op_seq }" tabindex="-1"></button>	
+												<button type="button" class="reset" data-id="${dto.tic_cart_seq }"
+													data-opt="${opt.tic_option_seq }" tabindex="-1"></button>	
 											</li>
 										</ul>
 										</c:if>
 									</c:forEach>
 										<td class="reserve">
-										<div class="date">날짜:${dto.c_date } </div>
-										<div class="count">인원: ${dto.party_size }</div>
-										<div class="comment">요청사항: <span>${dto.message }</span></div>
-										<button type="button" class="reserve" data-id="${dto.cart_seq }"
+										<div class="date">날짜:${dto.tic_reserve_date } </div>
+										<div class="count">인원: ${dto.tic_num_of_people }</div>
+										<div class="comment">요청사항: <span>${dto.tic_request }</span></div>
+										<button type="button" class="reserve" data-id="${dto.tic_cart_seq }"
 											data-mode="cart" tabindex="-1">예약하기</button>
 										</td>
 									</tr>

@@ -15,6 +15,7 @@ import poing.product.Paging;
 import poing.product.RefundTicketDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
+import poing.rest.RestListDTO;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDTO;
 
@@ -93,6 +94,23 @@ public class DisplayTimelineHandler implements CommandHandler {
 			request.setAttribute("paging", paging);
 			request.setAttribute("review_list", review_list);
 		}
+		
+		ArrayList<RestListDTO> pick_rest_list = null;
+		int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
+		if (tab.equals("restaurant")) {
+			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
+			request.setAttribute("pick_rest_list", pick_rest_list);
+		}
+	
+		ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
+		ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
+		
+		request.setAttribute("mdto", mdto);
+		request.setAttribute("list", list);
+		request.setAttribute("nnlist", nnlist);
+		request.setAttribute("nlist", nlist);
+		
+		System.out.println("DisplayTimelineHandler.java line 18 mdto:" + mdto);
 		else if (tab.equals("restaurant"))
 		{
 

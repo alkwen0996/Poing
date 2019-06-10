@@ -10,9 +10,9 @@ public class DeleteCartHandler implements CommandHandler{
    @Override
    public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
       DeleteCartService service = new DeleteCartService();
-      int cart_seq = Integer.parseInt(request.getParameter("id"));
-      System.out.println(cart_seq);
-      boolean result = service.deleteCart(cart_seq);
+      int tic_cart_seq = Integer.parseInt(request.getParameter("id"));
+      System.out.println(tic_cart_seq);
+      boolean result = service.deleteCart(tic_cart_seq);
       return "product/productCart";
    }
 

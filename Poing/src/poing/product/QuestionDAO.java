@@ -19,7 +19,7 @@ public class QuestionDAO {
 		System.out.println("QuestionDAO displayl");
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select q.*,m.m_name m_name ");
-		sql.append(" from question q join member m on q.q_m_no = m.m_no ");
+		sql.append(" from tic_question q join member m on q.m_no = m.m_no ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -33,12 +33,11 @@ public class QuestionDAO {
 			while(rs.next()) {
 				qdto = new QuestionDTO();
 				qdto.setQ_seq(rs.getInt("q_seq"));
-				qdto.setQ_m_no(rs.getInt("q_m_no"));
+				qdto.setM_no(rs.getInt("m_no"));
 				qdto.setQ_ctime(rs.getString("q_ctime"));
 				qdto.setQ_content(rs.getString("q_content"));
-				qdto.setQ_tic_seq(rs.getInt("q_tic_seq"));
-				qdto.setQ_m_name(rs.getString("q_m_name"));
-				qdto.setQ_reply_seq(rs.getInt("q_replay_seq"));
+				qdto.setTic_seq(rs.getInt("tic_seq"));
+				qdto.setM_name(rs.getString("m_name"));
 				qlist.add(qdto);
 			}
 			

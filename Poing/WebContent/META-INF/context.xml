@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-		<!-- url="jdbc:oracle:thin:@211.63.89.163:1521:xe" -->
+		<!-- url="jdbc:oracle:thin:@211.63.89.164:1521:xe" -->
 	<Resource 
 		name="jdbc/myoracle" 
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="oracle.jdbc.OracleDriver"
-		url="jdbc:oracle:thin:@localhost:1521:xe"
-		username="poing"
-		password="tiger" 
+		url="jdbc:oracle:thin:@211.63.89.164:1521:xe"
+		username="poing_project"
+		password="poing" 
 		maxTotal="20"
 		maxIdle="10" 
 		maxWaitMillis="-1" />

@@ -16,7 +16,7 @@ System.out.println("ajaxfav.jsp rest_seq="+rest_seq);
 MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 int member_num = 0;  // 회원번호 
 if(mdto==null) member_num = 0;
-else member_num = mdto.getM_no(); 	
+else member_num = mdto.getM_seq(); 	
 
 System.out.println("ajax m_num: "+member_num);
 

@@ -27,7 +27,7 @@
 			cdto_json.put("created_at", sdf.format(cdto.getRc_wtime()));
 			cdto_json.put("updated_at", sdf.format(cdto.getRc_mtime()));
 			String m_img = realPath+cdto.getM_img();
-			if (authUser!= null && authUser.getM_no() == cdto.getM_no() )
+			if (authUser!= null && authUser.getM_seq() == cdto.getM_no() )
 				cdto_json.put("auth", true);
 			else
 				cdto_json.put("auth", false);

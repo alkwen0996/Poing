@@ -21,7 +21,7 @@ import poing.review.ReviewDTO;
 
 public class DisplayTimelineHandler implements CommandHandler {
 	DisplayTimelineService displayTimelineService = new DisplayTimelineService();
-
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ProductPayService service = new ProductPayService();
@@ -30,6 +30,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
+		if (tab == null) {
+			tab = "reservation";
+		}
 
 		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int memberID = Integer.parseInt(request.getParameter("id"));
@@ -45,8 +48,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		}
 		
 		
-		if(tab == null)
-		{
+		if(tab == null){
 			if ( authUser != null && authUser.getM_seq() == mdto.getM_seq())
 				tab = "reservation";
 			else
@@ -61,7 +63,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID);
+			String reservTab = "past";
+			if (type==null || type.equals("recent")) reservTab ="recent";
+			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID,reservTab);
 			request.setAttribute("reserve_list", reserve_list);
 		}
 		else if (tab.equals("coupon"))
@@ -106,24 +110,20 @@ public class DisplayTimelineHandler implements CommandHandler {
 		ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
 		
 		request.setAttribute("mdto", mdto);
-		request.setAttribute("list", list);
 		request.setAttribute("nnlist", nnlist);
 		request.setAttribute("nlist", nlist);
 		
 		System.out.println("DisplayTimelineHandler.java line 18 mdto:" + mdto);
-		else if (tab.equals("restaurant"))
-		{
 
-		}
-		else if (tab.equals("alert"))
+		if (tab.equals("alert"))
 		{
 			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
-			ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
+			//ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
+			//ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
 			request.setAttribute("nnlist", nnlist);
 			request.setAttribute("nlist", nlist);
 		}

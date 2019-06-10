@@ -6,28 +6,70 @@ public class RestListDTO {
 	private String rest_name; //varchar2(100) not null, -- 매장명 o
 	private String rest_tel;  //varchar2(20), -- 매장전화번호
 	private String rest_hour; //varchar2(100), -- 영업시간  **/*추가 
-	private String rest_menu; //varchar2(200), -- 레스토랑메뉴
-	private int rest_reservation_cnt; // number,--누적 예약 횟수  o
-	private int rest_review_cnt; // number, -- 누적 리뷰 횟수 o
 	private int rest_view_cnt; // number, -- 누적 조회수  o
-	private double rest_starpoint; // number, -- 별점
-	private String rest_loc; // number, --지역코드 o
-	private int rest_tic_code; // number, --티켓코드 
 	private String rest_line_exp; // varchar2(100), -- 한줄설명
 	private String rest_alchol; // varchar2(100), -- 판매주류
 	private String rest_parking_yn; // varchar2(10), -- 주차가능여부
 	private String rest_add_info; // varchar2(100), -- 부가정보
 	private String rest_budget_type; // varchar2(100), -- 예산
 	private String rest_table_type; // varchar2(100), -- 테이블종류
-	private String rest_food_type; // varchar2(30) -- 음식종류
 	private float rest_lat; //num 위도
 	private float rest_long; //num 경도
-	private int rest_fav; //찜하기 추적
+	private int ri_seq;
+
+	private String rest_address;
+	private String rest_tip;
+	private String rest_holiday;
+	private String rest_foodinfo;
+
+	
+	//private double rest_starpoint; // number, -- 별점
+	//private String rest_menu; //varchar2(200), -- 레스토랑메뉴
+	//private int rest_reservation_cnt; // number,--누적 예약 횟수  o
+	//private int rest_review_cnt; // number, -- 누적 리뷰 횟수 o
+
+	//private String rest_loc; // number, --지역코드 o
+	//private int rest_tic_code; // number, --티켓코드 
+	//private String rest_food_type; // varchar2(30) -- 음식종류
+	//private int rest_fav; //찜하기 추적
 	private int totalpage;
 	private int totalcount;
 	
-
 	
+	
+	public int getTotalpage() {
+		return totalpage;
+	}
+	public void setTotalpage(int totalpage) {
+		this.totalpage = totalpage;
+	}
+	public int getTotalcount() {
+		return totalcount;
+	}
+	public void setTotalcount(int totalcount) {
+		this.totalcount = totalcount;
+	}
+	
+
+	public String getRest_holiday() {
+		return rest_holiday;
+	}
+	public void setRest_holiday(String rest_holiday) {
+		this.rest_holiday = rest_holiday;
+	}	
+
+	public String getRest_foodinfo() {
+		return rest_foodinfo;
+	}
+	public void setRest_foodinfo(String rest_foodinfo) {
+		this.rest_foodinfo = rest_foodinfo;
+	}
+	public int getRi_seq() {
+		return ri_seq;
+	}
+	public void setRi_seq(int ri_seq) {
+		this.ri_seq = ri_seq;
+	}
 	public float getRest_lat() {
 		return rest_lat;
 	}
@@ -64,48 +106,14 @@ public class RestListDTO {
 	public void setRest_hour(String rest_hour) {
 		this.rest_hour = rest_hour;
 	}
-	public String getRest_menu() {
-		return rest_menu;
-	}
-	public void setRest_menu(String rest_menu) {
-		this.rest_menu = rest_menu;
-	}
-	public int getRest_reservation_cnt() {
-		return rest_reservation_cnt;
-	}
-	public void setRest_reservation_cnt(int rest_reservation_cnt) {
-		this.rest_reservation_cnt = rest_reservation_cnt;
-	}
-	public int getRest_review_cnt() {
-		return rest_review_cnt;
-	}
-	public void setRest_review_cnt(int rest_review_cnt) {
-		this.rest_review_cnt = rest_review_cnt;
-	}
+
 	public int getRest_view_cnt() {
 		return rest_view_cnt;
 	}
 	public void setRest_view_cnt(int rest_view_cnt) {
 		this.rest_view_cnt = rest_view_cnt;
 	}
-	public double getRest_starpoint() {
-		return rest_starpoint;
-	}
-	public void setRest_starpoint(double d) {
-		this.rest_starpoint = d;
-	}
-	public String getRest_loc() {
-		return rest_loc;
-	}
-	public void setRest_loc(String rest_loc) {
-		this.rest_loc = rest_loc;
-	}
-	public int getRest_tic_code() {
-		return rest_tic_code;
-	}
-	public void setRest_tic_code(int rest_tic_code) {
-		this.rest_tic_code = rest_tic_code;
-	}
+
 	public String getRest_line_exp() {
 		return rest_line_exp;
 	}
@@ -142,33 +150,23 @@ public class RestListDTO {
 	public void setRest_table_type(String rest_table_type) {
 		this.rest_table_type = rest_table_type;
 	}
-	public String getRest_food_type() {
-		return rest_food_type;
-	}
-	public void setRest_food_type(String rest_food_type) {
-		this.rest_food_type = rest_food_type;
-	}
+
 	@Override
 	public String toString() {
 		return rest_name+rest_seq;
 	}
-	public int getRest_fav() {
-		return rest_fav;
+
+	public String getRest_address() {
+		return rest_address;
 	}
-	public void setRest_fav(int rest_fav) {
-		this.rest_fav = rest_fav;
+	public void setRest_address(String rest_address) {
+		this.rest_address = rest_address;
 	}
-	public int getTotalpage() {
-		return totalpage;
+	public String getRest_tip() {
+		return rest_tip;
 	}
-	public void setTotalpage(int totalpage) {
-		this.totalpage = totalpage;
-	}
-	public int getTotalcount() {
-		return totalcount;
-	}
-	public void setTotalcount(int totalcount) {
-		this.totalcount = totalcount;
+	public void setRest_tip(String rest_tip) {
+		this.rest_tip = rest_tip;
 	}
 
 

@@ -34,7 +34,8 @@
 </head>
 <%
 	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("map");
-	int size = list.size();
+	int size = 0;
+	if(list!=null) size = list.size();
 	
 	StringBuffer sb = new StringBuffer();
 	float rlat, rlong;
@@ -47,7 +48,7 @@
 	rlong = list.get(i).getRest_long();
 	info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
 			+ list.get(i).getRest_name()
-			+"<br><span>" +list.get(i).getRest_loc()
+			+"<br><span>" +list.get(i).getRest_address()
 			+"</span></div></div></div>";
 	url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
 	sb.append("{ lat: ");
@@ -64,7 +65,7 @@
 	rlong = list.get(i).getRest_long();
 	info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
 			+ list.get(i).getRest_name()
-			+"<br><span>" +list.get(i).getRest_loc()
+			+"<br><span>" +list.get(i).getRest_address()
 			+"</span></div></div></div>";
 	url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
 	sb.append(",{ lat: ");
@@ -158,21 +159,21 @@
 							<div class="shading"></div>
 
 							<div class="top">
-								예약 ${dto.rest_reservation_cnt}&nbsp; 리뷰
-								${dto.rest_review_cnt}&nbsp; 조회수 ${dto.rest_view_cnt} <br>
+								예약 &nbsp; 리뷰
+								&nbsp; 조회수 ${dto.rest_view_cnt} <br>
 								<button class="" data-type="poing.restaurants.favorite"
 									data-id="${dto.rest_seq }" onclick='return false;'>
-									<c:if test="${dto.rest_fav eq 1 }">
+									<%-- <c:if test="${dto.rest_fav eq 1 }">
 									<i class="icon favorite on"></i>
 									</c:if>
 									<c:if test="${dto.rest_fav eq 0 }">
 									<i class="icon favorite "></i>
-									</c:if>
+									</c:if> --%>
 								</button>
 							</div>
 							<div class="bottom">
 								<p class="coupon">티켓</p>
-								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc}</span>
+								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_address}</span>
 							</div>
 						</a>
 
@@ -180,7 +181,8 @@
 							<div class="place_info">
 								<div class="rating">
 									<div class="stars">
-										<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
+										<!-- 별점처리 -->
+										<%-- <c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
 												<c:if test="${i <= ((dto.rest_starpoint*2)+(((dto.rest_starpoint*2)%1>0.5)?(1-((dto.rest_starpoint*2)%1))%1:-((dto.rest_starpoint*2)%1)))}">
 													<c:if test="${i%2 ne 0 }"><span class="star odd active"></span></c:if>
 													<c:if test="${i%2 eq 0 }">
@@ -192,7 +194,7 @@
 														<span class="star even "></span>
 													</c:if>
 												</c:if>
-											</c:forEach>
+											</c:forEach> --%>
 									</div>
 
 									<div class="grade">${dto.rest_starpoint}점</div>

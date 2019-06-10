@@ -21,7 +21,7 @@ public class RestListDAO {
 	public RestListDAO() {}
 
 	public List<RestListDTO> selectdisplay(Connection conn, int current_page){
-		String sql = " select rownum, p.* from p_restaurant p ";
+		String sql = " select rownum, p.* from restaurant p ";
 		       sql = " select rownum ynum, x.* from ( "+sql+" ) x";
 
 		PreparedStatement pstmt = null;
@@ -64,22 +64,28 @@ public class RestListDAO {
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setRest_tel(rs.getString("rest_tel"));
 				dto.setRest_hour(rs.getString("rest_hour"));
-				dto.setRest_menu(rs.getString("rest_menu"));
-				dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
-				dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setRest_holiday(rs.getString("rest_holiday"));
 				dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
-				dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
-				dto.setRest_loc(rs.getString("rest_loc"));
-				dto.setRest_tic_code(rs.getInt("p_num"));
+				
+				dto.setRest_tip(rs.getString("rest_tip"));
 				dto.setRest_line_exp(rs.getString("rest_line_exp"));
-				dto.setRest_alchol(rs.getString("rest_alchol"));
+				dto.setRest_alchol(rs.getString("rest_alcohol"));
+				dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
 				dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
 				dto.setRest_add_info(rs.getString("rest_add_info"));
 				dto.setRest_budget_type(rs.getString("rest_budget_type"));
 				dto.setRest_table_type(rs.getString("rest_table_type"));
-				dto.setRest_food_type(rs.getString("rest_food_type"));
 				dto.setRest_lat(rs.getFloat("rest_lat"));
 				dto.setRest_long(rs.getFloat("rest_long"));
+				dto.setRi_seq(rs.getInt("ri_seq"));
+				
+				
+				//dto.setRest_menu(rs.getString("rest_menu")); 메뉴이미지 몇장?
+				//dto.setRest_starpoint(rs.getDouble("rest_starpoint"));   별점 구해서 넣기
+				//dto.setRest_loc(rs.getString("rest_loc"));               지역코드 조인 
+				//dto.setRest_tic_code(rs.getInt("p_num"));                티켓코드 조인 유무여부
+				//dto.setRest_food_type(rs.getString("rest_food_type"));   푸드타입 조인
 				list.add(dto);
 			}
 			if(list!=null) {
@@ -92,6 +98,7 @@ public class RestListDAO {
 		} finally {
 			try {
 				pstmt.close();
+				pstmt2.close();
 				rs.close();
 				conn.close();
 			} catch (SQLException e) {
@@ -143,7 +150,7 @@ public class RestListDAO {
 		String locationSql = null;
 		StringBuffer sql = new StringBuffer();
 
-							sql.append( "select rownum znum, z.* from ( select distinct a.* from p_restaurant a ");
+							sql.append( "select rownum znum, z.* from ( select distinct a.* from restaurant a ");
 							sql.append( "inner join loc_code_per_rest b on a.rest_seq = b.rest_seq " );
 							sql.append( "inner join food_code_per_rest c on a.rest_seq = c.rest_seq " );
 							sql.append( "where ");
@@ -232,20 +239,20 @@ public class RestListDAO {
 					dto.setRest_name(rs2.getString("rest_name"));
 					dto.setRest_tel(rs2.getString("rest_tel"));
 					dto.setRest_hour(rs2.getString("rest_hour"));
-					dto.setRest_menu(rs2.getString("rest_menu"));
-					dto.setRest_reservation_cnt(rs2.getInt("rest_reservation_cnt"));
-					dto.setRest_review_cnt(rs2.getInt("rest_review_cnt"));
+					//dto.setRest_menu(rs2.getString("rest_menu"));
+					//dto.setRest_reservation_cnt(rs2.getInt("rest_reservation_cnt"));
+					//dto.setRest_review_cnt(rs2.getInt("rest_review_cnt"));
 					dto.setRest_view_cnt(rs2.getInt("rest_view_cnt"));
-					dto.setRest_starpoint(rs2.getDouble("rest_starpoint"));
-					dto.setRest_loc(rs2.getString("rest_loc"));
-					dto.setRest_tic_code(rs2.getInt("p_num"));
+					//dto.setRest_starpoint(rs2.getDouble("rest_starpoint"));
+					//dto.setRest_loc(rs2.getString("rest_loc"));
+					//dto.setRest_tic_code(rs2.getInt("p_num"));
 					dto.setRest_line_exp(rs2.getString("rest_line_exp"));
 					dto.setRest_alchol(rs2.getString("rest_alchol"));
 					dto.setRest_parking_yn(rs2.getString("rest_parking_yn"));
 					dto.setRest_add_info(rs2.getString("rest_add_info"));
 					dto.setRest_budget_type(rs2.getString("rest_budget_type"));
 					dto.setRest_table_type(rs2.getString("rest_table_type"));
-					dto.setRest_food_type(rs2.getString("rest_food_type"));
+					//dto.setRest_food_type(rs2.getString("rest_food_type"));
 					dto.setRest_lat(rs2.getFloat("rest_lat"));
 					dto.setRest_long(rs2.getFloat("rest_long"));
 					
@@ -360,23 +367,23 @@ public class RestListDAO {
 					dto.setRest_name(rs2.getString("rest_name"));
 					dto.setRest_tel(rs2.getString("rest_tel"));
 					dto.setRest_hour(rs2.getString("rest_hour"));
-					dto.setRest_menu(rs2.getString("rest_menu"));
-					dto.setRest_reservation_cnt(rs2.getInt("rest_reservation_cnt"));
-					dto.setRest_review_cnt(rs2.getInt("rest_review_cnt"));
+					//dto.setRest_menu(rs2.getString("rest_menu"));
+					//dto.setRest_reservation_cnt(rs2.getInt("rest_reservation_cnt"));
+					//dto.setRest_review_cnt(rs2.getInt("rest_review_cnt"));
 					dto.setRest_view_cnt(rs2.getInt("rest_view_cnt"));
-					dto.setRest_starpoint(rs2.getDouble("rest_starpoint"));
-					dto.setRest_loc(rs2.getString("rest_loc"));
-					dto.setRest_tic_code(rs2.getInt("p_num"));
+					//dto.setRest_starpoint(rs2.getDouble("rest_starpoint"));
+					//dto.setRest_loc(rs2.getString("rest_loc"));
+					//dto.setRest_tic_code(rs2.getInt("p_num"));
 					dto.setRest_line_exp(rs2.getString("rest_line_exp"));
 					dto.setRest_alchol(rs2.getString("rest_alchol"));
 					dto.setRest_parking_yn(rs2.getString("rest_parking_yn"));
 					dto.setRest_add_info(rs2.getString("rest_add_info"));
 					dto.setRest_budget_type(rs2.getString("rest_budget_type"));
 					dto.setRest_table_type(rs2.getString("rest_table_type"));
-					dto.setRest_food_type(rs2.getString("rest_food_type"));
+					//dto.setRest_food_type(rs2.getString("rest_food_type"));
 					dto.setRest_lat(rs2.getFloat("rest_lat"));
 					dto.setRest_long(rs2.getFloat("rest_long"));
-					dto.setRest_fav(rs2.getInt("m_no")>0?1:0);  //찜하기 추적
+					//dto.setRest_fav(rs2.getInt("m_no")>0?1:0);  //찜하기 추적
 				list.add(dto);
 			}
 			if(list!=null) {
@@ -440,23 +447,23 @@ public class RestListDAO {
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setRest_tel(rs.getString("rest_tel"));
 				dto.setRest_hour(rs.getString("rest_hour"));
-				dto.setRest_menu(rs.getString("rest_menu"));
-				dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
-				dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
+				//dto.setRest_menu(rs.getString("rest_menu"));
+				//dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
+				//dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
 				dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
-				dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
-				dto.setRest_loc(rs.getString("rest_loc"));
-				dto.setRest_tic_code(rs.getInt("p_num"));
+				//dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
+				//dto.setRest_loc(rs.getString("rest_loc"));
+				//dto.setRest_tic_code(rs.getInt("p_num"));
 				dto.setRest_line_exp(rs.getString("rest_line_exp"));
 				dto.setRest_alchol(rs.getString("rest_alchol"));
 				dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
 				dto.setRest_add_info(rs.getString("rest_add_info"));
 				dto.setRest_budget_type(rs.getString("rest_budget_type"));
 				dto.setRest_table_type(rs.getString("rest_table_type"));
-				dto.setRest_food_type(rs.getString("rest_food_type"));
+				//dto.setRest_food_type(rs.getString("rest_food_type"));
 				dto.setRest_lat(rs.getFloat("rest_lat"));
 				dto.setRest_long(rs.getFloat("rest_long"));
-				dto.setRest_fav(rs.getInt("m_no")>0?1:0);  //찜하기 추적
+				//dto.setRest_fav(rs.getInt("m_no")>0?1:0);  //찜하기 추적
 				
 				list.add(dto);
 			}
@@ -483,7 +490,7 @@ public class RestListDAO {
 	}
 
 	public List<RestListDTO> selectdisplay(Connection conn) {
-		String sql = "select * from p_restaurant";
+		String sql = "select * from restaurant";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<RestListDTO> list = new ArrayList<>();
@@ -497,20 +504,19 @@ public class RestListDAO {
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setRest_tel(rs.getString("rest_tel"));
 				dto.setRest_hour(rs.getString("rest_hour"));
-				dto.setRest_menu(rs.getString("rest_menu"));
-				dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
-				dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
+				//dto.setRest_menu(rs.getString("rest_menu"));
+				
 				dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
-				dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
-				dto.setRest_loc(rs.getString("rest_loc"));
-				dto.setRest_tic_code(rs.getInt("p_num"));
+				
 				dto.setRest_line_exp(rs.getString("rest_line_exp"));
-				dto.setRest_alchol(rs.getString("rest_alchol"));
+				dto.setRest_alchol(rs.getString("rest_alcohol"));
 				dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
 				dto.setRest_add_info(rs.getString("rest_add_info"));
 				dto.setRest_budget_type(rs.getString("rest_budget_type"));
 				dto.setRest_table_type(rs.getString("rest_table_type"));
-				dto.setRest_food_type(rs.getString("rest_food_type"));
+				
+				
+				dto.setRest_address(rs.getString("rest_address"));
 				dto.setRest_lat(rs.getFloat("rest_lat"));
 				dto.setRest_long(rs.getFloat("rest_long"));
 				list.add(dto);

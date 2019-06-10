@@ -234,9 +234,7 @@
                                        .val()
                                  };
                                  //alert( $.param(options[i]) );
-                                 url += "&" +
-                                    $
-                                    .param(options[i]);
+                                 url += "&" + $.param(options[i]);
                               }
                               //?id=4&count=4&id=2&count=5            
                               //alert( url )

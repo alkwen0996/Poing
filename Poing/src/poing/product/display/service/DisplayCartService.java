@@ -24,7 +24,7 @@ public class DisplayCartService {
          /*if (cart != -1) {
             return true;
          }*/
-         
+         conn.close();
          return cart;
       } catch (SQLException e) {
          throw new RuntimeException(e);
@@ -37,6 +37,7 @@ public class DisplayCartService {
 	      boolean result = false;
 	      try (Connection conn = ConnectionProvider.getConnection()) {   
 	          result = cartdao.insertTotalCart(conn, cart_seq, ids, counts);
+	          conn.close();
 	         if (result == true) {
 	            return true;
 	         }else {
@@ -51,6 +52,7 @@ public class DisplayCartService {
 			
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			List<ProductDTO> list = cartdao.CartList(conn);
+			conn.close();
 			// 로그 처리
 			// 
 			//
@@ -63,6 +65,7 @@ public class DisplayCartService {
    public List<ProductDTO> selectop() {
 	   try(Connection conn = ConnectionProvider.getConnection()) {
 		   List<ProductDTO> option = cartdao.OptionList(conn);
+		   conn.close();
 		   
 		   return option;
 	   } catch (SQLException e) {

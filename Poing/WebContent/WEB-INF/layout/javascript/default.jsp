@@ -1770,6 +1770,11 @@
 					<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
 				</c:when>
 				
+				<c:when test="${ param.tab eq '' }">
+				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=map" ); %>
+				<jsp:include page="/WEB-INF/layout/javascript/restDetail_map.jsp"></jsp:include>
+				</c:when>
+			
 				<c:otherwise>
 					<% System.out.println("param 없음"); %>
 					<jsp:include page="/WEB-INF/layout/javascript/restDetail_info.jsp"></jsp:include>

@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class PoingNoticeDTO {
 	private int notice_no;
-	private int notice_m_no;
+	private int notice_m_seq;
 	private int notice_m_name;
 	private Date notice_wtime;
 	private String notice_img;
@@ -48,11 +48,11 @@ public class PoingNoticeDTO {
 	public void setNotice_type(int notice_type) {
 		this.notice_type = notice_type;
 	}
-	public int getNotice_m_no() {
-		return notice_m_no;
+	public int getNotice_M_seq() {
+		return notice_m_seq;
 	}
-	public void setNotice_m_no(int notice_m_no) {
-		this.notice_m_no = notice_m_no;
+	public void setNotice_M_seq(int notice_m_seq) {
+		this.notice_m_seq = notice_m_seq;
 	}
 	
 	

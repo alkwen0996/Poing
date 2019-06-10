@@ -210,7 +210,7 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 			rnumNrest_seq : rnumNrest_seq,
 			numofpeople : $("#reserve_person_count").text(),
 			date: date,
-			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			m_num: ${mdto.m_seq eq null ? 0:mdto.m_seq}, 
 			msg : msg
 			<%-- 
 			numofpeople: $("#reserve_person_count").text(),
@@ -219,7 +219,7 @@ $("#pre-reserve div.confirm-btn>button.edit").click(function () {
 			rdate: date,
 			personnel: $("#reserve_person_count").text(),
 			
-			m_num: ${mdto.m_no eq null ? 0:mdto.m_no}, 
+			m_num: ${mdto.m_seq eq null ? 0:mdto.m_seq}, 
 			message: $("#reserve_comment").val(),
 			name : $("#reserve_name").val() --%>
 		},

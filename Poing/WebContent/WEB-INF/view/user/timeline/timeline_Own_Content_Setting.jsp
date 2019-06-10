@@ -27,12 +27,12 @@
 			</tr>
 			<tr class="">
 				<td class="title">예약자명</td>
-				<td class="value"><span>${ mdto.m_nickname }</span>
+				<td class="value"><span>${ mdto.m_subsname }</span>
 					<button type="button" tabindex="-1">변경하기</button>
 
 					<form>
 						<label> <span>새 예약자명</span> <input type="text" name="name"
-							value="${ mdto.m_nickname }">
+							value="${ mdto.m_subsname }">
 						</label>
 						<button type="submit" tabindex="-1">변경</button>
 					</form>

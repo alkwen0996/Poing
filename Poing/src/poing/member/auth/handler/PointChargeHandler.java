@@ -18,7 +18,7 @@ public class PointChargeHandler implements CommandHandler{
 		boolean result = false;
 		
 		MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-		int m_no = mdto.getM_no();
+		int m_no = mdto.getM_seq();
 		int chargePoint = Integer.parseInt(request.getParameter("chargePoint"));
 		
 		result = service.pointCharge(chargePoint, m_no);

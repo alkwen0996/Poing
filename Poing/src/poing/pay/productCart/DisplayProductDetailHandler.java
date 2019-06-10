@@ -21,7 +21,7 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			int member_num;
 			if(mdto==null) {dto = service.select(p_num);
 			} else {
-				member_num = mdto.getM_no();
+				member_num = mdto.getM_seq();
 				dto = service.select(p_num,member_num);
 			}
 					

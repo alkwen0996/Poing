@@ -843,7 +843,7 @@
 										if (res) {
 											target.parent(".review").find("button.comment>p>span").text(res.length);
 											for (var i = 0; i < res.length; ++i) {
-												res[i].me = (res[i].user_id == '${authUser.m_no}');
+												res[i].me = (res[i].user_id == '${authUser.m_seq}');
 												var parse = new EJS({
 													url: '/Poing/template/review_comment.ejs'
 												}).render(res[i]);
@@ -1164,7 +1164,7 @@
 							method: "post",
 							dataType: 'json',
 							data: {
-								'id': "${ authUser.m_no eq null ? 0 : authUser.m_no }", //test_ok
+								'id': "${ authUser.m_seq eq null ? 0 : authUser.m_seq }", //test_ok
 								'r_num': "${ dto.rest_seq eq null ? 0 : dto.rest_seq }",
 								'r_name': "${ dto.rest_name eq null ? '' : dto.rest_name }"
 							},
@@ -1864,7 +1864,7 @@
 				</c:otherwise>
 			</c:choose>
 
-			<c:if test = "${authUser.m_no eq param.id}">
+			<c:if test = "${authUser.m_seq eq param.id}">
 				var uploader = PoingUploader.Create({
 					afterAddFile: function (file) {
 						$.ajax({
@@ -1912,7 +1912,7 @@
 			</c:if>
 			$("#banner .info>button.item").click(function () {
 				$.popup("/Poing/popup/follow.do", {
-					id: '${ mdto.m_no }',
+					id: '${ mdto.m_seq }',
 					'er': ${ mdto.er_cnt },
 					'ed': ${ mdto.ed_cnt } /* follower, following숫자 */
 				});
@@ -2282,7 +2282,7 @@
 		});
 
 		$("#nav_notice_list_all").on("click", function () {
-			location.href = "/Poing/timeline.do?id=${authUser.m_no}&tab=alert";
+			location.href = "/Poing/timeline.do?id=${authUser.m_seq}&tab=alert";
 		});
 
 		// profile section
@@ -2290,7 +2290,7 @@
 			$("#nav_notice_list").hide();
 		});
 		$("#nav_profile>.i_wrap").on("click", function () {
-			location.href = "/Poing/timeline.do?id=${authUser.m_no}";
+			location.href = "/Poing/timeline.do?id=${authUser.m_seq}";
 		});
 
 		$("#nav_profile_list>.item").on("click", function () {

@@ -1,7 +1,5 @@
 package poing.notice;
 
-import java.sql.Date;
-
 public class UserNoticeDTO {
 	
 	private int un_id; // 소식 일련번호
@@ -13,7 +11,7 @@ public class UserNoticeDTO {
 	private String un_created_at;
 	private String un_img_ori;
 	private String m_name; //누가 했는지 (고지용이 했으면)
-	private int m_no; // 고지용 의 회원번호
+	private int m_seq; // 고지용 의 회원번호
 	private String notice_type_content; // 해당 알림의 내용
 	
 	
@@ -71,17 +69,17 @@ public class UserNoticeDTO {
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
 	}
-	public int getM_no() {
-		return m_no;
-	}
-	public void setM_no(int m_no) {
-		this.m_no = m_no;
-	}
 	public String getNotice_type_content() {
 		return notice_type_content;
 	}
 	public void setNotice_type_content(String notice_type_content) {
 		this.notice_type_content = notice_type_content;
+	}
+	public int getM_seq() {
+		return m_seq;
+	}
+	public void setM_seq(int m_seq) {
+		this.m_seq = m_seq;
 	}
 	
 	

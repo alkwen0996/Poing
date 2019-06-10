@@ -23,7 +23,7 @@ public class DisplayRestDetailHandler implements CommandHandler
 		int m_no =-1; 
 		MemberDTO authUser = (MemberDTO)request.getSession().getAttribute("authUser");
 		if (authUser != null) {
-			m_no = authUser.getM_no();
+			m_no = authUser.getM_seq();
 		}
 		try {
 			RestDetailService service = new RestDetailService();

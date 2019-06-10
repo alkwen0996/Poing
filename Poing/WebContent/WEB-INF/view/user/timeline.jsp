@@ -61,7 +61,7 @@
 				</div>
 				<div class="inner_wrap">
 					<div class="inner">
-						<c:if test="${authUser.m_no eq mdto.m_no}" >
+						<c:if test="${authUser.m_seq eq mdto.m_seq}" >
 							<div id="change_user_image" class="user_image i_wrap">
 								<i class="image border_radius circle profile_image"
 									style="width: 100%; height: 100%; background-image: url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
@@ -70,7 +70,7 @@
 							</div>
 						</c:if>
 													
-						<c:if test="${authUser.m_no ne mdto.m_no}" >
+						<c:if test="${authUser.m_seq ne mdto.m_seq}" >
 							<div id="user_image" class="user_image i_wrap">
 								<i class="image border_radius circle"
 									style="width:100%;height:100%;background-image:url('${realPath}${ mdto.m_img ne null?mdto.m_img:applicationScope.baseimg}')"></i>
@@ -79,14 +79,14 @@
 						
 						<div class="name">
 							<span>${ mdto.m_name }</span>
-							<c:if test="${authUser.m_no eq mdto.m_no}" >
-								<div class="point">${ mdto.rp_seq } P</div>
+							<c:if test="${authUser.m_seq eq mdto.m_seq}" >
+								<div class="point">${ mdto.m_point } P</div>
 								<i class="icon question"></i>
 								<button id="pointCharge">포인트 충전</button>
 							</c:if>
-							<c:if test="${authUser.m_no ne mdto.m_no}" >
+							<c:if test="${authUser.m_seq ne mdto.m_seq}" >
 								<button class="gray_red_fill border_radius soft ${ amIFollow?'on':'' }"
-									data-type="poing.user.follow" data-id="${ mdto.m_no }" tabindex="-1">
+									data-type="poing.user.follow" data-id="${ mdto.m_seq }" tabindex="-1">
 									<i class="icon follow "></i> <span>팔로우</span>
 								</button>
 							</c:if>
@@ -97,16 +97,16 @@
 							<i class="image" style="width: 54px; height: 100%;"></i>
 						</div>
 						
-						<c:if test="${authUser.m_no eq mdto.m_no}" >
+						<c:if test="${authUser.m_seq eq mdto.m_seq}" >
 							<div class="level_qna">
 								<i class="icon question"></i>
 							</div>
 						</c:if>	
 						
 						<div class="info">
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약 2</a>
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰 ${DisplayReviewService.countReview(mdto.m_no)}</a>
-							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜한 매장 3</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=reservation">예약 2</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=review">리뷰 ${DisplayReviewService.countReview(mdto.m_seq)}</a>
+							<a class="item" href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=restaurant">찜한 매장 3</a>
 							<button class="empty item" tabindex="-1">
 								<span>팔로워 ${ mdto.er_cnt }</span>
 							</button>
@@ -120,24 +120,24 @@
 			
 			<!-- 내담벼락의 경우 -->
 				<c:choose>
-					<c:when test="${authUser.m_no eq mdto.m_no}">
+					<c:when test="${authUser.m_seq eq mdto.m_seq}">
 						<ul class="tab">
 							<li class="reservation item"><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=reservation">예약</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=reservation">예약</a></li>
 							<li class="coupon item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=coupon">티켓</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=coupon">티켓</a></li>
 							<li class="review item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=review">리뷰</a></li>
 							<li class="restaurant item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">찜</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=restaurant">찜</a></li>
 							<li class="alert item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=alert">소식</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=alert">소식</a></li>
 							<li class="payment item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=payment">결제</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=payment">결제</a></li>
 							<%-- <li class="friends item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=friends">친구찾기</a></li> --%>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=friends">친구찾기</a></li> --%>
 							<li class="setting item "><a
-								href="/Poing/timeline.do?id=${ mdto.m_no }&tab=setting">설정</a></li>
+								href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=setting">설정</a></li>
 						</ul>
 						
 						<c:choose>
@@ -239,8 +239,8 @@
 					
 					<c:otherwise>
 						<ul class="tab">
-							<li class="review item "><a href="/Poing/timeline.do?id=${ mdto.m_no }&tab=review">리뷰</a></li>
-							<li class="restaurant item "><a href="/Poing/timeline.do?id=${ mdto.m_no }&tab=restaurant">매장</a></li>
+							<li class="review item "><a href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=review">리뷰</a></li>
+							<li class="restaurant item "><a href="/Poing/timeline.do?id=${ mdto.m_seq }&tab=restaurant">매장</a></li>
 							
 						</ul>
 						<c:choose>
@@ -272,7 +272,7 @@
 						</c:when>
 						
 						<c:when test="${ param.tab eq null || param.tab eq 'reservation' }">
-							<c:if test="${authUser.m_no eq mdto.m_no}">
+							<c:if test="${authUser.m_seq eq mdto.m_seq}">
 								<jsp:include page="/WEB-INF/view/user/timeline/timeline_Slidebar_Reservation.jsp"></jsp:include>
 							</c:if>
 						</c:when>

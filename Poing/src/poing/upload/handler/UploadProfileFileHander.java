@@ -20,7 +20,7 @@ public class UploadProfileFileHander implements CommandHandler {
 		MemberDTO authUser = (MemberDTO)session.getAttribute("authUser");
 		String filePath = (String) session.getAttribute("filePath");
 		if (authUser != null) {
-			result = uploadFileService.updateProfileImage(authUser.getM_no(), filePath);
+			result = uploadFileService.updateProfileImage(authUser.getM_seq(), filePath);
 			session.setAttribute("filePath", "");
 		}
 		request.setAttribute("status", result);

@@ -13,7 +13,7 @@ public class ChangeMemberSettingHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MemberDTO authUser = (MemberDTO)request.getSession().getAttribute("authUser");
-		int memberID = authUser.getM_no();
+		int memberID = authUser.getM_seq();
 
 		String paramName = request.getParameterNames().nextElement();
 		boolean result = false;

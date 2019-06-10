@@ -36,7 +36,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		request.setAttribute("mdto", mdto);
 		int my_no = -1;
 		if (authUser != null) {
-			my_no = authUser.getM_no();
+			my_no = authUser.getM_seq();
 		}
 		if (my_no != memberID) {
 			boolean amIFollow = DisplayTimelineService.amIFollow(memberID, my_no);
@@ -46,7 +46,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		
 		if(tab == null)
 		{
-			if ( authUser != null && authUser.getM_no() == mdto.getM_no())
+			if ( authUser != null && authUser.getM_seq() == mdto.getM_seq())
 				tab = "reservation";
 			else
 				tab = "review";
@@ -55,9 +55,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		// 탭 분기
 		if (tab.equals("reservation"))
 		{
-			if (authUser == null || authUser.getM_no() != mdto.getM_no()) 
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
-				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
 			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID);
@@ -65,9 +65,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		}
 		else if (tab.equals("coupon"))
 		{
-			if (authUser == null || authUser.getM_no() != mdto.getM_no()) 
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
-				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}else {
 			ProductPayService service5 = new ProductPayService();
@@ -84,11 +84,11 @@ public class DisplayTimelineHandler implements CommandHandler {
 			
 			if (type == null || type.isEmpty() || type.equals("write")) {
 				review_list = displayTimelineService.getWriteReview(memberID, curPage, my_no);
-				paging = Paging.getReviewPaing(mdto.getM_no(), "write", curPage);
+				paging = Paging.getReviewPaing(mdto.getM_seq(), "write", curPage);
 			}
 			else if (type.equals("like")) {
 				review_list = displayTimelineService.getPickReview(memberID, curPage, my_no);
-				paging = Paging.getReviewPaing(mdto.getM_no(), "like", curPage);
+				paging = Paging.getReviewPaing(mdto.getM_seq(), "like", curPage);
 			}
 			request.setAttribute("paging", paging);
 			request.setAttribute("review_list", review_list);
@@ -99,9 +99,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		}
 		else if (tab.equals("alert"))
 		{
-			if (authUser == null || authUser.getM_no() != mdto.getM_no()) 
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
-				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
 			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
@@ -111,9 +111,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		}
 		else if (tab.equals("payment"))
 		{
-			if (authUser == null || authUser.getM_no() != mdto.getM_no()) 
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
-				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}else {
 			List<RefundTicketDTO> payment_list = service2.selectRefund_tic();//환불 되고나서
@@ -123,17 +123,17 @@ public class DisplayTimelineHandler implements CommandHandler {
 		}
 		else if (tab.equals("friends"))
 		{
-			if (authUser == null || authUser.getM_no() != mdto.getM_no()) 
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
-				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}		
 		}
 		else if (tab.equals("setting"))
 		{
-			if (authUser == null || authUser.getM_no() != mdto.getM_no()) 
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
-				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_no());
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
 		}

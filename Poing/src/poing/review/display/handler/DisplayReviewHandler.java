@@ -30,7 +30,7 @@ public class DisplayReviewHandler implements CommandHandler{
 		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int m_no = -1;
 		if (authUser != null) {
-			m_no = authUser.getM_no();
+			m_no = authUser.getM_seq();
 		}
 		Paging paging = Paging.getReviewPaing(m_no, "all", curPage);
 		List<ReviewDTO> list = service.select(type, m_no, curPage);

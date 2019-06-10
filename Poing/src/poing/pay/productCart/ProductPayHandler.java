@@ -49,7 +49,7 @@ public class ProductPayHandler implements CommandHandler {
 			int new_rq_seq = rp_seq - totalmoney;
 
 			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
-			mdto.setRp_seq(new_rq_seq);
+			mdto.setM_point(new_rq_seq);
 			request.getSession().setAttribute("authUser", mdto);
 		}
 

@@ -28,7 +28,7 @@ public class ModifyFollowHandler implements CommandHandler{
 		int fid = Integer.parseInt(request.getParameter("id"));
 		
 		
-		int mid = mdto.getM_no();
+		int mid = mdto.getM_seq();
 		if(status.equals("stop")) { //언팔
 			result = modifyFollowService.removeFollower(mid, fid);
 			//request.setAttribute("", o);

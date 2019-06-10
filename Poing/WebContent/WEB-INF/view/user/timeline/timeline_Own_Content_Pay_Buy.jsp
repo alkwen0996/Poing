@@ -9,7 +9,6 @@
 <!-- 	</div> -->
 
 <div class="body empty payment refund">
-					<c:forEach items="${payment_list}" var="dto" varStatus="status">
                     <table>
                 <thead>
                     <tr>
@@ -19,6 +18,7 @@
                     </tr>
                 </thead>
 
+					<c:forEach items="${payment_list}" var="dto" varStatus="status">
                 <tbody>
                                             <tr>
                             <td class="order">
@@ -62,9 +62,9 @@
                             </td>
                         </tr>
                                             
+            </c:forEach>
                                     </tbody>
             </table>
-            </c:forEach>
             <script>
 	$("button.updateState").click(function () {
 		$.ajax({

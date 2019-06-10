@@ -364,6 +364,7 @@ public class ProductDetailDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			
 			pstmt.setInt(1, p_num);
 			rs = pstmt.executeQuery();
 			

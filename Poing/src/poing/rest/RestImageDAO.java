@@ -62,9 +62,9 @@ public class RestImageDAO {
 		RestImageDTO rep_rest_image = null;
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" SELECT rest_img.* from p_restaurant ");
-		sql.append(" JOIN rest_img ON p_restaurant.ri_seq = rest_img.ri_seq ");
-		sql.append(" WHERE p_restaurant.rest_seq = ? ");
+		sql.append(" SELECT rest_img.* from restaurant ");
+		sql.append(" JOIN rest_img ON restaurant.ri_seq = rest_img.ri_seq ");
+		sql.append(" WHERE restaurant.rest_seq = ? ");
 
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setInt(1, rest_seq);
@@ -79,7 +79,7 @@ public class RestImageDAO {
 		boolean result = false;
 
 		StringBuffer sql = new StringBuffer();
-		sql.append(" UPDATE p_restaurant SET ");
+		sql.append(" UPDATE restaurant SET ");
 		sql.append(" ri_seq = ? ");
 		sql.append(" WHERE rest_seq = ? ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());

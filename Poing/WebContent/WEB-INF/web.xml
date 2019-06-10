@@ -52,6 +52,7 @@
     <filter-name>checkOwnerLogin</filter-name>
     <url-pattern>/owner/index.ow</url-pattern>
     <url-pattern>/owner/rest_image.ow</url-pattern>
+    <url-pattern>/owner/rest_menu.ow</url-pattern>
     <url-pattern>/owner/review_tables.ow</url-pattern>
   </filter-mapping>
    
@@ -70,7 +71,7 @@
     <url-pattern>*.ejs</url-pattern> 
   </servlet-mapping>
   
- <servlet>
+  <servlet>
     <servlet-name>ControllerUsingURIOwner</servlet-name>
     <servlet-class>owner.mvc.OwnerControllerUsingURI</servlet-class>
     <init-param>

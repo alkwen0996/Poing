@@ -283,43 +283,62 @@ public class CartDAO {
 		return result;
 	}
 	public boolean deleteOption(Connection conn, int cart_seq, int op_seq) throws SQLException {
-	      StringBuffer sql = new StringBuffer();
-	      
-	      sql.append(" delete from totalcart where cart_seq = ? and op_seq = ? ");
-	      
-	      PreparedStatement pstmt = null;
-	      
-	      boolean result = false;
-	      
-	    	  pstmt = conn.prepareStatement(sql.toString());
-	    	  pstmt.setInt(1, cart_seq);
-	    	  pstmt.setInt(2, op_seq);
-	    	  result = pstmt.executeUpdate()==0? false:true;
+        StringBuffer sql = new StringBuffer();
+        
+        sql.append(" delete from totalcart where cart_seq = ? and op_seq = ? ");
+        
+        PreparedStatement pstmt = null;
+        
+        boolean result = false;
+        
+           pstmt = conn.prepareStatement(sql.toString());
+           pstmt.setInt(1, cart_seq);
+           pstmt.setInt(2, op_seq);
+           result = pstmt.executeUpdate()==0? false:true;
 
-	    	  if(result == true) {
-	    		  StringBuffer sql2 = new StringBuffer();
-	    		  ResultSet rs = null;
-	    		  sql2.append(" select count(*) from totalcart where cart_seq = ? ");
-	    		  pstmt = conn.prepareStatement(sql2.toString());
-	    		  pstmt.setInt(1, cart_seq);
-	    		  int cnt = -1;
-	    		  while (rs.next()) {
-						cnt = rs.getInt(1);   
-					}
-	    		  if(cnt == 0) {
-	    			  StringBuffer sql3 = new StringBuffer();
-	    			  sql3.append(" delete from cart where cart_seq = ? ");
-	    			  pstmt = conn.prepareStatement(sql3.toString());
-	    			  pstmt.setInt(1, cart_seq);
-	    			  result = pstmt.executeUpdate()==0? false:true;
-	    		  }
-	    		  else {
-	    			  result = true;
-	    		  }
-	    		 rs.close();
-	    	  }
-	    	  pstmt.close();
-	     
-	      return result;
-	   }
+           if(result == true) {
+              StringBuffer sql2 = new StringBuffer();
+              ResultSet rs = null;
+              sql2.append(" select count(*) from totalcart where cart_seq = ? ");
+              pstmt = conn.prepareStatement(sql2.toString());
+              pstmt.setInt(1, cart_seq);
+              rs = pstmt.executeQuery();
+              int cnt = -1;
+              while (rs.next()) {
+                 cnt = rs.getInt(1);   
+              }
+              if(cnt == 0) {
+                 StringBuffer sql3 = new StringBuffer();
+                 sql3.append(" delete from cart where cart_seq = ? ");
+                 pstmt = conn.prepareStatement(sql3.toString());
+                 pstmt.setInt(1, cart_seq);
+                 result = pstmt.executeUpdate()==0? false:true;
+              }
+              else {
+                 result = true;
+              }
+              pstmt.close();
+              rs.close();
+           }
+        return result;
+     }
+	
+	/*public static int CheckCart(Connection conn, int cart_seq) throws SQLException {
+	      StringBuffer sql = new StringBuffer();
+	      sql.append(" select count(*) from totalcart where cart_seq in( ? ) ");
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      
+	      pstmt = conn.prepareStatement(sql.toString());
+	      pstmt.setInt(1, cart_seq);
+	      rs = pstmt.executeQuery();
+	      int cart_num = -1;
+	        while (rs.next()) {
+	           cart_num = rs.getInt(1);   
+	         }
+	      
+	      return cart_num;
+	   }*/
+
+
 }

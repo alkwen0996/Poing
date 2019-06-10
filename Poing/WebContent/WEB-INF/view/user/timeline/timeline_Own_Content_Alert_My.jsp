@@ -14,13 +14,13 @@
 			data-additional="28347">
 			<div class="i_wrap">
 				<i class="image border_radius circle"
-					style="background-image: url(${mdto.news_img})"></i>
+					style="background-image: url(${mdto.un_img_ori})"></i>
 			</div>
 			<div class="info">
-				<div class="text">${mdto.news_content }</div>
+				<div class="text">${mdto.notice_type_content }</div>
 				<div class="time">
 					<!-- <script>document.write(moment("2019-05-24 10:26:06").locale("ko").fromNow());</script> -->
-					${mdto.news_wtime}
+					${mdto.un_created_at}
 				</div>
 			</div>
 		</li>

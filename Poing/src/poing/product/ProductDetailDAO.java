@@ -66,7 +66,7 @@ public class ProductDetailDAO {
 	public int insertCart(Connection conn,int m_no, String c_date, int party_size, String message) throws SQLException {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append("insert into cart (cart_seq, m_no, c_date, party_size, message)values (cart_seq.nextval,?,?,?,?)");
+		sql.append("insert into cart (cart_seq, m_no, c_date, party_size, message) values (cart_seq.nextval,?,?,?,?)");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
@@ -188,7 +188,7 @@ public class ProductDetailDAO {
 	
 	
 	public ProductDTO selectdisplay(Connection conn, int p_num){
-		String sql = " select * from p_product p join p_menu_info i on p.p_num = i.p_num join p_use_time t on p.p_num = t.p_num join p_detail_advice a on p.p_num = a.p_num join cancel_change c on p.p_num = c.p_num join use_case e on p.p_num = e.p_num where p.p_num = ? ";
+		String sql = " select * from p_product p join editer_review e on p.e_seq = e.e_seq join product_img i on p.img_seq = i.img_seq join p_restaurant r on r.p_num = p.p_num where p.p_num = ? ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
@@ -210,7 +210,6 @@ public class ProductDetailDAO {
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
 				dto.setP_dc_money(rs.getInt("p_dc_money"));
 				dto.setP_option(rs.getString("p_option"));
-				dto.setE_seq(rs.getInt("e_seq"));
 				dto.setImg_seq(rs.getInt("img_seq"));
 				dto.setE_name(rs.getString("e_name"));
 				dto.setE_content(rs.getString("e_content"));
@@ -220,17 +219,16 @@ public class ProductDetailDAO {
 				dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
 				dto.setP_origin_money(rs.getInt("p_origin_money"));
 				dto.setP_dc_money(rs.getInt("p_dc_money"));
-				dto.setP_min_Personnel(rs.getInt("p_min_personnel"));
-				dto.setP_content_1(rs.getString("p_content_1"));
-				dto.setP_content_2(rs.getString("p_content_2"));
-				dto.setP_content_3(rs.getString("p_content_3"));
-				dto.setP_content_4(rs.getString("p_content_4"));
-				dto.setP_content_5(rs.getString("p_content_5"));
-				dto.setMenu_info_title(rs.getString("menu_info_title"));
-				dto.setP_use_time_title(rs.getString("p_use_time_title"));
-				dto.setAdvice_title(rs.getString("advice_title"));
-				dto.setCancel_change_title(rs.getString("cancel_change_title"));
-				dto.setUse_case_title(rs.getString("use_case_title"));
+//				dto.setP_content_1(rs.getString("p_content_1"));
+//				dto.setP_content_2(rs.getString("p_content_2"));
+//				dto.setP_content_3(rs.getString("p_content_3"));
+//				dto.setP_content_4(rs.getString("p_content_4"));
+//				dto.setP_content_5(rs.getString("p_content_5"));
+//				dto.setMenu_info_title(rs.getString("menu_info_title"));
+//				dto.setP_use_time_title(rs.getString("p_use_time_title"));
+//				dto.setAdvice_title(rs.getString("advice_title"));
+//				dto.setCancel_change_title(rs.getString("cancel_change_title"));
+//				dto.setUse_case_title(rs.getString("use_case_title"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

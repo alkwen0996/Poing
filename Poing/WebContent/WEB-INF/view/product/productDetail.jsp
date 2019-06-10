@@ -157,7 +157,7 @@
 						<div class="title">${dto.menu_info_title }</div>
 						<div class="body">
 							<ul>
-								${dto.p_content_1 }
+							${dto.p_content_1 }
 							</ul>
 						</div>
 					</div>
@@ -165,7 +165,7 @@
 						<div class="title">${dto.p_use_time_title }</div>
 						<div class="body">
 							<ul>
-								<${dto.p_content_2 }
+								${dto.p_content_2 }
 							</ul>
 						</div>
 					</div>
@@ -181,7 +181,7 @@
 						<div class="title">${dto.cancel_change_title }</div>
 						<div class="body">
 							<ul>
-								<${dto.p_content_4 }
+								${dto.p_content_4 }
 							</ul>
 						</div>
 					</div>
@@ -189,7 +189,7 @@
 						<div class="title">${dto.use_case_title }</div>
 						<div class="body">
 						<ul>
-							<<${dto.p_content_5 }
+							${dto.p_content_5 }
 						</ul>
 						</div>
 					</div>
@@ -259,35 +259,28 @@
 				});		
 				$("#sidebar_wrap>.buy").click(function(){
 					if(poing.account.checkLoginState()) {
+						var url = "/Poing/popup/reserve_coupon.do?p_num=${param.p_num}";
+						
 						var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
 						var options = [];
-		
+
 						if(selected.length === 0) {
 							$.popup("/Poing/pick/popup/confirm.do", {'text': '구매하실 옵션을 선택해주세요.', 'alert':true});
 							return;
-						}else{
-							$.popup("/Poing/popup/reserve_coupon.do?p_num=${param.p_num}");
 						}
 						for(var i=0; i<selected.length; ++i)
 						{
 							var op = selected.eq(i);
-							options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+							options[i] = {
+									id: op.data('id') , count: op.find(".count_box>input").val()
+									};
+							//alert( $.param(options[i]) );
+							url += "&" + $.param(options[i]);
 						}
-		
-						$.ajax({
-							'url': "/pay/addCart.do",
-							'method': "POST",
-							'dataType': "JSON",
-							'data': {'options': options},
-							'success':function(response) {
-								if(response.status) {
-									$.popup("reserve_coupon", {'id':response.data.cart_id, 'mode':'buy'});
-								} else {
-		                            if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
-		                            else $.popup("confirm", {'text': response.error.message, 'alert':true});
-		                        }
-							}
-						});
+						//?id=4&count=4&id=2&count=5				
+						//alert( url )
+						$.popup(url);
+
 					}
 				});
 				$("#sidebar_wrap>.addCart").click(function(){

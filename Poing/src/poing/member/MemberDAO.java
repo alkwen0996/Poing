@@ -9,10 +9,9 @@ import java.util.List;
 
 import poing.rest.RestListDTO;
 import poing.rest.RestReserveDTO;
-import poing.news_notice.NewsDTO;
-import poing.news_notice.NoticeDTO;
 import poing.rest.RestTimlineReserveDTO;
-
+import poing.notice.UserNoticeDTO;
+import poing.notice.PoingNoticeDTO;
 import poing.product.ProductDTO;
 import poing.product.ReserveTicketDTO;
 
@@ -304,32 +303,44 @@ public class MemberDAO {
 		return result;
 	}
 
-	public ArrayList<NewsDTO> getNewsList(Connection conn, int memberID) throws SQLException {
+	public ArrayList<UserNoticeDTO> getUserNoticeList(Connection conn, int memberID) throws SQLException {
 
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select * ");
-		sql.append(" from news  ");
-		sql.append(" where news_m_no = ? ") ;
-
+		sql.append(" select * from ( ");
+		sql.append(" select * from   ");
+		sql.append(" (select m.M_NAME m_name,m.m_no m_no, r.REV_NO rev_no ") ;
+		sql.append(" from review r join member m on r.m_no = m.m_no ") ;
+		sql.append(" where r.m_no=m.m_no) mr ") ;
+		sql.append(" join userNotice u on rev_no = un_target_id ") ;
+		sql.append(" where rev_no = un_target_id ") ;
+		sql.append(" ) ur ") ;
+		sql.append(" join notice_type t on un_push_type = notice_push_type ") ;
+		sql.append(" where un_push_type = 'comment_review' ") ;
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		ArrayList<NewsDTO> list = new ArrayList<>();
+		ArrayList<UserNoticeDTO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, memberID);
+			//pstmt.setInt(1, memberID);
 			rs = pstmt.executeQuery();
-			NewsDTO dto = null;
+			UserNoticeDTO dto = null;
 
 			while (rs.next()) {
-				dto = new NewsDTO();
-				dto.setNews_m_name(rs.getString("news_m_name"));
-				dto.setNews_no(rs.getInt("news_no"));
-				dto.setNews_content(rs.getString("news_content"));
-				dto.setNews_wtime(rs.getDate("news_wtime"));
-				dto.setNews_img(rs.getString("news_img"));
-				dto.setNews_m_no(rs.getInt("news_m_no"));
+				dto = new UserNoticeDTO();
+				dto.setUn_id(rs.getInt("un_id"));
+				dto.setUn_user_id(rs.getInt("un_user_id"));
+				dto.setUn_push_type(rs.getString("un_push_type"));
+				dto.setUn_target_id(rs.getInt("un_target_id"));
+				dto.setUn_target(rs.getString("un_target"));
+				dto.setUn_additional(rs.getInt("un_additional"));
+				dto.setUn_created_at(rs.getString("un_created_at"));
+				dto.setUn_img_ori(rs.getString("un_img_ori"));
+				dto.setM_name(rs.getString("m_name"));
+				dto.setM_no(rs.getInt("m_no"));
+				dto.setNotice_type_content(rs.getString("notice_type_content"));
 				list.add(dto);
 
 			}// while
@@ -347,7 +358,7 @@ public class MemberDAO {
 		return list;		
 	}// getNewsList
 	
-	public ArrayList<NoticeDTO> getNoticeList(Connection conn, int memberID){
+	public ArrayList<PoingNoticeDTO> getNoticeList(Connection conn, int memberID){
 		System.out.println("notice DAO");
 		StringBuffer sql = new StringBuffer();
 		
@@ -356,17 +367,17 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<NoticeDTO> list = new ArrayList<>();
+		ArrayList<PoingNoticeDTO> list = new ArrayList<>();
 		
 		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, memberID);
 			rs = pstmt.executeQuery();
-			NoticeDTO ndto = null;
+			PoingNoticeDTO ndto = null;
 			
 			while(rs.next()) {
-				ndto = new NoticeDTO();
+				ndto = new PoingNoticeDTO();
 				ndto.setNotice_no(rs.getInt("notice_no"));
 				ndto.setNotice_content(rs.getString("notice_content"));
 				ndto.setNotice_wtime(rs.getDate("notice_wtime"));

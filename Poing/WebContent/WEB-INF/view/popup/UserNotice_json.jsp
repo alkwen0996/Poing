@@ -41,17 +41,19 @@ trimDirectiveWhitespaces="true"%>
 			int id = rs.getInt("un_id");
 			int user_id = rs.getInt("un_user_id");
 			String push_type = rs.getString("un_push_type");
-			String target_id = rs.getString("un_target_id");
-			/* String target = rs.getString(""); */
+			int target_id = rs.getInt("un_target_id");
+			String target = rs.getString("un_target"); 
 			int is_read = rs.getInt("un_is_read");
 			int is_count =rs.getInt("un_is_count");
 			int is_poing = rs.getInt("un_is_poing");
+			int additional = rs.getInt("un_additional");
 			int is_block_on_user = rs.getInt("un_is_block_on_user");
 			String contents = rs.getString("notice_type_content");
 			int wuid = rs.getInt("m_no");
 			String wuname = rs.getString("m_name");
 			String  updated_at = rs.getString("un_updated_at");
 			String  created_at = rs.getString("un_created_at");
+			
 			
 			JSONObject jsonData = new JSONObject();
 			
@@ -69,7 +71,7 @@ trimDirectiveWhitespaces="true"%>
 			jsonData.put("who_update", null);
 			jsonData.put("created_at", created_at);
 			jsonData.put("updated_at", updated_at);
-			jsonData.put("additional", null);
+			jsonData.put("additional", additional);
 			jsonData.put("wuname", wuname);
 			jsonData.put("wuid", wuid);
 			jsonData.put("contents", contents);
@@ -77,14 +79,13 @@ trimDirectiveWhitespaces="true"%>
 			jsonData.put("is_poing", is_poing);
 			jsonData.put("is_count", is_count);
 			jsonData.put("is_read", is_read);
-			jsonData.put("target", null);
+			jsonData.put("target", target);
 			jsonData.put("target_id", target_id);
-			jsonData.put("mongo_target_id", null);
+			jsonData.put("mongo_target_id", target_id);
 			jsonData.put("push_type", push_type);
 			jsonData.put("user_id", user_id);
 			jsonData.put("object_id", null);			
 			jsonData.put("id", id);
-			
 		
 			jsonArray.add(jsonData);
 			

@@ -41,14 +41,6 @@ public class ProductDTO {
 	private String cancel_change_title;
 	private String use_case_title;
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getMenu_info_title() {
 		return menu_info_title;
 	}

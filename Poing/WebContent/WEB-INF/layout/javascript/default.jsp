@@ -2190,7 +2190,7 @@
 						res = $.parseJSON(res);
 
 						var el = new EJS({
-							url: '/Poing/template/UserNotice.ejs'
+							url: '/Poing/templete/UserNotice.ejs'
 						}).render({
 							notices: res
 						});
@@ -2248,7 +2248,7 @@
 						message: "해당 리뷰로 이동하는 도중<br><br>문제가 발생했습니다."
 					});
 				else
-					location.href = "/restaurant/detail/" + additional + "?review=" + target;
+					location.href = "/Poing/rest/detail.do?rest_seq=" + rest_seq + "&tab=review";
 			} else if (type == "follow" || type == "fb_join") {
 				if (target == "")
 					noticePopupInit({
@@ -2265,7 +2265,7 @@
 			var additional = $(this).data("additional");
 
 			if (type == 'write_review')
-				location.href = "/restaurant/detail/" + $(this).data('target') + "?review";
+				location.href = "/Poing/rest/detail.do/" + $(this).data('target') + "?review";
 			else if ((additional == "" && target == "") &&
 				(type == "accept_reservation" ||
 					type == "change_reservation" ||

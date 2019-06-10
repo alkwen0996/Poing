@@ -10,6 +10,8 @@ import poing.member.MemberDTO;
 import poing.news_notice.NewsDTO;
 import poing.news_notice.NoticeDTO;
 import poing.rest.RestListDTO;
+import poing.notice.UserNoticeDTO;
+import poing.notice.PoingNoticeDTO;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
@@ -58,19 +60,19 @@ public class DisplayTimelineService {
 	}
 
 	
-	public ArrayList<NewsDTO> getNewsDTO(int memberID)throws SQLException {
+	public ArrayList<UserNoticeDTO> getUserNoticeList(int memberID)throws SQLException {
 		
 		Connection conn = ConnectionProvider.getConnection();
-		ArrayList<NewsDTO> nnlist = mdao.getNewsList(conn, memberID);
+		ArrayList<UserNoticeDTO> nnlist = mdao.getUserNoticeList(conn, memberID);
 		
 		conn.close();	
 		System.out.println("displaytimlineService : 소식 list에 담김");
 		return nnlist;
 	}// getNewsNoticeDTO
 	
-	public ArrayList<NoticeDTO> getNoticeDTO(int memberID) throws SQLException{
+	public ArrayList<PoingNoticeDTO> getNoticeDTO(int memberID) throws SQLException{
 		Connection conn = ConnectionProvider.getConnection();
-		ArrayList<NoticeDTO> nlist = mdao.getNoticeList(conn, memberID);
+		ArrayList<PoingNoticeDTO> nlist = mdao.getNoticeList(conn, memberID);
 		
 		conn.close();
 		System.out.println("displaytimlineService : 알림 list에 담김");

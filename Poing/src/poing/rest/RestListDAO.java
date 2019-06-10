@@ -20,7 +20,7 @@ public class RestListDAO {
 	public RestListDAO() {}
 
 	public List<RestListDTO> selectdisplay(Connection conn){
-		String sql = "select * from p_restaurant";
+		String sql = "select * from restaurant";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<RestListDTO> list = new ArrayList<>();

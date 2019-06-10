@@ -11,16 +11,13 @@ public class DeleteOptionHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
-			int cart_seq = Integer.parseInt(request.getParameter("id"));
-			int op_seq = Integer.parseInt(request.getParameter("options[]"));
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + op_seq);
+			int tic_cart_seq = Integer.parseInt(request.getParameter("id"));
+			int tic_option_seq = Integer.parseInt(request.getParameter("options[]"));
 			DeleteOptionService service = new DeleteOptionService();
-			boolean result = service.deleteOption(cart_seq, op_seq);
+			boolean result = service.deleteOption(tic_cart_seq, tic_option_seq);
 			
 		} catch (Exception e) {
 		}
 		return "product/productCart";
 	}
-
-	
 }

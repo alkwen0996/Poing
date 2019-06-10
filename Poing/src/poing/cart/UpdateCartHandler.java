@@ -15,12 +15,12 @@ public class UpdateCartHandler implements CommandHandler{
 		
 		UpdateCartService service = new UpdateCartService();
 		
-		int cart_seq = Integer.parseInt(request.getParameter("id"));
-		int party_size = Integer.parseInt(request.getParameter("party_size"));
-		String message = request.getParameter("message");
-		String c_date = request.getParameter("date");
+		int tic_cart_seq = Integer.parseInt(request.getParameter("id"));
+		int tic_num_of_people = Integer.parseInt(request.getParameter("party_size"));
+		String tic_request = request.getParameter("message");
+		String tic_reserve_date = request.getParameter("date");
 		
-		boolean result = service.updatecart(party_size, message, c_date, cart_seq);
+		boolean result = service.updatecart(tic_num_of_people, tic_request, tic_reserve_date, tic_cart_seq);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("status", result);
 		request.setAttribute("jsonData", jsonObject);

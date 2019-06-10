@@ -9,11 +9,11 @@ import poing.product.CartDAO;
 
 public class UpdateCartService {
 	
-	public boolean updatecart(int party_size, String message, String c_date, int cart_seq) {
+	public boolean updatecart(int tic_num_of_people, String tic_request, String tic_reserve_date, int tic_cart_seq) {
 		CartDAO cartdao = new CartDAO();
 		boolean result = true;
 		try(Connection conn = ConnectionProvider.getConnection()) {
-			result = cartdao.updateCart(conn, party_size, message, c_date, cart_seq);
+			result = cartdao.updateCart(conn, tic_num_of_people, tic_request, tic_reserve_date, tic_cart_seq);
 			conn.close();
 			
 			return result;

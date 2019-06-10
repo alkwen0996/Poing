@@ -16,12 +16,12 @@ public class UpdateOptionHandler implements CommandHandler{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		CartDAO cartdao = new CartDAO();
-		int cart_seq = Integer.parseInt(request.getParameter("id"));
+		int tic_cart_seq = Integer.parseInt(request.getParameter("id"));
 		
 		try{
 			   UpdateOptionService service = new UpdateOptionService();
-			   List<ProductDTO> list = service.select(cart_seq);
-			   List<ProductDTO> option = service.selectop(cart_seq);
+			   List<ProductDTO> list = service.select(tic_cart_seq);
+			   List<ProductDTO> option = service.selectop(tic_cart_seq);
 			   
 			   request.setAttribute("option", option);
 			   request.setAttribute("list", list);

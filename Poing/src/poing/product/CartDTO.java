@@ -6,6 +6,10 @@ public class CartDTO {
 	private int po_id;
 	private int c_num;
 	private String rest_name;
+	private int tic_num_of_people;
+	private String tic_request;
+	private String tic_reserve_date;
+	
 	
 	public int getC_seq() {
 		return c_seq;
@@ -37,6 +41,22 @@ public class CartDTO {
 	public void setRest_name(String rest_name) {
 		this.rest_name = rest_name;
 	}
-	
-	
+	public int getTic_num_of_people() {
+		return tic_num_of_people;
+	}
+	public void setTic_num_of_people(int tic_num_of_people) {
+		this.tic_num_of_people = tic_num_of_people;
+	}
+	public String getTic_request() {
+		return tic_request;
+	}
+	public void setTic_request(String tic_request) {
+		this.tic_request = tic_request;
+	}
+	public String getTic_reserve_date() {
+		return tic_reserve_date;
+	}
+	public void setTic_reserve_date(String tic_reserve_date) {
+		this.tic_reserve_date = tic_reserve_date;
+	}	
 }

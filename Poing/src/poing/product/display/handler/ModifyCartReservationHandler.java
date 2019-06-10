@@ -30,7 +30,7 @@ public class ModifyCartReservationHandler implements CommandHandler {
 		String message = request.getParameter("message");
 		
 		MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-		int m_no = mdto.getM_no();
+		int m_no = mdto.getM_seq();
 		System.out.println(m_no);
 		System.out.println(c_date);
 		System.out.println(party_size);

@@ -18,10 +18,10 @@ public class WriteReviewHandler implements CommandHandler{
 		System.out.println("WriteReviewHandler process called");
 		ReviewDTO dto = new ReviewDTO();
 		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
-		dto.setRest_no(Integer.parseInt(request.getParameter("id")));
+		dto.setRest_seq(Integer.parseInt(request.getParameter("id")));
 		dto.setRev_content(request.getParameter("text"));
 		try {
-			dto.setM_no(mdto.getM_no());
+			dto.setM_seq(mdto.getM_seq());
 		} catch (Exception e) {
 			request.setAttribute("errorMsg", "아이디 세션 종료");
 			return "review/insertReview_json";

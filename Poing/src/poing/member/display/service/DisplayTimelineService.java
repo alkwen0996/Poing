@@ -40,21 +40,21 @@ public class DisplayTimelineService {
 		System.out.println("displaytimlineService : 예약리스트 처리되어  list에 담김");
 		return list;
 	}
-	public ArrayList<ReviewDTO> getMyWriteReview(int memberID) throws SQLException {
+	public ArrayList<ReviewDTO> getWriteReview(int memberID, int curPage, int my_no) throws SQLException {
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
 		ArrayList<ReviewDTO> review_list = null;
 		
-		review_list = ReviewDAO.selectMyWriteReview(conn, memberID);
+		review_list = ReviewDAO.selectWriteReview(conn, memberID, curPage, my_no);
 		conn.close();
 		return review_list;
 	}
-	public ArrayList<ReviewDTO> getMyPickReview(int memberID) throws SQLException {
+	public ArrayList<ReviewDTO> getPickReview(int memberID, int curPage, int my_no) throws SQLException {
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
 		ArrayList<ReviewDTO> review_list = null;
 		
-		review_list = ReviewDAO.selectMyPickReview(conn, memberID);
+		review_list = ReviewDAO.selectPickReview(conn, memberID, curPage, my_no);
 		conn.close();
 		return review_list;
 	}
@@ -85,5 +85,15 @@ public class DisplayTimelineService {
 		conn.close();
 		System.out.println("displaytimlineService : 알림 list에 담김");
 		return nlist;
+	
+	public static boolean amIFollow(int memberID, int my_no) throws SQLException {
+		if (my_no == -1) {
+			return false;
+		}
+		boolean result = false;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		result = MemberDAO.amIFollow(conn , memberID, my_no);
+		return result;
 	}
 }// class

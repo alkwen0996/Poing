@@ -44,6 +44,17 @@
     <url-pattern>/</url-pattern>
   </filter-mapping>
   
+<!--    <filter>
+    <filter-name>checkOwnerLogin</filter-name>
+    <filter-class>com.filter.OwnerLoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>checkOwnerLogin</filter-name>
+    <url-pattern>/owner/index.ow</url-pattern>
+    <url-pattern>/owner/rest_image.ow</url-pattern>
+    <url-pattern>/owner/review_tables.ow</url-pattern>
+  </filter-mapping> -->
+   
   <servlet>
     <servlet-name>ControllerUsingURI</servlet-name>
     <servlet-class>poing.mvc.ControllerUsingURI</servlet-class>
@@ -59,20 +70,18 @@
     <url-pattern>*.ejs</url-pattern> 
   </servlet-mapping>
   
-  
-  
-  <servlet>
-    <servlet-name>ControllerUsingURIAdmin</servlet-name>
-    <servlet-class>admin.mvc.AdminControllerUsingURI</servlet-class>
+<!--    <servlet>
+    <servlet-name>ControllerUsingURIOwner</servlet-name>
+    <servlet-class>owner.mvc.OwnerControllerUsingURI</servlet-class>
     <init-param>
       <param-name>configFile</param-name>
-      <param-value>/WEB-INF/admin/commandHandlerForAdmin.properties</param-value>
+      <param-value>/WEB-INF/owner/commandHandlerForOwner.properties</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ControllerUsingURIAdmin</servlet-name>
-    <url-pattern>*.ad</url-pattern> 
+    <servlet-name>ControllerUsingURIOwner</servlet-name>
+    <url-pattern>*.ow</url-pattern> 
   </servlet-mapping>
-
+  -->
 </web-app>

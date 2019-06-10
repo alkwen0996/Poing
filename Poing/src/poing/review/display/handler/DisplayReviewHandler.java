@@ -19,7 +19,7 @@ public class DisplayReviewHandler implements CommandHandler{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		System.out.println("DisplayReviewHandler process()");
-		int cpage = request.getParameter("pg") == null ? 1 : Integer.parseInt(request.getParameter("pg"));
+		int curPage = request.getParameter("pg") == null ? 1 : Integer.parseInt(request.getParameter("pg"));
 		DisplayReviewService service = new DisplayReviewService();
 		String type = request.getParameter("type");
 		if(type == null)
@@ -30,10 +30,10 @@ public class DisplayReviewHandler implements CommandHandler{
 		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int m_no = -1;
 		if (authUser != null) {
-			m_no = authUser.getM_no();
+			m_no = authUser.getM_seq();
 		}
-		Paging paging = service.getPaing(cpage, "all", 0);
-		List<ReviewDTO> list = service.select(type, m_no, cpage);
+		Paging paging = Paging.getReviewPaing(m_no, "all", curPage);
+		List<ReviewDTO> list = service.select(type, m_no, curPage);
 		request.setAttribute("list", list);
 		request.setAttribute("paging", paging);
 		return "review/reviewList";

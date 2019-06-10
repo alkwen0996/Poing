@@ -20,7 +20,7 @@ public class WriteCommentHandler implements CommandHandler{
 			request.setAttribute("status", false);
 			return "review/insertComment_json";
 		}
-		int m_no = mdto.getM_no();
+		int m_no = mdto.getM_seq();
 		result = writeCommentService.writeComment(rev_no, comment, m_no)==0?false:true;
 		request.setAttribute("status", result);
 		return "review/insertComment_json";

@@ -23,21 +23,20 @@ public class DisplayRestDetailHandler implements CommandHandler
 		int m_no =-1; 
 		MemberDTO authUser = (MemberDTO)request.getSession().getAttribute("authUser");
 		if (authUser != null) {
-			m_no = authUser.getM_no();
+			m_no = authUser.getM_seq();
 		}
 		try {
 			RestDetailService service = new RestDetailService();
-			RestListDTO dto = null;
-			if (m_no!=-1) {
-				dto = service.select(rest_seq, m_no);
-			} else dto = service.select(rest_seq);
+			RestListDTO dto = service.select(rest_seq);
 			if (tab == null || tab.equals("info")) {
 				System.out.println();
 			}
 			
 			else if (tab.equals("review")) {
-				String type = (String) request.getAttribute("type");
-				ArrayList<ReviewDTO> list = DisplayRestDetailReviewService.getRestReviewList(rest_seq, m_no, type);
+				String type = (String) request.getParameter("type");
+				int curPage = request.getParameter("page")==null?1:Integer.parseInt("page");
+				ArrayList<ReviewDTO> list = DisplayRestDetailReviewService.getRestReviewList(rest_seq, m_no, type, curPage);
+				request.setAttribute("paging", "");
 				request.setAttribute("list", list);
 			}
 			request.setAttribute("dto", dto);

@@ -12,7 +12,7 @@
 				<div id="nav_shading" class="shading_bg scroll_enable"></div>
 				<!-- logo section -->
 				<a id="nav_logo" href="/Poing/main.do"><img class="logo"
-					src="http://c1.poing.co.kr/original/images/logo.png"></a>
+					src="/Poing/upload/icon/logo.png"></a>
 
 				<div id="nav_city">
 					<span>서울 / 수도권</span> <i class="icon"></i>
@@ -655,11 +655,11 @@
 									<div class="hover border_radius circle">MY</div>
 								</div>
 								<div id="nav_profile_list" class="border_radius soft">
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_no }&tab=reservation">예약</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_no }&tab=coupon">티켓</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_no }&tab=payment">결제</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_no }&tab=friends">친구찾기</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_no }&tab=setting">설정</div>
+									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=reservation">예약</div>
+									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=coupon">티켓</div>
+									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=payment">결제</div>
+									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=friends">친구찾기</div>
+									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=setting">설정</div>
 									<div id="nav_logout" class="item">로그아웃</div>
 								</div>
 							</div>

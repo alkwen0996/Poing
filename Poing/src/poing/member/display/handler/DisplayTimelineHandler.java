@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import poing.member.MemberDTO;
 import poing.member.display.service.DisplayTimelineService;
 import poing.mvc.CommandHandler;
-import poing.notice.UserNoticeDTO;
 import poing.notice.PoingNoticeDTO;
-import poing.product.ReserveTicketDTO;
+import poing.notice.UserNoticeDTO;
+import poing.product.Paging;
+import poing.product.RefundTicketDTO;
+import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
 import poing.rest.RestListDTO;
 import poing.rest.RestTimlineReserveDTO;
@@ -23,41 +25,73 @@ public class DisplayTimelineHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ProductPayService service = new ProductPayService();
-
-		//List<ReserveTicketDTO> list1 = service.selectReserva_tic();
-		//request.setAttribute("list1", list1);
-
+		DisplayProductDetailService service2 = new DisplayProductDetailService();
+		
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
-		if (tab == null) {
-			tab = "reservation";
-		}
-		
+
+		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int memberID = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = displayTimelineService.getMemberDTO(memberID);
-		System.out.println("DisplayTimelineHandler.java line 22 mdto:" + mdto);
-		
-		
-		ArrayList<RestTimlineReserveDTO> list = null;
-		if (tab.equals("reservation")) {
-			String reservTab = "past";
-			if (type==null || type.equals("recent")) reservTab ="recent";
-			list = displayTimelineService.getReseveRestDTO(memberID, reservTab);
+		request.setAttribute("mdto", mdto);
+		int my_no = -1;
+		if (authUser != null) {
+			my_no = authUser.getM_seq();
+		}
+		if (my_no != memberID) {
+			boolean amIFollow = DisplayTimelineService.amIFollow(memberID, my_no);
+			request.setAttribute("amIFollow", amIFollow);
 		}
 		
 		
-		request.setAttribute("mdto", mdto);
-		request.setAttribute("list", list);
+		if(tab == null)
+		{
+			if ( authUser != null && authUser.getM_seq() == mdto.getM_seq())
+				tab = "reservation";
+			else
+				tab = "review";
+		}
 		
-		ArrayList<ReviewDTO> review_list = null;
-		if (tab.equals("review")) {
-			if (type == null || type.equals("write")) {
-				review_list = displayTimelineService.getMyWriteReview(memberID);
+		// 탭 분기
+		if (tab.equals("reservation"))
+		{
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
+			{
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
+				return null;
+			}
+			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID);
+			request.setAttribute("reserve_list", reserve_list);
+		}
+		else if (tab.equals("coupon"))
+		{
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
+			{
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
+				return null;
+			}else {
+			ProductPayService service5 = new ProductPayService();
+			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
+			request.setAttribute("rev_tic_list", rev_tic_list);
+			}
+		}
+		else if (tab.equals("review"))
+		{
+			int curPage = request.getParameter("pg")==null?1:Integer.parseInt(request.getParameter("pg"));
+			ArrayList<ReviewDTO> review_list = null;
+
+			Paging paging = null; 
+			
+			if (type == null || type.isEmpty() || type.equals("write")) {
+				review_list = displayTimelineService.getWriteReview(memberID, curPage, my_no);
+				paging = Paging.getReviewPaing(mdto.getM_seq(), "write", curPage);
 			}
 			else if (type.equals("like")) {
-				review_list = displayTimelineService.getMyPickReview(memberID);
+				review_list = displayTimelineService.getPickReview(memberID, curPage, my_no);
+				paging = Paging.getReviewPaing(mdto.getM_seq(), "like", curPage);
 			}
+			request.setAttribute("paging", paging);
 			request.setAttribute("review_list", review_list);
 		}
 		
@@ -77,6 +111,50 @@ public class DisplayTimelineHandler implements CommandHandler {
 		request.setAttribute("nlist", nlist);
 		
 		System.out.println("DisplayTimelineHandler.java line 18 mdto:" + mdto);
+		else if (tab.equals("restaurant"))
+		{
+
+		}
+		else if (tab.equals("alert"))
+		{
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
+			{
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
+				return null;
+			}
+			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
+			ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
+			request.setAttribute("nnlist", nnlist);
+			request.setAttribute("nlist", nlist);
+		}
+		else if (tab.equals("payment"))
+		{
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
+			{
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
+				return null;
+			}else {
+			List<RefundTicketDTO> payment_list = service2.selectRefund_tic();//환불 되고나서
+			request.setAttribute("payment_list", payment_list);
+			}
+			
+		}
+		else if (tab.equals("friends"))
+		{
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
+			{
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
+				return null;
+			}		
+		}
+		else if (tab.equals("setting"))
+		{
+			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
+			{
+				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
+				return null;
+			}
+		}
 		return "user/timeline";
 	}
 

@@ -17,9 +17,12 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/popup/deleteCart.do")) {
 			return "popup/deleteCart";
 		}
-		else if (command.equals("/popup/point_history.do")) {
-			return "popup/point_history";
+		else if (command.equals("/popup/pointCharge.do")) {
+			return "popup/pointCharge";
 		}
+//		else if (command.equals("/popup/point_history.do")) {
+//			return "popup/point_history";
+//		}
 		else if (command.equals("/popup/level_qna.do")) {
 			return "popup/level_qna";
 		}
@@ -71,8 +74,26 @@ public class PopupHandler implements CommandHandler {
 		else if(command.equals("/popup/basket_confirm.do")) {
 			return "popup/basket_confirm";
 		}
+		else if(command.equals("/popup/basket_no_confirm.do")) {
+			return "popup/basket_no_confirm";
+		}
 		else if (command.equals("/pick/popup/confirm.do")) {
 			return "popup/confirmPick";
+		}
+		else if (command.equals("/popup/delete_confirm.do")) {
+			return "popup/delete_confirm";
+		}
+		else if (command.equals("/popup/change_coupon.do")) {
+			return "popup/change_coupon";
+		}
+		else if (command.equals("/popup/change_option.do")) {
+			return "popup/change_option";
+		}
+		else if (command.equals("/popup/change.do")) {
+			return "popup/change_option";
+		}
+		else if (command.equals("/popup/optionconfirm.do")) {
+			return "popup/optionconfirm";
 		}
 		else if (command.equals("/user/UserNotice.do")) {
 			return "popup/UserNotice_json";

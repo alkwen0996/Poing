@@ -10,10 +10,8 @@ import poing.mvc.CommandHandler;
 
 public class JoinMemberHandler implements CommandHandler{
 
-	private static final String FORM_VIEW = "user/joinForm";
 	JoinMemberService joinMemberService = new JoinMemberService();
 	
-
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (request.getMethod().equalsIgnoreCase("GET")) {
@@ -30,7 +28,7 @@ public class JoinMemberHandler implements CommandHandler{
 
 	private String processForm(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("JoinMemberHandler processForm");
-		return FORM_VIEW;
+		return "user/joinForm";
 	}
 	private String processSubmit(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("JoinMemberHandler processSubmit");
@@ -46,7 +44,7 @@ public class JoinMemberHandler implements CommandHandler{
 		
 		
 		mdto.setM_name(name);
-		mdto.setM_nickname(name);
+		mdto.setM_subsname(name);
 		mdto.setM_email(email);
 		mdto.setM_pw(password);
 		String gender = null;
@@ -55,7 +53,7 @@ public class JoinMemberHandler implements CommandHandler{
 			mdto.setM_gen(gender.equals("mail")?1:0); //남자라면1 아니라면 0			
 		}
 		
-		mdto.setRp_seq(3000);
+		mdto.setM_point(3000);
 		
 		boolean result = joinMemberService.joinMember(mdto);
 		request.setAttribute("result", result);
@@ -65,7 +63,7 @@ public class JoinMemberHandler implements CommandHandler{
 			request.getSession().setAttribute("authUser", mdto);
 			return "user/joinResult";
 		}
-		return FORM_VIEW;
+		return "user/joinForm";
 	}
 
 }

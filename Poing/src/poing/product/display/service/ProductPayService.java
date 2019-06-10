@@ -7,17 +7,19 @@ import java.util.List;
 import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
-import poing.product.ReserveTicketDTO;
+import poing.product.ProductDetailDAO;
+import poing.product.RefundTicketDTO;
+import poing.product.PointHistoryDTO;
 
 public class ProductPayService {
-	public List<ReserveTicketDTO> selectReserva_tic() {
-		ReserveTicketDTO rdto = new ReserveTicketDTO();
+	public List<RefundTicketDTO> selectReserva_tic() {
+		PointHistoryDTO rdto = new PointHistoryDTO();
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			List<ReserveTicketDTO> list1 = MemberDAO.selectReserva_tic(conn);
+			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn);
 			// 로그 처리
 			// 
 			//
-			return list1;
+			return list;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -39,7 +41,7 @@ public class ProductPayService {
 		
 	}
 
-	public boolean selectRp_seq(int rp_seq, int totalmoney, String m_email, int point) {
+	public boolean selectRp_seq(int m_no,int rp_seq, int totalmoney, String m_email, int point) {
 		System.out.println("selectRp_seq 안으로 들어옴"+totalmoney);
 		System.out.println("selectRp_seq 안으로 들어옴"+point);
 		System.out.println("selectRp_seq 안으로 들어옴"+m_email);
@@ -49,7 +51,7 @@ public class ProductPayService {
 			Connection conn = ConnectionProvider.getConnection();
 			if (totalmoney <= rp_seq && point == totalmoney) {
 				System.out.println("조건만족");
-				updateCheck = MemberDAO.selectRp_seq(conn, rp_seq, totalmoney, m_email);
+				updateCheck = MemberDAO.selectRp_seq(conn,m_no, rp_seq, totalmoney, m_email);
 				System.out.println(updateCheck); //
 
 			}

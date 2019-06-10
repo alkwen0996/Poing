@@ -246,7 +246,6 @@
 					var value = Number(target.val());
 					var max = Number(target.data('max'));
 					var min = Number(target.data('min'));
-
 					if ($(this).hasClass('increase')) {
 						if (value < max)
 							target.val(++value);
@@ -256,7 +255,6 @@
 							});
 					} else if ($(this).hasClass('decrease') && value > min)
 						target.val(--value);
-
 					$("#reserve_coupon>.body>.request>.summary>.count").text(
 							value + "명");
 				});
@@ -269,28 +267,22 @@
 				function() {
 					if ($(this).val().length > 30)
 						$(this).val($(this).data('input'));
-
 					$(this).data('input', $(this).val());
-
 					$("#reserve_coupon .text_count>span").text(
 							$(this).val().length);
 				});
-
 		// 타임테이블
 		$("#reserve_coupon div.timetable>ul>li").click(
 				function(e) {
 					e.stopPropagation();
-
 					var time = $(this).data('time');
 					$(this).closest(".timetable").siblings("input").val(time);
 					$(this).closest(".timetable").siblings("span").text(
 							$(this).text());
-
 					$("#reserve_coupon>.body>.request>.summary>.time").text(
 							$(this).text());
 					$("#reserve_coupon div.timetable").hide();
 				});
-
 		// 캘린더
 		var range = new Date();
 		range.setMonth(range.getMonth() + 2);
@@ -298,7 +290,6 @@
 		var holidays = $.parseJSON('[]');
 		for (var i = 0; i < holidays.length; ++i)
 			holidays[i] = new Date(holidays[i].replace(/\./g, '-'));
-
 		var $datepicker = $('#reserve_coupon div.calendar')
 				.datepicker(
 						{
@@ -315,10 +306,8 @@
 								if ($("#reserve_coupon div.timetable>ul[data-day="
 										+ day.getDay() + "]>li").length == 0)
 									return [ false, "" ];
-
 								for (var i = 0; i < holidays.length; ++i) {
 									var holiday = holidays[i];
-
 									if (day.getYear() === holiday.getYear()
 											&& day.getMonth() === holiday
 													.getMonth()
@@ -326,7 +315,6 @@
 													.getDate())
 										return [ false, "" ];
 								}
-
 								var result;
 								switch (day.getDay()) {
 								case 0: // is sunday?
@@ -339,7 +327,6 @@
 									result = [ true, "" ];
 									break;
 								}
-
 								return result;
 							},
 							onSelect : function(date, obj) {
@@ -355,7 +342,6 @@
 												"[data-day=" + day + "]")
 										.addClass('selected').find(">li")
 										.show();
-
 								if (now.getMonth() === selected.getMonth()
 										&& now.getDate() === selected.getDate()) {
 									for (var i = 0; i < table.length; ++i) {
@@ -364,7 +350,6 @@
 												':');
 										time = Number(time[0] * 60)
 												+ Number(time[1]);
-
 										if (time < available_time)
 											target.hide();
 										else
@@ -384,7 +369,6 @@
 										selected.getFullYear() + "."
 												+ (selected.getMonth() + 1)
 												+ "." + selected.getDate());
-
 								if ($("#reserve_coupon div.timetable>ul.selected>li").length > 0)
 									$(
 											"#reserve_coupon div.timetable>ul.selected>li:not([style*='none']):first")
@@ -399,7 +383,6 @@
 											.text('');
 								}
 								$("#reserve_coupon div.calendar").hide();
-
 								$(
 										"#reserve_coupon>.body>.request>.summary>.date")
 										.text(
@@ -417,12 +400,10 @@
 						}).click(function() {
 					return false;
 				});
-
 		var $firstDay = $("#reserve_coupon div.calendar .ui-datepicker-calendar td:not(.ui-state-disabled):first");
 		var blockcheck = false;
 		if ($firstDay.length === 0)
 			$datepicker.datepicker("setDate", "+1m");
-
 		$(
 				"#reserve_coupon div.calendar .ui-datepicker-calendar td:not(.ui-state-disabled):first")
 				.click();

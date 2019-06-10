@@ -35,7 +35,7 @@ public class ReviewPickService {
 		int PickCnt = 0;
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
-		PickCnt = rdao.countPickReview(conn, rev_id);
+		PickCnt = rdao.countMyPickReview(conn, rev_id);
 		return PickCnt;
 	}
 }

@@ -24,7 +24,7 @@ public class ReviewLikeHandler implements CommandHandler{
 			request.setAttribute("status", result);
 			return "review/likeReviewResult";
 		}
-		int mid = mdto.getM_no();
+		int mid = mdto.getM_seq();
 		try {
 			if (type.equals("on")) {
 				result = reviewLikeService.addLikeReview(mid, rev_id)==0?false:true;

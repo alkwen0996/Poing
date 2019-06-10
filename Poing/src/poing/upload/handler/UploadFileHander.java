@@ -73,18 +73,19 @@ public class UploadFileHander implements CommandHandler{
 					, encoding //인코딩 타입
 					, policy);
 			File uploadFile = mrequest.getFile("file"); // filename=upload
-			int uploadFile_length = (int)uploadFile.length();
-			String originalFileName = mrequest.getOriginalFileName("file");
-			filePath = filePath + originalFileName;
+			int uploadFile_length = (int)uploadFile.length(); //업로드된 파일 크기
+			String originalFileName = mrequest.getOriginalFileName("file"); //파일 이름
+			filePath = filePath + originalFileName; //저장할 파일 위치
 			System.out.println("uploadFile_length: " + uploadFile_length);
 			System.out.println("filePath: " + filePath);
 			authUser.setM_img(filePath);
-			byte[] file_byte = new byte[(int) uploadFile_length];
+			
+			byte[] file_byte = new byte[(int) uploadFile_length]; //파일을 저장할 바이트 배열
 			FileInputStream fis = new FileInputStream(uploadFile);
-			fis.read(file_byte, 0, uploadFile_length);
-			String file_str = Base64.getEncoder().encodeToString(file_byte);
-			request.setAttribute("file_str", file_str);
-			request.setAttribute("content_type", mrequest.getContentType("file"));
+			fis.read(file_byte, 0, uploadFile_length); //업로드딘 파일객체를 바이트 배열로 변환
+			String file_str = Base64.getEncoder().encodeToString(file_byte); //base64인코딩으로 변환
+			request.setAttribute("file_str", file_str); //클라이언트에게 전송하기 위해 request에 저장
+			request.setAttribute("content_type", mrequest.getContentType("file")); //파일 타입 image
 			session.setAttribute("filePath", filePath);
 			return FORMPATH;
 		} catch (IOException e) {

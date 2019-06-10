@@ -19,6 +19,7 @@ public class DisplayOptionService {
 				
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			List<OptionDTO> pp = dao.selectoption(conn, p_num);
+			conn.close();
 			// 로그 처리
 			// 
 			//

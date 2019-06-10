@@ -134,6 +134,7 @@ public class DisplayProductDetailService {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			ProductDTO dto = dao.selectCartId(conn, cart_seq);
+			conn.close();
 			// 로그 처리
 			// 
 			//
@@ -148,6 +149,7 @@ public class DisplayProductDetailService {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			ProductDTO dto = dao.selectdisplay(conn, p_num);
+			conn.close();
 			// 로그 처리
 			// 
 			//
@@ -161,6 +163,7 @@ public class DisplayProductDetailService {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
 		try (Connection conn = ConnectionProvider.getConnection()) {			
 			ProductDTO dto = dao.selectdisplay(conn, p_num, member_num);
+			conn.close();
 			// 로그 처리
 			// 
 			//

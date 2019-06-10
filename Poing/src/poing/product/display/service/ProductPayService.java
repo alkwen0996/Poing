@@ -16,6 +16,7 @@ public class ProductPayService {
 		PointHistoryDTO rdto = new PointHistoryDTO();
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn);
+			
 			// 로그 처리
 			// 
 			//
@@ -34,6 +35,7 @@ public class ProductPayService {
 			Connection conn = ConnectionProvider.getConnection();
 			
 			insertCheck = MemberDAO.insertReserve_tic(conn, p_num, m_no, cart_seq);
+			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

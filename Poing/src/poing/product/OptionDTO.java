@@ -8,6 +8,7 @@ public class OptionDTO {
 	private int tic_dc_price;
 	private int tic_op_min_cnt;
 	private int tic_op_max_cnt;
+	
 	public int getTic_option_seq() {
 		return tic_option_seq;
 	}

@@ -53,9 +53,9 @@
 		<div class="title">옵션</div>
 		<div class="body">
 			<div class="">
-				<span class="name ">${dto.p_option }</span> <span
-					class="actual_price">${dto.p_origin_money }</span> <span
-					class="price">${dto.p_dc_money }</span>
+				<span class="name ">${op.tic_op_name }</span> <span
+					class="actual_price">${op.tic_dc_price }</span> <span
+					class="price">${op.tic_dc_price }</span>
 			</div>
 		</div>
 	</div>

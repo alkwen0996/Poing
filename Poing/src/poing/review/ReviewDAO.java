@@ -589,7 +589,7 @@ public class ReviewDAO {
 		if (rs.next()) {
 			list = new ArrayList<>();
 			do {
-				dto = new ReviewDTO(rs, "main", -1);
+				//dto = new ReviewDTO(rs, "main", -1);
 				list.add(dto);
 			}while(rs.next());//while
 		}

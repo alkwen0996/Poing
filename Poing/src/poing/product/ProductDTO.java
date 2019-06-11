@@ -26,50 +26,16 @@ public class ProductDTO {
    private int tic_cart_seq;
    private String tic_op_name;
    private String tic_menu_images;
+   private String tic_validate_content;
+   private String rest_line_exp;
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   public String getTic_menu_images() {
+   public String getRest_line_exp() {
+	return rest_line_exp;
+}
+public void setRest_line_exp(String rest_line_exp) {
+	this.rest_line_exp = rest_line_exp;
+}
+public String getTic_menu_images() {
 	return tic_menu_images;
 }
 public void setTic_menu_images(String tic_menu_images) {
@@ -201,6 +167,41 @@ public String getRest_foodinfo() {
    public void setTic_dc_price(int tic_dc_price) {
       this.tic_dc_price = tic_dc_price;
    }
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    private String r_type;
    private String r_location;
    private String p_name;
@@ -230,7 +231,7 @@ public String getRest_foodinfo() {
    private String c_date;
    private String tic_menu_info_content;
    private String ticg_content;
-   private String tic_validate_content;
+  
    private String tic_cancel_content;
    private String tic_use_case_content;
    private String tic_use_case_title;

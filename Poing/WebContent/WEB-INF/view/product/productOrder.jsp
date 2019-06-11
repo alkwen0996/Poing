@@ -80,10 +80,10 @@
                                     <tr data-id="1299328"> 
                         <td class="info">
                             <a class="image" href="/product/detail/5904" target="_blank">
-                                <i class="image border_radius medium" style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/5458801ed20c7820f000002b.png);"></i>
+                                <i class="image border_radius medium" style="background-image: url(${dto.tic_img});"></i>
                             </a>
-                            <a class="name" href="/product/detail/5904" target="_blank">${dto2.tic_op_name }</a>
-                            <div class="valid_date">유효기간: <span>${dto.tic_reserve_date }</span></div>
+                            <a class="name" href="/product/detail/5904" target="_blank">${dto.rest_name }</a>
+                            <div class="valid_date">유효기간: <span>${dto.tic_validate_content }</span></div>
 
                             <ul class="options">
                                                                     <li data-id="19044" data-limit="4">

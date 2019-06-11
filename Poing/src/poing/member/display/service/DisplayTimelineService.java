@@ -3,15 +3,14 @@ package poing.member.display.service;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import com.util.ConnectionProvider;
 
 import poing.member.MemberDAO;
 import poing.member.MemberDTO;
-import poing.news_notice.NewsDTO;
-import poing.news_notice.NoticeDTO;
-import poing.rest.RestListDTO;
-import poing.notice.UserNoticeDTO;
 import poing.notice.PoingNoticeDTO;
+import poing.notice.UserNoticeDTO;
+import poing.rest.RestListDTO;
 import poing.rest.RestTimlineReserveDTO;
 import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
@@ -85,7 +84,7 @@ public class DisplayTimelineService {
 		conn.close();
 		System.out.println("displaytimlineService : 알림 list에 담김");
 		return nlist;
-	
+	}
 	public static boolean amIFollow(int memberID, int my_no) throws SQLException {
 		if (my_no == -1) {
 			return false;

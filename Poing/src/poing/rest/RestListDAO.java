@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.webkit.dom.WheelEventImpl;
-
 import poing.review.ReviewSearchDTO;
 
 public class RestListDAO {

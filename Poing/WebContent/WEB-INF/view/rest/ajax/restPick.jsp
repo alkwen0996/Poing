@@ -12,7 +12,7 @@
      	int rest_seq = Integer.parseInt(request.getParameter("id")); 
         System.out.println("ajaxfav.jsp pnum="+rest_seq);
         MemberDTO dto = (MemberDTO)request.getSession().getAttribute("authUser");
-        int m_num= dto.getM_no();
+        int m_num= dto.getM_seq();
         System.out.println("ajaxfav.jsp m_num="+m_num);
         int typecnt = request.getParameter("type").equals("on")?1:0;
         String sql = "";

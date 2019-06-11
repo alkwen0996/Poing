@@ -412,7 +412,7 @@ public class ProductDetailDAO {
 
 				dto = new ProductDTO();
 				rs.next();
-				dto.setP_num(rs.getInt("p_num"));
+				dto.setTic_seq(rs.getInt("p_num"));
 				dto.setR_type(rs.getString("r_type"));
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setR_location(rs.getString("r_location"));
@@ -462,7 +462,7 @@ public class ProductDetailDAO {
 
 				dto = new ProductDTO();
 				rs.next();
-				dto.setP_num(rs.getInt("p_num"));
+				dto.setTic_seq(rs.getInt("p_num"));
 				dto.setR_type(rs.getString("r_type"));
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setR_location(rs.getString("r_location"));
@@ -561,7 +561,7 @@ public class ProductDetailDAO {
 					list = new ArrayList<>();
 					do {
 						//dto.setE_name(rs_qna.getString("e_name"));
-						dto.setP_num(rs_qna.getInt("p_num"));
+						dto.setTic_seq(rs_qna.getInt("p_num"));
 						/*dto.setQ_content(rs_qna.getString("q_content"));
 						dto.setQ_ctime(rs_qna.getString("q_ctime"));
 						dto.setReply_seq(rs_qna.getInt("reply_seq"));

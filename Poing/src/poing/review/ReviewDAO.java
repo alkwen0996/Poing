@@ -88,7 +88,7 @@ public class ReviewDAO {
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 
-			pstmt.setInt(1, rdto.getRest_seq());
+			pstmt.setInt(1, rdto.getRev_rest_seq());
 			pstmt.setString(2, rdto.getRev_content());
 			pstmt.setInt(3, rdto.getM_seq());
 			pstmt.setDouble(4, rdto.getRev_starpoint());
@@ -598,5 +598,24 @@ public class ReviewDAO {
 		return list;
 	}
 
+	public static int avgReviewStarPoint(Connection conn, int rest_seq) throws SQLException {
+		int result = 0;
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" SELECT ROUND(AVG(rev_starpoint)/10, 1) avg FROM review ");
+		sql.append(" WHERE rev_rest_seq = ?;  ");
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, rest_seq);
+		
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			result = rs.getInt("avg");
+		}
+		pstmt.close();
+		rs.close();
+		return result;
+	}
+	
 }// class
 

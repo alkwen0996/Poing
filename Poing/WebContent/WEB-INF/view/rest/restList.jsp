@@ -33,24 +33,26 @@
 </script>
 </head>
 <%
-	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("map");
+ 	ArrayList<RestListDTO> list = (ArrayList<RestListDTO>)request.getAttribute("map");
 	int size = 0;
 	if(list!=null) size = list.size();
 	
 	StringBuffer sb = new StringBuffer();
 	float rlat, rlong;
 	String info;
-	String url;
+	String mapurl;
+	String img;
 	sb.append("[");
 	for (int i=0; i<list.size(); i++){
+	img = list.get(i).getRest_img();
 		if(i==0) {
 	rlat = list.get(i).getRest_lat();
 	rlong = list.get(i).getRest_long();
-	info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
+	info = "<div><div class=\"inner\"><img src=\"/Poing"+img+"\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
 			+ list.get(i).getRest_name()
 			+"<br><span>" +list.get(i).getRest_address()
 			+"</span></div></div></div>";
-	url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
+	mapurl = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
 	sb.append("{ lat: ");
 	sb.append(rlat);
 	sb.append(", lng: ");
@@ -58,16 +60,16 @@
 	sb.append(", info: '");
 	sb.append(info);
 	sb.append("', url: '");
-	sb.append(url);
+	sb.append(mapurl);
 	sb.append("' } ");
 		} else {
 	rlat = list.get(i).getRest_lat();
 	rlong = list.get(i).getRest_long();
-	info = "<div><div class=\"inner\"><img src=\"http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
+	info = "<div><div class=\"inner\"><img src=\"/Poing"+img+"\" style=\"display: inline-block; width: 50px; height: 50px;\"><div style=\"vertical-align: top; width: 134px; display: inline-block; margin-left:10px\">" 
 			+ list.get(i).getRest_name()
 			+"<br><span>" +list.get(i).getRest_address()
 			+"</span></div></div></div>";
-	url = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
+	mapurl = "/Poing/rest/detail.do?rest_seq=" + list.get(i).getRest_seq();
 	sb.append(",{ lat: ");
 	sb.append(rlat);
 	sb.append(", lng: ");
@@ -75,19 +77,19 @@
 	sb.append(", info: '");
 	sb.append(info);
 	sb.append("', url: '");
-	sb.append(url);
+	sb.append(mapurl);
 	sb.append("' } ");
 		}	
 	}
-	sb.append("] ");
+	sb.append("] ");  
 	
 	
 	//MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-	int member_num = 0;
+	//int member_num = 0;
 	//if(mdto==null) member_num = 0;
 	//else member_num = mdto.getM_no();
 	
-	ArrayList<RestListDTO> list1 = (ArrayList<RestListDTO>) request.getAttribute("list");
+ 	ArrayList<RestListDTO> list1 = (ArrayList<RestListDTO>) request.getAttribute("list");
 	int totalcount = 0;
 	int totalpage = 0;
 	if (list1 != null) {
@@ -101,7 +103,7 @@
 	int endPage = startPage + 10 - 1;
 	if (endPage > totalpage)
 		endPage = totalpage;
-	url = request.getRequestURI().toString();
+	String url = request.getRequestURI().toString();
 	//pop=2%2C5&add=103%2C105&searchWord=aa&food_type=200%2C12
 	String newurl = "";
 	int ucnt = 0;
@@ -122,7 +124,7 @@
 	if (request.getParameter("searchWord") != null) {
 		if (ucnt > 0) newurl += "&searchWord=" + request.getParameter("searchWord");
 		else newurl += "searchWord=" + request.getParameter("searchWord");
-	}
+	} 
 	
 %>
 <body>
@@ -152,28 +154,27 @@
 						<c:if test="${status.index % 3 eq 0 }">
 							<div class="element  medium first">
 						</c:if>
-						<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}"
-							class="image"
-							data-src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg"
-							style="display: block; background-color: gray">
-							<div class="shading"></div>
-
+						<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}" 
+							class="image" 
+							style="display: block; 
+							background-image: url(/Poing${dto.rest_img});">         
+						<div class="shading"></div> 
 							<div class="top">
-								예약 &nbsp; 리뷰
+								예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
 								&nbsp; 조회수 ${dto.rest_view_cnt} <br>
 								<button class="" data-type="poing.restaurants.favorite"
 									data-id="${dto.rest_seq }" onclick='return false;'>
-									<%-- <c:if test="${dto.rest_fav eq 1 }">
+									<c:if test="${dto.rest_fav ne 0 }">
 									<i class="icon favorite on"></i>
 									</c:if>
 									<c:if test="${dto.rest_fav eq 0 }">
 									<i class="icon favorite "></i>
-									</c:if> --%>
+									</c:if> 
 								</button>
 							</div>
 							<div class="bottom">
-								<p class="coupon">티켓</p>
-								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_address}</span>
+								<c:if test="${dto.rest_tic_yn eq 1}"><p class="coupon">티켓</p></c:if>
+								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc}</span>
 							</div>
 						</a>
 
@@ -182,28 +183,29 @@
 								<div class="rating">
 									<div class="stars">
 										<!-- 별점처리 -->
-										<%-- <c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
-												<c:if test="${i <= ((dto.rest_starpoint*2)+(((dto.rest_starpoint*2)%1>0.5)?(1-((dto.rest_starpoint*2)%1))%1:-((dto.rest_starpoint*2)%1)))}">
+										<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
+												<c:if test="${i <= ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
 													<c:if test="${i%2 ne 0 }"><span class="star odd active"></span></c:if>
 													<c:if test="${i%2 eq 0 }">
 														<span class="star even active" ></span>
 													</c:if>
 												</c:if>
-												<c:if test="${i > ((dto.rest_starpoint*2)+(((dto.rest_starpoint*2)%1>0.5)?(1-((dto.rest_starpoint*2)%1))%1:-((dto.rest_starpoint*2)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
+												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
 													<c:if test="${i%2 eq 0 }">
 														<span class="star even "></span>
 													</c:if>
 												</c:if>
-											</c:forEach> --%>
+											</c:forEach> 
 									</div>
-
-									<div class="grade">${dto.rest_starpoint}점</div>
+										
+									<div class="grade">${((dto.rest_starpoint/2*10)+(((dto.rest_starpoint/2*10)%1>0.5)?(1-((dto.rest_starpoint/2*10)%1))%1:-((dto.rest_starpoint/2*10)%1)))/10}점</div>
 								</div>
 								<div class="budget">${dto.rest_budget_type}</div>
 								<div class="comment">${dto.rest_line_exp}</div>
 								<ul class="detail">
-									<li><a href="/restaurant/detail/35740?menu">메뉴있음</a></li>
-									<li><a href="/restaurant/detail/35740?photo">사진 74장</a></li>
+									<li><c:if test="${ dto.rest_menu_yn eq 1}"><a href="/restaurant/detail/35740?menu">메뉴있음</a></c:if>
+									<c:if test="${ dto.rest_menu_yn eq 0}">메뉴없음</c:if></li>
+									<li><a href="/restaurant/detail/35740?photo">사진 ${dto.rest_img_cnt}장</a></li>
 								</ul>
 							</div>
 						</div>
@@ -216,7 +218,8 @@
 						</div>
 				</div>
 				</c:forEach>
-					<div id="pager">
+				
+ 					<div id="pager">
 						<div class="page-list">
 							<ul class="pagination" onselectstart="return false;">
 								
@@ -240,7 +243,7 @@
 
 							</ul>
 						</div>
-					</div>
+					</div> 
 
 				</div>
 		</div>

@@ -15,28 +15,89 @@ public class RestListDTO {
 	private String rest_table_type; // varchar2(100), -- 테이블종류
 	private float rest_lat; //num 위도
 	private float rest_long; //num 경도
-	private int ri_seq;
+	private String rest_img; //이미지
 
 	private String rest_address;
 	private String rest_tip;
 	private String rest_holiday;
 	private String rest_foodinfo;
-
 	
-	//private double rest_starpoint; // number, -- 별점
-	//private String rest_menu; //varchar2(200), -- 레스토랑메뉴
-	//private int rest_reservation_cnt; // number,--누적 예약 횟수  o
-	//private int rest_review_cnt; // number, -- 누적 리뷰 횟수 o
-
-	//private String rest_loc; // number, --지역코드 o
-	//private int rest_tic_code; // number, --티켓코드 
-	//private String rest_food_type; // varchar2(30) -- 음식종류
-	//private int rest_fav; //찜하기 추적
+	private int rest_reserve_yn;
+	private int rest_reserve_cnt;
+	private int rest_review_cnt;
+	private int rest_tic_yn;
+	private String rest_loc; // 지역 - 인기지역 or add
+	private double rest_starpoint; // number, -- 별점
+	private int rest_menu_yn;
+	private int rest_img_cnt;
+	private String rest_menu; // - 레스토랑메뉴
+	
 	private int totalpage;
 	private int totalcount;
-	
-	
-	
+	private int rest_fav;
+		
+		
+		
+	public String getRest_img() {
+		return rest_img;
+	}
+	public void setRest_img(String rest_img) {
+		this.rest_img = rest_img;
+	}
+	public int getRest_reserve_cnt() {
+		return rest_reserve_cnt;
+	}
+	public void setRest_reserve_cnt(int rest_reserve_cnt) {
+		this.rest_reserve_cnt = rest_reserve_cnt;
+	}
+	public int getRest_review_cnt() {
+		return rest_review_cnt;
+	}
+	public void setRest_review_cnt(int rest_review_cnt) {
+		this.rest_review_cnt = rest_review_cnt;
+	}
+	public int getRest_tic_yn() {
+		return rest_tic_yn;
+	}
+	public void setRest_tic_yn(int rest_tic_yn) {
+		this.rest_tic_yn = rest_tic_yn;
+	}
+	public String getRest_loc() {
+		return rest_loc;
+	}
+	public void setRest_loc(String rest_loc) {
+		this.rest_loc = rest_loc;
+	}
+	public double getRest_starpoint() {
+		return rest_starpoint;
+	}
+	public void setRest_starpoint(double rest_starpoint) {
+		this.rest_starpoint = rest_starpoint;
+	}
+	public int getRest_menu_yn() {
+		return rest_menu_yn;
+	}
+	public void setRest_menu_yn(int rest_menu_yn) {
+		this.rest_menu_yn = rest_menu_yn;
+	}
+	public int getRest_img_cnt() {
+		return rest_img_cnt;
+	}
+	public void setRest_img_cnt(int rest_img_cnt) {
+		this.rest_img_cnt = rest_img_cnt;
+	}
+	public String getRest_menu() {
+		return rest_menu;
+	}
+	public void setRest_menu(String rest_menu) {
+		this.rest_menu = rest_menu;
+	}
+	public int getRest_reserve_yn() {
+		return rest_reserve_yn;
+	}
+	public void setRest_reserve_yn(int rest_reserve_yn) {
+		this.rest_reserve_yn = rest_reserve_yn;
+	}
 	public int getTotalpage() {
 		return totalpage;
 	}
@@ -63,12 +124,6 @@ public class RestListDTO {
 	}
 	public void setRest_foodinfo(String rest_foodinfo) {
 		this.rest_foodinfo = rest_foodinfo;
-	}
-	public int getRi_seq() {
-		return ri_seq;
-	}
-	public void setRi_seq(int ri_seq) {
-		this.ri_seq = ri_seq;
 	}
 	public float getRest_lat() {
 		return rest_lat;
@@ -167,6 +222,12 @@ public class RestListDTO {
 	}
 	public void setRest_tip(String rest_tip) {
 		this.rest_tip = rest_tip;
+	}
+	public int getRest_fav() {
+		return rest_fav;
+	}
+	public void setRest_fav(int rest_fav) {
+		this.rest_fav = rest_fav;
 	}
 
 

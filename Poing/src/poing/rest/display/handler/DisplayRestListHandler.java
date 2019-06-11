@@ -20,7 +20,6 @@ public class DisplayRestListHandler implements CommandHandler
 
 			
 //			pop=2&add=104,107&searchWord=고기&foodType=11,55
-					
 			
 			String pop = request.getParameter("pop");
 			String loc_code = request.getParameter("loc_code");
@@ -30,16 +29,12 @@ public class DisplayRestListHandler implements CommandHandler
 			List<RestListDTO> map = service.select();
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 			int member_num;
+			if (mdto==null) member_num = -1;
+			else member_num = mdto.getM_seq();
 			int current_page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
 			
-			if(mdto==null) {
-				if(pop!=null || loc_code!=null || food_type!=null || searchWord!=null ) list = service.select(pop, loc_code, food_type, searchWord, current_page);
-				else list = service.select(current_page);				
-			} else {
-				member_num = mdto.getM_seq(); 
-				if(pop!=null || loc_code!=null || food_type!=null || searchWord!=null ) list = service.select(pop, loc_code, food_type, searchWord, member_num, current_page);
-				else list = service.select(member_num, current_page);
-			}
+			if(pop!=null || loc_code!=null || food_type!=null || searchWord!=null ) list = service.select(pop, loc_code, food_type, searchWord, member_num, current_page);
+			else list = service.select(member_num, current_page);
 			
 			request.setAttribute("list", list);
 			request.setAttribute("map", map);

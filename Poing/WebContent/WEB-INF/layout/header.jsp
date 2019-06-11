@@ -532,13 +532,13 @@
 							<li><input type="checkbox" id="food_all"><label
 								for="food_all">음식 전체</label></li>
 							<li><input type="checkbox"
-								id="c9f0f895fb98ab9159f51fd0297e236d" value="100"><label
+								id="c9f0f895fb98ab9159f51fd0297e236d" value="8"><label
 								for="c9f0f895fb98ab9159f51fd0297e236d">한식</label></li>
 							<li><input type="checkbox"
-								id="6512bd43d9caa6e02c990b0a82652dca" value="200"><label
+								id="6512bd43d9caa6e02c990b0a82652dca" value="11"><label
 								for="6512bd43d9caa6e02c990b0a82652dca">양식</label></li>
 							<li><input type="checkbox"
-								id="37693cfc748049e45d87b8c7d8b9aacd" value="300"><label
+								id="37693cfc748049e45d87b8c7d8b9aacd" value="23"><label
 								for="37693cfc748049e45d87b8c7d8b9aacd">중식</label></li>
 							<li><input type="checkbox"
 								id="c20ad4d76fe97759aa27a0c99bff6710" value="12"><label

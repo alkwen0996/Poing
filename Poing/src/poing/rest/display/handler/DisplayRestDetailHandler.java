@@ -27,7 +27,7 @@ public class DisplayRestDetailHandler implements CommandHandler
 		}
 		try {
 			RestDetailService service = new RestDetailService();
-			RestListDTO dto = service.select(rest_seq);
+			RestListDTO dto = service.select(rest_seq, m_no);
 			if (tab == null || tab.equals("info")) {
 				System.out.println();
 			}

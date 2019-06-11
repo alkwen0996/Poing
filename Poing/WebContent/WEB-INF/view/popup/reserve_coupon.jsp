@@ -12,7 +12,7 @@
 	<div class="body">
 		<i class="image"></i>
 		<div class="title">
-			${dto.rest_name} <span> ${dto.r_location }-${dto.r_type } </span>
+			${dto.rest_name} <span> ${dto.rest_address }-${dto.rest_foodinfo } </span>
 		</div>
 		<form class="request" name="reserve">
 			<input type="hidden" id="mode" value="buy" />
@@ -436,7 +436,7 @@
 					if (res.status) {
 // 						res = res.data;
 						
-						location.href = "/Poing/product/productOrder.do?p_num=${param.p_num}&cart_seq="+res.cart_seq;
+						location.href = "/Poing/product/productOrder.do?tic_seq=${param.tic_seq}&cart_seq="+res.cart_seq;
 					} else {
 						if ($.inArray(res.error.code, [ 1503 ]) > -1)
 							alert(res.error.message);

@@ -12,12 +12,12 @@
 StringBuffer sql = new StringBuffer();
 sql.append( "WITH temp AS(  ");
 sql.append( "    SELECT * FROM member ");
-sql.append( "    WHERE m_no IN ( SELECT following_seq FROM follow WHERE follower_seq = ?) ");
+sql.append( "    WHERE M_seq IN ( SELECT following_seq FROM follow WHERE follower_seq = ?) ");
 sql.append( ") ");
-sql.append( "SELECT temp.m_no fer_no, temp.m_name fer_name, temp.m_img fer_img,  ");
-sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = temp.m_no) fer_ercnt, ");
-sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_no) fer_edcnt, ");
-sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_no AND follower_seq = ?) amIfollow ");
+sql.append( "SELECT temp.M_seq fer_no, temp.m_name fer_name, temp.m_img fer_img,  ");
+sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = temp.M_seq) fer_ercnt, ");
+sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.M_seq) fer_edcnt, ");
+sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.M_seq AND follower_seq = ?) amIfollow ");
 sql.append( "FROM temp ");
 JSONObject jsonObject = new JSONObject();
 JSONObject data = new JSONObject();
@@ -37,7 +37,7 @@ JSONObject followed = null;
 try {
 	Connection conn = ConnectionProvider.getConnection();
 	PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-	String m_no = request.getParameter("id");
+	String m_seq = request.getParameter("id");
 	pstmt.setString(1, request.getParameter("id"));
 	pstmt.setString(2, request.getParameter("id"));
 	ResultSet rs = pstmt.executeQuery();
@@ -55,13 +55,12 @@ try {
 		temp.put("followed", followed);
 		follows.add(temp);
 	}
+	conn.close();
 }
 catch (Exception e) {
 	jsonObject.put("status", false);
 
 	e.printStackTrace();
-	
 }
-
 %>
 <%= jsonObject %>

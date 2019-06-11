@@ -1,3 +1,4 @@
+<%@page import="poing.product.OptionDTO"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
@@ -29,9 +30,10 @@
    ProductDTO dto = (ProductDTO) request.getAttribute("dto");
    ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
    MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-   int member_num = 0;
-   if(mdto==null) member_num = 0;
-   else member_num = mdto.getM_seq();
+   
+//    int member_num = 0;
+//    if(mdto==null) member_num = 0;
+//    else member_num = mdto.getM_no();
    
 %>
 <body>
@@ -42,6 +44,7 @@
          <div id="banner_wrap">
 
             <div id="banner" class="product">
+            
                <div class="i_wrap background">
                   <i class="image"
                      style="width: 100%; height: 100%; background-image: url('http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173005bd26db482508.png')"></i>
@@ -73,9 +76,10 @@
                         <div class="slider_wrap PoingSlider_wrap">
                            <div id="slider" class="PoingSlider">
                               <div class="i_wrap slice current" style="top: 0px; left: 0%;">
-                                 <i class="image" data-index="0"
-                                    style="background-image: url(${dto.photo_img})"
-                                    title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+                              <c:forEach items="${photoList }" var="photoList">
+                                 <i class="image" data-index="0" style="background-image: url('${photoList.tic_menu_images}')"
+                                    title="${photoList.tic_menu_images}"></i>
+                              </c:forEach>
                               </div>
 
                            </div>
@@ -109,7 +113,7 @@
                            
                         </ul>
                         <div class="summary">
-                           <span class="label">총 합계</span> <span class="value">${dto.p_dc_money }</span><span
+                           <span class="label">총 합계</span> <span class="value">${op.tic_dc_price }</span><span
                               class="label"></span>
                         </div>
                      </div>
@@ -121,22 +125,22 @@
          <!-- banner_wrap -->
 
          <div id="content_wrap">
-            <div id="content" class="detail coupon ${ param.tab }">
+            <div id="content" class="detail coupon ${ param.tab ne null ? param.tab : 'info' }">
                <ul class="tab">
                   <li class="item info"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=info">상제정보</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=info">상제정보</a>
                   </li>
                   <li class="item photo"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=photo">포토</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=photo">포토</a>
                   </li>
                   <li class="item menu"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=menu">메뉴</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=menu">메뉴</a>
                   </li>
                   <li class="item map"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=map">지도</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=map">지도</a>
                   </li>
                   <li class="item qna"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=qna">상품문의</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=qna">상품문의</a>
                   </li>
                </ul>
                <script type="text/javascript">
@@ -144,59 +148,41 @@
                </script>
                <c:choose>
                   <c:when test="${ param.tab eq null || param.tab eq 'info' }">
-                     <%
-                        System.out.println("info");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_info.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'photo' }">
-                     <%
-                        System.out.println("photo");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_photo.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'menu' }">
-                     <%
-                        System.out.println("menu");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_menu.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'map' }">
-                     <%
-                        System.out.println("map");
-                     %>
                      <div class="body first last">
                         <div id="map"></div>
                      </div>
                   </c:when>
 
                   <c:when test="${ param.tab eq 'qna' }">
-                     <%
-                        System.out.println("qna");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_qna.jsp" />
                   </c:when>
 
                   <c:otherwise>
-                     <%
-                        System.out.println("c:otherwise");
-                     %>
-                     <jsp:include page="/WEB-INF/view/rest/rest_info.jsp" />
+                     <jsp:include
+                        page="/WEB-INF/view/product/productDetail_info.jsp" />
                   </c:otherwise>
                </c:choose>
             </div>
             <div id="sidebar_wrap" class="detail">
                <button class="sidebar buy border_radius soft" data-id="5432"
                   data-cart="true" tabindex="-1">바로 구매하기</button>
-               <button class="sidebar addCart border_radius soft" tabindex="-1">장바구니
-                  담기</button>
+               <button class="sidebar addCart border_radius soft" tabindex="-1">장바구니  담기</button>
                <script>
                   $(".empty favorite").click(function () {
                      alert("fav click");
@@ -205,7 +191,7 @@
                      .click(
                         function () {
                            if (poing.account.checkLoginState()) {
-                              var url = "/Poing/popup/reserve_coupon.do?p_num=${param.tic_seq}";
+                              var url = "/Poing/popup/reserve_coupon.do?tic_seq=${param.tic_seq}";
 
                               var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
                               var options = [];

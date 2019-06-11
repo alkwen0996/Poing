@@ -462,24 +462,24 @@
 					<div class="slice ${ i eq 0?'current':'' }" style="top: 0px; left: 0px;">
 					<c:forEach var="rev_dto" items="${ mainDTO.rev_list }" begin="${ i*3 }" end="${ i*3+2 }" varStatus="status">
 						<div class="element main_review ${ status.index eq i*3?'first':'' } ">
-							<a href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rest_no }" class="image"
-								style="display: block; background-image: url(&quot;http://c2.poing.co.kr/PIMAGE-original/MjAxNzAx/1484297155587893c36848b.jpeg&quot;);">
+							<a href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rev_rest_seq }" class="image"
+								style="display: block; background-image: url(&quot;${realPath}${ rev_dto.rest_img }&quot;);">
 								<div class="shading"></div>
 
 								<div class="bottom">
 									<span class="name">${ rev_dto.rest_name }</span>
-									<span class="area">${ rev_dto.rest_loc }</span>
+									<span class="area">${ rev_dto.rest_address }</span>
 								</div>
 							</a>
 
 							<div class="desc">
 								<div class="author">
-									<a href="/Poing/timeline.do?id=${ rev_dto.m_no }">
+									<a href="/Poing/timeline.do?id=${ rev_dto.m_seq }">
 										<i class="profile" style="background-image:url(${realPath}${ rev_dto.m_img ne null ? rev_dto.m_img : applicationScope.baseprofile});"></i>
 									</a>
 									<div class="info">
 										<div class="name">
-											<a href="/Poing/timeline.do?id=${ rev_dto.m_no }">${ rev_dto.m_name }</a>
+											<a href="/Poing/timeline.do?id=${ rev_dto.m_seq }">${ rev_dto.m_name }</a>
 										</div>
 										<div class="count">리뷰수 ${ rev_dto.m_revcnt }, 팔로워 ${ rev_dto.m_ercnt }</div>
 										<div class="rating">

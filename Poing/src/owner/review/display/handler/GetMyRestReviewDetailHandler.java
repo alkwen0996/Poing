@@ -16,9 +16,9 @@ public class GetMyRestReviewDetailHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ReviewDTO reviewDTO = null;
-		int rev_no = Integer.parseInt(request.getParameter("rev_no"));
-		reviewDTO = getMyRestReviewDetailService.getMyRestReivew(rev_no);
-		ArrayList<CommentDTO> comment_list = getMyRestReviewDetailService.getReviewCommentList(rev_no);
+		int rev_seq = Integer.parseInt(request.getParameter("rev_seq"));
+		reviewDTO = getMyRestReviewDetailService.getMyRestReivew(rev_seq);
+		ArrayList<CommentDTO> comment_list = getMyRestReviewDetailService.getReviewCommentList(rev_seq);
 		request.setAttribute("reviewDTO", reviewDTO);
 		request.setAttribute("comment_list", comment_list);
 		return "rest_review_detail";

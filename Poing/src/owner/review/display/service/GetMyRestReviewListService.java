@@ -20,6 +20,7 @@ public class GetMyRestReviewListService {
 		int rest_no = authOwner.getRest_seq();
 		int my_no = -1;
 		review_list = reviewDAO.selectRestReview(conn, rest_no, my_no, type, curPage);
+		conn.close();
 		return review_list;
 	}
 	

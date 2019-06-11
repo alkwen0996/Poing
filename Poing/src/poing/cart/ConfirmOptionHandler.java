@@ -23,7 +23,7 @@ public class ConfirmOptionHandler implements CommandHandler{
 		jsonObject.put("status", result);
 		request.setAttribute("jsonData", jsonObject);
 		
-		return "/cart/updateCart";
+		return "cart/updateCart";
 	}
 
 }

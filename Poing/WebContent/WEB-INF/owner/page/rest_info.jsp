@@ -30,7 +30,7 @@
 			<a href="#" class="tip-bottom" data-original-title="">Form
 				elements</a> <a href="#" class="current">Common elements</a>
 		</div>
-		<h1>Common Form Elements</h1>
+		<h1>레스토랑 정보수정</h1>
 	</div>
 	<div class="container-fluid">
 		<hr>
@@ -45,39 +45,43 @@
 					<div class="widget-content nopadding">
 						<form action="#" method="get" class="form-horizontal">
 							<div class="control-group">
-								<label class="control-label">First Name :</label>
+								<label class="control-label">가게명 :</label>
 								<div class="controls">
-									<input type="text" class="span11" placeholder="First name">
+									<input type="text" class="rest_name" placeholder="restaurant name">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">Last Name :</label>
+								<label class="control-label">전화번호 :</label>
 								<div class="controls">
 									<input type="text" class="span11" placeholder="Last name">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">Password input</label>
+								<label class="control-label">주소 :</label>
 								<div class="controls">
-									<input type="password" class="span11"
-										placeholder="Enter Password">
+									<input type="text" class="span11" placeholder="Last name">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">Company info :</label>
+								<label class="control-label">영업시간 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Last name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">휴무일 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Last name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">예산 :</label>
 								<div class="controls">
 									<input type="text" class="span11" placeholder="Company name">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">Description field:</label>
-								<div class="controls">
-									<input type="text" class="span11"> <span
-										class="help-block">Description field</span>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">Message</label>
+								<label class="control-label">한줄설명</label>
 								<div class="controls">
 									<textarea class="span11"></textarea>
 								</div>
@@ -91,74 +95,51 @@
 
 
 			</div>
-			<div class="span6">
+		</div>
+	
+		<hr>
+		<div class="row-fluid">
+			<div class="span12">
 				<div class="widget-box">
 					<div class="widget-title">
 						<span class="icon"> <i class="icon-align-justify"></i>
 						</span>
-						<h5>상세정보</h5>
+						<h5>상세설명</h5>
 					</div>
 					<div class="widget-content nopadding">
-						<form action="#" class="form-horizontal">
+						<form action="#" method="get" class="form-horizontal">
 							<div class="control-group">
-								<label for="normal" class="control-label">Phone field</label>
+								<label class="control-label">Tip</label>
 								<div class="controls">
-									<input type="text" id="mask-phone" class="span8 mask text">
-									<span class="help-block blue span8">(999) 999-9999</span>
+									<textarea class="span11"></textarea>
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="normal" class="control-label">Phone field +
-									ext.</label>
+								<label class="control-label">음식종류 :</label>
 								<div class="controls">
-									<input type="text" id="mask-phoneExt" class="span8 mask text">
-									<span class="help-block blue span8">(999) 999-9999?
-										x99999</span>
+									<input type="text" class="span11" placeholder="First name">
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="normal" class="control-label">Phone field +
-									ext.</label>
+								<label class="control-label">테이블 :</label>
 								<div class="controls">
-									<input type="text" id="mask-phoneInt" class="span8 mask text">
-									<span class="help-block blue span8">+40 999 999 999</span>
+									<input type="text" class="span11" placeholder="First name">
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="normal" class="control-label">Date field</label>
+								<label class="control-label">부가정보</label>
 								<div class="controls">
-									<input type="text" id="mask-date" class="span8 mask text">
-									<span class="help-block blue span8">99/99/9999</span>
+									<textarea class="span11"></textarea>
 								</div>
 							</div>
 							<div class="control-group">
-								<label for="normal" class="control-label">SSN field</label>
+								<label class="control-label">판매주류 :</label>
 								<div class="controls">
-									<input type="text" id="mask-ssn" class="span8 mask text">
-									<span class="help-block blue span8">999-99-9999</span>
+									<input type="text" class="span11" placeholder="First name">
 								</div>
 							</div>
-							<div class="control-group">
-								<label for="normal" class="control-label">Product Key</label>
-								<div class="controls">
-									<input type="text" id="mask-productKey"
-										class="span8 mask text"> <span
-										class="help-block blue span8">a*-999-a999</span>
-								</div>
-							</div>
-							<div class="control-group">
-								<label for="normal" class="control-label">Eye Script</label>
-								<div class="controls">
-									<input type="text" id="mask-eyeScript" class="span8 mask text">
-									<span class="help-block blue span8">~9.99 ~9.99 999</span>
-								</div>
-							</div>
-							<div class="control-group">
-								<label for="normal" class="control-label">Percent</label>
-								<div class="controls">
-									<input type="text" id="mask-percent" class="span8 mask text">
-									<span class="help-block blue span8">99%</span>
-								</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success">Save</button>
 							</div>
 						</form>
 					</div>
@@ -167,7 +148,7 @@
 
 			</div>
 		</div>
-
+	
 	</div>
 </div>
 <!-- content -->

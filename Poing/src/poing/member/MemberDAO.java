@@ -10,6 +10,7 @@ import java.util.List;
 import poing.rest.RestListDTO;
 import poing.rest.RestReserveDTO;
 import poing.rest.RestTimlineReserveDTO;
+import poing.review.ReviewDTO;
 import poing.notice.UserNoticeDTO;
 import poing.notice.PoingNoticeDTO;
 import poing.product.ProductDTO;
@@ -54,8 +55,6 @@ public class MemberDAO {
 		}
 		return mdto;
 	}
-
-
 
 	public static boolean insertReserve_tic(Connection conn, int p_num, int m_seq, int cart_seq){
 		boolean result1 = false;
@@ -520,5 +519,43 @@ public class MemberDAO {
 		result = pstmt.executeUpdate()==0?false:true;
 		return result;
 	}
+
+	public static ArrayList<ReviewDTO> getRecommandReviewer(Connection conn, int my_no) throws SQLException
+	{	
+		ArrayList<ReviewDTO> mem_slide_list = null;
+		ReviewDTO rdto = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT * FROM ( ");
+		sql.append("     SELECT mem.*,  ");
+		sql.append("     (SELECT COUNT(*) FROM review WHERE rev_m_seq = mem.m_seq) m_revcnt,  ");
+		sql.append("     (SELECT COUNT(*) FROM follow WHERE follower_seq = mem.m_seq) m_ercnt ");
+		if (my_no != -1) {
+			sql.append("   ,(SELECT COUNT(*) FROM follow WHERE following_seq = mem.m_seq AND follower_seq = ?) amIfollow  ");
+		}
+		sql.append("     FROM member mem ");
+		sql.append(" ) ");
+		sql.append(" WHERE m_revcnt + m_ercnt > 15 and rownum < 6 ");
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			mem_slide_list = new ArrayList<>();
+			do {
+				rdto = new ReviewDTO();
+				rdto.setM_seq(rs.getInt("m_seq"));
+				rdto.setM_img(rs.getString("m_img"));
+				rdto.setM_name(rs.getString("m_name"));
+				rdto.setAmIfollow(false);
+				if (my_no != -1) {
+					rdto.setAmIfollow(rs.getInt("amIfollow")==0?false:true);
+				}
+				rdto.setM_revcnt(rs.getInt("m_revcnt"));
+				rdto.setM_ercnt(rs.getInt("m_ercnt"));
+				mem_slide_list.add(rdto);
+			} while (rs.next());
+		}
+		return mem_slide_list;
+	}
+
 }// class
 

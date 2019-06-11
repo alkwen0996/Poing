@@ -93,6 +93,10 @@
   <filter-mapping>
     <filter-name>checkAdminLogin</filter-name>
     <url-pattern>/admin/index.ad</url-pattern>
+    <url-pattern>/admin/banner_image.ad</url-pattern>
+    <url-pattern>/admin/banner_image_remove.ad</url-pattern>
+    <url-pattern>/admin/banner_image_add.ad</url-pattern>
+    <url-pattern>/admin/banner_image_move.ad</url-pattern>
   </filter-mapping>
   
   <servlet>

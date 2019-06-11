@@ -6,72 +6,22 @@
 	<div id="banner_wrap">
 		<div id="banner">
 			<div class="trislider">
-				<div class="pieces" data-index="0" data-max="7"
+				<div class="pieces" data-index="0" data-max="${ mainDTO.banner_list.size() }"
 					style="left: -4250px; display: block;">
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA2/15595307185cf48cde28969.png");
-					</script>
-					<a href="/static/1628" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15585964355ce64b53db004.png)"></a><a
-						href="/product?banner_theme=11128" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15598857005cf9f784d75b3.png)"></a><a
-						href="/product?banner_theme=11124" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15595307185cf48cde28969.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15592222465cefd7e6598d8.png");
-					</script>
-					<a href="http://bit.ly/2HMkl9l" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592222465cefd7e6598d8.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA2/15595435555cf4bf03dd403.png");
-					</script>
-					<a href="/static/1644" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15595435555cf4bf03dd403.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15592237355cefddb778f55.png");
-					</script>
-					<a href="https://www.poing.co.kr/product/detail/5588" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592237355cefddb778f55.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15592220695cefd735adf6c.png");
-					</script>
-					<a href="https://www.poing.co.kr/product/detail/6056" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592220695cefd735adf6c.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15585964355ce64b53db004.png");
-					</script>
-					<a href="/static/1628" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15585964355ce64b53db004.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA2/15598857005cf9f784d75b3.png");
-					</script>
-					<a href="/product?banner_theme=11128" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15598857005cf9f784d75b3.png)"></a><a
-						href="/product?banner_theme=11124" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15595307185cf48cde28969.png)"></a><a
-						href="http://bit.ly/2HMkl9l" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592222465cefd7e6598d8.png)"></a>
+					<c:forEach items="${ mainDTO.banner_list }" var="bannerDTO">
+						<a href="#" class="piece" style="background-image: url(${ realPath }${ bannerDTO.banner_img })"></a>
+					</c:forEach>
 				</div>
 				<div class="left shadow"></div>
 				<div class="right shadow"></div>
 				<ul class="index">
-					<li data-id="0" class="">●</li>
-					<li data-id="1" class="">●</li>
-					<li data-id="2" class="">●</li>
-					<li data-id="3" class="current">●</li>
-					<li data-id="4">●</li>
-					<li data-id="5">●</li>
-					<li data-id="6">●</li>
+					<c:forEach begin="0" end="${ mainDTO.banner_list.size() -1 }" var="i">
+						<li data-id="${ i }" class="">●</li>
+					</c:forEach>
 				</ul>
 				<div class="nav">
-					<i class="icon left"></i> <i class="icon right"></i>
+					<i class="icon left"></i> 
+					<i class="icon right"></i>
 				</div>
 			</div>
 		</div>

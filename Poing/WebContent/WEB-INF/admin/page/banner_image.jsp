@@ -4,15 +4,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>레스토랑 이미지</title>
+<title>배너 이미지</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
-<%@include file="/owner/css/bootstrap.min.css" %>
-<%@include file="/owner/css/bootstrap-responsive.min.css" %>
-<%@include file="/owner/css/uniform.css" %>
-<%@include file="/owner/css/matrix-style.css" %>
-<%@include file="/owner/css/matrix-media.css" %>
+<%@include file="/admin/css/bootstrap.min.css" %>
+<%@include file="/admin/css/bootstrap-responsive.min.css" %>
+<%@include file="/admin/css/uniform.css" %>
+<%@include file="/admin/css/matrix-style.css" %>
+<%@include file="/admin/css/matrix-media.css" %>
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
@@ -29,7 +29,7 @@
 				class="icon-home"></i> Home</a> <a href="#">Sample pages</a> <a
 				href="#" class="current">Gallery</a>
 		</div>
-		<h1>레스토랑 이미지</h1>
+		<h1>배너 이미지</h1>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -42,12 +42,12 @@
 					</div>
 					<div class="widget-content nopadding">
 						<form class="form-horizontal" enctype="multipart/form-data" 
-							action="rest_image_add.ow" method="post">
+							action="banner_image_add.ad" method="post">
 							<div class="control-group">
 								<label class="control-label">추가할 사진 선택</label>
 								<div class="controls">
 									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="rest_img" style="opacity: 0;">
+										<input type="file" size="19" name="banner_image" style="opacity: 0;">
 										<span class="filename">No file selected</span>
 										<span class="action">Choose File</span>
 									</div>
@@ -59,45 +59,60 @@
 						</form>
 					</div>
 				</div>
-
 			</div>
-
-		</div>
-		<hr>
-		
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-picture"></i>
-						</span>
-						<h5>배너 사진 목록</h5>
-					</div>
-					<div class="widget-content">
-						<ul class="thumbnails">
-							<c:forEach items="${ bannerImage_list }" var="bannerImageDTO">
-								<li class="span2"><a><img
-										src="${ realPath }${ bannerImageDTO.banner_img }" alt=""></a>
-									<div class="actions">
-										<a title="" class="" href="banner_image_remove.ad?banner_seq=${ bannerImageDTO.banner_seq }">
-											<i class="icon-remove"></i>
-										</a>
-										<a class="lightbox_trigger"
-											href="${ realPath }${ bannerImageDTO.banner_img }"> 
-											<i class="icon-search"></i>
-										</a>
-									</div>
-								</li>
-							</c:forEach>
-						</ul>
-					</div>
-					<!-- widget-content -->
-				</div>
-				<!-- widget-box -->
-			</div>
-			<!-- span12 -->
 		</div>
 		<!-- row-fluid -->
+	</div>
+	<hr />
+	<div class="container-fluid">
+		<div class="row-fluid">
+				<div class="span12">
+					<div class="widget-box">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-th"></i>
+							</span>
+							<h5>사진 리스트</h5>
+						</div>
+						<div class="widget-content nopadding">
+							<table class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>순서</th>
+										<th>이미지</th>
+										<th>설정</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach items="${ banner_list }" var="bannerImageDTO" varStatus="status">
+									<tr class="odd gradeX">
+										<td style="width: 30px">${ status.count }</td>
+										<td style="width: 500px"><img src="${ realPath }${ bannerImageDTO.banner_img }" alt=""></td>
+										<td style="width: 100px">
+											<a title="" class="" href="banner_image_remove.ad?banner_seq=${ bannerImageDTO.banner_seq }">
+												<i class="icon-remove"></i>
+											</a>
+											<a class="lightbox_trigger" href="${ realPath }${ bannerImageDTO.banner_img }"> 
+												<i class="icon-search"></i>
+											</a>
+											<c:if test="${not status.first}">
+											<a class="" href="banner_image_move.ad?banner_seq=${ bannerImageDTO.banner_seq }&move=1"> 
+												<i class="icon-arrow-up"></i>
+											</a>
+											</c:if>
+											<c:if test="${not status.last}">
+											<a class="" href="banner_image_move.ad?banner_seq=${ bannerImageDTO.banner_seq }&move=-1"> 
+												<i class="icon-arrow-down"></i>
+											</a>
+											</c:if>
+										</td>
+									</tr>
+								</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
 </div>
 <!-- content -->

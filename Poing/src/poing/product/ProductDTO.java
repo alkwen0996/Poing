@@ -21,6 +21,9 @@ public class ProductDTO {
 	private int tic_num_of_people;
 	private String tic_request;
 	private String tic_reserve_date;
+	private int tic_option_seq;
+	
+	
 	
 	
 	
@@ -76,6 +79,12 @@ public class ProductDTO {
 	
 	
 	
+	public int getTic_option_seq() {
+		return tic_option_seq;
+	}
+	public void setTic_option_seq(int tic_option_seq) {
+		this.tic_option_seq = tic_option_seq;
+	}
 	public String getTic_op_name() {
 		return tic_op_name;
 	}
@@ -198,23 +207,23 @@ public class ProductDTO {
     private int op_max_cnt;
     private int op_seq;
     private int p_min_Personnel;
-	private int cart_seq;
-	private String op_name;
-	private int op_cnt;
-	private int party_size;
-	private String message;
-	private int op_price;
-	private String c_date;
-	private String tic_menu_info_content;
-	private String ticg_content;
-	private String tic_validate_content;
-	private String tic_cancel_content;
-	private String tic_use_case_content;
-	private String tic_use_case_title;
-	private String tic_cancel_change_title;
-	private String tic_validate_title;
-	private String ticg_title;
-	private String tic_menu_info_title;
+   private int cart_seq;
+   private String op_name;
+   private int op_cnt;
+   private int party_size;
+   private String message;
+   private int op_price;
+   private String c_date;
+   private String tic_menu_info_content;
+   private String ticg_content;
+   private String tic_validate_content;
+   private String tic_cancel_content;
+   private String tic_use_case_content;
+   private String tic_use_case_title;
+   private String tic_cancel_change_title;
+   private String tic_validate_title;
+   private String ticg_title;
+   private String tic_menu_info_title;
     
     
     public int getOp_seq() {

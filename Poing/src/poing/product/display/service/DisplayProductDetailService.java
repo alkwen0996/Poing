@@ -62,8 +62,6 @@ public class DisplayProductDetailService {
 	}
 	
 	public List<PointHistoryDTO> PointHistory() {
-		PointHistoryDTO rtdto = new PointHistoryDTO();
-		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn);
 			
@@ -71,6 +69,17 @@ public class DisplayProductDetailService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public List<ProductDTO> selectProductList(int cart_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()){
+			List<ProductDTO> list = ProductDetailDAO.selectProductList(conn, cart_seq);
+			
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	public List<RefundTicketDTO> selectRefund_tic() {
@@ -126,35 +135,38 @@ public class DisplayProductDetailService {
 	}
 	
 
-	public boolean insertTotalCart(int tic_cart_seq,ArrayList<Integer> ids,ArrayList<Integer> counts) {
-		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
-		boolean result = false;
-		try (Connection conn = ConnectionProvider.getConnection()) {	
-			 result = dao.insertTotalCart(conn, tic_cart_seq, ids, counts);
-			if (result == true) {
-				return true;
-			}else {
-				return false;
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+
+
 	
-	public ProductDTO selectCartId(int cart_seq) {
-		ProductDetailDAO dao = ProductDetailDAO.getInstance();
-		try (Connection conn = ConnectionProvider.getConnection()) {
-			ProductDTO dto = dao.selectCartId(conn, cart_seq);
-			conn.close();
-			// 로그 처리
-			// 
-			//
-			return dto;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
+   public boolean insertTotalCart(int cart_seq,ArrayList<Integer> ids,ArrayList<Integer> counts) {
+      ProductDetailDAO dao = ProductDetailDAO.getInstance();      
+      boolean result = false;
+      try (Connection conn = ConnectionProvider.getConnection()) {   
+          result = dao.insertTotalCart(conn, cart_seq, ids, counts);
+         if (result == true) {
+            return true;
+         }else {
+            return false;
+         }
+      } catch (SQLException e) {
+         throw new RuntimeException(e);
+      }
+   }
+   
+   public ProductDTO selectCartId(int cart_seq) {
+      ProductDetailDAO dao = ProductDetailDAO.getInstance();
+      try (Connection conn = ConnectionProvider.getConnection()) {
+         ProductDTO dto = dao.selectCartId(conn, cart_seq);
+         conn.close();
+         // 로그 처리
+         // 
+         //
+         return dto;
+      } catch (SQLException e) {
+         throw new RuntimeException(e);
+      }
+   }
+   
 
 	public ProductDTO select(int tic_seq) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
@@ -183,6 +195,7 @@ public class DisplayProductDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+
 	
 	public ArrayList<ProductDTO> select_qna(int tic_seq) {
 		System.out.println("select_qna");

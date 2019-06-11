@@ -11,11 +11,11 @@ import com.util.ConnectionProvider;
 
 
 public class ProductDAO {
-	
-	private static ProductDAO displaydao = new ProductDAO();
-	public static ProductDAO getInstance() {
-		return displaydao;
-	}
+   
+   private static ProductDAO displaydao = new ProductDAO();
+   public static ProductDAO getInstance() {
+      return displaydao;
+   }
 
 	public ProductDAO() {}
 	

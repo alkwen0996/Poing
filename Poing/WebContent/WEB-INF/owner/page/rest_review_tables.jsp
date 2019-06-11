@@ -54,7 +54,7 @@
 						<td class=" ">${ rev_dto.m_name }</td>
 						<td class=" ">${ rev_dto.rev_starpoint }</td>
 						<td class="center ">
-						<a href="review_detail.ow?rev_no=${rev_dto.rev_no }">${ rev_dto.rev_content }</a>
+						<a href="review_detail.ow?rev_seq=${rev_dto.rev_seq }">${ rev_dto.rev_content }</a>
 						</td>
 					</tr>
 				</c:forEach>

@@ -9,11 +9,11 @@ import poing.product.CartDAO;
 
 public class ConfirmOptionService {
 	
-	public boolean deleteoption(int cart_seq) {
+	public boolean deleteoption(int tic_cart_seq) {
 		CartDAO cartdao = new CartDAO();
 		boolean result = true;
 		try(Connection conn = ConnectionProvider.getConnection()) {
-			result = cartdao.updateOption1(conn, cart_seq);
+			result = cartdao.updateOption1(conn, tic_cart_seq);
 			conn.close();
 			if (result == true) {
 	            return true;
@@ -25,11 +25,11 @@ public class ConfirmOptionService {
 		}
 	}
 	
-	 public boolean updateOption(int cart_seq, String[] op_seq, String[] op_cnt) {
+	 public boolean updateOption(int tic_cart_seq, String[] op_seq, String[] op_cnt) {
 		 CartDAO cartdao = new CartDAO();
 	      boolean result = false;
 	      try (Connection conn = ConnectionProvider.getConnection()) {   
-	          result = cartdao.updateOption(conn, cart_seq, op_seq, op_cnt);
+	          result = cartdao.updateOption(conn, tic_cart_seq, op_seq, op_cnt);
 	          conn.close();
 	         if (result == true) {
 	            return true;

@@ -29,7 +29,7 @@
 				class="icon-home"></i> Home</a> <a href="#">Sample pages</a> <a
 				href="#" class="current">Gallery</a>
 		</div>
-		<h1>레스토랑 이미지</h1>
+		<h1>메뉴 이미지</h1>
 	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -47,7 +47,7 @@
 								<label class="control-label">추가할 사진 선택</label>
 								<div class="controls">
 									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="rest_img" style="opacity: 0;">
+										<input type="file" size="19" name="rest_menu_img" style="opacity: 0;">
 										<span class="filename">No file selected</span>
 										<span class="action">Choose File</span>
 									</div>
@@ -63,43 +63,6 @@
 			</div>
 
 		</div>
-		<hr>
-		<div class="row-fluid">
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-picture"></i>
-						</span>
-						<h5>대표사진</h5>
-					</div>
-					<div class="widget-content">
-						<c:if test="${ rep_rest_image ne null }">
-							<ul class="thumbnails">
-								<li class="span2">
-									<a>
-										<img src="${ realPath }${ rep_rest_image.rest_img }" alt="">
-									</a>
-									<%-- <div class="actions">
-										<a title="" class="" href="rest_image_remove.ow?ri_seq=${ restImageDTO.ri_seq }">
-											<i class="icon-remove"></i>
-										</a>
-										<a class="lightbox_trigger" href="${ realPath }${ restImageDTO.rest_img }"> 
-											<i class="icon-search"></i>
-										</a>
-									</div> --%>
-								</li>
-							</ul>
-						</c:if>
-						<c:if test="${ rep_rest_image eq null }">
-							대표사진이 등록되지 않았습니다.
-						</c:if>
-					</div>
-					<!-- widget-content -->
-				</div>
-				<!-- widget-box -->
-			</div>
-			<!-- span12 -->
-		</div>
 		
 		<hr>
 		<div class="row-fluid">
@@ -108,23 +71,20 @@
 					<div class="widget-title">
 						<span class="icon"> <i class="icon-picture"></i>
 						</span>
-						<h5>사진 목록</h5>
+						<h5>메뉴 사진 목록</h5>
 					</div>
 					<div class="widget-content">
 						<ul class="thumbnails">
-							<c:forEach items="${ restImage_list }" var="restImageDTO">
+							<c:forEach items="${ menu_list }" var="menuImageDTO">
 								<li class="span2"><a><img
-										src="${ realPath }${ restImageDTO.rest_img }" alt=""></a>
+										src="${ realPath }${ menuImageDTO.rest_menu_img }" alt=""></a>
 									<div class="actions">
-										<a title="" class="" href="rest_image_remove.ow?ri_seq=${ restImageDTO.ri_seq }">
+										<a title="" class="" href="rest_image_remove.ow?rmi_seq=${ menuImageDTO.rmi_seq }">
 											<i class="icon-remove"></i>
 										</a>
 										<a class="lightbox_trigger"
-											href="${ realPath }${ restImageDTO.rest_img }"> 
+											href="${ realPath }${ menuImageDTO.rest_menu_img }"> 
 											<i class="icon-search"></i>
-										</a>
-										<a title="" class="" href="rest_image_setrepimage.ow?ri_seq=${ restImageDTO.ri_seq }"> 
-											<i class="icon-picture"></i>
 										</a>
 									</div></li>
 							</c:forEach>

@@ -12,6 +12,8 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
+import poing.product.ProductDTO;
+import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
@@ -24,8 +26,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ProductPayService service = new ProductPayService();
-		DisplayProductDetailService service2 = new DisplayProductDetailService();
+//		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 		
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
@@ -39,11 +40,13 @@ public class DisplayTimelineHandler implements CommandHandler {
 		if (authUser != null) {
 			my_no = authUser.getM_seq();
 		}
-		if (my_no != memberID) {
+		if (my_no == -1) {
+			request.setAttribute("amIFollow", false);
+		}
+		else if (my_no != memberID) {
 			boolean amIFollow = DisplayTimelineService.amIFollow(memberID, my_no);
 			request.setAttribute("amIFollow", amIFollow);
 		}
-		
 		
 		if(tab == null)
 		{
@@ -61,11 +64,12 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID);
+			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID, type);
 			request.setAttribute("reserve_list", reserve_list);
 		}
 		else if (tab.equals("coupon"))
 		{
+			ProductPayService service = new ProductPayService();
 			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
@@ -74,6 +78,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 			ProductPayService service5 = new ProductPayService();
 			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
 			request.setAttribute("rev_tic_list", rev_tic_list);
+		
+//			DisplayProductDetailService service2 = new DisplayProductDetailService();
+//			List<ProductDTO> list = service2.selectProductList(cart_seq);
+//			request.setAttribute("list", list);
 			}
 		}
 		else if (tab.equals("review"))
@@ -101,16 +109,6 @@ public class DisplayTimelineHandler implements CommandHandler {
 			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
 			request.setAttribute("pick_rest_list", pick_rest_list);
 		}
-	
-		ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
-		ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
-		
-		request.setAttribute("mdto", mdto);
-		request.setAttribute("list", list);
-		request.setAttribute("nnlist", nnlist);
-		request.setAttribute("nlist", nlist);
-		
-		System.out.println("DisplayTimelineHandler.java line 18 mdto:" + mdto);
 		else if (tab.equals("restaurant"))
 		{
 
@@ -129,6 +127,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 		}
 		else if (tab.equals("payment"))
 		{
+			DisplayProductDetailService service2 = new DisplayProductDetailService();
+
 			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 
 			{
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());

@@ -75,7 +75,7 @@
                         <div class="slider_wrap PoingSlider_wrap">
                            <div id="slider" class="PoingSlider">
                               <div class="i_wrap slice current" style="top: 0px; left: 0%;">
-                              <c:forEach items="${photoList }" var="photoList">
+                              <c:forEach items="${photoList }" var="photoList"  varStatus="status">
                                  <i class="image" data-index="0" style="background-image: url('${photoList.tic_menu_images}')"
                                     title="${photoList.tic_menu_images}"></i>
                               </c:forEach>
@@ -92,7 +92,7 @@
                               class="original">${dto.p_origin_money }</span>
                         </div>
                         <div id="left_time">
-                           		남은시간 <span>9일 23:06:11</span>
+                                 남은시간 <span>9일 23:06:11</span>
                         </div>
                         <div class="dropbox">
                            <div class="label">
@@ -241,44 +241,44 @@
                            }
                         });
                   $("#sidebar_wrap>.addCart").click(function(){
-          			if(poing.account.checkLoginState()) {
-          				var url = "/Poing/popup/cart.do?";
-          				var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
-          				var options = [];
-          				if(selected.length === 0) {
-          					$.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
-          					return;
-          				}
-          				for(var i=0; i<selected.length; ++i)
-          				{
-          				
-          					var op = selected.eq(i);
-          					options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
-          					url += "&" + $.param(options[i]);
-          				}
-          				
-          				$.ajax({
-          				
-          					//'url': "/Poing/popup/cart.do",
-          					'url': url,
-          					'method': "GET",
-          					'dataType': "JSON",
-          					//'data': {'options': options},
-          					'success':function(response) {
-          						if(response.status)
-          						{
+                   if(poing.account.checkLoginState()) {
+                      var url = "/Poing/popup/cart.do?";
+                      var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
+                      var options = [];
+                      if(selected.length === 0) {
+                         $.popup("/Poing/popup/basket_no_confirm.do", {'text': '장바구니에 담을 옵션을 선택해주세요.', 'alert':true});
+                         return;
+                      }
+                      for(var i=0; i<selected.length; ++i)
+                      {
+                      
+                         var op = selected.eq(i);
+                         options[i] = {id: op.data('id'), count: op.find(".count_box>input").val()};
+                         url += "&" + $.param(options[i]);
+                      }
+                      
+                      $.ajax({
+                      
+                         //'url': "/Poing/popup/cart.do",
+                         'url': url,
+                         'method': "GET",
+                         'dataType': "JSON",
+                         //'data': {'options': options},
+                         'success':function(response) {
+                            if(response.status)
+                            {
                                       //ga('send', 'event', 'KPI', '[KPI]장바구니담기성공');
                                       $.popup("/Poing/popup/basket_confirm.do", {'text': '장바구니에 상품을 담았습니다.', 'left_btn':'쇼핑 계속하기', 'right_btn':'카트 보기'}, null, function(){
                                           location.href="/Poing/product/productCart.do";
                                       });
-          						} else {
+                            } else {
                                       if($.inArray(response.error.code, [1503]) > -1) alert(response.error.message);
                                       else $.popup("confirm", {'text': response.error.message, 'alert':true});
                                   }
-          					}
-          				});
-          			}
-          		});
+                         }
+                      });
+                   }
+                });
                </script>
                <jsp:include page="/WEB-INF/view/slideBar/Slidebar_Coupon.jsp"></jsp:include>
             </div>

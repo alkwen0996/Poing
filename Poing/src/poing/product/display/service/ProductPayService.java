@@ -13,13 +13,8 @@ import poing.product.PointHistoryDTO;
 
 public class ProductPayService {
 	public List<RefundTicketDTO> selectReserva_tic() {
-		PointHistoryDTO rdto = new PointHistoryDTO();
 		try (Connection conn = ConnectionProvider.getConnection()) {
 			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn);
-			
-			// 로그 처리
-			// 
-			//
 			return list;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -29,12 +24,12 @@ public class ProductPayService {
 		
 	}
 	
-	public boolean insertReserve_tic(int p_num, int m_no, int cart_seq) {
+	public boolean insertReserve_tic(int tic_seq, int m_seq, int cart_seq, int totalmoney) {
 		boolean insertCheck = false;
 		try {
 			Connection conn = ConnectionProvider.getConnection();
 			
-			insertCheck = MemberDAO.insertReserve_tic(conn, p_num, m_no, cart_seq);
+			insertCheck = MemberDAO.insertReserve_tic(conn, tic_seq, m_seq, cart_seq,totalmoney);
 			
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -43,17 +38,18 @@ public class ProductPayService {
 		
 	}
 
-	public boolean selectRp_seq(int m_no,int rp_seq, int totalmoney, String m_email, int point) {
+	public boolean selectRp_seq(int m_seq,int m_point, int totalmoney, String m_email, int point) {
+		System.out.println("selectRp_seq 안으로 들어옴"+m_seq);
 		System.out.println("selectRp_seq 안으로 들어옴"+totalmoney);
 		System.out.println("selectRp_seq 안으로 들어옴"+point);
 		System.out.println("selectRp_seq 안으로 들어옴"+m_email);
-		System.out.println("selectRp_seq 안으로 들어옴"+rp_seq);
+		System.out.println("selectRp_seq 안으로 들어옴"+m_point);
 		boolean updateCheck = false;
 		try {
 			Connection conn = ConnectionProvider.getConnection();
-			if (totalmoney <= rp_seq && point == totalmoney) {
+			if (totalmoney <= m_point && point == totalmoney) {
 				System.out.println("조건만족");
-				updateCheck = MemberDAO.selectRp_seq(conn,m_no, rp_seq, totalmoney, m_email);
+				updateCheck = MemberDAO.selectRp_seq(conn,m_seq, m_point, totalmoney, m_email, point);
 				System.out.println(updateCheck); //
 
 			}

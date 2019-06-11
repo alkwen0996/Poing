@@ -9,11 +9,11 @@ import poing.product.CartDAO;
 
 public class DeleteCartService {
    
-   public boolean deleteCart(int cart_seq) {
+   public boolean deleteCart(int tic_cart_seq) {
       CartDAO cartdao = new CartDAO();
       boolean result = true;
       try(Connection conn = ConnectionProvider.getConnection()){
-            result = cartdao.deleteCart(conn, cart_seq);
+            result = cartdao.deleteCart(conn, tic_cart_seq);
             conn.close();
             
             return result;

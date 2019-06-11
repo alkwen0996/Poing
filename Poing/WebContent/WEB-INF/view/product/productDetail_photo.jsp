@@ -12,15 +12,7 @@
 					data-image-selector="#photo_slider>.i_wrap>i"
 					data-origin-selector="#content.detail.photo>.body>.section>.origin>a"
 					tabindex="-1" style="top: 0px; left: -100%;">
-					<i class="image" style="background-image:url(${dto.photo_img})"
-						title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
-				</button>
-				<button class="empty i_wrap slice"
-					data-type="poing.popup.photoReviewViewerPopup" data-index="1"
-					data-image-selector="#photo_slider>.i_wrap>i"
-					data-origin-selector="#content.detail.photo>.body>.section>.origin>a"
-					tabindex="-1" style="top: 0px; left: -100%;">
-					<i class="image" style="background-image:url(${dto.editer_img})"
+					<i class="image" style="background-image:url(${dto.e_img})"
 						title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
 				</button>
 
@@ -50,11 +42,11 @@
 			<div class="nav">
 				<div class="slice" style="left: 0px;">
 					<div class="i_wrap" data-index="0">
-						<i class="image" style="background-image:url(${dto.photo_img})"
+						<i class="image" style="background-image:url(${dto.e_img})"
 							title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
 					</div>
 					<div class="i_wrap" data-index="1">
-						<i class="image" style="background-image:url(${dto.editer_img})"
+						<i class="image" style="background-image:url(${dto.e_img})"
 							title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
 					</div>
 

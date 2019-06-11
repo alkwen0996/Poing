@@ -8,13 +8,13 @@ import java.util.Date;
 public class ReviewDTO {
 
 	private int rev_seq;
-	private int rest_seq;
+	private int rev_rest_seq;
 	private Date rev_wtime;
 	private String rev_content;
 	private int rev_starpoint;
 	
 	private String rest_name;
-	private String rest_loc;
+	private String rest_address;
 	private String rest_img;
 	
 	private int m_seq;
@@ -43,13 +43,13 @@ public class ReviewDTO {
 		this.rev_wtime = rs.getDate("rev_wtime");
 		this.rev_content = rs.getString("rev_content");
 		this.rev_starpoint = rs.getInt("rev_starpoint");
-		this.rest_seq = rs.getInt("rest_seq");
+		this.rev_rest_seq = rs.getInt("rev_rest_seq");
 
 		this.rest_name = rs.getString("rest_name");
-		this.rest_loc = rs.getString("rest_loc");
+		this.rest_address = rs.getString("rest_address");
 		this.rest_img = rs.getString("rest_img");
 		
-		this.m_seq = rs.getInt("m_seq");
+		this.m_seq = rs.getInt("rev_m_seq");
 		this.m_name = rs.getString("m_name");
 		this.m_img = rs.getString("m_img");
 		this.m_ercnt = rs.getInt("m_ercnt");
@@ -68,13 +68,13 @@ public class ReviewDTO {
 	
 	public ReviewDTO(ResultSet rs, String type, int m_seq) throws SQLException {
 		this.rev_seq = rs.getInt("rev_seq");
-		//this.rest_seq = rs.getInt("rest_seq");
+		this.rev_rest_seq = rs.getInt("rev_rest_seq");
 		this.rev_content = rs.getString("rev_content");
 		this.rev_wtime = rs.getDate("rev_wtime");
 		this.rev_starpoint = rs.getInt("rev_starpoint");
 		
 		this.rest_name = rs.getString("rest_name");
-		this.rest_loc = rs.getString("rest_loc");
+		this.rest_address = rs.getString("rest_address");
 		this.rest_img = rs.getString("rest_img");
 
 		this.m_seq = rs.getInt("rev_m_seq");
@@ -106,12 +106,12 @@ public class ReviewDTO {
 		this.rev_seq = rev_seq;
 	}
 
-	public int getRest_seq() {
-		return rest_seq;
+	public int getRev_rest_seq() {
+		return rev_rest_seq;
 	}
 
-	public void setRest_seq(int rest_seq) {
-		this.rest_seq = rest_seq;
+	public void setRev_rest_seq(int rev_rest_seq) {
+		this.rev_rest_seq = rev_rest_seq;
 	}
 
 	public Date getRev_wtime() {
@@ -146,12 +146,12 @@ public class ReviewDTO {
 		this.rest_name = rest_name;
 	}
 
-	public String getRest_loc() {
-		return rest_loc;
+	public String getRest_address() {
+		return rest_address;
 	}
 
-	public void setRest_loc(String rest_loc) {
-		this.rest_loc = rest_loc;
+	public void setRest_address(String rest_address) {
+		this.rest_address = rest_address;
 	}
 
 	public String getRest_img() {

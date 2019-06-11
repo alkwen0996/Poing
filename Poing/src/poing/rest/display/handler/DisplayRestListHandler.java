@@ -37,7 +37,7 @@ public class DisplayRestListHandler implements CommandHandler
 				if(pop!=null || loc_code!=null || food_type!=null || searchWord!=null ) list = service.select(pop, loc_code, food_type, searchWord, current_page);
 				else list = service.select(current_page);				
 			} else {
-				member_num = mdto.getM_no(); 
+				member_num = mdto.getM_seq(); 
 				if(pop!=null || loc_code!=null || food_type!=null || searchWord!=null ) list = service.select(pop, loc_code, food_type, searchWord, member_num, current_page);
 				else list = service.select(member_num, current_page);
 			}

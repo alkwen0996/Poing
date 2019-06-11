@@ -25,32 +25,65 @@
 <div id="content">
 	<div id="content-header">
 		<div id="breadcrumb">
-			<a href="#" title="Go to Home" class="tip-bottom"><i
-				class="icon-home"></i> Home</a> <a href="#">Sample pages</a> <a
-				href="#" class="current">Gallery</a>
+			<a href="index.html" class="tip-bottom"
+				data-original-title="Go to Home"><i class="icon-home"></i> Home</a>
+			<a href="#" class="tip-bottom" data-original-title="">Form
+				elements</a> <a href="#" class="current">Common elements</a>
 		</div>
-		<h1>레스토랑 이미지</h1>
+		<h1>레스토랑 정보수정</h1>
 	</div>
 	<div class="container-fluid">
+		<hr>
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span6">
 				<div class="widget-box">
 					<div class="widget-title">
 						<span class="icon"> <i class="icon-align-justify"></i>
 						</span>
-						<h5>사진 추가</h5>
+						<h5>배너 정보</h5>
 					</div>
 					<div class="widget-content nopadding">
-						<form class="form-horizontal" enctype="multipart/form-data" 
-							action="rest_image_add.ow" method="post">
+						<form action="#" method="get" class="form-horizontal">
 							<div class="control-group">
-								<label class="control-label">추가할 사진 선택</label>
+								<label class="control-label">가게명 :</label>
 								<div class="controls">
-									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="rest_img" style="opacity: 0;">
-										<span class="filename">No file selected</span>
-										<span class="action">Choose File</span>
-									</div>
+									<input type="text" class="rest_name" placeholder="restaurant name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">전화번호 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Last name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">주소 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Last name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">영업시간 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Last name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">휴무일 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Last name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">예산 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="Company name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">한줄설명</label>
+								<div class="controls">
+									<textarea class="span11"></textarea>
 								</div>
 							</div>
 							<div class="form-actions">
@@ -60,83 +93,62 @@
 					</div>
 				</div>
 
-			</div>
 
-		</div>
-		<hr>
-		<div class="row-fluid">
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-picture"></i>
-						</span>
-						<h5>대표사진</h5>
-					</div>
-					<div class="widget-content">
-						<c:if test="${ rep_rest_image ne null }">
-							<ul class="thumbnails">
-								<li class="span2">
-									<a>
-										<img src="${ realPath }${ rep_rest_image.rest_img }" alt="">
-									</a>
-									<%-- <div class="actions">
-										<a title="" class="" href="rest_image_remove.ow?ri_seq=${ restImageDTO.ri_seq }">
-											<i class="icon-remove"></i>
-										</a>
-										<a class="lightbox_trigger" href="${ realPath }${ restImageDTO.rest_img }"> 
-											<i class="icon-search"></i>
-										</a>
-									</div> --%>
-								</li>
-							</ul>
-						</c:if>
-						<c:if test="${ rep_rest_image eq null }">
-							대표사진이 등록되지 않았습니다.
-						</c:if>
-					</div>
-					<!-- widget-content -->
-				</div>
-				<!-- widget-box -->
 			</div>
-			<!-- span12 -->
 		</div>
-		
+	
 		<hr>
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="widget-box">
 					<div class="widget-title">
-						<span class="icon"> <i class="icon-picture"></i>
+						<span class="icon"> <i class="icon-align-justify"></i>
 						</span>
-						<h5>사진 목록</h5>
+						<h5>상세설명</h5>
 					</div>
-					<div class="widget-content">
-						<ul class="thumbnails">
-							<c:forEach items="${ restImage_list }" var="restImageDTO">
-								<li class="span2"><a><img
-										src="${ realPath }${ restImageDTO.rest_img }" alt=""></a>
-									<div class="actions">
-										<a title="" class="" href="rest_image_remove.ow?ri_seq=${ restImageDTO.ri_seq }">
-											<i class="icon-remove"></i>
-										</a>
-										<a class="lightbox_trigger"
-											href="${ realPath }${ restImageDTO.rest_img }"> 
-											<i class="icon-search"></i>
-										</a>
-										<a title="" class="" href="rest_image_setrepimage.ow?ri_seq=${ restImageDTO.ri_seq }"> 
-											<i class="icon-picture"></i>
-										</a>
-									</div></li>
-							</c:forEach>
-						</ul>
+					<div class="widget-content nopadding">
+						<form action="#" method="get" class="form-horizontal">
+							<div class="control-group">
+								<label class="control-label">Tip</label>
+								<div class="controls">
+									<textarea class="span11"></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">음식종류 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="First name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">테이블 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="First name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">부가정보</label>
+								<div class="controls">
+									<textarea class="span11"></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">판매주류 :</label>
+								<div class="controls">
+									<input type="text" class="span11" placeholder="First name">
+								</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success">Save</button>
+							</div>
+						</form>
 					</div>
-					<!-- widget-content -->
 				</div>
-				<!-- widget-box -->
+
+
 			</div>
-			<!-- span12 -->
 		</div>
-		<!-- row-fluid -->
+	
 	</div>
 </div>
 <!-- content -->

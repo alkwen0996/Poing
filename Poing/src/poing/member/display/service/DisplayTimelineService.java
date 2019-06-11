@@ -60,21 +60,21 @@ public class DisplayTimelineService {
 	public ArrayList<UserNoticeDTO> getUserNoticeList(int memberID)throws SQLException {
 		
 		Connection conn = ConnectionProvider.getConnection();
-		ArrayList<UserNoticeDTO> nnlist = mdao.getUserNoticeList(conn, memberID);
+		ArrayList<UserNoticeDTO> unlist = mdao.getUserNoticeList(conn, memberID);
 		
 		conn.close();	
 		System.out.println("displaytimlineService : 소식 list에 담김");
-		return nnlist;
-	}// getNewsNoticeDTO
+		return unlist;
+	}// getUserNoticeDTO
 	
-	public ArrayList<PoingNoticeDTO> getNoticeDTO(int memberID) throws SQLException{
+	public ArrayList<PoingNoticeDTO> getPoingNoticeList(int memberID) throws SQLException{
 		Connection conn = ConnectionProvider.getConnection();
-		ArrayList<PoingNoticeDTO> nlist = mdao.getNoticeList(conn, memberID);
+		ArrayList<PoingNoticeDTO> pnlist = mdao.getPoingNoticeList(conn, memberID);
 		
 		conn.close();
 		System.out.println("displaytimlineService : 알림 list에 담김");
-		return nlist;
-	}// getNoticeDTO
+		return pnlist;
+	}// getPoingNoticeDTO
 	
 	public static boolean amIFollow(int memberID, int my_no) throws SQLException {
 		if (my_no == -1) {

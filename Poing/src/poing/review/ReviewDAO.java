@@ -566,7 +566,7 @@ public class ReviewDAO {
 	public static ArrayList<ReviewDTO> selectMainReview(Connection conn) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT * FROM ( ");
-		sql.append("     SELECT rev.*, rest.rest_name, rest.rest_loc, ri.rest_img, mem.m_name, mem.m_img, ");
+		sql.append("     SELECT rev.*, rest.rest_name, ri.rest_img, mem.m_name, mem.m_img, ");
 		sql.append("     (SELECT COUNT(*) FROM follow WHERE follower_seq = rev.rev_m_seq) m_ercnt, ");
 		sql.append("     (SELECT COUNT(*) FROM review WHERE m_seq = rev.rev_m_seq) m_revcnt ");
 		sql.append("     FROM review rev ");

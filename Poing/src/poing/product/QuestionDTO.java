@@ -3,7 +3,7 @@ package poing.product;
 public class QuestionDTO {
 	
 	private int q_seq;
-	private int m_no;
+	private int m_seq;
 	private String q_ctime;
 	private String q_content;
 	private int tic_seq;
@@ -15,11 +15,12 @@ public class QuestionDTO {
 	public void setQ_seq(int q_seq) {
 		this.q_seq = q_seq;
 	}
-	public int getM_no() {
-		return m_no;
+	
+	public int getM_seq() {
+		return m_seq;
 	}
-	public void setM_no(int m_no) {
-		this.m_no = m_no;
+	public void setM_seq(int m_seq) {
+		this.m_seq = m_seq;
 	}
 	public String getQ_ctime() {
 		return q_ctime;

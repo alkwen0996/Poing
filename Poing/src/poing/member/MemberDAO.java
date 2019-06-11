@@ -311,7 +311,7 @@ public class MemberDAO {
 	}
 
 	public ArrayList<UserNoticeDTO> getUserNoticeList(Connection conn, int memberID) throws SQLException {
-
+		System.out.println("MemberDAO getUserNoticeList()");
 		StringBuffer sql = new StringBuffer();
 
 		sql.append(" select * from ( ");
@@ -327,30 +327,41 @@ public class MemberDAO {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		ArrayList<UserNoticeDTO> list = new ArrayList<>();
+		ArrayList<UserNoticeDTO> unlist = null;
+		UserNoticeDTO undto = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			//pstmt.setInt(1, memberID);
 			rs = pstmt.executeQuery();
-			UserNoticeDTO dto = null;
-
+			unlist = new ArrayList<>();
 			while (rs.next()) {
-				dto = new UserNoticeDTO();
-				dto.setUn_id(rs.getInt("un_id"));
-				dto.setUn_user_id(rs.getInt("un_user_id"));
-				dto.setUn_push_type(rs.getString("un_push_type"));
-				dto.setUn_target_id(rs.getInt("un_target_id"));
-				dto.setUn_target(rs.getString("un_target"));
-				dto.setUn_additional(rs.getInt("un_additional"));
-				dto.setUn_created_at(rs.getString("un_created_at"));
-				dto.setUn_img_ori(rs.getString("un_img_ori"));
-				dto.setM_name(rs.getString("m_name"));
-				dto.setM_seq(rs.getInt("m_seq"));
-				dto.setNotice_type_content(rs.getString("notice_type_content"));
-				list.add(dto);
-
+				undto = new UserNoticeDTO();
+				undto.setUn_seq(rs.getInt("un_seq"));
+				undto.setUn_m_seq(rs.getInt("un_m_seq"));
+				undto.setUn_m_name(rs.getString("un_m_name"));
+				undto.setUn_is_read(rs.getInt("un_is_read"));
+				undto.setUn_is_poing(rs.getInt("un_is_poing"));
+				undto.setUn_is_count(rs.getInt("un_is_count"));
+				undto.setUn_is_block_on_user(rs.getInt("un_is_block_on_user"));
+				undto.setUn_additional(rs.getInt("un_additional"));
+				undto.setUn_ctime(rs.getString("un_ctime"));
+				undto.setUn_utime(rs.getString("un_utime"));			
+				undto.setUn_img_original(rs.getString("un_img_original"));
+				undto.setUn_img_thumnail(rs.getString("un_img_thumnail"));
+				undto.setNt_seq(rs.getInt("nt_seq"));
+				undto.setNt_pushtype(rs.getString("nt_pushtype"));
+				undto.setNt_typecontent(rs.getString("nt_typecontent"));
+				undto.setNt_target(rs.getString("nt_target"));
+				undto.setNt_m_seq(rs.getInt("nt_m_seq"));
+				undto.setNt_m_name(rs.getString("nt_m_name"));
+				undto.setNt_rev_seq(rs.getInt("nt_rev_seq"));
+				undto.setNt_rest_seq(rs.getInt("nt_rest_seq"));
+				undto.setNt_rest_name(rs.getString("nt_rest_name"));
+				undto.setNt_tic_seq(rs.getInt("nt_tic_seq"));
+				undto.setNt_tic_name(rs.getString("nt_tic_name"));
+				unlist.add(undto);
 			}// while
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -362,36 +373,52 @@ public class MemberDAO {
 				e.printStackTrace();
 			}//catch
 		}// finally	
-		return list;		
+		return unlist;	
 	}// getNewsList
 
-	public ArrayList<PoingNoticeDTO> getNoticeList(Connection conn, int memberID){
-		System.out.println("notice DAO");
+	public ArrayList<PoingNoticeDTO> getPoingNoticeList(Connection conn, int memberID){
+		System.out.println("MemberDAO getPoingNoticeList() ");
 		StringBuffer sql = new StringBuffer();
 
 		sql.append(" select * from notice where notice_m_seq = ? ");
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		ArrayList<PoingNoticeDTO> list = new ArrayList<>();
-
+		ArrayList<PoingNoticeDTO> pnlist = null;
+		PoingNoticeDTO pndto = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, memberID);
 			rs = pstmt.executeQuery();
-			PoingNoticeDTO ndto = null;
+			pnlist = new ArrayList<>();
 
 			while(rs.next()) {
-				ndto = new PoingNoticeDTO();
-				ndto.setNotice_no(rs.getInt("notice_no"));
-				ndto.setNotice_content(rs.getString("notice_content"));
-				ndto.setNotice_wtime(rs.getDate("notice_wtime"));
-				ndto.setNotice_img(rs.getString("notice_img"));
-				ndto.setNotice_type(rs.getInt("notice_type"));
-				ndto.setNotice_M_seq(rs.getInt("notice_m_seq"));
-				list.add(ndto);
+				pndto = new PoingNoticeDTO();
+				pndto.setPn_seq(rs.getInt("pn_seq"));
+				pndto.setPn_m_seq(rs.getInt("pn_m_seq"));
+				pndto.setPn_m_name(rs.getString("pn_m_name"));
+				pndto.setPn_is_read(rs.getInt("pn_is_read"));
+				pndto.setPn_is_poing(rs.getInt("pn_is_poing"));
+				pndto.setPn_is_count(rs.getInt("pn_is_count"));
+				pndto.setPn_is_block_on_user(rs.getInt("pn_is_block_on_user"));
+				pndto.setPn_additional(rs.getInt("pn_additional"));
+				pndto.setPn_ctime(rs.getString("pn_ctime"));
+				pndto.setPn_utime(rs.getString("pn_utime"));			
+				pndto.setPn_img_original(rs.getString("pn_img_original"));
+				pndto.setPn_img_thumnail(rs.getString("pn_img_thumnail"));
+				pndto.setNt_seq(rs.getInt("nt_seq"));
+				pndto.setNt_pushtype(rs.getString("nt_pushtype"));
+				pndto.setNt_typecontent(rs.getString("nt_typecontent"));
+				pndto.setNt_target(rs.getString("nt_target"));
+				pndto.setNt_m_seq(rs.getInt("nt_m_seq"));
+				pndto.setNt_m_name(rs.getString("nt_m_name"));
+				pndto.setNt_rev_seq(rs.getInt("nt_rev_seq"));
+				pndto.setNt_rest_seq(rs.getInt("nt_rest_seq"));
+				pndto.setNt_rest_name(rs.getString("nt_rest_name"));
+				pndto.setNt_tic_seq(rs.getInt("nt_tic_seq"));
+				pndto.setNt_tic_name(rs.getString("nt_tic_name"));
+				pnlist.add(pndto);
 			}// while
 			rs.close();
 			pstmt.close();
@@ -400,8 +427,9 @@ public class MemberDAO {
 			e.printStackTrace();
 		}// catch
 
-		return list;
+		return pnlist;
 	}// displayNotice
+	
 	public boolean checkCurrentPassword(Connection conn, int memberID, String current_password) throws SQLException {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();

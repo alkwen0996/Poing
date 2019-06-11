@@ -14,7 +14,7 @@ public class ReplyDAO {
 	}// getInstance
 	
 	public ReplyDAO() {}
-	public List<ReplyDTO> selectDisplay(Connection conn , int memberID){
+	public ArrayList<ReplyDTO> selectDisplay(Connection conn,int memberID){
 		System.out.println("ReplyDAO display");
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select * from tic_reply r "
@@ -33,6 +33,8 @@ public class ReplyDAO {
 				rdto.setReply_ctime(rs.getString("reply_ctime"));
 				rdto.setReply_content(rs.getString("reply_content"));
 				rdto.setE_name(rs.getString("e_name"));
+				rdto.setQ_seq(rs.getInt("q_seq"));
+				rdto.setE_seq(rs.getInt("e_seq"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

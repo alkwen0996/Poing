@@ -104,11 +104,11 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
-			ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
-			request.setAttribute("nnlist", nnlist);
-			request.setAttribute("nlist", nlist);
-		}
+			ArrayList<UserNoticeDTO> unlist = displayTimelineService.getUserNoticeList(memberID);
+			ArrayList<PoingNoticeDTO> pnlist = displayTimelineService.getPoingNoticeList(memberID);
+			request.setAttribute("unlist", unlist);
+			request.setAttribute("pnlist", pnlist);
+		}// UserNoticeDTO&PoingNoticeDTO
 		else if (tab.equals("payment"))
 		{
 			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 

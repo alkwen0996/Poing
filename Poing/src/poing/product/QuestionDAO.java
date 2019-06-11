@@ -15,11 +15,11 @@ public class QuestionDAO {
 	
 	public QuestionDAO() {}
 	
-	public List<QuestionDTO> selectDisplay(Connection conn,int memberID){
+	public ArrayList<QuestionDTO> selectDisplay(Connection conn,int memberID){
 		System.out.println("QuestionDAO displayl");
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select q.*,m.m_name m_name ");
-		sql.append(" from tic_question q join member m on q.m_no = m.m_no ");
+		sql.append(" from tic_question q join member m on q.m_seq = m.m_seq ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -33,7 +33,7 @@ public class QuestionDAO {
 			while(rs.next()) {
 				qdto = new QuestionDTO();
 				qdto.setQ_seq(rs.getInt("q_seq"));
-				qdto.setM_no(rs.getInt("m_no"));
+				qdto.setM_seq(rs.getInt("m_seq"));
 				qdto.setQ_ctime(rs.getString("q_ctime"));
 				qdto.setQ_content(rs.getString("q_content"));
 				qdto.setTic_seq(rs.getInt("tic_seq"));

@@ -1748,7 +1748,9 @@
 		//productDeatil.do일때 
 		<c:if test="${ command eq '/product/detail.do' }">
 			<jsp:include page="/WEB-INF/layout/javascript/productDetail.jsp"></jsp:include>
+			
 			<% System.out.println("default.jsp line 1668: productDetail.jsp" ); %>
+			
 			<c:choose>
 				<c:when test="${ param.tab eq null || param.tab eq 'info' }">
 				<% System.out.println("default.jsp line 1668: /rest/detail.do?tab=info" ); %>
@@ -1838,7 +1840,12 @@
 		<c:if test="${ command eq '/timeline.do' }">
 			<% System.out.println("default.jsp line 1668: /timeline.do" ); %>
 			<c:choose>
-				<c:when test="${ param.tab eq null || param.tab eq 'reservation' }">
+				<c:when test="${ param.tab eq null }">
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_reserve.jsp"></jsp:include>
+					<jsp:include page="/WEB-INF/layout/javascript/timeline_review.jsp"></jsp:include>
+				</c:when>
+
+				<c:when test="${ param.tab eq 'reservation' }">
 					<jsp:include page="/WEB-INF/layout/javascript/timeline_reserve.jsp"></jsp:include>
 				</c:when>
 

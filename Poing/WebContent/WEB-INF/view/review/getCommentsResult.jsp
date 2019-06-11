@@ -19,15 +19,15 @@
 		while (ir.hasNext()) {
 			cdto_json = new JSONObject();
 			CommentDTO cdto = (CommentDTO) ir.next();
-			cdto_json.put("id", cdto.getRc_no());
-			cdto_json.put("user_id", cdto.getM_no());
-			cdto_json.put("review_id", cdto.getRev_no());
+			cdto_json.put("id", cdto.getRc_seq());
+			cdto_json.put("user_id", cdto.getRc_m_seq());
+			cdto_json.put("review_id", cdto.getRc_rev_seq());
 			cdto_json.put("contents", cdto.getRc_content());
 			cdto_json.put("name", cdto.getM_name());
 			cdto_json.put("created_at", sdf.format(cdto.getRc_wtime()));
 			cdto_json.put("updated_at", sdf.format(cdto.getRc_mtime()));
 			String m_img = realPath+cdto.getM_img();
-			if (authUser!= null && authUser.getM_seq() == cdto.getM_no() )
+			if (authUser!= null && authUser.getM_seq() == cdto.getRc_m_seq() )
 				cdto_json.put("auth", true);
 			else
 				cdto_json.put("auth", false);

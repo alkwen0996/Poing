@@ -3,8 +3,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
 <%
 	JSONObject jsonObject = new JSONObject();
-	jsonObject.put("data", request.getAttribute("data"));
-	
+	jsonObject.put("data", request.getAttribute("status"));
 	
 	JSONObject error = new JSONObject();
 	if(request.getAttribute("errorMsg")!=null)

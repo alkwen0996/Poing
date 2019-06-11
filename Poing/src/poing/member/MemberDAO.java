@@ -528,7 +528,7 @@ public class MemberDAO {
 		sql.append(" SELECT * FROM ( ");
 		sql.append("     SELECT mem.*,  ");
 		sql.append("     (SELECT COUNT(*) FROM review WHERE rev_m_seq = mem.m_seq) m_revcnt,  ");
-		sql.append("     (SELECT COUNT(*) FROM follow WHERE follower_seq = mem.m_seq) m_ercnt ");
+		sql.append("     (SELECT COUNT(*) FROM follow WHERE following_seq = mem.m_seq) m_ercnt ");
 		if (my_no != -1) {
 			sql.append("   ,(SELECT COUNT(*) FROM follow WHERE following_seq = mem.m_seq AND follower_seq = ?) amIfollow  ");
 		}
@@ -537,6 +537,9 @@ public class MemberDAO {
 		sql.append(" WHERE m_revcnt + m_ercnt > 15 and rownum < 6 ");
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		if (my_no != -1) {
+			pstmt.setInt(1, my_no);
+		}
 		ResultSet rs = pstmt.executeQuery();
 		if (rs.next()) {
 			mem_slide_list = new ArrayList<>();

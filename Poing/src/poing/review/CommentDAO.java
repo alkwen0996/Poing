@@ -34,7 +34,7 @@ public class CommentDAO {
 	public int updateComment(Connection conn, int rev_seq, String comment) throws SQLException {
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" UPDATE review_comment ");
+		sql.append(" UPDATE review_comment SET ");
 		sql.append(" rc_content = ? ");
 		sql.append(" WHERE rc_seq = ? ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());

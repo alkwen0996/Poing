@@ -29,9 +29,10 @@
    ProductDTO dto = (ProductDTO) request.getAttribute("dto");
    ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
    MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-   int member_num = 0;
-   if(mdto==null) member_num = 0;
-   else member_num = mdto.getM_seq();
+   
+//    int member_num = 0;
+//    if(mdto==null) member_num = 0;
+//    else member_num = mdto.getM_no();
    
 %>
 <body>
@@ -42,6 +43,7 @@
          <div id="banner_wrap">
 
             <div id="banner" class="product">
+            
                <div class="i_wrap background">
                   <i class="image"
                      style="width: 100%; height: 100%; background-image: url('http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173005bd26db482508.png')"></i>
@@ -73,9 +75,10 @@
                         <div class="slider_wrap PoingSlider_wrap">
                            <div id="slider" class="PoingSlider">
                               <div class="i_wrap slice current" style="top: 0px; left: 0%;">
-                                 <i class="image" data-index="0"
-                                    style="background-image: url(${dto.photo_img})"
-                                    title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+                              <c:forEach items="${photoList }" var="photoList">
+                                 <i class="image" data-index="0" style="background-image: url('${photoList.tic_menu_images}')"
+                                    title="${photoList.tic_menu_images}"></i>
+                              </c:forEach>
                               </div>
 
                            </div>
@@ -109,7 +112,7 @@
                            
                         </ul>
                         <div class="summary">
-                           <span class="label">총 합계</span> <span class="value">${dto.p_dc_money }</span><span
+                           <span class="label">총 합계</span> <span class="value">${op.tic_dc_price }</span><span
                               class="label"></span>
                         </div>
                      </div>
@@ -124,19 +127,19 @@
             <div id="content" class="detail coupon ${ param.tab }">
                <ul class="tab">
                   <li class="item info"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=info">상제정보</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=info">상제정보</a>
                   </li>
                   <li class="item photo"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=photo">포토</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=photo">포토</a>
                   </li>
                   <li class="item menu"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=menu">메뉴</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=menu">메뉴</a>
                   </li>
                   <li class="item map"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=map">지도</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=map">지도</a>
                   </li>
                   <li class="item qna"><a
-                     href="/Poing/product/detail.do?p_num=${param.tic_seq }&tab=qna">상품문의</a>
+                     href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=qna">상품문의</a>
                   </li>
                </ul>
                <script type="text/javascript">
@@ -205,7 +208,7 @@
                      .click(
                         function () {
                            if (poing.account.checkLoginState()) {
-                              var url = "/Poing/popup/reserve_coupon.do?p_num=${param.tic_seq}";
+                              var url = "/Poing/popup/reserve_coupon.do?tic_seq=${param.tic_seq}";
 
                               var selected = $("#banner.product>.inner_wrap>.inner>.body>ul>li");
                               var options = [];

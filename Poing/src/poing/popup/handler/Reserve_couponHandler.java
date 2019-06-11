@@ -41,8 +41,8 @@ public class Reserve_couponHandler implements CommandHandler {
 				ja.add(js);
 			}
 			
-			int p_num = Integer.parseInt(request.getParameter("p_num"));
-			ProductDTO dto = service.select(p_num);
+			int tic_seq = Integer.parseInt(request.getParameter("tic_seq"));
+			ProductDTO dto = service.select(tic_seq);
 			request.setAttribute("ja", ja);
 			request.setAttribute("dto", dto);
 		} catch (Exception e) {

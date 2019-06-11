@@ -14,11 +14,11 @@ import poing.product.ProductDTO;
 
 public class DisplayOptionService {
 	
-	public List<OptionDTO> select(int p_num) {
+	public List<OptionDTO> select(int tic_seq) {
 		OptionDAO dao = OptionDAO.getInstance();
 				
 		try (Connection conn = ConnectionProvider.getConnection()) {			
-			List<OptionDTO> pp = dao.selectoption(conn, p_num);
+			List<OptionDTO> pp = dao.selectoption(conn, tic_seq);
 			conn.close();
 			// 로그 처리
 			// 

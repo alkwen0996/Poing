@@ -35,9 +35,9 @@
 <%
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
 	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
-			int op_cnt = dto2.getOp_cnt();
-			int p_dc_money = dto.getP_dc_money();
-			int totalmoney = op_cnt * p_dc_money;
+			int tic_op_purchas_cnt = dto2.getTic_op_purchas_cnt();
+			int tic_dc_price = dto.getTic_dc_price();
+			int totalmoney = tic_op_purchas_cnt * tic_dc_price;
 			int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 			System.out.println(totalmoney);
 			System.out.println(cart_seq);
@@ -82,15 +82,17 @@
                             <a class="image" href="/product/detail/5904" target="_blank">
                                 <i class="image border_radius medium" style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/5458801ed20c7820f000002b.png);"></i>
                             </a>
-                            <a class="name" href="/product/detail/5904" target="_blank">${dto2.op_name }</a>
-                            <div class="valid_date">유효기간: <span>${dto.p_st_ed_date }</span></div>
+                            <a class="name" href="/product/detail/5904" target="_blank">${dto2.tic_op_name }</a>
+                            <div class="valid_date">유효기간: <span>${dto.tic_reserve_date }</span></div>
 
                             <ul class="options">
                                                                     <li data-id="19044" data-limit="4">
-                                        <div class="name">${dto2.op_name }</div>
-                                        <div class="price">${dto.p_dc_money }원</div>
-                                        <div class="count">${dto2.op_cnt}</div>
+                                        <c:forEach items="">
+                                        <div class="name">${dto2.tic_op_name }</div>
+                                        <div class="price">${dto.tic_dc_price }원</div>
+                                        <div class="count">${dto2.tic_op_purchas_cnt}</div>
                                         <div class="total_price"><span><%=totalmoney%></span>원</div>
+                                        </c:forEach>
                                     </li>
                                                                 <li class="total">
                                     티켓금액
@@ -99,10 +101,10 @@
                             </ul>
                         </td>
                         <td class="reserve">
-                                                        <div class="date">날짜: <span>${dto2.c_date}</span></div>
+                                                        <div class="date">날짜: <span>${dto2.tic_reserve_date}</span></div>
 <!--                             <div class="time">시간: <span>오후 6:00</span></div> -->
-                            <div class="count">인원: <span>${dto2.party_size}</span></div>
-                                                            <br><div class="comment">요청사항: <span>${dto2.message}</span></div>
+                            <div class="count">인원: <span>${dto2.tic_num_of_people}</span></div>
+                                                            <br><div class="comment">요청사항: <span>${dto2.tic_request}</span></div>
                                                     </td>
                     </tr>
                             </tbody>
@@ -115,7 +117,7 @@
             <thead>
                 <tr>
                     <th class="price">총 티켓 금액</th>
-                    <th class="point">포인트 (보유 포인트: <span>${authUser.rp_seq }</span>P)</th>
+                    <th class="point">포인트 (보유 포인트: <span>${authUser.m_point }</span>P)</th>
                     <th class="total">총 결제 금액</th>
                 </tr>
             </thead>
@@ -338,8 +340,8 @@ $(document).ready(function(){
             point: $("#point").val(),
             totalmoney: <%=totalmoney%>,
             m_email: "${authUser.m_email}",
-            rp_seq: ${authUser.rp_seq},
-            m_no: ${authUser.m_no}
+            m_point: ${authUser.m_point},
+            m_seq: ${authUser.m_seq}
         };
         	
         $(".pay>.section.list>table>tbody>tr").each(function(){
@@ -354,7 +356,7 @@ $(document).ready(function(){
             'data': data,
             'success':function(res) {
                 if(res.status1) {
-                      post_to_url("/Poing/timeline.do?id=${authUser.m_no}&totalmoney="+res.totalmoney+"&tab=coupon");
+                      post_to_url("/Poing/timeline.do?id=${authUser.m_seq}&totalmoney="+res.totalmoney+"&tab=coupon");
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else {

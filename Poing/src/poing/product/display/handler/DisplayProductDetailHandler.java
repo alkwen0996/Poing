@@ -20,27 +20,29 @@ public class DisplayProductDetailHandler implements CommandHandler {
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		OptionDAO odao = new OptionDAO();
-		int p_num = Integer.parseInt(request.getParameter("p_num"));
-		//int totalCount = odao.getTotalCount(p_num);
+		int tic_seq = Integer.parseInt(request.getParameter("tic_seq"));
+		int totalCount = odao.getTotalCount(tic_seq);
+		
 		try {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			DisplayOptionService oservice = new DisplayOptionService();
-			List<OptionDTO> pp = oservice.select(p_num);
-			p_num = Integer.parseInt(request.getParameter("p_num"));
+			List<OptionDTO> pp = oservice.select(tic_seq);
 			
-			ProductDTO dto2 = service.selectProductDetail(p_num);
-			request.setAttribute("dto2", dto2);
+//			ProductDTO dto2 = service.selectProductDetail(tic_seq);
+//			request.setAttribute("dto2", dto2);   프로덕트 상세부분 쪽
 			
-			ProductDTO dto = service.select(p_num);
-			ArrayList<ProductDTO> list_qna = service.select_qna(p_num);
+			List<ProductDTO> photoList = (List<ProductDTO>) service.selectRestPhotoImg(tic_seq);
+			ProductDTO dto = service.select(tic_seq);
+//			ArrayList<ProductDTO> list_qna = service.select_qna(tic_seq);
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 			int member_num;
-			if(mdto==null) {dto = service.select(p_num);
+			if(mdto==null) {dto = service.select(tic_seq);
 			} else {
 				member_num = mdto.getM_seq();
-				dto = service.select(p_num,member_num);
+				dto = service.select(tic_seq,member_num);
 			}
 			
+			request.setAttribute("photoList", photoList);
 			request.setAttribute("dto", dto);
 			request.setAttribute("pp", pp);
 		} catch (Exception e) { 

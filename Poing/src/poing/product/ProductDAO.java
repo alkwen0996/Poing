@@ -21,15 +21,8 @@ public class ProductDAO {
 	
 	public List<ProductDTO> selectdisplay(Connection conn, int first, int end){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select no, p_num, rest_name, r_location, p_name, p_type, p_dc_money ");
-		sql.append(" from ( ");
-		sql.append(" select rownum no, p_num, p_name, rest_name, r_location, p_type, p_dc_money ");
-		sql.append(" from ( ");
-		sql.append("  select p.p_num p_num, p_name, r.rest_name, r_location, p_type, p_dc_money ");
-		sql.append("  from p_product p JOIN p_restaurant r ON r.p_num = p.p_num  ");
-		sql.append("  ) t ");
-		sql.append(" ) b ");  
-		sql.append(" where b.no between ? and ? ");
+		sql.append(" select rownum,m.tic_img,t.tic_view_price, t.tic_seq, r.rest_name,r.rest_address,t.tic_name,t.tic_type from ");
+		sql.append(" ticket t join restaurant r on t.rest_seq = r.rest_seq join tic_img m on m.tic_seq = t.tic_seq where rownum between ? and ? ");
 			   
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -42,12 +35,13 @@ public class ProductDAO {
 			ProductDTO dto = null;
 			while (rs.next()) {
 				dto = new ProductDTO();
-				dto.setP_num(rs.getInt("p_num"));
+				dto.setTic_seq(rs.getInt("tic_seq"));
 				dto.setRest_name(rs.getString("rest_name"));
-				dto.setR_location(rs.getString("r_location"));
-				dto.setP_name(rs.getString("p_name"));
-				dto.setP_type(rs.getString("p_type"));
-				dto.setP_dc_money(rs.getInt("p_dc_money"));
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setTic_name(rs.getString("tic_name"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setTic_view_price(rs.getInt("tic_view_price"));
+				dto.setTic_img(rs.getString("tic_img"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -92,7 +86,7 @@ public class ProductDAO {
 			ProductDTO dto = null;
 			while (rs.next()) {
 				dto = new ProductDTO();
-				dto.setP_num(rs.getInt("p_num"));
+				dto.setTic_seq(rs.getInt("tic_seq"));
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setR_location(rs.getString("r_location"));
 				dto.setP_name(rs.getString("p_name"));
@@ -163,7 +157,7 @@ public class ProductDAO {
 		ResultSet rs = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			String sql = " select count(*) from p_product ";
+			String sql = " select count(*) from ticket ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {

@@ -45,6 +45,7 @@ public class ModifyCartReservationHandler implements CommandHandler {
 			ids.add(Integer.parseInt((String) obj.get("ids")));
 			counts.add(Integer.parseInt((String) obj.get("counts")));
 		}
+		
 		int cart_seq = service.insertCart(m_no,c_date,party_size,message,ids, counts);
 		boolean result = service.insertTotalCart(cart_seq, ids, counts);
 //		int cart_seq = service.select

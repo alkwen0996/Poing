@@ -45,27 +45,28 @@
 							<c:if test="${status.index % 4 ne 0 }">
 								<div class="element  small_coupon">
 							</c:if>
-									<a href="/Poing/product/detail.do?p_num=${dto.p_num}" class="image"
-										style="display: block; background-image: url(&quot;http://c2.poing.co.kr/MRI-original/MjAxOTA0/15566107485cc7febcc1e8e.png&quot;);">
+									<a href="/Poing/product/detail.do?tic_seq=${dto.tic_seq}" class="image"
+										style="display: block; background-image: url(${dto.tic_img});">
 										<div class="shading"></div>
 	
 										<div class="bottom">
-											<span class="name">${dto.rest_name }</span> <span class="area">${dto.r_location}</span>
+											<span class="name">${dto.rest_name }</span> <span class="area">${dto.rest_address}</span>
 										</div>
 									</a>
 	
 									<div class="desc">
 									<div class="coupon">
-										<div class="option">${dto.p_name }</div>
+										<div class="option">${dto.tic_name }</div>
 										<div class="price fixed">
-											<div class="ratio long ">${dto.p_type }</div>
-											<div class="discount">${dto.p_dc_money }원</div>
+											<div class="ratio long ">${dto.tic_type }</div>
+											<div class="discount">${dto.tic_view_price }원</div>
 											<div class="origin"></div>
 										</div>
 									</div>
 								</div> <!-- desc -->
 								</div><!-- element -->
 						</c:forEach>
+						
 					</div><!-- "body" -->
 					<div id="coupon_pagination">
 					<div class="page-list">

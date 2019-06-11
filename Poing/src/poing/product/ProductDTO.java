@@ -3,9 +3,182 @@ package poing.product;
 public class ProductDTO {
 	
 	private int rest_seq;
-	private int p_num;
-	private String r_type;
+	private int tic_seq;
 	private String rest_name;
+	private String rest_address;
+	private String tic_name;
+	private String tic_type;
+	private int tic_dc_price;
+	private int tic_view_price;
+	private String e_name;
+	private String tic_img;
+	private String rest_foodinfo;
+	private String e_img;
+	private String er_content;
+	private String tic_menu_images;
+	private String tic_op_name;
+	private int tic_op_purchas_cnt;
+	private int tic_num_of_people;
+	private String tic_request;
+	private String tic_reserve_date;
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String getTic_op_name() {
+		return tic_op_name;
+	}
+	public void setTic_op_name(String tic_op_name) {
+		this.tic_op_name = tic_op_name;
+	}
+	public int getTic_op_purchas_cnt() {
+		return tic_op_purchas_cnt;
+	}
+	public void setTic_op_purchas_cnt(int tic_op_purchas_cnt) {
+		this.tic_op_purchas_cnt = tic_op_purchas_cnt;
+	}
+	public int getTic_num_of_people() {
+		return tic_num_of_people;
+	}
+	public void setTic_num_of_people(int tic_num_of_people) {
+		this.tic_num_of_people = tic_num_of_people;
+	}
+	public String getTic_request() {
+		return tic_request;
+	}
+	public void setTic_request(String tic_request) {
+		this.tic_request = tic_request;
+	}
+	public String getTic_reserve_date() {
+		return tic_reserve_date;
+	}
+	public void setTic_reserve_date(String tic_reserve_date) {
+		this.tic_reserve_date = tic_reserve_date;
+	}
+	public String getTic_menu_images() {
+		return tic_menu_images;
+	}
+	public void setTic_menu_images(String tic_menu_images) {
+		this.tic_menu_images = tic_menu_images;
+	}
+	public String getRest_foodinfo() {
+		return rest_foodinfo;
+	}
+	public void setRest_foodinfo(String rest_foodinfo) {
+		this.rest_foodinfo = rest_foodinfo;
+	}
+	public String getE_img() {
+		return e_img;
+	}
+	public void setE_img(String e_img) {
+		this.e_img = e_img;
+	}
+	public String getEr_content() {
+		return er_content;
+	}
+	public void setEr_content(String er_content) {
+		this.er_content = er_content;
+	}
+	public String getTic_img() {
+		return tic_img;
+	}
+	public void setTic_img(String tic_img) {
+		this.tic_img = tic_img;
+	}
+	public int getTic_view_price() {
+		return tic_view_price;
+	}
+	public void setTic_view_price(int tic_view_price) {
+		this.tic_view_price = tic_view_price;
+	}
+	public int getTic_seq() {
+		return tic_seq;
+	}
+	public void setTic_seq(int tic_seq) {
+		this.tic_seq = tic_seq;
+	}
+	public String getRest_address() {
+		return rest_address;
+	}
+	public void setRest_address(String rest_address) {
+		this.rest_address = rest_address;
+	}
+	public String getTic_name() {
+		return tic_name;
+	}
+	public void setTic_name(String tic_name) {
+		this.tic_name = tic_name;
+	}
+	public String getRest_name() {
+		return rest_name;
+	}
+	public void setRest_name(String rest_name) {
+		this.rest_name = rest_name;
+	}
+	public String getTic_type() {
+		return tic_type;
+	}
+	public void setTic_type(String tic_type) {
+		this.tic_type = tic_type;
+	}
+	public int getTic_dc_price() {
+		return tic_dc_price;
+	}
+	public void setTic_dc_price(int tic_dc_price) {
+		this.tic_dc_price = tic_dc_price;
+	}
+	private String r_type;
 	private String r_location;
 	private String p_name;
 	private String p_type;
@@ -14,7 +187,6 @@ public class ProductDTO {
 	private String p_option;
 	private int e_seq;
 	private int img_seq;
-	private String e_name;
 	private String e_content;
 	private String photo_img;
 	private String menu_img;
@@ -190,23 +362,11 @@ public class ProductDTO {
 	public void setP_st_ed_date(String p_st_ed_date) {
 		this.p_st_ed_date = p_st_ed_date;
 	}
-	public int getP_num() {
-		return p_num;
-	}
-	public void setP_num(int p_num) {
-		this.p_num = p_num;
-	}
 	public String getR_type() {
 		return r_type;
 	}
 	public void setR_type(String r_type) {
 		this.r_type = r_type;
-	}
-	public String getRest_name() {
-		return rest_name;
-	}
-	public void setRest_name(String rest_name) {
-		this.rest_name = rest_name;
 	}
 	public String getR_location() {
 		return r_location;

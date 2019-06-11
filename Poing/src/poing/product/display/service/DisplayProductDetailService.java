@@ -16,6 +16,18 @@ import poing.product.PointHistoryDTO;
 
 
 public class DisplayProductDetailService {
+	
+	public List<ProductDTO> selectRestPhotoImg(int tic_seq) {
+		ProductDetailDAO dao = new ProductDetailDAO();		
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			List<ProductDTO> list = dao.selectRestPhotoImg(conn, tic_seq);
+			
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public boolean updateTotalmoney(String totalmoney, int id) {
 		ProductDetailDAO dao = new ProductDetailDAO();		
 		boolean result = true;
@@ -28,9 +40,9 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public ProductDTO selectProductDetail(int p_num) {
+	public ProductDTO selectProductDetail(int tic_seq) {
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			ProductDTO dto = ProductDetailDAO.selectProductDetail(conn, p_num);
+			ProductDTO dto = ProductDetailDAO.selectProductDetail(conn, tic_seq);
 			
 			return dto;
 		} catch (SQLException e) {
@@ -145,10 +157,10 @@ public class DisplayProductDetailService {
 	}
 	
 
-	public ProductDTO select(int p_num) {
+	public ProductDTO select(int tic_seq) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
 		try (Connection conn = ConnectionProvider.getConnection()) {			
-			ProductDTO dto = dao.selectdisplay(conn, p_num);
+			ProductDTO dto = dao.selectdisplay(conn, tic_seq);
 			conn.close();
 			// 로그 처리
 			// 
@@ -159,10 +171,10 @@ public class DisplayProductDetailService {
 		}
 	}
 
-	public ProductDTO select(int p_num, int member_num) {
+	public ProductDTO select(int tic_seq, int member_num) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
 		try (Connection conn = ConnectionProvider.getConnection()) {			
-			ProductDTO dto = dao.selectdisplay(conn, p_num, member_num);
+			ProductDTO dto = dao.selectdisplay(conn, tic_seq, member_num);
 			conn.close();
 			// 로그 처리
 			// 
@@ -173,14 +185,14 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public ArrayList<ProductDTO> select_qna(int p_num) {
+	public ArrayList<ProductDTO> select_qna(int tic_seq) {
 		System.out.println("select_qna");
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();
 		Connection conn = null;
 		ArrayList<ProductDTO> list_qna = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			list_qna	 = dao.selectdisplay_QnA(conn, p_num);
+			list_qna	 = dao.selectdisplay_QnA(conn, tic_seq);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

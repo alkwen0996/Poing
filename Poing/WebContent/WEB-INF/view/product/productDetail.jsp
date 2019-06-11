@@ -1,3 +1,4 @@
+<%@page import="poing.product.OptionDTO"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>

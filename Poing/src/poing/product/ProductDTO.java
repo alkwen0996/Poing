@@ -25,6 +25,7 @@ public class ProductDTO {
    private int tic_op_max_cnt;
    private int tic_cart_seq;
    private String tic_op_name;
+   private String tic_menu_images;
    
    
    
@@ -68,7 +69,13 @@ public class ProductDTO {
    
    
    
-   public String getTic_op_name() {
+   public String getTic_menu_images() {
+	return tic_menu_images;
+}
+public void setTic_menu_images(String tic_menu_images) {
+	this.tic_menu_images = tic_menu_images;
+}
+public String getTic_op_name() {
 	return tic_op_name;
 }
 public void setTic_op_name(String tic_op_name) {

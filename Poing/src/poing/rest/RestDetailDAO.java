@@ -14,7 +14,7 @@ public class RestDetailDAO {
 	}
 
 	public RestDetailDAO() {}
-
+/*
 	public RestListDTO selectdisplay(Connection conn, int rest_seq) throws SQLException{
 		System.out.println("restDetailDAO");
 		String sql = "select * from p_restaurant where rest_seq=?";
@@ -40,7 +40,7 @@ public class RestDetailDAO {
 		dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
 		dto.setRest_loc(rs.getString("rest_loc"));
 
-		/*dto.setRest_tic_code(rs.getInt("p_code"));*/
+		dto.setRest_tic_code(rs.getInt("p_code"));
 
 		dto.setRest_tic_code(rs.getInt("p_num"));
 
@@ -55,22 +55,41 @@ public class RestDetailDAO {
 		pstmt.close();
 		rs.close();
 		return dto;	
-	}
+	}*/
 
 	public RestListDTO selectdisplay(Connection conn, int rest_seq, int m_no) throws SQLException {
 		
 		System.out.println("restDetailDAO");
-		String sql = "select distinct a.* , b.m_no from p_restaurant a left join (select * from pick where m_no = ?) b on a.rest_seq = b.rest_no " + 
-				     "where rest_seq= ?";
+		StringBuffer sql = new StringBuffer();
+
+		sql.append("select distinct a.*, b.m_seq, nvl(c.reserve_cnt_p,0) reserve_cnt, c.m_seq fav  , d.review_cnt_p review_cnt, d.starpoint_p starpoint ");
+			sql.append(",e.pop_loc_code,e.gen_loc_code,  e.gen_loc, e.pop_loc, f.tic_seq, g.food_type ");
+		sql.append("from restaurant a ");
+		sql.append("left join (select * from pick where m_seq ="+m_no+ ") b on a.rest_seq = b.rest_no ");
+		sql.append("left join (select distinct r_reserve_rest_seq, COUNT(*)OVER(PARTITION BY r_reserve_rest_seq) reserve_cnt_p from rest_reserve) c on a.rest_seq = c.r_reserve_rest_seq ");
+		sql.append("left join (select * from pick where m_seq= "+m_no+ ") c on a.rest_seq= c.rest_no ");
+		sql.append("left join (select distinct rev_rest_seq, nvl(COUNT(*)OVER(PARTITION BY rev_rest_seq),0) review_cnt_p, nvl(trunc(sum(rev_starpoint)OVER(PARTITION BY rev_rest_seq)/COUNT(*)OVER(PARTITION BY rev_rest_seq)/10,2),0) starpoint_p from review) d on a.rest_seq = d.rev_rest_seq ");
+		sql.append("left join (select aa.*, bb.loc_add gen_loc, cc.loc_add pop_loc from loc_code_per_rest aa  ");
+		sql.append("left join general_loc_code bb on aa.gen_loc_code = bb.gen_loc_code ");
+		sql.append("left join pop_loc_code cc on aa.pop_loc_code = cc.pop_loc_code) e on a.rest_seq = e.rest_seq ");
+		sql.append("left join ticket f on a.rest_seq = f.rest_seq  ");
+		sql.append("left join ( ");
+			sql.append("select aaa.*,bbb.food_type from (SELECT rest_seq, food_code from food_code_per_rest where rowid in (select max(rowid) from food_code_per_rest group by rest_seq)) aaa ");
+			sql.append("join food_type bbb on aaa.food_code = bbb.food_code ");
+		sql.append(") g on a.rest_seq = g.rest_seq ");
+		sql.append("where a.rest_seq="+rest_seq );
+		
+		
+		System.out.println(sql);
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<RestListDTO> list = new ArrayList<>();
 		RestListDTO dto = null;
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, m_no);
-		pstmt.setInt(2, rest_seq);
+		pstmt = conn.prepareStatement(sql.toString());
+		/*pstmt.setInt(1, m_no);
+		pstmt.setInt(2, m_no);
+		pstmt.setInt(3, rest_seq);*/
 		rs = pstmt.executeQuery();
-
 		dto = new RestListDTO();
 		rs.next();
 		
@@ -78,24 +97,25 @@ public class RestDetailDAO {
 		dto.setRest_name(rs.getString("rest_name"));
 		dto.setRest_tel(rs.getString("rest_tel"));
 		dto.setRest_hour(rs.getString("rest_hour"));
-		dto.setRest_menu(rs.getString("rest_menu"));
-		dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
-		dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
+		
+		dto.setRest_reserve_cnt(rs.getInt("reserve_cnt"));
+		dto.setRest_review_cnt(rs.getInt("review_cnt"));
 		dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
-		dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
-		dto.setRest_loc(rs.getString("rest_loc"));
-		/*dto.setRest_tic_code(rs.getInt("p_code"));*/
-
-		dto.setRest_tic_code(rs.getInt("p_num"));
+		dto.setRest_starpoint(rs.getDouble("starpoint"));
+		
+		dto.setRest_loc(rs.getString("pop_loc")==null?rs.getString("gen_loc"):rs.getString("pop_loc"));
+	
+		//dto.setRest_tic_code(rs.getInt("p_num")); 티켓.. 쿼리에는 넣어놨음
 
 		dto.setRest_line_exp(rs.getString("rest_line_exp"));
-		dto.setRest_alchol(rs.getString("rest_alchol"));
+		dto.setRest_food_type(rs.getString("food_type"));
+		dto.setRest_alchol(rs.getString("rest_alcohol"));
 		dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
 		dto.setRest_add_info(rs.getString("rest_add_info"));
 		dto.setRest_budget_type(rs.getString("rest_budget_type"));
 		dto.setRest_table_type(rs.getString("rest_table_type"));
-		dto.setRest_food_type(rs.getString("rest_food_type"));
-		dto.setRest_fav(rs.getInt("m_no")>0?1:0);  //찜하기 추적
+		dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
+		dto.setRest_fav(rs.getInt("fav")>0?1:0);  //찜하기 추적
 
 		pstmt.close();
 		rs.close();

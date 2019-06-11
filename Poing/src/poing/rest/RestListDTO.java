@@ -21,6 +21,7 @@ public class RestListDTO {
 	private String rest_tip;
 	private String rest_holiday;
 	private String rest_foodinfo;
+	private String rest_food_type;
 	
 	private int rest_reserve_yn;
 	private int rest_reserve_cnt;
@@ -38,6 +39,12 @@ public class RestListDTO {
 		
 		
 		
+	public String getRest_food_type() {
+		return rest_food_type;
+	}
+	public void setRest_food_type(String rest_food_type) {
+		this.rest_food_type = rest_food_type;
+	}
 	public String getRest_img() {
 		return rest_img;
 	}

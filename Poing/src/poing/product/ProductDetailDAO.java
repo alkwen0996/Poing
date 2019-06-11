@@ -279,8 +279,7 @@ public class ProductDetailDAO {
 		sql.append("insert into cart (tic_cart_seq, tic_num_of_people, tic_request, tic_reserve_date, m_seq) values (cart_seq.nextval,?,?,?,?)");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductDTO dto = null;
-		int cart_seq = -1;
+		int tic_cart_seq = -1;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, party_size);
@@ -294,7 +293,7 @@ public class ProductDetailDAO {
 				pstmt = conn.prepareStatement(sql2);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
-					cart_seq = rs.getInt(1);
+					tic_cart_seq = rs.getInt(1);
 				}
 
 			}
@@ -306,7 +305,7 @@ public class ProductDetailDAO {
 			e.printStackTrace();
 		}
 
-		return cart_seq;
+		return tic_cart_seq;
 	};
 
 //	public int selectCart_seq(Connection conn) throws SQLException {
@@ -334,35 +333,39 @@ public class ProductDetailDAO {
 //		
 //		return cart_seq;
 //	};
-	public boolean insertTotalCart(Connection conn, int cart_seq, ArrayList<Integer> ids, ArrayList<Integer> counts)
+	public boolean insertTotalCart(Connection conn, int tic_cart_seq, ArrayList<Integer> ids, ArrayList<Integer> counts)
 			throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(
-				"insert into tic_cart_option_cnt (tic_purchas_history_seq, tic_cart_seq, tic_option_seq, tic_op_purchas_cnt)values (tic_cart_option_cnt_seq.nextval, ?, ?, ?)");
+		sql.append("insert into tic_cart_option_cnt (tic_purchas_history_seq, tic_cart_seq, tic_option_seq, tic_op_purchas_cnt)values "
+				+ "(tic_cart_option_cnt_seq.nextval, ?, ?, ?)");
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ProductDTO dto = null;
 		boolean result = false;
 
 		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			for (int i = 0; i < ids.size(); i++) {
-				pstmt.setInt(1, cart_seq);
-				pstmt.setInt(2, ids.get(i));
-				pstmt.setInt(3, counts.get(i));
+			int n = ids.size();
+			for (int i = 0 ; i < n;  i++) {
+				 
+				pstmt = conn.prepareStatement(sql.toString());
+					pstmt.setInt(1, tic_cart_seq);
+					pstmt.setInt(2, ids.get(i));
+					pstmt.setInt(3, counts.get(i));
+				System.out.print("카트시퀀스"+tic_cart_seq);
+				System.out.print("/ 옵션번호"+ids.get(i));
+				System.out.println("/ 개수"+counts.get(i));
+				
 				result = pstmt.executeUpdate() == 0 ? false : true;
-				if (result) {
+				if (!result) {
+					System.out.println(">>> " + result );
 					return result;
 				}
 			}
 			pstmt.close();
-			rs.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return false;
+		return result;
 	};
 
 	public ProductDTO selectCartId(Connection conn, int cart_seq) {

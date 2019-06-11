@@ -124,7 +124,7 @@
          <!-- banner_wrap -->
 
          <div id="content_wrap">
-            <div id="content" class="detail coupon ${ param.tab }">
+            <div id="content" class="detail coupon ${ param.tab ne null ? param.tab : 'info' }">
                <ul class="tab">
                   <li class="item info"><a
                      href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=info">상제정보</a>
@@ -147,59 +147,41 @@
                </script>
                <c:choose>
                   <c:when test="${ param.tab eq null || param.tab eq 'info' }">
-                     <%
-                        System.out.println("info");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_info.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'photo' }">
-                     <%
-                        System.out.println("photo");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_photo.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'menu' }">
-                     <%
-                        System.out.println("menu");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_menu.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'map' }">
-                     <%
-                        System.out.println("map");
-                     %>
                      <div class="body first last">
                         <div id="map"></div>
                      </div>
                   </c:when>
 
                   <c:when test="${ param.tab eq 'qna' }">
-                     <%
-                        System.out.println("qna");
-                     %>
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_qna.jsp" />
                   </c:when>
 
                   <c:otherwise>
-                     <%
-                        System.out.println("c:otherwise");
-                     %>
-                     <jsp:include page="/WEB-INF/view/rest/rest_info.jsp" />
+                     <jsp:include
+                        page="/WEB-INF/view/product/productDetail_info.jsp" />
                   </c:otherwise>
                </c:choose>
             </div>
             <div id="sidebar_wrap" class="detail">
                <button class="sidebar buy border_radius soft" data-id="5432"
                   data-cart="true" tabindex="-1">바로 구매하기</button>
-               <button class="sidebar addCart border_radius soft" tabindex="-1">장바구니
-                  담기</button>
+               <button class="sidebar addCart border_radius soft" tabindex="-1">장바구니  담기</button>
                <script>
                   $(".empty favorite").click(function () {
                      alert("fav click");

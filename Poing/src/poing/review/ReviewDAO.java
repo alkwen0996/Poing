@@ -16,7 +16,7 @@ public class ReviewDAO {
 		sql.append(" WITH reviewlist as ( ");
 		sql.append("   SELECT ROWNUM num, rev.*, rest.rest_name, rest.rest_address, ri.rest_img, mem.m_name, mem.m_img,  ");
 		sql.append("   (SELECT COUNT(*) FROM follow WHERE following_seq = rev.rev_m_seq) m_ercnt,  ");
-		sql.append("   (SELECT COUNT(*) FROM review WHERE m_seq = rev.rev_m_seq) m_revcnt,   ");
+		sql.append("   (SELECT COUNT(*) FROM review WHERE rev_m_seq = rev.rev_m_seq) m_revcnt,   ");
 		sql.append("   (SELECT COUNT(*) FROM review_like WHERE rev_seq = rev.rev_seq) like_cnt,  ");
 		sql.append("   (SELECT COUNT(*) FROM review_comment WHERE rev_seq = rev.rev_seq) commend_cnt,  ");
 		sql.append("   (SELECT COUNT(*) FROM pick WHERE rev_seq = rev.rev_seq) pick_cnt  ");
@@ -172,7 +172,7 @@ public class ReviewDAO {
 		StringBuffer sql = new StringBuffer();
 		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_address, ri.rest_img, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = rev.rev_m_seq) m_ercnt, ");
-		sql.append( "(SELECT COUNT(*) FROM review WHERE m_seq = rev.rev_m_seq) m_revcnt,  ");
+		sql.append( "(SELECT COUNT(*) FROM review WHERE rev_m_seq = rev.rev_m_seq) m_revcnt,  ");
 		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_seq = rev.rev_seq) like_cnt, ");
 		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_seq = rev.rev_seq) commend_cnt, ");
 		sql.append( "(SELECT COUNT(*) FROM pick WHERE rev_seq = rev.rev_seq) pick_cnt ");
@@ -393,7 +393,7 @@ public class ReviewDAO {
 		sql.append(" WITH reviewlist as ( ");
 		sql.append( "SELECT ROWNUM num, rev.*, rest.rest_name, rest.rest_address, ri.rest_img, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = rev.rev_m_seq) m_ercnt, ");
-		sql.append( "(SELECT COUNT(*) FROM review WHERE m_seq = rev.rev_m_seq) m_revcnt,  ");
+		sql.append( "(SELECT COUNT(*) FROM review WHERE rev_m_seq = rev.rev_m_seq) m_revcnt,  ");
 		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_seq = rev.rev_seq) like_cnt, ");
 		sql.append( "(SELECT COUNT(*) FROM review_comment WHERE rev_seq = rev.rev_seq) commend_cnt, ");
 		sql.append( "(SELECT COUNT(*) FROM pick WHERE rev_seq = rev.rev_seq) pick_cnt ");
@@ -568,14 +568,14 @@ public class ReviewDAO {
 		sql.append(" SELECT * FROM ( ");
 		sql.append("     SELECT rev.*, rest.rest_name, rest.rest_address, ri.rest_img, mem.m_name, mem.m_img, ");
 		sql.append("     (SELECT COUNT(*) FROM follow WHERE follower_seq = rev.rev_m_seq) m_ercnt, ");
-		sql.append("     (SELECT COUNT(*) FROM review WHERE m_seq = rev.rev_m_seq) m_revcnt ");
+		sql.append("     (SELECT COUNT(*) FROM review WHERE rev_m_seq = rev.rev_m_seq) m_revcnt ");
 		sql.append("     FROM review rev ");
 		sql.append("     JOIN restaurant rest ON rev.rev_rest_seq =  rest.rest_seq ");
 		sql.append("     JOIN member mem ON rev.rev_m_seq = mem.m_seq ");
 		sql.append("     JOIN rest_img ri ON rest.ri_seq = ri.ri_seq ");
 		sql.append("     ORDER BY rev_wtime DESC ");
 		sql.append(" ) ");
-		sql.append(" WHERE ROWNUM < 12 ");
+		sql.append(" WHERE ROWNUM < 13 ");
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

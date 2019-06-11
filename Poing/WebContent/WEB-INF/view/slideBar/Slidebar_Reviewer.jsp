@@ -1,93 +1,45 @@
+<%@page import="poing.review.ReviewDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="poing.member.MemberDTO"%>
+<%@page import="poing.member.MemberDAO"%>
+<%@page import="com.util.ConnectionProvider"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	Connection conn = ConnectionProvider.getConnection();
+	int my_no = -1;
+	MemberDTO authUser = (MemberDTO)request.getAttribute("authUser");
+	
+	if (authUser != null) {
+		my_no = authUser.getM_seq();
+	}
+	ArrayList<ReviewDTO> mem_slide_list = MemberDAO.getRecommandReviewer(conn, my_no);
+	request.setAttribute("mem_slide_list", mem_slide_list);
+	conn.close();
+%>
+
 <div id="editor_recommend_restaurant" class="sidebar">
 	<div class="title">추천 리뷰어</div>
 	<ul class="list">
-		<li class="item"><a class="i_wrap" href="/timeline/376506"> <i
-				class="image border_radius circle"
-				style="background-image: url(http://c4.poing.co.kr/MjAxNzAy/1486694080589d26c07ca11.jpeg)"></i>
-		</a>
+	<c:forEach items="${ mem_slide_list }" var="mdto">
+		<li class="item">
+			<a class="i_wrap" href="/Poing/timeline.do?id=${mdto.m_seq}"> 
+				<i class="image border_radius circle" style="background-image: url(${realPath}${mdto.m_img})"></i>
+			</a>
 			<div class="detail">
 				<div class="name">
-					<a href="/timeline/376506">꽃하은</a>
+					<a href="/Poing/timeline.do?id=${mdto.m_seq}">${mdto.m_name}</a>
 				</div>
 				<div class="info">
-					124 리뷰, <span data-type="poing.user.follow" data-id="376506">116</span>
-					팔로워
+					${ mdto.m_revcnt } 리뷰, <span data-type="poing.user.follow" data-id="${mdto.m_seq}">${ mdto.m_ercnt }</span> 팔로워
 				</div>
-				<button class="gray_red_fill border_radius soft "
-					data-type="poing.user.follow" data-id="376506" tabindex="-1">
-					<i class="icon follow "></i> <span>팔로우</span>
+				<button class="gray_red_fill border_radius soft ${ mdto.amIfollow ? 'on' : '' }" data-type="poing.user.follow" data-id="${mdto.m_seq}" tabindex="-1">
+					<i class="icon follow ${ mdto.amIfollow ? 'on' : '' }"></i> <span>팔로우</span>
 				</button>
-			</div></li>
-		<li class="item"><a class="i_wrap" href="/timeline/519948"> <i
-				class="image border_radius circle"
-				style="background-image: url(http://c4.poing.co.kr/thumbnail/5531f343d20c783b420006d6.jpg)"></i>
-		</a>
-			<div class="detail">
-				<div class="name">
-					<a href="/timeline/519948">오드리슈</a>
-				</div>
-				<div class="info">
-					70 리뷰, <span data-type="poing.user.follow" data-id="519948">27</span>
-					팔로워
-				</div>
-				<button class="gray_red_fill border_radius soft "
-					data-type="poing.user.follow" data-id="519948" tabindex="-1">
-					<i class="icon follow "></i> <span>팔로우</span>
-				</button>
-			</div></li>
-		<li class="item"><a class="i_wrap" href="/timeline/610979"> <i
-				class="image border_radius circle"
-				style="background-image: url(http://c4.poing.co.kr/thumbnail/5783cd18668a4861f4000180.jpg)"></i>
-		</a>
-			<div class="detail">
-				<div class="name">
-					<a href="/timeline/610979">이성수</a>
-				</div>
-				<div class="info">
-					80 리뷰, <span data-type="poing.user.follow" data-id="610979">413</span>
-					팔로워
-				</div>
-				<button class="gray_red_fill border_radius soft on"
-					data-type="poing.user.follow" data-id="610979" tabindex="-1">
-					<i class="icon follow on"></i> <span>팔로우</span>
-				</button>
-			</div></li>
-		<li class="item"><a class="i_wrap" href="/timeline/542278"> <i
-				class="image border_radius circle"
-				style="background-image: url(http://c4.poing.co.kr/thumbnail/568a0b57d820b97f80000117.jpg)"></i>
-		</a>
-			<div class="detail">
-				<div class="name">
-					<a href="/timeline/542278">Jin</a>
-				</div>
-				<div class="info">
-					111 리뷰, <span data-type="poing.user.follow" data-id="542278">71</span>
-					팔로워
-				</div>
-				<button class="gray_red_fill border_radius soft "
-					data-type="poing.user.follow" data-id="542278" tabindex="-1">
-					<i class="icon follow "></i> <span>팔로우</span>
-				</button>
-			</div></li>
-		<li class="item"><a class="i_wrap" href="/timeline/336595"> <i
-				class="image border_radius circle"
-				style="background-image: url(http://c4.poing.co.kr/thumbnail/5470aa93d20c7855230003fa.jpg)"></i>
-		</a>
-			<div class="detail">
-				<div class="name">
-					<a href="/timeline/336595">박소은</a>
-				</div>
-				<div class="info">
-					120 리뷰, <span data-type="poing.user.follow" data-id="336595">62</span>
-					팔로워
-				</div>
-				<button class="gray_red_fill border_radius soft "
-					data-type="poing.user.follow" data-id="336595" tabindex="-1">
-					<i class="icon follow "></i> <span>팔로우</span>
-				</button>
-			</div></li>
+			</div>
+		</li>
+	</c:forEach>
 	</ul>
 </div>

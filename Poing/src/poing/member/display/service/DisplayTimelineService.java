@@ -93,6 +93,7 @@ public class DisplayTimelineService {
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
 		result = MemberDAO.amIFollow(conn , memberID, my_no);
+		conn.close();
 		return result;
 	}
 }// class

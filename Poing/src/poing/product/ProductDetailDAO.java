@@ -18,7 +18,7 @@ public class ProductDetailDAO {
 	public static ProductDetailDAO getInstance() {
 		return displaydao;
 	}
-	
+
 	public static ArrayList<ProductDTO> selectRestPhotoImg(Connection conn, int tic_seq) {
 		String sql = " select * from ticket_menu_img where tic_seq = ? ";
 		PreparedStatement pstmt = null;
@@ -35,7 +35,7 @@ public class ProductDetailDAO {
 			rs.next();
 			dto.setTic_menu_images(rs.getString("tic_menu_images"));
 			list.add(dto);
-		
+
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,8 +53,14 @@ public class ProductDetailDAO {
 
 	public static List<RefundTicketDTO> selectReserva_tic(Connection conn) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(
-				" select op_cnt,p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img,op_cnt,op_price from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq where p_state='결제완료' ");
+		sql.append(" SELECT op_cnt,p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, "
+				+ "c_date,party_size,photo_img,op_cnt,op_price from cart c ");
+		sql.append(" join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq ");
+		sql.append(" join p_product a on a.p_num = p.p_num ");
+		sql.append(" join p_restaurant l on l.p_num = a.p_num ");
+		sql.append(" join product_img i on i.img_seq = a.img_seq ");
+		sql.append(" join reserve_tic k on k.cart_seq = c.cart_seq ");
+		sql.append(" where p_state='결제완료' ");
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -118,8 +124,15 @@ public class ProductDetailDAO {
 
 	public static List<RefundTicketDTO> selectRefund_tic(Connection conn) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(
-				" select p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, c_date,party_size,photo_img,op_cnt,op_price from cart c join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq join p_product a on a.p_num = p.p_num join p_restaurant l on l.p_num = a.p_num join product_img i on i.img_seq = a.img_seq join reserve_tic k on k.cart_seq = c.cart_seq where p_state='환불완료' ");
+		sql.append("SELECT p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, "
+				+ "c_date,party_size,photo_img,op_cnt,op_price from cart c ");
+		sql.append("join totalcart t on c.cart_seq = t.cart_seq ");
+		sql.append(" join  p_option p on t.op_seq = p.op_seq ");
+		sql.append(" join p_product a on a.p_num = p.p_num ");
+		sql.append(" join p_restaurant l on l.p_num = a.p_num ");
+		sql.append(" join product_img i on i.img_seq = a.img_seq ");
+		sql.append(" join reserve_tic k on k.cart_seq = c.cart_seq ");
+		sql.append(" where p_state='환불완료' ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<RefundTicketDTO> list2 = new ArrayList<>();
@@ -309,31 +322,31 @@ public class ProductDetailDAO {
 		return cart_seq;
 	};
 
-//	public int selectCart_seq(Connection conn) throws SQLException {
-//		String sql = "select cart_seq.currval cart_seq from dual";
-//		PreparedStatement pstmt = conn.prepareStatement(sql);
-//		ResultSet rs = null;
-//		ProductDTO dto = null;
-//		int cart_seq = 0;
-//		try {
-//			
-//			dto = new ProductDTO();
-//			rs = pstmt.executeQuery();
-//				cart_seq = rs.getInt("cart_seq");
-//		}catch (SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			try {
-//				pstmt.close();
-//				rs.close();
-//				conn.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}	
-//		
-//		return cart_seq;
-//	};
+	//	public int selectCart_seq(Connection conn) throws SQLException {
+	//		String sql = "select cart_seq.currval cart_seq from dual";
+	//		PreparedStatement pstmt = conn.prepareStatement(sql);
+	//		ResultSet rs = null;
+	//		ProductDTO dto = null;
+	//		int cart_seq = 0;
+	//		try {
+	//			
+	//			dto = new ProductDTO();
+	//			rs = pstmt.executeQuery();
+	//				cart_seq = rs.getInt("cart_seq");
+	//		}catch (SQLException e) {
+	//			e.printStackTrace();
+	//		}finally {
+	//			try {
+	//				pstmt.close();
+	//				rs.close();
+	//				conn.close();
+	//			} catch (SQLException e) {
+	//				e.printStackTrace();
+	//			}
+	//		}	
+	//		
+	//		return cart_seq;
+	//	};
 	public boolean insertTotalCart(Connection conn, int cart_seq, ArrayList<Integer> ids, ArrayList<Integer> counts)
 			throws SQLException {
 		StringBuffer sql = new StringBuffer();
@@ -398,8 +411,8 @@ public class ProductDetailDAO {
 		}
 		return dto2;
 	}
-	
-	
+
+
 	public ProductDTO selectCartOption(Connection conn, int cart_seq) {
 		String sql = " select * from tic_cart_option_cnt t join tic_option p on t.tic_option_seq = p.tic_option_seq join cart c on t.tic_cart_seq = c.tic_cart_seq where c.tic_cart_seq = ? ";
 		PreparedStatement pstmt = null;
@@ -409,7 +422,7 @@ public class ProductDetailDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cart_seq);
 			rs = pstmt.executeQuery();
-			
+
 			dto2 = new ProductDTO();
 			if (rs.next()) {
 				dto2.setTic_op_name(rs.getString("tic_op_name"));
@@ -419,7 +432,7 @@ public class ProductDetailDAO {
 				dto2.setTic_dc_price(rs.getInt("tic_dc_price"));
 				dto2.setTic_reserve_date(rs.getString("tic_reserve_date"));
 			};
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -516,7 +529,7 @@ public class ProductDetailDAO {
 	public ProductDTO selectdisplay(Connection conn, int tic_seq, int member_num) {
 		String sql = " select * from restaurant r join editer_review e on r.rest_seq = e.rest_seq join ticket t "
 				+ "on t.rest_seq = r.rest_seq join editer i on i.e_seq = e.e_seq where t.tic_seq = ? ";
-		
+
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt_qna = null;
@@ -544,14 +557,14 @@ public class ProductDetailDAO {
 			dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
 			// dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
 
-//			sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?)";
-//			pstmt2 = conn.prepareStatement(sql);
-//			pstmt2.setInt(1, member_num);
-//			pstmt2.setInt(2, tic_seq);
-//			rs2 = pstmt2.executeQuery();
-//			rs2.next();
-//			dto.setPick(rs2.getInt("cnt"));
-//			System.out.println("productdetail DAO : cnt = " + rs2.getInt("cnt"));
+			//			sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?)";
+			//			pstmt2 = conn.prepareStatement(sql);
+			//			pstmt2.setInt(1, member_num);
+			//			pstmt2.setInt(2, tic_seq);
+			//			rs2 = pstmt2.executeQuery();
+			//			rs2.next();
+			//			dto.setPick(rs2.getInt("cnt"));
+			//			System.out.println("productdetail DAO : cnt = " + rs2.getInt("cnt"));
 
 			// qna
 			StringBuffer sql_qna = new StringBuffer();

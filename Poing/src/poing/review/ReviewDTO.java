@@ -78,9 +78,6 @@ public class ReviewDTO {
 		this.rest_img = rs.getString("rest_img");
 
 		this.m_seq = rs.getInt("rev_m_seq");
-		this.m_name = rs.getString("m_name");
-		this.m_img = rs.getString("m_img");
-		
 		
 		
 		if (type.equals("write")) {
@@ -93,6 +90,8 @@ public class ReviewDTO {
 			}
 		}
 		else if (type.equals("main")) {
+			this.m_name = rs.getString("m_name");
+			this.m_img = rs.getString("m_img");
 			this.m_ercnt = rs.getInt("m_ercnt");
 			this.m_revcnt = rs.getInt("m_revcnt");
 		}

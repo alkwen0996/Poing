@@ -97,15 +97,12 @@ public class DisplayTimelineHandler implements CommandHandler {
 			request.setAttribute("review_list", review_list);
 		}
 		
-		ArrayList<RestListDTO> pick_rest_list = null;
-		int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
-		if (tab.equals("restaurant")) {
-			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
-			request.setAttribute("pick_rest_list", pick_rest_list);
-		}
 		else if (tab.equals("restaurant"))
 		{
-
+			ArrayList<RestListDTO> pick_rest_list = null;
+			int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
+			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
+			request.setAttribute("pick_rest_list", pick_rest_list);
 		}
 		else if (tab.equals("alert"))
 		{

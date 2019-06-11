@@ -463,7 +463,7 @@
 					<c:forEach var="rev_dto" items="${ mainDTO.rev_list }" begin="${ i*3 }" end="${ i*3+2 }" varStatus="status">
 						<div class="element main_review ${ status.index eq i*3?'first':'' } ">
 							<a href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rev_rest_seq }" class="image"
-								style="display: block; background-image: url(&quot;http://c2.poing.co.kr/PIMAGE-original/MjAxNzAx/1484297155587893c36848b.jpeg&quot;);">
+								style="display: block; background-image: url(&quot;${realPath}${ rev_dto.rest_img }&quot;);">
 								<div class="shading"></div>
 
 								<div class="bottom">

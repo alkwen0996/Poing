@@ -15,11 +15,11 @@ import poing.product.ProductDTO;
 public class DisplayCartService {
    CartDAO cartdao = new CartDAO();
    
-   public int insertbasket(int m_no) {
+   public int insertbasket(int m_seq) {
       try {
          Connection conn = ConnectionProvider.getConnection();
          conn.setAutoCommit(false);
-         int cart = cartdao.insertbasket(conn, m_no);
+         int cart = cartdao.insertbasket(conn, m_seq);
          
          /*if (cart != -1) {
             return true;

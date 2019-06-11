@@ -30,8 +30,8 @@ public class DisplayProductCartHandler implements CommandHandler {
 		DisplayCartService cartservice = new DisplayCartService();
 		RestListDTO rdto = new RestListDTO();
 		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");  
-		int m_no = mdto.getM_no();
-		int cart_seq = cartservice.insertbasket(m_no);
+		int m_seq = mdto.getM_seq();
+		int cart_seq = cartservice.insertbasket(m_seq);
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@" + cart_seq);
 		String[] ids = request.getParameterValues("id");
 		String[] counts = request.getParameterValues("count");

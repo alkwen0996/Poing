@@ -11,7 +11,7 @@ int m_no = -1;
 MemberDTO authUser = (MemberDTO)session.getAttribute("authUser");
 
 if(authUser != null)
-	m_no = authUser.getM_no();
+	m_no = authUser.getM_seq();
 
 int rev_no = (int)request.getAttribute("rev_no");
 Connection conn = null;

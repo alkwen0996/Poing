@@ -11,7 +11,6 @@ import org.json.simple.JSONArray;
 
 import poing.member.MemberDTO;
 
-
 public class ProductDetailDAO {
 	
 	private static ProductDetailDAO displaydao = new ProductDetailDAO();

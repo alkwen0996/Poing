@@ -15,7 +15,7 @@ public class AdminLogoutHandler implements CommandHandler{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		session.removeAttribute("authAdmin");
-		response.sendRedirect("/Poing/admin/login.ow");
+		response.sendRedirect("/Poing/admin/login.ad");
 		return null;
 	}
 

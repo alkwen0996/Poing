@@ -22,69 +22,74 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/admin/layout/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include>
+
+
 <div id="content">
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span6">
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"> <i class="icon-align-justify"></i>
-							</span>
-							<h5>에디터 사진 설정</h5>
-						</div>
-						<div class="widget-content nopadding">
-							<form class="form-horizontal" enctype="multipart/form-data"
-								action="editer_image_change.ad" method="post">
-								<div class="control-group">
-									<label class="control-label">사용할 사진 선택</label>
-									<div class="controls">
-										<div class="uploader" id="uniform-undefined">
-											<input type="file" size="19" name="editer_image"
-												style="opacity: 0;"> <span class="filename">No
-												file selected</span> <span class="action">Choose File</span>
-										</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-align-justify"></i>
+						</span>
+						<h5>에디터 사진 설정</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<form class="form-horizontal" enctype="multipart/form-data"
+							action="editer_image_change.ad" method="post">
+							<div class="control-group">
+								<label class="control-label">사용할 사진 선택</label>
+								<div class="controls">
+									<div class="uploader" id="uniform-undefined">
+										<input type="file" size="19" name="editer_image"
+											style="opacity: 0;"> <span class="filename">No
+											file selected</span> <span class="action">Choose File</span>
 									</div>
 								</div>
-								<div class="form-actions">
-									<button type="submit" class="btn btn-success">Save</button>
-								</div>
-							</form>
-						</div>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success">Save</button>
+							</div>
+						</form>
 					</div>
 				</div>
-				<div class="span6">
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"> <i class="icon-picture"></i>
-							</span>
-							<h5>현제 에디터 사진</h5>
-						</div>
-						<div class="widget-content">
-							<c:choose>
-								<c:when test="${ authAdmin.e_img eq null || authAdmin.e_img.isEmpty() }">
-									현재 에디터의 이미지가 없습니다.
-								</c:when>
-								<c:otherwise>
-								<ul class="thumbnails">
-									<li class="span2"><a> 
-									<img src="${ realPath }${ authAdmin.e_img }" alt="">
+			</div>
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-picture"></i>
+						</span>
+						<h5>현제 에디터 사진</h5>
+					</div>
+					<div class="widget-content">
+						<c:choose>
+							<c:when test="${ authAdmin.e_img eq null || authAdmin.e_img.isEmpty() }">
+								현재 에디터의 이미지가 없습니다.
+							</c:when>
+							<c:otherwise>
+							<ul class="thumbnails">
+								<li class="span2"><a> 
+								<img src="${ realPath }${ authAdmin.e_img }" alt="">
+								</a>
+								<div class="actions">
+									<a class="lightbox_trigger" href="${ realPath }${ authAdmin.e_img }">
+										<i class="icon-search"></i>
 									</a>
-									<div class="actions">
-										<a class="lightbox_trigger" href="${ realPath }${ authAdmin.e_img }">
-											<i class="icon-search"></i>
-										</a>
-									</div>
-									</li>
-								</ul>
-								</c:otherwise>
-							</c:choose>
-						</div>
+								</div>
+								</li>
+							</ul>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- container-fluid -->
-	
+	</div>
+	<!-- container-fluid -->
+
 	<div class="container-fluid">
 	<div class="row-fluid">
 			<div class="span6">
@@ -111,7 +116,7 @@
 							<div class="control-group">
 								<label class="control-label">변경할 비밀번호</label>
 								<div class="controls">
-									<input name="e_pw" type="password" class="span11" placeholder="Enter Password">
+									<input name="e_pw" value="${ authAdmin.e_pw }" type="password" class="span11" placeholder="Enter Password">
 								</div>
 							</div>
 							<div class="form-actions">

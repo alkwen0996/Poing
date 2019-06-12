@@ -19,8 +19,8 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/owner/layout/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/owner/layout/sidebar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include>
 
 <div id="content">
 	<div id="content-header">

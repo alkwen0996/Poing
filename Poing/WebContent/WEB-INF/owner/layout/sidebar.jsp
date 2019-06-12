@@ -4,35 +4,35 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li class="active"><a href="index.ow"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li> <a href="charts.ow"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
-    <li> <a href="widgets.ow"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
-    <li><a href="tables.ow"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.ow"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
+    <li class="active"><a href="index.ad"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li> <a href="charts.ad"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
+    <li> <a href="widgets.ad"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
+    <li><a href="tables.ad"><i class="icon icon-th"></i> <span>Tables</span></a></li>
+    <li><a href="grid.ad"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
       <ul>
-        <li><a href="form-common.ow">Basic Form</a></li>
-        <li><a href="form-validation.ow">Form with Validation</a></li>
-        <li><a href="form-wizard.ow">Form with Wizard</a></li>
+        <li><a href="form-common.ad">Basic Form</a></li>
+        <li><a href="form-validation.ad">Form with Validation</a></li>
+        <li><a href="form-wizard.ad">Form with Wizard</a></li>
       </ul>
     </li>
-    <li><a href="buttons.ow"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.ow"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
+    <li><a href="buttons.ad"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
+    <li><a href="interface.ad"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
     <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
       <ul>
-        <li><a href="index2.ow">Dashboard2</a></li>
-        <li><a href="gallery.ow">Gallery</a></li>
-        <li><a href="calendar.ow">Calendar</a></li>
-        <li><a href="invoice.ow">Invoice</a></li>
-        <li><a href="chat.ow">Chat option</a></li>
+        <li><a href="index2.ad">Dashboard2</a></li>
+        <li><a href="gallery.ad">Gallery</a></li>
+        <li><a href="calendar.ad">Calendar</a></li>
+        <li><a href="invoice.ad">Invoice</a></li>
+        <li><a href="chat.ad">Chat option</a></li>
       </ul>
     </li>
     <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
       <ul>
-        <li><a href="error403.ow">Error 403</a></li>
-        <li><a href="error404.ow">Error 404</a></li>
-        <li><a href="error405.ow">Error 405</a></li>
-        <li><a href="error500.ow">Error 500</a></li>
+        <li><a href="error403.ad">Error 403</a></li>
+        <li><a href="error404.ad">Error 404</a></li>
+        <li><a href="error405.ad">Error 405</a></li>
+        <li><a href="error500.ad">Error 500</a></li>
       </ul>
     </li>
     <li class="content"> <span>Monthly Bandwidth Transfer</span>

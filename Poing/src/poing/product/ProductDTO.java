@@ -257,10 +257,10 @@ public class ProductDTO {
 		this.ticg_content = ticg_content;
 	}
 	public String getTic_validate_content() {
-		return tic_validate_content;
+		return this.tic_validate_title;
 	}
 	public void setTic_validate_content(String tic_validate_content) {
-		this.tic_validate_content = tic_validate_content;
+		this.tic_validate_title = tic_validate_content;
 	}
 	public String getTic_cancel_content() {
 		return tic_cancel_content;

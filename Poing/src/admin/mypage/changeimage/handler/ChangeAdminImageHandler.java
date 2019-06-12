@@ -2,6 +2,7 @@ package admin.mypage.changeimage.handler;
 
 import java.io.File;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,14 +20,14 @@ public class ChangeAdminImageHandler implements CommandHandler{
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("ChangeAdminImageHandler process");
-		
+
 		AdminDTO authAdmin = (AdminDTO) request.getSession().getAttribute("authAdmin");
 		if (authAdmin == null) {
 			System.out.println("세션 정보 부족");
 			response.sendRedirect("/Poing/admin/login.ad");
 			return null;
 		}
-		
+
 		String realPath = "/upload/editerimage/";
 		String saveDirectory = request.getRealPath(realPath);
 		System.out.println("saveDirectory: "+saveDirectory);
@@ -34,7 +35,7 @@ public class ChangeAdminImageHandler implements CommandHandler{
 		File saveDir = new File(saveDirectory);
 		if (!saveDir.exists())
 			saveDir.mkdirs();
-		
+
 		int maxPostSize = 1024 * 1024 * 5; // 5MB  단위 byte
 		String encoding = "UTF-8";
 		FileRenamePolicy policy = new DefaultFileRenamePolicy();
@@ -59,23 +60,31 @@ public class ChangeAdminImageHandler implements CommandHandler{
 			System.out.println("사진 입력 성공");
 			System.out.println(realPath+originalFileName);
 		}
-		
+
 		String imagePath = null;
 		int e_seq = authAdmin.getE_seq();
 		result = changeAdminImageService.changeAdminImage(realPath+originalFileName, e_seq);
 		if (result ) {
 			System.out.println("에디터 이미지 업데이트 성공");
 			String pre_img = authAdmin.getE_img();
+			pre_img = pre_img.substring(pre_img.lastIndexOf("/")+1);
 			String new_img = realPath+originalFileName;
-			deleteFile(pre_img);
+			deleteFile(saveDirectory+pre_img);
 			authAdmin.setE_img(new_img);
 		}
 		response.sendRedirect("/Poing/admin/editer_mypage.ad");
 		return null;
 	}
-	private void deleteFile(String pre_img) {
-		File attachedFile = new File(pre_img);
-		if( attachedFile.exists() ) 
-			attachedFile.delete();
+	private void deleteFile(String filePath) {
+		try {
+			File attachedFile = new File(filePath);
+			if( attachedFile.exists() )
+			{
+				attachedFile.delete();
+				System.out.println("기존 사진 삭제 성공");
+			}
+		} catch (Exception e) {
+			System.out.println("기존 사진 삭제 실패");
+		}
 	}
 }

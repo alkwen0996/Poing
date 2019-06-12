@@ -67,7 +67,7 @@ public class AdminDAO {
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" UPDATE editer SET ");
-		sql.append(" e_name = ? ");
+		sql.append(" e_name = ?, ");
 		sql.append(" e_pw = ? ");
 		sql.append(" WHERE e_seq = ? ");
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());

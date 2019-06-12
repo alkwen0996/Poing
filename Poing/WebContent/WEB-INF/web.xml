@@ -97,6 +97,9 @@
     <url-pattern>/admin/banner_image_remove.ad</url-pattern>
     <url-pattern>/admin/banner_image_add.ad</url-pattern>
     <url-pattern>/admin/banner_image_move.ad</url-pattern>
+    <url-pattern>/admin/editer_mypage.ad</url-pattern>
+    <url-pattern>/admin/editer_image_change.ad</url-pattern>
+    <url-pattern>/admin/editer_image_change.ad</url-pattern>
   </filter-mapping>
   
   <servlet>

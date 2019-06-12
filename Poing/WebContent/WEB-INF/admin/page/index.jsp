@@ -19,8 +19,8 @@
 </head>
 <body>
 
-<jsp:include page="/WEB-INF/owner/layout/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/owner/layout/sidebar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include>
 
 <div id="content">
   <div id="content-header">
@@ -30,9 +30,9 @@
     <ul class="quick-actions">
       <li class="bg_lb"> <a href="index.ad"> <i class="icon-dashboard"></i> My Dashboard </a> </li>
       <li class="bg_lg"> <a href="banner_image.ad"> <i class="icon-picture"></i> 배너 이미지</a> </li>
-      <li class="bg_ly"> <a href="banner_image.ad"> <i class="icon-picture"></i> 프로덕트 이미지</a> </li>
-      <li class="bg_lo"> <a href="banner_image.ad"> <i class="icon-picture"></i> 카테코리 이미지</a> </li>
+      <li class="bg_lo"> <a href="mainpage_image.ad"> <i class="icon-picture"></i> 메인페이지 이미지</a> </li>
       <li class="bg_ls"> <a href="editer_review.ad"> <i class="icon-pencil"></i> 에디터평 작성 </a> </li>
+      <li class="bg_ly"> <a href="editer_mypage.ad"> <i class="icon-th-list"></i> 정보수정 </a> </li>
     </ul>
   </div>
   <div class="container-fluid">
@@ -146,49 +146,7 @@
         </div>
       </div>
     </div>
-    <hr>
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="widget-box widget-calendar">
-          <div class="widget-title"> <span class="icon"><i class="icon-calendar"></i></span>
-            <h5>Calendar</h5>
-            <div class="buttons"> <a id="add-event" data-toggle="modal" href="#modal-add-event" class="btn btn-inverse btn-mini"><i class="icon-plus icon-white"></i> Add new event</a>
-              <div class="modal hide" id="modal-add-event">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">×</button>
-                  <h3>Add a new event</h3>
-                </div>
-                <div class="modal-body">
-                  <p>Enter event name:</p>
-                  <p>
-                    <input id="event-name" type="text" />
-                  </p>
-                </div>
-                <div class="modal-footer"> <a href="#" class="btn" data-dismiss="modal">Cancel</a> <a href="#" id="add-event-submit" class="btn btn-primary">Add event</a> </div>
-              </div>
-            </div>
-          </div>
-          <div class="widget-content">
-            <div class="panel-left">
-              <div id="fullcalendar"></div>
-            </div>
-            <div id="external-events" class="panel-right">
-              <div class="panel-title">
-                <h5>Drag Events to the calander</h5>
-              </div>
-              <div class="panel-content">
-                <div class="external-event ui-draggable label label-inverse">My Event 1</div>
-                <div class="external-event ui-draggable label label-inverse">My Event 2</div>
-                <div class="external-event ui-draggable label label-inverse">My Event 3</div>
-                <div class="external-event ui-draggable label label-inverse">My Event 4</div>
-                <div class="external-event ui-draggable label label-inverse">My Event 5</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
 <!--Footer-part-->
 <div class="row-fluid">

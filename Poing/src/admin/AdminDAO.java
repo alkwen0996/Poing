@@ -51,4 +51,16 @@ public class AdminDAO {
 		}
 		return adminDTO;
 	}
+	public boolean updateEditerImage(Connection conn, String imagePath, int e_seq) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE editer SET e_img = ? ");
+		sql.append(" WHERE e_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, imagePath);
+		pstmt.setInt(2, e_seq);
+		result = pstmt.executeUpdate()==0?false:true;
+		pstmt.close();
+		return result;
+	}
 }

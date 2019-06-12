@@ -54,4 +54,17 @@ public class RestDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public ArrayList<String> historySelect(int rest_seq) {
+		RestDetailDAO dao = RestDetailDAO.getInstance();	
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			
+			ArrayList<String> reserveHisList = new ArrayList<>();
+			reserveHisList = dao.selectReservHis(conn, rest_seq);
+	 
+			return reserveHisList;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

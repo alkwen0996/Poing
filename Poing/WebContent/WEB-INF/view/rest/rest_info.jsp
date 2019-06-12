@@ -59,28 +59,27 @@
 	<hr>
 	<div class="section ">
 		<div class="title ">음식 종류</div>
-		<div class="body">일식 / 한식 / 반상 / 해산물요리 / 구이요리</div>
+		<div class="body">${dto.rest_food_type}</div>
 	</div>
 	<div class="section ">
 		<div class="title ">예산</div>
-		<div class="body">5만원 미만 (2인 기준)</div>
+		<div class="body">${dto.rest_budget_type}</div>
 	</div>
 	<hr>
 	<div class="section ">
 		<div class="title ">테이블</div>
-		<div class="body">룸 테이블, 홀 테이블</div>
+		<div class="body">${dto.rest_table_type}</div>
 	</div>
 	<div class="section ">
 		<div class="title ">부가 정보</div>
 		<div class="body">
-			코르키지가 가능한 <br> 베이비 시트가 준비되어 있는 <br> 야외 테라스 자리가 있는 <br>
-			런치 메뉴가 있는 <br> 룸이 준비되어 있는 <br> 단체석이 있는
+			${dto.rest_add_info}
 		</div>
 	</div>
 	<hr>
 	<div class="section ">
 		<div class="title ">판매 주류</div>
-		<div class="body">와인, 양주, 맥주, 소주 등</div>
+		<div class="body">${dto.rest_alchol}</div>
 	</div>
 	<hr>
 	<div class="section single reservation_histories">

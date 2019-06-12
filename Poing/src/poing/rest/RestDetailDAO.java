@@ -97,7 +97,7 @@ public class RestDetailDAO {
 		dto.setRest_name(rs.getString("rest_name"));
 		dto.setRest_tel(rs.getString("rest_tel"));
 		dto.setRest_hour(rs.getString("rest_hour"));
-		
+		dto.setRest_tip(rs.getString("rest_tip"));
 		dto.setRest_reserve_cnt(rs.getInt("reserve_cnt"));
 		dto.setRest_review_cnt(rs.getInt("review_cnt"));
 		dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
@@ -137,6 +137,45 @@ public class RestDetailDAO {
 			
 			while (rs.next()) {
 				list.add(rs.getString("rest_img"));
+			}
+			
+			
+		} catch (Exception e) {
+			try {
+				pstmt.close();
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return list;
+	}
+
+	public ArrayList<String> selectReservHis(Connection conn, int rest_seq) {
+		ArrayList<String> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select rownum, a.* from (select * from rest_reserve where r_reserve_rest_seq ="+rest_seq+" order by r_reserve_date desc ) a where rownum<=2";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				StringBuffer sb = new StringBuffer();
+				//2019.5.25 오후 7:00, 2명 예약하셨습니다
+				sb.append(rs.getString("r_reserve_date"));
+				sb.append(" ");
+				sb.append(rs.getString("r_reserve_hour").split(":")[0]+":"+rs.getString("r_reserve_hour").split(":")[1]);
+				sb.append(", ");
+				sb.append(rs.getInt("r_reserve_num_of_people")+"명");
+				sb.append(" 예약하셨습니다");
+				
+				list.add(sb.toString());
 			}
 			
 			

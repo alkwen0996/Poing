@@ -42,9 +42,47 @@
    PreparedStatement pstmt1 = null;
    ResultSet rs = null;
    ResultSet rs1 = null;
-   
+ 
+   PreparedStatement hpstmt = null;
+   ResultSet hrs = null;
+   String h0, h1,h2,h3,h4,h5,h6;
+   h6 ="\"11:30\", \"11:30\", \"12:30\", \"12:30\", \"18:00\", \"21:00\"";
+   h0 =h1=h2=h3=h4=h5=h6;
+   String holidaysql = "select rest_holiday from restaurant where  rest_seq = "+rest_seq;
    try {
 		conn =ConnectionProvider.getConnection();
+		
+		hpstmt = conn.prepareStatement(holidaysql);
+	   	hrs = hpstmt.executeQuery();
+	   	if (hrs.next()){
+	   	String holiday = hrs.getString("rest_holiday");
+		String [] holidays = holiday.split(",");
+	   	
+		xxx: for(int i=0; i<holidays.length; i++ ) {
+	   		switch(holidays[i].trim()){
+	   		case "연중무휴" : 
+	   			break xxx;
+	   		case "일요일": h0="";
+	   			break;
+	   		case "월요일": h1="";
+	   			break;
+	   		case "화요일": h2="";
+	   			break;
+	   		case "수요일": h3="";
+	   			break;
+	   		case "목요일": h4="";
+	   			break;
+	   		case "금요일": h5="";
+	   			break;
+	   		case "토요일": h6="";
+	   			break;
+	   		default:
+	   			break;
+	   		}
+	   	}
+	   	}
+		
+		
 	   	pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, rest_seq);
 		rs = pstmt.executeQuery();
@@ -204,58 +242,13 @@
                "target":"place",
                "target_id":14991,
                "start_end_times":[  
-                  [  
-                     "11:30",
-                     "14:00",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "11:30",
-                     "14:00",
-                     "18:00",
-                     "21:00"
-                  ]
+                 [<%=h0%>],
+       	 		 [<%=h1%>],
+          		 [<%=h2%>],
+          		 [<%=h3%>],
+          		 [<%=h4%>],
+          		 [<%=h5%>],
+           		 [<%=h6%>]
                ],
                "working_hours":[  
                   [  "10:00",

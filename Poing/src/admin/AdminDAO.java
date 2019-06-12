@@ -63,4 +63,19 @@ public class AdminDAO {
 		pstmt.close();
 		return result;
 	}
+	public boolean updateEditerInfo(Connection conn, String e_name, String e_pw, int e_seq) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE editer SET ");
+		sql.append(" e_name = ? ");
+		sql.append(" e_pw = ? ");
+		sql.append(" WHERE e_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, e_name);
+		pstmt.setString(2, e_pw);
+		pstmt.setInt(3, e_seq);
+		result = pstmt.executeUpdate()==0?false:true;
+		pstmt.close();
+		return result;
+	}
 }

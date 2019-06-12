@@ -31,13 +31,7 @@
 <title>Poing 레스토랑 디테일 테스트</title>
 
 </head>
-<%
-	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
-	double starpoint = dto.getRest_starpoint();
-	int tenpoint = (int) Math.round(starpoint * 2);
-	request.setAttribute("tenpoint", tenpoint);
-	System.out.print(tenpoint);
-%>
+
 <body>
 
 	<div id="wrap" class="">
@@ -60,7 +54,7 @@
 								<span class="name"> ${dto.rest_name } </span> <span class="info">
 									지역코드:${dto.rest_loc} ${dto.rest_food_type}</span>
 								<div class="count border_radius soft">예약
-									${dto.rest_reservation_cnt}건 / 리뷰 ${dto.rest_review_cnt}건 / 조회
+									${dto.rest_reserve_cnt}건 / 리뷰 ${dto.rest_review_cnt}건 / 조회
 									${dto.rest_view_cnt}건</div>
 								<button class="empty " data-type="poing.restaurants.favorite"
 									data-id="${dto.rest_seq }" tabindex="-1">
@@ -270,7 +264,7 @@
 				<div id="sidebar_wrap" class="detail">
 					<div id="reserve_button" class="sidebar empty">
 						<button class="red_fill border_radius soft"
-							data-type="poing.reservation.add" data-id="${ authUser.m_no }" tabindex="-1">즉시
+							data-type="poing.reservation.add" data-id="${ authUser.m_seq }" tabindex="-1">즉시
 							예약하기</button>
 					</div>
 					<script>

@@ -7,8 +7,14 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
+=======
+	<classpathentry kind="lib" path="C:/apache-tomcat-8.5.39/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-8.5.39/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+>>>>>>> refs/remotes/origin/kouzie
 </classpath>

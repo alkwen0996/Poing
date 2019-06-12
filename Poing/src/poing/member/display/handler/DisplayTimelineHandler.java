@@ -23,7 +23,7 @@ import poing.review.ReviewDTO;
 
 public class DisplayTimelineHandler implements CommandHandler {
 	DisplayTimelineService displayTimelineService = new DisplayTimelineService();
-
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
@@ -31,6 +31,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
+		if (tab == null) {
+			tab = "reservation";
+		}
 
 		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int memberID = Integer.parseInt(request.getParameter("id"));
@@ -64,7 +67,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID, type);
+			String reservTab = "past";
+			if (type==null || type.equals("recent")) reservTab ="recent";
+			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID,reservTab);
 			request.setAttribute("reserve_list", reserve_list);
 		}
 		else if (tab.equals("coupon"))
@@ -117,8 +122,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
-			ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
+			//ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
+			//ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
 			request.setAttribute("nnlist", nnlist);
 			request.setAttribute("nlist", nlist);
 		}

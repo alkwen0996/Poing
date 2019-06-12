@@ -54,25 +54,13 @@
 							<div class="chat-messages" id="chat-messages">
 								<div id="chat-messages-inner">
 									<p id="msg-1" class="user-linda" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av2.jpg"
-											alt=""><strong>Linda</strong> <span class="time">-
-												16:09</span><span class="msg">Hello Every one do u want to
-												freindship with me?</span></span>
+										<span class="msg-block"><img src="img/demo/av2.jpg" alt="">
+											<strong>Linda</strong> 
+											<span class="time">16:09</span>
+											<span class="msg">Hello Every one do u want to freindship with me?</span>
+										</span>
 									</p>
-									<p id="msg-2" class="user-mark" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av3.jpg"
-											alt=""><strong>Mark</strong> <span class="time">-
-												16:09</span><span class="msg">Yuppi! why not sirji!!.</span></span>
-									</p>
-									<p id="msg-3" class="user-linda" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av2.jpg"
-											alt=""><strong>Linda</strong> <span class="time">-
-												16:09</span><span class="msg">Thanks!!! See you soon than</span></span>
-									</p>
-									<p id="msg-4" class="user-mark" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av3.jpg"
-											alt=""><strong>Mark</strong> <span class="time">-
-												16:09</span><span class="msg">ok Bye than!!!.</span></span>
+									
 									</p>
 								</div>
 							</div>
@@ -106,9 +94,33 @@
 <script>
 	$('.textarea_editor').wysihtml5();
 	
-	$(".searchRest").on("click", function() {
-		alert('setset');
-		console.log('test');
+	$(".searchRest").on("keyup", function() {
+		if( $(this).val().length > 0) {
+            $.ajax({'url': "/Poing/restaurant/search.do?searchWord="+encodeURIComponent($(this).val()),
+                    'type': "GET",
+                    'success': function(res) {
+                        res = $.parseJSON(res).data.ac_keywords;
+
+                        var list = $("#chat-messages-inner");
+                        list.empty();
+
+                        if(res.length > 0) {
+                            for(var i=0; i<res.length && i<5; ++i) {
+                                var e = res[i];
+                                var li = $("<li>", {'data-id':e.id});
+                                li.append( $("<div>", {	'class':'name',
+                                                        'text':e.name }) );
+                                li.append( $("<div>", {	'class':'desc',
+                                                        'text':e.description }) );
+                                list.append(li);
+                            }
+                        } else {
+                            var li = $("<li>");
+                            li.append( $("<div>", {'text':'검색 결과가 없습니다.' }) );
+                            list.append(li);
+                        }
+                    }
+            });
 	});
 </script>
 </body>

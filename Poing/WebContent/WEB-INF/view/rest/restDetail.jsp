@@ -204,7 +204,7 @@
 			</div>
 			
 			<div id="content_wrap">
-				<div id="content" class="detail ${ param.tab }">
+				<div id="content" class="detail ${ param.tab ne null ? param.tab, 'info' }">
 					<ul class="tab">
 						<li class="item info">
 							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=info">정보</a>

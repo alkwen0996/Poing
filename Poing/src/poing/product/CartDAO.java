@@ -55,9 +55,7 @@ public class CartDAO {
 			for (int i = 0; i < ids.length; i++) {
 				pstmt.setInt(1, cart_seq);
 				pstmt.setInt(2, Integer.parseInt(ids[i]));
-				System.out.println("id:" + Integer.parseInt(ids[i]));
 				pstmt.setInt(3, Integer.parseInt(counts[i]));
-				System.out.println("cnt:" + Integer.parseInt(counts[i]));
 				result = pstmt.executeUpdate()==0? false:true;
 				if (!result) {
 					break;

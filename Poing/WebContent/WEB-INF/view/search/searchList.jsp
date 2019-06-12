@@ -43,12 +43,222 @@
 				<div id="banner" class="image "
 					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
 					<div class="title_wrap">
-						<div class="title">한우 ㅋㅋ</div>
+						<div class="title">한우의 맛</div>
 					</div>
 					<div class="line">
 						<hr>
 					</div>
-					<div class="subtitle">ㅋㅋㅋ 한우당</div>
+					<div class="subtitle">콜키지 프리 혜택부터 워터에이징 한우 다이닝까지.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 10860}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">도산공원</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">청담부터 로데오까지, 꾸준히 핫한 플레이스들.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9732}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">스테이크</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">정통 미국식부터 육향이 남다른 한우 스테이크까지.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 10948}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">꼭 한번 가고 싶었던, 바로 그곳</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">일상적인 날도 특별한 날으로 만들고 싶다면.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9752}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">스시 아닌 일식</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">갓포요리부터 토사요리까지. 너무나 다채로운.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9796}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">호텔의 진화</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">도심 속의 호캉스를 즐겨보세요.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9788}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">지중해의 매력을 가득 담은.</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">떠나고 싶지만 떠날 수 없을 때가 있죠.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9740}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">이태원에서 약속이 있다면</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">한남동부터 이태원까지.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9792}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">한식</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">한상 푸짐하게 차려진 집밥이 그립다면.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9760}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">프렌치</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">정교하고도 조화로운 프렌치의 세계</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9748}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">오감을 자극하는 불 맛</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">화려한 중식의 세계를 맛보세요.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9776}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">행복은 뷔페에 있으니까</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">훌륭하고 메뉴를 다양하게 즐길 수 있는 호텔 뷔페.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9768}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">가장 빠르게 행복해지는 방법</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">달콤한 유혹에 빠져봅시다.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9780}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">바 / 이자카야</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">포잉에서만 즐길 수 있는 특별한 할인 혜택.</div>
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${paging.bpage eq 9764}">
+			<div id="banner_wrap">
+				<div id="banner" class="image "
+					style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543552205ca59414ee820.png)">
+					<div class="title_wrap">
+						<div class="title">컨템퍼러리</div>
+					</div>
+					<div class="line">
+						<hr>
+					</div>
+					<div class="subtitle">셰프의 세심한 터치가 가미된 새로운 다이닝.</div>
 				</div>
 			</div>
 		</c:if>
@@ -66,21 +276,21 @@
 							<c:if test="${status.index % 4 ne 0 }">
 								<div class="element  small_coupon">
 							</c:if>
-								<a href="/Poing/product/detail.do?p_num=${dto.p_num}" class="image"
+								<a href="/Poing/product/detail.do?tic_seq=${dto.tic_seq}" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/MRI-original/MjAxOTA0/15566107485cc7febcc1e8e.png&quot;);">
 									<div class="shading"></div>
 
 									<div class="bottom">
-										<span class="name">${dto.rest_name }</span> <span class="area">${dto.r_location}</span>
+										<span class="name">${dto.rest_name }</span> <span class="area">${dto.rest_address}</span>
 									</div>
 								</a>
 
 								<div class="desc">
 									<div class="coupon">
-										<div class="option">${dto.p_name }</div>
+										<div class="option">${dto.tic_name }</div>
 										<div class="price fixed">
-											<div class="ratio long ">${dto.p_type }</div>
-											<div class="discount">${dto.p_dc_money }원</div>
+											<div class="ratio long ">${dto.tic_type }</div>
+											<div class="discount">${dto.tic_view_price}원</div>
 											<div class="origin"></div>
 										</div>
 									</div>
@@ -101,14 +311,14 @@
 
 
 						<c:forEach begin="${paging.startPageNo }"
-							end="${paging.endPageNo}" step="1" var="cpage">
-							<c:if test="${cpage ne paging.cpage }">
-								<li class="page" data-page="${cpage}"><a
-									href="list.do?pg=${cpage}">${cpage}</a></li>
+							end="${paging.endPageNo}" step="1" var="curPage">
+							<c:if test="${curPage ne paging.curPage }">
+								<li class="page" data-page="${curPage}"><a
+									href="list.do?pg=${curPage}">${curPage}</a></li>
 							</c:if>
-							<c:if test="${cpage eq paging.cpage }">
-								<li class="page active" data-page="${cpage}"><a
-									href="list.do?pg=${cpage}">${cpage}</a></li>
+							<c:if test="${curPage eq paging.curPage }">
+								<li class="page active" data-page="${curPage}"><a
+									href="list.do?pg=${curPage}">${curPage}</a></li>
 							</c:if>
 						</c:forEach>
 

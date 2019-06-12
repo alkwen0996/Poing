@@ -62,8 +62,6 @@ public class DisplayProductDetailService {
 	}
 	
 	public List<PointHistoryDTO> PointHistory() {
-		PointHistoryDTO rtdto = new PointHistoryDTO();
-		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn);
 			
@@ -71,6 +69,17 @@ public class DisplayProductDetailService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public List<ProductDTO> selectProductList(int cart_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()){
+			List<ProductDTO> list = ProductDetailDAO.selectProductList(conn, cart_seq);
+			
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 	public List<RefundTicketDTO> selectRefund_tic() {
@@ -84,14 +93,13 @@ public class DisplayProductDetailService {
 			throw new RuntimeException(e);
 		}
 	}
-	public int insertCart(int m_no, String c_date, int party_size, String message,ArrayList<Integer> ids,ArrayList<Integer> counts) {
+	public int insertCart(int m_no, String c_date, int party_size, String message) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
-		boolean result1 = false;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 //			conn.setAutoCommit(false);
-			int cart_seq = dao.insertCart(conn, m_no, c_date, party_size, message);
+			int tic_cart_seq = dao.insertCart(conn, m_no, c_date, party_size, message);
 //			 conn.commit();
-			return cart_seq;
+			return tic_cart_seq;
 			/*			if (cart_seq>=1 && result1 == true) {
 				return true;
 			}else {
@@ -127,6 +135,9 @@ public class DisplayProductDetailService {
 	}
 	
 
+
+
+	
    public boolean insertTotalCart(int cart_seq,ArrayList<Integer> ids,ArrayList<Integer> counts) {
       ProductDetailDAO dao = ProductDetailDAO.getInstance();      
       boolean result = false;
@@ -184,6 +195,7 @@ public class DisplayProductDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+
 	
 	public ArrayList<ProductDTO> select_qna(int tic_seq) {
 		System.out.println("select_qna");

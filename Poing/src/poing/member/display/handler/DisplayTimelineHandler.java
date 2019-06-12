@@ -12,6 +12,8 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
+import poing.product.ProductDTO;
+import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
@@ -24,7 +26,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+//		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 		
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
@@ -76,6 +78,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 			ProductPayService service5 = new ProductPayService();
 			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
 			request.setAttribute("rev_tic_list", rev_tic_list);
+		
+//			DisplayProductDetailService service2 = new DisplayProductDetailService();
+//			List<ProductDTO> list = service2.selectProductList(cart_seq);
+//			request.setAttribute("list", list);
 			}
 		}
 		else if (tab.equals("review"))

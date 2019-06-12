@@ -67,7 +67,6 @@
 										<div class="subtitle">매일매일 먹어도 질리지 않는 스시.</div>
 									</div>
 								</div>
-
 							</div>
 
 							<div class="element  large best  ">

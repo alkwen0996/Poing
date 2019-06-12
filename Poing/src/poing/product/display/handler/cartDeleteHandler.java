@@ -24,16 +24,16 @@ public class cartDeleteHandler implements CommandHandler {
 		boolean result3 = false;
 
 		DisplayProductDetailService service = new DisplayProductDetailService();
-		int reserva_tic_seq = Integer.parseInt(request.getParameter("reserva_tic_seq"));
+		int tc_purchas_seq = Integer.parseInt(request.getParameter("tc_purchas_seq"));
 		String totalmoney = request.getParameter("totalmoney");
 		System.out.println("토탈머니=" + totalmoney);
 		int id = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 		int m_no = mdto.getM_seq();
 
-		System.out.println(reserva_tic_seq);
+		System.out.println(tc_purchas_seq);
 		result1 = service.updateTotalmoney(totalmoney, id);
-		result2 = service.updatePayCart(reserva_tic_seq, m_no ,totalmoney);
+		result2 = service.updatePayCart(tc_purchas_seq, m_no ,totalmoney);
 		
 //			List<RefundTicketDTO> list2 = service.selectRefund_tic(reserva_tic_seq);
 

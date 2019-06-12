@@ -17,8 +17,8 @@ public class DisplayProductOrderHandler implements CommandHandler {
 		DisplayProductDetailService service = new DisplayProductDetailService();
 		ProductDTO dto = service.select(p_num);
 		request.setAttribute("dto", dto);
-		//ProductDTO dto2 = service.selectCartId(cart_seq);
-		//request.setAttribute("dto2", dto2);
+		ProductDTO dto2 = service.selectCartId(cart_seq);
+		request.setAttribute("dto2", dto2);
 		
 
 		return "/product/productOrder";

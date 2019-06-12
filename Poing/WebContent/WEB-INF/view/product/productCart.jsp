@@ -384,7 +384,7 @@ $(document).ready(function(){
                     }
                     alert(carts);
                     carts = carts.join(',');
-                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&p_num=1";
+                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&tic_seq=1";
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else $.popup("confirm", {'text':res.error.message, 'alert':true, 'wait':true});

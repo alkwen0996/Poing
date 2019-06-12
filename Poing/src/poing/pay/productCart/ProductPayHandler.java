@@ -15,8 +15,7 @@ public class ProductPayHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		ProductPayService service = new ProductPayService();
-		
-		
+			
 		System.out.println("payHandler start");
 		int totalmoney = Integer.parseInt(request.getParameter("totalmoney"));
 		int rp_seq = Integer.parseInt(request.getParameter("rp_seq"));

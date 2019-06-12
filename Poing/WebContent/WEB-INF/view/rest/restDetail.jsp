@@ -67,25 +67,23 @@
 									<div class="name">별점</div>
 									<div class="text">
 										<div class="rest_starpoint">
-											<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
-												<c:if test="${i <= tenpoint }">
+									 		<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
+												<c:if test="${i <= ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
 													<c:if test="${i%2 ne 0 }"><i class="icon star large odd active" data-id="" data-index="${status.index}" style=""></i></c:if>
 													<c:if test="${i%2 eq 0 }">
 														<i class="icon star large even active" data-id=""
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>
-												<c:if test="${i > tenpoint }"><c:if test="${i%2 ne 0 }"><i class="icon star large odd " data-id="" data-index="${status.index}" style=""></i></c:if>
+												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
 													<c:if test="${i%2 eq 0 }">
 														<i class="icon star large even " data-id=""
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>
-												<c:if test="${status.last }">
-													<span style="display: inline-block; vertical-align: super;"
-														data-id="" data-grade="78">${dto.rest_starpoint}</span>
-												</c:if>
-											</c:forEach>
+											</c:forEach>  
+											<span style="display:inline-block;vertical-align:super;" data-id="" data-grade="78">${dto.rest_starpoint/2}점</span>
+											
 										</div>
 										<!-- <span style="display: inline-block; vertical-align: super;" data-id="" data-grade="78">${dto.rest_starpoint}</span> -->
 									</div>
@@ -105,7 +103,7 @@
 								</li>
 								<li class="item">
 									<div class="name">휴무일</div>
-									<div class="text">미구현</div>
+									<div class="text">${dto.rest_holiday}</div>
 								</li>
 
 								<li class="item">
@@ -119,81 +117,15 @@
 							</ul>
 							<div class="slider PoingSlider_wrap">
 								<div id="detail_slider" class="PoingSlider">
+									
+									<c:forEach items="${imgList}" var="dto" varStatus="status">
 									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="0"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="1"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398459e8440036021.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="2"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398459e84400876e4.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="3"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398459e844005c2b3.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="4"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398459e84400ba951.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="5"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ffd20a3.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="6"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398459e844000c1ae.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="7"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839401059e8441a292d0.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="8"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839401059e8441a65b44.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="9"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839401059e8441ab2f44.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="10"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839400959e844199807c.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice current" style="top: 0px; left: 0px;">
-										<i class="image" data-index="11"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839405359e8444597c12.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="12"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839401059e8441af25cc.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="13"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839401159e8441b33d23.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
-									<div class="i_wrap slice" style="top: 0px; left: -100%;">
-										<i class="image" data-index="14"
-											style="width: 319px; height: 213px; background-image: url(http://c2.poing.co.kr/PIMAGE-original/MjAxNzEx/15119203265a1e12c6cc27a.jpeg)"
-											title="만 매장 이미지"></i>
-									</div>
+										<i class="image" data-index="${status.index+1}"
+											style="width: 319px; height: 213px; background-image: url(/Poing${dto})"
+											title="매장 이미지"></i>
+									</div>									
+									</c:forEach>
+									
 								</div>
 								<span class="prev"><i class="icon small_slider prev"></i></span>
 								<span class="next"><i class="icon small_slider next"></i></span>

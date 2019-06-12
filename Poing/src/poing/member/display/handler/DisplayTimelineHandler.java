@@ -124,8 +124,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 			}
 			//ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
 			//ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
-			request.setAttribute("nnlist", nnlist);
-			request.setAttribute("nlist", nlist);
+			//request.setAttribute("nnlist", nnlist);
+			//request.setAttribute("nlist", nlist);
 		}
 		else if (tab.equals("payment"))
 		{

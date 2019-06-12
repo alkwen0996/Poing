@@ -104,9 +104,9 @@ public class RestDetailDAO {
 		dto.setRest_starpoint(rs.getDouble("starpoint"));
 		
 		dto.setRest_loc(rs.getString("pop_loc")==null?rs.getString("gen_loc"):rs.getString("pop_loc"));
-	
+		
 		//dto.setRest_tic_code(rs.getInt("p_num")); 티켓.. 쿼리에는 넣어놨음
-
+		dto.setRest_holiday(rs.getString("rest_holiday"));
 		dto.setRest_line_exp(rs.getString("rest_line_exp"));
 		dto.setRest_food_type(rs.getString("food_type"));
 		dto.setRest_alchol(rs.getString("rest_alcohol"));
@@ -120,6 +120,37 @@ public class RestDetailDAO {
 		pstmt.close();
 		rs.close();
 		return dto;	
+	}
+
+	public ArrayList<String> selectimage(Connection conn, int rest_seq) {
+		ArrayList<String> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from rest_img where rest_seq = ?";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, rest_seq);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				list.add(rs.getString("rest_img"));
+			}
+			
+			
+		} catch (Exception e) {
+			try {
+				pstmt.close();
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return list;
 	}
 
 }

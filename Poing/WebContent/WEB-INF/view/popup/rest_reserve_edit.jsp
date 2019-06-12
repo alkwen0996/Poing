@@ -28,8 +28,8 @@
    String thur = "";
    String fri = "";
    String sat = "";
-   String sql = "select * from rest_reserve_openhr where rest_seq = ? order by openday asc, openhour_by_day asc";
-   String sql2 = "select * from rest_reserve where r_reserve_num=?";
+   String sql = "select * from rest_reserve_openhr where rro_rest_seq = ? order by rro_openday asc, rro_openhour_by_day asc";
+   String sql2 = "select * from rest_reserve where r_reserve_seq=?";
    
    int party_size = 0;
    String date ="";
@@ -51,54 +51,54 @@
 		RestReserveDTO dto = null;
 				
 		while (rs.next()) {	
-			switch(rs.getInt("openday")){
+			switch(rs.getInt("rro_openday")){
 			case 0:
 				if(sun.length()<1){
-					sun+="\""+rs.getString("openhour_by_day")+"\"";
+					sun+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						sun+=", \""+rs.getString("openhour_by_day")+"\"";	
+						sun+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 1:
 				if(mon.length()<1){
-					mon+="\""+rs.getString("openhour_by_day")+"\"";
+					mon+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						mon+=", \""+rs.getString("openhour_by_day")+"\"";	
+						mon+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 2:
 				if(tue.length()<1){
-					tue+="\""+rs.getString("openhour_by_day")+"\"";
+					tue+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						tue+=", \""+rs.getString("openhour_by_day")+"\"";	
+						tue+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 3:
 				if(wed.length()<1){
-					wed+="\""+rs.getString("openhour_by_day")+"\"";
+					wed+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						wed+=", \""+rs.getString("openhour_by_day")+"\"";	
+						wed+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 4:
 				if(thur.length()<1){
-					thur+="\""+rs.getString("openhour_by_day")+"\"";
+					thur+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						thur+=", \""+rs.getString("openhour_by_day")+"\"";	
+						thur+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 5:
 				if(fri.length()<1){
-					fri+="\""+rs.getString("openhour_by_day")+"\"";
+					fri+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						fri+=", \""+rs.getString("openhour_by_day")+"\"";	
+						fri+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 6:
 				if(sat.length()<1){
-					sat+="\""+rs.getString("openhour_by_day")+"\"";
+					sat+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						sat+=", \""+rs.getString("openhour_by_day")+"\"";	
+						sat+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			}

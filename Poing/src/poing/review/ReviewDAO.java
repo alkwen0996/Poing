@@ -504,7 +504,7 @@ public class ReviewDAO {
 		int review_cnt = 0;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT COUNT(*) review_cnt FROM review ");
-		sql.append(" WHERE rest.rev_rest_seq = ? ");
+		sql.append(" WHERE rev_rest_seq = ? ");
 
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setInt(1, rest_seq);

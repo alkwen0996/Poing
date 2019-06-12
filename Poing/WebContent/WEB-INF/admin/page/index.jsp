@@ -8,12 +8,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
-<%@include file="/owner/css/bootstrap.min.css" %>
-<%@include file="/owner/css/bootstrap-responsive.min.css" %>
-<%@include file="/owner/css/fullcalendar.css" %>
-<%@include file="/owner/css/matrix-style.css" %>
-<%@include file="/owner/css/matrix-media.css" %>
-<%@include file="/owner/font-awesome/css/font-awesome.css" %>
+<%@include file="/admin/css/bootstrap.min.css" %>
+<%@include file="/admin/css/bootstrap-responsive.min.css" %>
+<%@include file="/admin/css/fullcalendar.css" %>
+<%@include file="/admin/css/matrix-style.css" %>
+<%@include file="/admin/css/matrix-media.css" %>
+<%@include file="/admin/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>

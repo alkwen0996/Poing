@@ -84,13 +84,6 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-$("input.searchRest").on("onkeydown", function(jQuery.Event) {
-	alert('setset');
-})
-
-</script>
-
 <!--Footer-part-->
 <div class="row-fluid">
   <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
@@ -112,6 +105,11 @@ $("input.searchRest").on("onkeydown", function(jQuery.Event) {
 <script src="js/bootstrap-wysihtml5.js"></script> 
 <script>
 	$('.textarea_editor').wysihtml5();
+	
+	$(".searchRest").on("click", function() {
+		alert('setset');
+		console.log('test');
+	});
 </script>
 </body>
 </html>

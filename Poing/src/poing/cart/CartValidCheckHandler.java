@@ -13,11 +13,12 @@ public class CartValidCheckHandler implements CommandHandler{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		boolean result = true;
+		
 		JSONObject jsonobject = new JSONObject();
+		
 		jsonobject.put("status", result);
 		request.setAttribute("jsonData", jsonobject);
 		return "cart/validcheckCheck";
 		//return "product/productCart";
 	}
-
 }

@@ -368,7 +368,6 @@ $(document).ready(function(){
             }
             data.push(target.data('id'));
         }
-        alert(data);
 
         $.ajax({'url':'/Poing/cart/cartValidCheck.do',
             'type':'POST',
@@ -383,8 +382,9 @@ $(document).ready(function(){
                         var target = checked.eq(i);
                         carts[i] = target.data('id');
                     }
+                    alert(carts);
                     carts = carts.join(',');
-                    location.href = "/Poing/product/productOrder.do?tic_seq="+carts + "&p_num=1";
+                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&p_num=1";
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else $.popup("confirm", {'text':res.error.message, 'alert':true, 'wait':true});

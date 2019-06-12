@@ -113,14 +113,12 @@
 					<div class="widget-content">
 						<ul class="thumbnails">
 							<c:forEach items="${ restImage_list }" var="restImageDTO">
-								<li class="span2"><a><img
-										src="${ realPath }${ restImageDTO.rest_img }" alt=""></a>
+								<li class="span2"><a><img src="${ realPath }${ restImageDTO.rest_img }" alt=""></a>
 									<div class="actions">
 										<a title="" class="" href="rest_image_remove.ow?ri_seq=${ restImageDTO.ri_seq }">
 											<i class="icon-remove"></i>
 										</a>
-										<a class="lightbox_trigger"
-											href="${ realPath }${ restImageDTO.rest_img }"> 
+										<a class="lightbox_trigger" href="${ realPath }${ restImageDTO.rest_img }"> 
 											<i class="icon-search"></i>
 										</a>
 										<a title="" class="" href="rest_image_setrepimage.ow?ri_seq=${ restImageDTO.ri_seq }"> 

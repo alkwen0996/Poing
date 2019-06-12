@@ -56,16 +56,22 @@ public class MemberDAO {
 		return mdto;
 	}
 
-	public static boolean insertReserve_tic(Connection conn, int p_num, int m_seq, int cart_seq){
+
+
+	public static boolean insertReserve_tic(Connection conn, int tic_seq, int m_seq, int cart_seq, int totalmoney){
+		System.out.println("티켓번호"+tic_seq);
+		System.out.println("멤머번호"+m_seq);
+		System.out.println("카트번호"+cart_seq);
 		boolean result1 = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" insert into reserve_tic (reserva_tic_seq, p_num, m_seq, cart_seq, p_state)values (reserva_tic_seq.nextval, ?, ?, ?,'결제완료') ");
+		sql.append(" insert into tic_cart_purchase_detail (TC_PURCHAS_SEQ, TIC_SEQ, TIC_CART_SEQ, M_SEQ, TIC_PURCHAS_STATE, tic_totalmoney)values (tic_cart_purchase_detail_seq.nextval, ?, ?, ?,'결제완료',?) ");
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, p_num);
-			pstmt.setInt(2, m_seq);
-			pstmt.setInt(3, cart_seq);
+			pstmt.setInt(1, tic_seq);
+			pstmt.setInt(2, cart_seq);
+			pstmt.setInt(3, m_seq);
+			pstmt.setInt(4, totalmoney);
 			//
 
 			result1 = pstmt.executeUpdate()==0? false:true;
@@ -112,19 +118,19 @@ public class MemberDAO {
 	}
 
 
-	public static boolean selectRp_seq(Connection conn, int m_seq,int rp_seq,int totalmoney, String m_email){
+	public static boolean selectRp_seq(Connection conn, int m_seq,int m_point, int totalmoney, String m_email, int point){
 		System.out.println("진입성공");
-		System.out.println("rp_seq="+rp_seq);
+		System.out.println("rp_seq="+m_point);
 		System.out.println("totalmoney="+totalmoney);
 		System.out.println("m_email="+m_email);
 		boolean result2 = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update member set rp_seq = ? - ? where m_email = ? ");
+		sql.append(" update member set m_point = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, rp_seq);
+			pstmt.setInt(1, m_point);
 			pstmt.setInt(2, totalmoney);
 			pstmt.setString(3, m_email);
 
@@ -528,7 +534,7 @@ public class MemberDAO {
 		sql.append(" SELECT * FROM ( ");
 		sql.append("     SELECT mem.*,  ");
 		sql.append("     (SELECT COUNT(*) FROM review WHERE rev_m_seq = mem.m_seq) m_revcnt,  ");
-		sql.append("     (SELECT COUNT(*) FROM follow WHERE follower_seq = mem.m_seq) m_ercnt ");
+		sql.append("     (SELECT COUNT(*) FROM follow WHERE following_seq = mem.m_seq) m_ercnt ");
 		if (my_no != -1) {
 			sql.append("   ,(SELECT COUNT(*) FROM follow WHERE following_seq = mem.m_seq AND follower_seq = ?) amIfollow  ");
 		}
@@ -537,6 +543,9 @@ public class MemberDAO {
 		sql.append(" WHERE m_revcnt + m_ercnt > 15 and rownum < 6 ");
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		if (my_no != -1) {
+			pstmt.setInt(1, my_no);
+		}
 		ResultSet rs = pstmt.executeQuery();
 		if (rs.next()) {
 			mem_slide_list = new ArrayList<>();

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import admin.AdminDTO;
 
 public class AdminDAO {
-	public boolean checkadminId(Connection conn, String e_id) throws SQLException {
+	public boolean checkAdminId(Connection conn, String e_id) throws SQLException {
 		boolean result = false;
 		
 		StringBuffer sql = new StringBuffer();
@@ -23,7 +23,7 @@ public class AdminDAO {
 		}
 		return result;
 	}
-	public String selectadminPw(Connection conn, String e_id) throws SQLException {
+	public String selectAdminPw(Connection conn, String e_id) throws SQLException {
 		String e_pw = null;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT e_pw FROM editer ");
@@ -37,7 +37,7 @@ public class AdminDAO {
 		}
 		return e_pw;
 	}
-	public AdminDTO getadminDTO(Connection conn, String e_id) throws SQLException {
+	public AdminDTO getAdminDTO(Connection conn, String e_id) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT * FROM editer ");
 		sql.append(" WHERE e_id = ? ");
@@ -50,5 +50,32 @@ public class AdminDAO {
 			 adminDTO = new AdminDTO(rs);
 		}
 		return adminDTO;
+	}
+	public boolean updateEditerImage(Connection conn, String imagePath, int e_seq) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE editer SET e_img = ? ");
+		sql.append(" WHERE e_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, imagePath);
+		pstmt.setInt(2, e_seq);
+		result = pstmt.executeUpdate()==0?false:true;
+		pstmt.close();
+		return result;
+	}
+	public boolean updateEditerInfo(Connection conn, String e_name, String e_pw, int e_seq) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" UPDATE editer SET ");
+		sql.append(" e_name = ? ");
+		sql.append(" e_pw = ? ");
+		sql.append(" WHERE e_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setString(1, e_name);
+		pstmt.setString(2, e_pw);
+		pstmt.setInt(3, e_seq);
+		result = pstmt.executeUpdate()==0?false:true;
+		pstmt.close();
+		return result;
 	}
 }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import com.util.ConnectionProvider;
 
+import admin.bannerimage.BannerImageDAO;
+import admin.bannerimage.BannerImageDTO;
 import poing.display.main.MainDTO;
 import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
@@ -16,9 +18,11 @@ public class DisplayMainService {
 		
 		Connection conn = ConnectionProvider.getConnection();
 		ArrayList<ReviewDTO> rev_list = ReviewDAO.selectMainReview(conn );
+		ArrayList<BannerImageDTO> banner_list = BannerImageDAO.selectBannerImageList(conn);
 		mainDTO.setRev_list(rev_list);
+		mainDTO.setBanner_list(banner_list);
 		conn.close();
 		return mainDTO;
 	}
-
+	
 }

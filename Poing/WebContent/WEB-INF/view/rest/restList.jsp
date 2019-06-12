@@ -246,6 +246,30 @@
 					</div> 
 
 				</div>
+				<script>
+					new Pagination({
+						selector : '#pager',
+						current_page : cpage,
+						per_page : 10,
+						total_page : <%=totalpage%>,
+						event : function(page) {
+							window.search({
+								set : {
+									'page' : page
+								}
+							});
+						}
+					});
+					$("ul.sort_order_spread>li").click(
+							function() {
+								$(this).addClass('selected').siblings().removeClass('selected');
+								window.search({
+									set : {'order_rule' : $(this).attr('data-order')},
+									reset : [ 'page', 'r_num' ]
+								});
+							});
+				</script>
+			</div>
 		</div>
 	</div>
 
@@ -370,7 +394,7 @@ function initMap() {
   --%>
 
     </script>
-   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3AEpRuYNo5NnomHPAXXRCyXxgtYzz3g&callback=initMap"></script>
 </body>
 </html>

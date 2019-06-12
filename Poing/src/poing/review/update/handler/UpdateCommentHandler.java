@@ -17,7 +17,7 @@ public class UpdateCommentHandler implements CommandHandler{
 			return "review/updateComment_json";
 		}
 		int rev_no = Integer.parseInt(request.getParameter("id"));
-		String content = request.getParameter("content");
+		String content = request.getParameter("text");
 		int result = updateCommentService.updateComment(rev_no, content);
 		request.setAttribute("status", result==0?false:true);
 		return "review/updateComment_json";

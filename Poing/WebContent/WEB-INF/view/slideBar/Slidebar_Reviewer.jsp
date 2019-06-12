@@ -10,7 +10,7 @@
 <%
 	Connection conn = ConnectionProvider.getConnection();
 	int my_no = -1;
-	MemberDTO authUser = (MemberDTO)request.getAttribute("authUser");
+	MemberDTO authUser = (MemberDTO)session.getAttribute("authUser");
 	
 	if (authUser != null) {
 		my_no = authUser.getM_seq();

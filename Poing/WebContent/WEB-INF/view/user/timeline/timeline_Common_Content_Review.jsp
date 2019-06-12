@@ -94,17 +94,17 @@
 					<div class="comment">
 						<a class="thumbnail"
 							style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : application.getAttribute("baseimg") }')"
-							href="/Poing/timeline.do?id=${ dto.cdto.m_seq }"></a>
+							href="/Poing/timeline.do?id=${ dto.cdto.rc_m_seq }"></a>
 						<div class="author">
 							<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
 							<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
 							<p class="text">${ dto.cdto.rc_content }</p>
-							<c:if test="${ dto.cdto.m_seq eq authUser.m_seq }">
+							<c:if test="${ dto.cdto.rc_m_seq eq authUser.m_seq }">
 							<div class="action">
 								<button type="button" class="edit"
-									data-type="poing.reviews.comment.modify" data-id="${ dto.cdto.rc_no }">수정하기</button>
+									data-type="poing.reviews.comment.modify" data-id="${ dto.cdto.rc_seq }">수정하기</button>
 								<button type="button" class="delete"
-									data-type="poing.reviews.comment.remove" data-id="${ dto.cdto.rc_no }">삭제하기</button>
+									data-type="poing.reviews.comment.remove" data-id="${ dto.cdto.rc_seq }">삭제하기</button>
 							</div>
 							</c:if>
 						</div>
@@ -247,19 +247,19 @@
 					<div class="comment">
 						<a class="thumbnail"
 							style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : applicationScope.baseprofile }')"
-							href="/Poing/timeline.do?id=${ dto.cdto.m_seq }"></a>
+							href="/Poing/timeline.do?id=${ dto.cdto.rc_m_seq }"></a>
 						<div class="author">
 							<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
 							<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
 							<p class="text">${ dto.cdto.rc_content }</p>
-							<c:if test="${ dto.cdto.m_seq eq authUser.m_seq }">
+							<c:if test="${ dto.cdto.rc_m_seq eq authUser.m_seq }">
 								<div class="action">
 									<button type="button" class="edit"
 										data-type="poing.reviews.comment.modify"
-										data-id="${ dto.cdto.rc_no }">수정하기</button>
+										data-id="${ dto.cdto.rc_seq }">수정하기</button>
 									<button type="button" class="delete"
 										data-type="poing.reviews.comment.remove"
-										data-id="${ dto.cdto.rc_no }">삭제하기</button>
+										data-id="${ dto.cdto.rc_seq }">삭제하기</button>
 								</div>
 							</c:if>
 						</div>

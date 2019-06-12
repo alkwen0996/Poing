@@ -1,3 +1,5 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
@@ -33,6 +35,15 @@
 
 
 <%
+List<ProductDTO> list = (List<ProductDTO>) request.getAttribute("list");
+Iterator<ProductDTO> ir = list.iterator();
+int sum = 0;
+while (ir.hasNext()) {
+	ProductDTO list2 = (ProductDTO) ir.next();
+	int a = list2.getTic_dc_price() * list2.getTic_op_purchas_cnt();
+	sum+=a;
+}
+
 	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
 	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
 			int tic_op_purchas_cnt = dto2.getTic_op_purchas_cnt();
@@ -80,23 +91,27 @@
                                     <tr data-id="1299328"> 
                         <td class="info">
                             <a class="image" href="/product/detail/5904" target="_blank">
-                                <i class="image border_radius medium" style="background-image: url(http://c2.poing.co.kr/PIMAGE-original/5458801ed20c7820f000002b.png);"></i>
+                                <i class="image border_radius medium" style="background-image: url(${dto.tic_img});"></i>
                             </a>
-                            <a class="name" href="/product/detail/5904" target="_blank">${dto2.tic_op_name }</a>
-                            <div class="valid_date">유효기간: <span>${dto.tic_reserve_date }</span></div>
+                            <a class="name" href="/product/detail/5904" target="_blank">${dto.rest_name }</a>
+                            <div class="valid_date">유효기간: <span>${dto.tic_validate_content }</span></div>
 
                             <ul class="options">
+                            
+                                        <c:forEach items="${list}" var="list" varStatus="status">
                                                                     <li data-id="19044" data-limit="4">
-                                        <c:forEach items="">
-                                        <div class="name">${dto2.tic_op_name }</div>
-                                        <div class="price">${dto.tic_dc_price }원</div>
-                                        <div class="count">${dto2.tic_op_purchas_cnt}</div>
-                                        <div class="total_price"><span><%=totalmoney%></span>원</div>
-                                        </c:forEach>
+                                        <div class="name">${list.tic_op_name }</div>
+                                        <div class="price">${list.tic_dc_price }원</div>
+                                        <div class="count">${list.tic_op_purchas_cnt}</div>
+                                        <div class="total_price"><span>${list.tic_dc_price * list.tic_op_purchas_cnt}</span>원</div>
+                                        }
+                                        
                                     </li>
+                                        </c:forEach>
+                                        
                                                                 <li class="total">
                                     티켓금액
-                                    <span class="jindong"><%=totalmoney %>원</span>
+                                    <span class="jindong"><%=sum %>원</span>
                                 </li>
                             </ul>
                         </td>
@@ -124,13 +139,13 @@
 
             <tbody>
                 <tr>
-                    <td class="price" data-price="<%=totalmoney%>"><%=totalmoney%></td>
+                    <td class="price" data-price="<%=sum %>"><%=sum %></td>
                     <td class="point">
                         <i class="icon subtract"></i>
                         <input id="point" type="text" value="0" data-max="1000000000">P
                     </td>
                     <td class="total">
-                        <span><%=totalmoney%></span>원
+                        <span><%=sum %></span>원
                     </td>
                 </tr>
             </tbody>
@@ -336,9 +351,9 @@ $(document).ready(function(){
          var data = {
         	cart_ids : [],
             cart_seq: ${param.cart_seq},
-            p_num: ${param.p_num},
+            tic_seq: ${param.tic_seq},
             point: $("#point").val(),
-            totalmoney: <%=totalmoney%>,
+            totalmoney: <%=sum%>,
             m_email: "${authUser.m_email}",
             m_point: ${authUser.m_point},
             m_seq: ${authUser.m_seq}
@@ -356,7 +371,7 @@ $(document).ready(function(){
             'data': data,
             'success':function(res) {
                 if(res.status1) {
-                      post_to_url("/Poing/timeline.do?id=${authUser.m_seq}&totalmoney="+res.totalmoney+"&tab=coupon");
+                      post_to_url("/Poing/timeline.do?cart_seq=${param.cart_seq}&totalmoney="+res.totalmoney+"&id=${authUser.m_seq}&tab=coupon");
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else {

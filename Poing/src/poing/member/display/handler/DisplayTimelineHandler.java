@@ -122,8 +122,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			//ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
-			//ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
+			ArrayList<UserNoticeDTO> nnlist = displayTimelineService.getUserNoticeList(memberID);
+			ArrayList<PoingNoticeDTO> nlist = displayTimelineService.getNoticeDTO(memberID);
 			request.setAttribute("nnlist", nnlist);
 			request.setAttribute("nlist", nlist);
 		}

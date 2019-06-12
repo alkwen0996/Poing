@@ -148,129 +148,123 @@
 
 				<div class="list">
 					<c:forEach items="${list}" var="dto" varStatus="status">
-						<c:if test="${status.index % 3 ne 0 }">
-							<div class="element  medium ">
-						</c:if>
-						<c:if test="${status.index % 3 eq 0 }">
-							<div class="element  medium first">
-						</c:if>
-						<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}" 
-							class="image" 
-							style="display: block; 
-							background-image: url(/Poing${dto.rest_img});">         
-						<div class="shading"></div> 
-							<div class="top">
-								예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
-								&nbsp; 조회수 ${dto.rest_view_cnt} <br>
-								<button class="" data-type="poing.restaurants.favorite"
-									data-id="${dto.rest_seq }" onclick='return false;'>
-									<c:if test="${dto.rest_fav ne 0 }">
-									<i class="icon favorite on"></i>
-									</c:if>
-									<c:if test="${dto.rest_fav eq 0 }">
-									<i class="icon favorite "></i>
-									</c:if> 
-								</button>
-							</div>
-							<div class="bottom">
-								<c:if test="${dto.rest_tic_yn eq 1}"><p class="coupon">티켓</p></c:if>
-								<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc}</span>
-							</div>
-						</a>
+						<div class="element  medium ${status.index % 3 eq 0 ? 'first' : ''}">
+							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}" 
+								class="image" 
+								style="display: block; 
+								background-image: url(/Poing${dto.rest_img});">         
+								<span class="shaing"></span>
+								<div class="top">
+									예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
+									&nbsp; 조회수 ${dto.rest_view_cnt} <br>
+									<button class="" data-type="poing.restaurants.favorite"
+										data-id="${dto.rest_seq }" onclick='return false;'>
+										<i class="icon favorite ${dto.rest_fav ne 0 ? 'on' : '' }"></i>
+									</button>
+								</div>
+								<div class="bottom">
+									<c:if test="${dto.rest_tic_yn eq 1}"><p class="coupon">티켓</p></c:if>
+									<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc}</span>
+								</div>
+							</a>
 
-						<div class="desc">
-							<div class="place_info">
-								<div class="rating">
-									<div class="stars">
-										<!-- 별점처리 -->
-										<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
+							<div class="desc">
+								<div class="place_info">
+									<div class="rating">
+										<div class="stars">
+											<!-- 별점처리 -->
+											<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
 												<c:if test="${i <= ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
 													<c:if test="${i%2 ne 0 }"><span class="star odd active"></span></c:if>
-													<c:if test="${i%2 eq 0 }">
-														<span class="star even active" ></span>
-													</c:if>
+													<c:if test="${i%2 eq 0 }"><span class="star even active" ></span></c:if>
 												</c:if>
-												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
-													<c:if test="${i%2 eq 0 }">
-														<span class="star even "></span>
-													</c:if>
+												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
+													<c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
+													<c:if test="${i%2 eq 0 }"><span class="star even "></span></c:if>
 												</c:if>
 											</c:forEach> 
+										</div>
+										<div class="grade">
+											${((dto.rest_starpoint/2*10)+(((dto.rest_starpoint/2*10)%1>0.5)?(1-((dto.rest_starpoint/2*10)%1))%1:-((dto.rest_starpoint/2*10)%1)))/10}점
+										</div>
 									</div>
-										
-									<div class="grade">${((dto.rest_starpoint/2*10)+(((dto.rest_starpoint/2*10)%1>0.5)?(1-((dto.rest_starpoint/2*10)%1))%1:-((dto.rest_starpoint/2*10)%1)))/10}점</div>
+									<div class="budget">${dto.rest_budget_type}</div>
+									<div class="comment">${dto.rest_line_exp}</div>
+									<ul class="detail">
+										<li>
+											<c:if test="${ dto.rest_menu_yn eq 1}">
+												<a href="/Poing/rest/detail.do?rest_seq=35740&tab=menu">메뉴있음</a>
+											</c:if>
+											<c:if test="${ dto.rest_menu_yn eq 0}">
+												메뉴없음
+											</c:if>
+										</li>
+										<li>
+											<a href="/restaurant/detail/35740?photo">사진 ${dto.rest_img_cnt}장</a>
+										</li>
+									</ul>
 								</div>
-								<div class="budget">${dto.rest_budget_type}</div>
-								<div class="comment">${dto.rest_line_exp}</div>
-								<ul class="detail">
-									<li><c:if test="${ dto.rest_menu_yn eq 1}"><a href="/restaurant/detail/35740?menu">메뉴있음</a></c:if>
-									<c:if test="${ dto.rest_menu_yn eq 0}">메뉴없음</c:if></li>
-									<li><a href="/restaurant/detail/35740?photo">사진 ${dto.rest_img_cnt}장</a></li>
-								</ul>
 							</div>
-						</div>
-
-						<div class="btn">
+							<div class="btn">
 							<button type="button" class="reserve"
 								data-type="poing.reservation.addloading" data-id="${dto.rest_seq}">예약하기</button>
-							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review" class="review ">리뷰
-								쓰기</a>
+							<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review" class="review ">리뷰 쓰기</a>
 						</div>
+						</div>
+					</c:forEach>
 				</div>
-				</c:forEach>
 				
- 					<div id="pager">
-						<div class="page-list">
-							<ul class="pagination" onselectstart="return false;">
-								
-								<li class="prevAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=1">&lt;&lt;</a></li>
-								<li class="prev"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=prev%>">&lt;</a></li>
-								<c:if test="${list eq null }">
-									<li class="page active" data-page="1"><a style="color: #c91b3c !important"  href="/Poing/rest/list.do?<%=newurl%>&page=1">${status.index}</a></li>
+				<div id="pager">
+					<%-- <div class="page-list">
+						<ul class="pagination" onselectstart="return false;">
+							
+							<li class="prevAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=1">&lt;&lt;</a></li>
+							<li class="prev"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=prev%>">&lt;</a></li>
+							<c:if test="${list eq null }">
+								<li class="page active" data-page="1"><a style="color: #c91b3c !important"  href="/Poing/rest/list.do?<%=newurl%>&page=1">${status.index}</a></li>
+							</c:if>
+							<c:if test="${list ne null }">
+								<c:forEach begin="<%=startPage%>" end="<%=endPage%>" step="1" varStatus="status">
+								<c:if test="${status.index ne cpage }">
+									<li class="page" data-page="${status.index}"><a href="/Poing/rest/list.do?<%=newurl%>&page=${status.index}">${status.index}</a></li>
 								</c:if>
-								<c:if test="${list ne null }">
-									<c:forEach begin="<%=startPage%>" end="<%=endPage%>" step="1" varStatus="status">
-									<c:if test="${status.index ne cpage }">
-										<li class="page" data-page="${status.index}"><a href="/Poing/rest/list.do?<%=newurl%>&page=${status.index}">${status.index}</a></li>
-									</c:if>
-									<c:if test="${status.index eq cpage }">
-										<li class="page active" data-page="${status.index}"><a style="color: #c91b3c !important" href="/Poing/rest/list.do?<%=newurl%>&page=${status.index}">${status.index}</a></li>
-									</c:if>
-									</c:forEach>
+								<c:if test="${status.index eq cpage }">
+									<li class="page active" data-page="${status.index}"><a style="color: #c91b3c !important" href="/Poing/rest/list.do?<%=newurl%>&page=${status.index}">${status.index}</a></li>
 								</c:if>
-								<li class="next"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=next%>">&gt;</a></li>
-								<li class="nextAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=totalpage%>">&gt;&gt;</a></li>
+								</c:forEach>
+							</c:if>
+							<li class="next"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=next%>">&gt;</a></li>
+							<li class="nextAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=totalpage%>">&gt;&gt;</a></li>
 
-							</ul>
-						</div>
-					</div> 
+						</ul>
+					</div> --%>
+				</div> 
 
-				</div>
-				<script>
-					new Pagination({
-						selector : '#pager',
-						current_page : cpage,
-						per_page : 10,
-						total_page : <%=totalpage%>,
-						event : function(page) {
+			</div><!-- content -->
+			
+			<script>
+				new Pagination({
+					selector : '#pager',
+					current_page : <%=cpage%>,
+					per_page : 10,
+					total_page : <%=totalpage%>,
+					event : function(page) {
+						location.search = "<%=newurl%>&page=" + page;
+					}
+				});
+				$("ul.sort_order_spread>li").click(
+						function() {
+							$(this).addClass('selected').siblings()
+									.removeClass('selected');
 							window.search({
 								set : {
-									'page' : page
-								}
+									'order_rule' : $(this).attr('data-order')
+								},
+								reset : [ 'page', 'r_num' ]
 							});
-						}
-					});
-					$("ul.sort_order_spread>li").click(
-							function() {
-								$(this).addClass('selected').siblings().removeClass('selected');
-								window.search({
-									set : {'order_rule' : $(this).attr('data-order')},
-									reset : [ 'page', 'r_num' ]
-								});
-							});
-				</script>
-			</div>
-		</div>
+						});
+			</script>
+		</div><!-- content_wrap -->
 	</div>
 
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
@@ -278,86 +272,88 @@
 	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 	
 	<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
-
-</div>
+</div><!--  -->
 
 <script>
-
-
 function initMap() {
 
-	  var map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 13,
-	    center: {
-	      lat: 37.524315,
-	      lng: 127.01394
-	    }
-	  });
-	  var infoWin = new google.maps.InfoWindow();
-	  // Add some markers to the map.
-	  // Note: The code uses the JavaScript Array.prototype.map() method to
-	  // create an array of markers based on a given "locations" array.
-	  // The map() method here has nothing to do with the Google Maps API.
-	  var markers = locations.map(function(location, i) {
-	    var marker = new google.maps.Marker({
-	      position: location
-	    });
-	    google.maps.event.addListener(marker, 'click', function(evt) {
-	      infoWin.setContent(location.info);
-	      infoWin.open(map, marker);
-	    })
-	    google.maps.event.addListener(marker, 'dblclick', function() {
-   		window.location.href = location.url;
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom : 13,
+		center : {
+			lat : 37.524315,
+			lng : 127.01394
+		}
+	});
+	var infoWin = new google.maps.InfoWindow();
+	// Add some markers to the map.
+	// Note: The code uses the JavaScript Array.prototype.map() method to
+	// create an array of markers based on a given "locations" array.
+	// The map() method here has nothing to do with the Google Maps API.
+	var markers = locations.map(function(location, i) {
+		var marker = new google.maps.Marker({
+			position : location
 		});
-	    return marker;
-	  });
+		google.maps.event.addListener(marker, 'click', function(evt) {
+			infoWin.setContent(location.info);
+			infoWin.open(map, marker);
+		})
+		google.maps.event.addListener(marker, 'dblclick', function() {
+			window.location.href = location.url;
+		});
+		return marker;
+	});
 
-	  // Add a marker clusterer to manage the markers.
-	  var markerCluster = new MarkerClusterer(map, markers, {
-	    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-	  });
+	// Add a marker clusterer to manage the markers.
+	var markerCluster = new MarkerClusterer(
+			map,
+			markers,
+			{
+				imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+			});
 
-	}
-	var locations = <%=sb%>;
-		
-		/* {
-	  lat: -19.9286,
-	  lng: -43.93888,
-	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
-	  url: 'www.google.com'
-	}, {
-	  lat: -19.85758,
-	  lng: -43.9668,
-	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
-	  url: 'www.google.com'
-	}, {
-	  lat: -18.24587,
-	  lng: -43.59613,
-	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
-	  url: 'www.google.com'
-	}, {
-	  lat: -20.46427,
-	  lng: -45.42629,
-	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
-		  url: 'www.google.com'
-	}, {
-	  lat: -20.37817,
-	  lng: -43.41641,
-	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
-		  url: 'www.google.com'
-	}, {
-	  lat: -20.09749,
-	  lng: -43.48831,
-	  info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
-		  url: 'www.google.com'
-	}, {
-	  lat: -21.13594,
-	  lng: -44.26132,
-	  info: "marker 7",
-	  url: 'www.google.com'
-	}, ]; */
+}
+var locations =
+<%=sb%>
+;
+
+/* {
+lat: -19.9286,
+lng: -43.93888,
+info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+url: 'www.google.com'
+}, {
+lat: -19.85758,
+lng: -43.9668,
+info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+url: 'www.google.com'
+}, {
+lat: -18.24587,
+lng: -43.59613,
+info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+url: 'www.google.com'
+}, {
+lat: -20.46427,
+lng: -45.42629,
+info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+  url: 'www.google.com'
+}, {
+lat: -20.37817,
+lng: -43.41641,
+info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+  url: 'www.google.com'
+}, {
+lat: -20.09749,
+lng: -43.48831,
+info: '<div><div class="inner"><img src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg" style="display: inline-block; width: 50px; height: 50px;"><div style="vertical-align: top; width: 134px; display: inline-block; margin-left:10px">${dto.rest_name}<br><span>${dto.rest_loc}</span></div></div></div>',
+  url: 'www.google.com'
+}, {
+lat: -21.13594,
+lng: -44.26132,
+info: "marker 7",
+url: 'www.google.com'
+}, ]; */
 </script>
- <script>
+<script>
 <%-- 
  function initMap() {
      body = document.getElementById("map");
@@ -393,7 +389,7 @@ function initMap() {
    }
   --%>
 
-    </script>
+</script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3AEpRuYNo5NnomHPAXXRCyXxgtYzz3g&callback=initMap"></script>
 </body>

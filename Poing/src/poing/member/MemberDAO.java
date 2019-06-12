@@ -452,12 +452,12 @@ public class MemberDAO {
 			dto.setRest_tel(rs.getString("rest_tel"));
 			dto.setRest_hour(rs.getString("rest_hour"));
 			dto.setRest_menu(rs.getString("rest_menu"));
-			dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
+			dto.setRest_reserve_cnt(rs.getInt("rest_reservation_cnt"));
 			dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
 			dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
 			dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
 			dto.setRest_loc(rs.getString("rest_loc"));
-			dto.setRest_tic_code(rs.getInt("p_num"));
+			//dto.setRest_tic_code(rs.getInt("p_num"));
 			dto.setRest_line_exp(rs.getString("rest_line_exp"));
 			dto.setRest_alchol(rs.getString("rest_alchol"));
 			dto.setRest_parking_yn(rs.getString("rest_parking_yn"));

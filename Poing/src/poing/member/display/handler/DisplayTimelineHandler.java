@@ -31,18 +31,16 @@ public class DisplayTimelineHandler implements CommandHandler {
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
-		if (tab == null) {
-			tab = "reservation";
-		}
-
+		int my_no;
+		my_no = -1;
 		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int memberID = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = displayTimelineService.getMemberDTO(memberID);
 		request.setAttribute("mdto", mdto);
-		int my_no = -1;
 		if (authUser != null) {
 			my_no = authUser.getM_seq();
 		}
+		
 		if (my_no == -1) {
 			request.setAttribute("amIFollow", false);
 		}
@@ -53,7 +51,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		
 		if(tab == null)
 		{
-			if ( authUser != null && authUser.getM_seq() == mdto.getM_seq())
+			if ( authUser != null && my_no != -1 && authUser.getM_seq() == mdto.getM_seq())
 				tab = "reservation";
 			else
 				tab = "review";

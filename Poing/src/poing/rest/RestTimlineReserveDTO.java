@@ -13,8 +13,16 @@ public class RestTimlineReserveDTO {
 	private int m_num;
 	private int r_reserve_numofpeople;
 	private String rest_img;
+	private String m_name;
 	
+
 	
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
 	public String getRest_img() {
 		return rest_img;
 	}

@@ -78,21 +78,21 @@ trimDirectiveWhitespaces="true"%>
 		
 		while(rs.next()){
 			
-			int id = rs.getInt("un_seq");
-			int user_id = rs.getInt("un_m_seq");
+			int id = rs.getInt("pn_seq");
+			int user_id = rs.getInt("pn_m_seq");
 			String push_type = rs.getString("nt_pushtype");
 			int target_id = target_seq;
 			String target = rs.getString("nt_target"); 
-			int is_read = rs.getInt("un_is_read");
-			int is_count =rs.getInt("un_is_count");
-			int is_poing = rs.getInt("un_is_poing");
-			int is_block_on_user = rs.getInt("un_is_block_on_user");
-			int additional = rs.getInt("un_additional");
+			int is_read = rs.getInt("pn_is_read");
+			int is_count =rs.getInt("pn_is_count");
+			int is_poing = rs.getInt("pn_is_poing");
+			int is_block_on_user = rs.getInt("pn_is_block_on_user");
+			int additional = rs.getInt("pn_additional");
 			String contents = rs.getString("nt_typecontent");
 			int wuid = rs.getInt("m_seq");
 			String wuname = rs.getString("m_name");
-			String  updated_at = rs.getString("un_updated_at");
-			String  created_at = rs.getString("un_created_at");
+			String  updated_at = rs.getString("pn_updated_at");
+			String  created_at = rs.getString("pn_created_at");
 			
 			
 			JSONObject jsonData = new JSONObject();

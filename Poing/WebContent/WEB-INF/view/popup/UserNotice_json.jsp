@@ -32,6 +32,9 @@
 	ResultSet rs = null;
 	StringBuffer sql = new StringBuffer();
 	int target_seq = 0;
+	
+	int wuid = 0; 
+	String wuname = ""; 
 
 	if (rs_type.getString("nt_pushtype") == "review") {
 
@@ -45,18 +48,20 @@
 		sql.append(" on unnt.rev_seq = revm.rev_seq ");
 
 		target_seq = rs_type.getInt("rev.rev_seq");
+		wuid = ;
 
 	}  
 		else if(rs_type.getString("nt_pushtype") == "user"){
 		
-		sql.append(" select *  from ");
-		sql.append(" ( select *from userNotice un ");
-		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
-		sql.append(" ) unnt ");
-		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
-		sql.append(" join ( 	select * from review rev ");
-		sql.append(" join member m on rev.rev_m_seq = m.m_seq ) revm ");
-		sql.append(" on unnt.rev_seq = revm.rev_seq; ");
+			sql.append(" select *  from( ");
+			sql.append(" select *from userNotice un ");
+			sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq) unnt ");
+			sql.append(" join member m on unnt.un_m_seq = m.m_seq  ");
+			sql.append(" join ( select * from member m join follow f on follower_seq = m.M_SEQ ) mf ");
+			sql.append(" on unnt.un_m_seq = mf.following_seq ");
+			sql.append(" where unnt.m_seq is not null ");
+			
+			target_seq = rs_type.getInt(" mf.follower_seq ");
 		
 		} 
 
@@ -73,18 +78,18 @@
 		while (rs.next()) {
 
 			int id = rs.getInt("un_seq");
-			int user_id = rs.getInt("pn_user_id");
-			String push_type = rs.getString("pn_push_type");
-			String target_id = rs.getString("pn_target_id");
-			String target = rs.getString("pn_target");
-			int is_read = rs.getInt("pn_is_read");
-			int is_count = rs.getInt("pn_is_count");
-			int is_poing = rs.getInt("pn_is_poing");
-			int is_block_on_user = rs.getInt("pn_is_block_on_user");
-			int additional = rs.getInt("pn_additional");
-			String contents = rs.getString("notice_type_content");
-			int wuid = rs.getInt("m_no");
-			String wuname = rs.getString("m_name");
+			int user_id = rs.getInt("nt_m_seq");
+			String push_type = rs.getString("nt_push_type");
+			String target_id = rs.getString("target_seq");
+			String target = rs.getString("nt_target");
+			int is_read = rs.getInt("un_is_read");
+			int is_count = rs.getInt("un_is_count");
+			int is_poing = rs.getInt("un_is_poing");
+			int is_block_on_user = rs.getInt("un_is_block_on_user");
+			int additional = rs.getInt("un_additional");
+			String contents = rs.getString("nt_typecontent");
+			int wuid = rs.getInt("un_m_seq");
+			String wuname = rs.getString("m.m_name");
 			String updated_at = rs.getString("pn_updated_at");
 			String created_at = rs.getString("pn_created_at");
 

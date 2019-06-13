@@ -184,7 +184,7 @@ public class DisplayProductDetailService {
 		ArrayList<QuestionDTO> list_question = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			list_question = qdao.selectDisplay(conn, memberID);
+			list_question = qdao.selectDisplay(conn);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

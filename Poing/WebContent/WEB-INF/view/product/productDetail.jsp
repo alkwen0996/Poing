@@ -187,9 +187,8 @@ List<ProductDTO> MenuImg = (List<ProductDTO>) request.getAttribute("MenuImg");
                   </c:when>
 
                   <c:when test="${ param.tab eq 'map' }">
-                     <div class="body first last">
-                        <div id="map"></div>
-                     </div>
+                     <jsp:include
+                        page="/WEB-INF/view/product/productDetail_map.jsp" />
                   </c:when>
 
                   <c:when test="${ param.tab eq 'qna' }">

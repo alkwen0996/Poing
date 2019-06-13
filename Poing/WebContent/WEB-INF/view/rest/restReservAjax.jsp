@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="com.util.ConnectionProvider"%>
-<%@page import="org.json.simple.JSONObject"%>
+
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -42,7 +42,7 @@ System.out.println("ajaxfav.jsp name="+name);
 
 Connection conn = null;
 PreparedStatement pstmt = null;
-JSONObject res = new JSONObject();
+
 boolean status = false;
 try{
 	   conn = ConnectionProvider.getConnection();
@@ -55,9 +55,9 @@ try{
 	   pstmt.setString(3, name);
 	   pstmt.setString(4, message);
 	   pstmt.setInt(5, rest_seq);
-	   pstmt.setInt(6, member_num);
-	   pstmt.setInt(7, 1);
-	   pstmt.setInt(8, numOfPeople);
+	   pstmt.setInt(6, 1);
+	   pstmt.setInt(7, numOfPeople);
+	   pstmt.setInt(8, member_num);
 	   
 	   int result = pstmt.executeUpdate();
 	   if (result>0) status = true;

@@ -236,8 +236,11 @@ public class MemberDAO {
 	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID, String type) throws SQLException {
 		
 		String sql="";
-		if (type.equals("past")) sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? and r_reserve_date < sysdate ";
-		else sql = "select * from rest_reserve a join p_restaurant b on a.rest_no = b.rest_seq where a.m_num =? and r_reserve_date >= sysdate ";
+		if (type.equals("past")) {
+			sql = "select * from (select * from rest_reserve aa join restaurant bb on aa.r_reserve_rest_seq = bb.rest_seq where aa.r_reserve_m_seq =? and r_reserve_date < sysdate ) a left join rest_img b on a.ri_seq = b.ri_seq "; 
+		}
+				
+		else sql = "select * from (select * from rest_reserve aa join restaurant bb on aa.r_reserve_rest_seq = bb.rest_seq where aa.r_reserve_m_seq =? and r_reserve_date >= sysdate ) a left join rest_img b on a.ri_seq = b.ri_seq ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -248,15 +251,16 @@ public class MemberDAO {
 		RestTimlineReserveDTO dto = null;
 		while (rs.next()) {
 			dto = new RestTimlineReserveDTO();
-			dto.setR_reserve_seq(  rs.getInt("rr_seq") );
-			dto.setR_reserve_date( rs.getDate("rr_date").toString()  );
-			dto.setR_reserve_hour(  rs.getString("rr_hour") );
-			dto.setR_reserve_name( rs.getString("rr_name") ); 
-			dto.setR_reserve_request(  rs.getString("rr_request") );
-			dto.setRest_seq( rs.getInt("rr_rest_no") );
-			dto.setR_reserve_status( rs.getInt("rr_status") );
-			dto.setR_reserve_numofpeople(rs.getInt("rr_num_of_people"));
-			dto.setRest_name(rs.getString("rr_rest_name"));
+			dto.setR_reserve_seq(  rs.getInt("r_reserve_seq") );
+			dto.setR_reserve_date( rs.getDate("r_reserve_date").toString()  );
+			dto.setR_reserve_hour(  rs.getString("r_reserve_hour") );
+			dto.setR_reserve_name( rs.getString("r_reserve_name") ); 
+			dto.setR_reserve_request(  rs.getString("r_reserve_request") );
+			dto.setRest_seq( rs.getInt("r_reserve_rest_seq") );
+			dto.setR_reserve_status( rs.getInt("r_reserve_status") );
+			dto.setR_reserve_numofpeople(rs.getInt("r_reserve_num_of_people"));
+			dto.setRest_name(rs.getString("rest_name"));
+			dto.setRest_img(rs.getString("rest_img"));
 			list.add(dto);
 		}// while
 		pstmt.close();
@@ -410,83 +414,94 @@ public class MemberDAO {
 		return list;
 	}// displayNotice
 	public ArrayList<RestListDTO> PickRestList(Connection conn, int memberID, int current_page) {
-		String sql = " select rownum ynum, x.* from ( select * from p_restaurant a join (select * from pick where m_no = "+memberID+" and rest_no is not null) b on a.rest_seq = b.rest_no  ) x ";
 
-	PreparedStatement pstmt = null;
-	PreparedStatement pstmt2 = null;
-	ResultSet rs = null;
-	ResultSet rs2 = null;
-	ArrayList<RestListDTO> list = new ArrayList<>();
-	int totalcount = 0;
-	int countlist = 12;
-	int countPage = 10; 
-	int totalpage = 0;
-	
-	int start =0;
-	int end = 0;
-	
-	try {
-		pstmt2 = conn.prepareStatement("select count(*) totalcount from ( "+sql+" )");
-		rs2 = pstmt2.executeQuery();
-		rs2.next();
-		if(rs2.getInt("totalcount")==0) return null;
-		totalcount = rs2.getInt(1);
-		totalpage = totalcount / countlist;
-		if (totalcount % countlist > 0) totalpage++;
-		if (totalpage < current_page) current_page = totalpage;
-		if ( current_page <0) current_page = 1;
+		StringBuffer sql = new StringBuffer();
+		
+		sql.append("select rownum ynum, x.* from ( ");
+		sql.append(" select distinct a.*, b.rest_img  , c.pop_loc_code,c.gen_loc_code, ");
+		sql.append(		   " c.gen_loc, c.pop_loc, d.food_code, nvl(e.tic_seq,0) tic_yn, nvl(f.review_cnt_p,0) review_cnt, ");
+		sql.append(		   " nvl(f.starpoint_p,0) starpoint, nvl(g.reserve_cnt_p,0) reserve_cnt, h.rest_menu_img, nvl(i.img_cnt_p,0) img_cnt ");
+		sql.append(" from (select * from restaurant aaaa join (select * from pick where m_seq = "+memberID+" and rest_no is not null) bbbb on aaaa.rest_seq = bbbb.rest_no) a  "); 
+		sql.append(" left join (SELECT rest_seq, rest_img from rest_img where rowid in (select max(rowid) from rest_img group by rest_seq)) b on a.rest_seq = b.rest_seq ");
+		sql.append(" left join (select aa.*, bb.loc_add gen_loc, cc.loc_add pop_loc from loc_code_per_rest aa left join general_loc_code bb on aa.gen_loc_code = bb.gen_loc_code left join pop_loc_code cc on aa.pop_loc_code = cc.pop_loc_code) c on a.rest_seq = c.rest_seq ");
+		sql.append(" left join (SELECT rest_seq, food_code from food_code_per_rest where rowid in (select max(rowid) from food_code_per_rest group by rest_seq )) d on a.rest_seq = d.rest_seq ");
+		sql.append(" left join ticket e on a.rest_seq = e.rest_seq ");
+		sql.append(" left join (select distinct rev_rest_seq, nvl(COUNT(*)OVER(PARTITION BY rev_rest_seq),0) review_cnt_p, nvl(trunc(sum(rev_starpoint)OVER(PARTITION BY rev_rest_seq)/COUNT(*)OVER(PARTITION BY rev_rest_seq)/10,2),0) starpoint_p from review) f on a.rest_seq = f.rev_rest_seq ");
+		sql.append(" left join (select distinct r_reserve_rest_seq, COUNT(*)OVER(PARTITION BY r_reserve_rest_seq) reserve_cnt_p from rest_reserve) g on a.rest_seq = g.r_reserve_rest_seq ");
+		sql.append(" left join (SELECT rest_seq, rest_menu_img from rest_menu_img where rowid in (select max(rowid) from rest_menu_img group by rest_seq )) h on a.rest_seq = h.rest_seq ");
+		sql.append(" left join (select distinct rest_seq, COUNT(*)OVER(PARTITION BY rest_seq) img_cnt_p from rest_img) i on a.rest_seq = i.rest_seq ");
+		sql.append(" order by starpoint desc nulls last ) x ");		
+		
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+		ResultSet rs2 = null;
+		ArrayList<RestListDTO> list = new ArrayList<>();
+		int totalcount = 0;
+		int countlist = 12;
+		int countPage = 10; 
+		int totalpage = 0;
 
-		start = (current_page-1)*12+1;
-		end = current_page*12>totalcount?totalcount:current_page*12;
-		System.out.println("start= "+start);
-		System.out.println("end= "+end);
-		
-		pstmt = conn.prepareStatement("select y.* from ( "+sql+" where rownum<=?) y where ynum>=? " );
-		pstmt.setInt(2, start);
-		pstmt.setInt(1, end);
-		rs = pstmt.executeQuery();
-		RestListDTO dto = null;
-		while (rs.next()) {
-			dto = new RestListDTO();
-			dto.setRest_seq(rs.getInt("rest_seq"));
-			dto.setRest_name(rs.getString("rest_name"));
-			dto.setRest_tel(rs.getString("rest_tel"));
-			dto.setRest_hour(rs.getString("rest_hour"));
-			dto.setRest_menu(rs.getString("rest_menu"));
-			dto.setRest_reservation_cnt(rs.getInt("rest_reservation_cnt"));
-			dto.setRest_review_cnt(rs.getInt("rest_review_cnt"));
-			dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
-			dto.setRest_starpoint(rs.getDouble("rest_starpoint"));
-			dto.setRest_loc(rs.getString("rest_loc"));
-			dto.setRest_tic_code(rs.getInt("p_num"));
-			dto.setRest_line_exp(rs.getString("rest_line_exp"));
-			dto.setRest_alchol(rs.getString("rest_alchol"));
-			dto.setRest_parking_yn(rs.getString("rest_parking_yn"));
-			dto.setRest_add_info(rs.getString("rest_add_info"));
-			dto.setRest_budget_type(rs.getString("rest_budget_type"));
-			dto.setRest_table_type(rs.getString("rest_table_type"));
-			dto.setRest_food_type(rs.getString("rest_food_type"));
-			dto.setRest_lat(rs.getFloat("rest_lat"));
-			dto.setRest_long(rs.getFloat("rest_long"));
-			list.add(dto);
-		}
-		if(list!=null) {
-			list.get(0).setTotalpage(totalpage);
-			list.get(0).setTotalcount(totalcount);				
-		}
-		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
+		int start =0;
+		int end = 0;
+
 		try {
-			pstmt.close();
-			rs.close();
-			conn.close();
+			pstmt2 = conn.prepareStatement("select count(*) totalcount from ( "+sql+" )");
+			rs2 = pstmt2.executeQuery();
+			rs2.next();
+			if(rs2.getInt("totalcount")==0) return null;
+			totalcount = rs2.getInt(1);
+			totalpage = totalcount / countlist;
+			if (totalcount % countlist > 0) totalpage++;
+			if (totalpage < current_page) current_page = totalpage;
+			if ( current_page <0) current_page = 1;
+
+			start = (current_page-1)*12+1;
+			end = current_page*12>totalcount?totalcount:current_page*12;
+			System.out.println("start= "+start);
+			System.out.println("end= "+end);
+
+			pstmt = conn.prepareStatement("select y.* from ( "+sql+" where rownum<=?) y where ynum>=? " );
+			pstmt.setInt(2, start);
+			pstmt.setInt(1, end);
+			rs = pstmt.executeQuery();
+			RestListDTO dto = null;
+			while (rs.next()) {
+				dto = new RestListDTO();
+				dto.setRest_seq(rs.getInt("rest_seq"));
+				dto.setRest_reserve_cnt(rs.getInt("reserve_cnt"));
+				dto.setRest_review_cnt(rs.getInt("review_cnt"));
+				dto.setRest_view_cnt(rs.getInt("rest_view_cnt"));
+				dto.setRest_tic_yn(rs.getInt("tic_yn"));
+				dto.setRest_name(rs.getString("rest_name"));
+				dto.setRest_loc(rs.getString("pop_loc")!=null?rs.getString("pop_loc"):rs.getString("gen_loc"));
+				dto.setRest_starpoint(rs.getDouble("starpoint"));
+				dto.setRest_budget_type(rs.getString("rest_budget_type"));
+				dto.setRest_line_exp(rs.getString("rest_line_exp"));
+				dto.setRest_img(rs.getString("rest_img"));
+				int rest_menu_yn = 1;
+				if (rs.getString("rest_menu_img")==null) rest_menu_yn=0;
+				dto.setRest_menu_yn(rest_menu_yn);
+				dto.setRest_img_cnt(rs.getInt("img_cnt"));
+				list.add(dto);
+			}
+			if(list!=null) {
+				list.get(0).setTotalpage(totalpage);
+				list.get(0).setTotalcount(totalcount);				
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-	}	
-	return list;	
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return list;	
 	}
 	public boolean checkCurrentPassword(Connection conn, int memberID, String current_password) throws SQLException {
 		boolean result = false;

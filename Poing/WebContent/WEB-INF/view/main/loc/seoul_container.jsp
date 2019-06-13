@@ -6,72 +6,22 @@
 	<div id="banner_wrap">
 		<div id="banner">
 			<div class="trislider">
-				<div class="pieces" data-index="0" data-max="7"
+				<div class="pieces" data-index="0" data-max="${ mainDTO.banner_list.size() }"
 					style="left: -4250px; display: block;">
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA2/15595307185cf48cde28969.png");
-					</script>
-					<a href="/static/1628" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15585964355ce64b53db004.png)"></a><a
-						href="/product?banner_theme=11128" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15598857005cf9f784d75b3.png)"></a><a
-						href="/product?banner_theme=11124" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15595307185cf48cde28969.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15592222465cefd7e6598d8.png");
-					</script>
-					<a href="http://bit.ly/2HMkl9l" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592222465cefd7e6598d8.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA2/15595435555cf4bf03dd403.png");
-					</script>
-					<a href="/static/1644" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15595435555cf4bf03dd403.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15592237355cefddb778f55.png");
-					</script>
-					<a href="https://www.poing.co.kr/product/detail/5588" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592237355cefddb778f55.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15592220695cefd735adf6c.png");
-					</script>
-					<a href="https://www.poing.co.kr/product/detail/6056" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592220695cefd735adf6c.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA1/15585964355ce64b53db004.png");
-					</script>
-					<a href="/static/1628" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15585964355ce64b53db004.png)"></a>
-					<script>
-						console
-								.log("http://c2.poing.co.kr/banner/MjAxOTA2/15598857005cf9f784d75b3.png");
-					</script>
-					<a href="/product?banner_theme=11128" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15598857005cf9f784d75b3.png)"></a><a
-						href="/product?banner_theme=11124" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA2/15595307185cf48cde28969.png)"></a><a
-						href="http://bit.ly/2HMkl9l" class="piece"
-						style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA1/15592222465cefd7e6598d8.png)"></a>
+					<c:forEach items="${ mainDTO.banner_list }" var="bannerDTO">
+						<a href="#" class="piece" style="background-image: url(${ realPath }${ bannerDTO.banner_img })"></a>
+					</c:forEach>
 				</div>
 				<div class="left shadow"></div>
 				<div class="right shadow"></div>
 				<ul class="index">
-					<li data-id="0" class="">●</li>
-					<li data-id="1" class="">●</li>
-					<li data-id="2" class="">●</li>
-					<li data-id="3" class="current">●</li>
-					<li data-id="4">●</li>
-					<li data-id="5">●</li>
-					<li data-id="6">●</li>
+					<c:forEach begin="0" end="${ mainDTO.banner_list.size() -1 }" var="i">
+						<li data-id="${ i }" class="">●</li>
+					</c:forEach>
 				</ul>
 				<div class="nav">
-					<i class="icon left"></i> <i class="icon right"></i>
+					<i class="icon left"></i> 
+					<i class="icon right"></i>
 				</div>
 			</div>
 		</div>
@@ -84,322 +34,36 @@
 				<a class="more" href="/Poing/product/list.do">+ 전체보기</a>
 				<div class="slider_wrap PoingSlider_wrap">
 					<div class="slider PoingSlider">
-						<div class="current slice" style="top: 0px; left: 0px;">
-							<div class="element  large best first ">
-							<a href="/product?banner_theme=9736" class="image" 
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543475675ca5762f9a9be.png&quot;);">
+					<c:forEach var="i" begin="0" end="${ mainDTO.pb_list.size() / 4}" varStatus="status">
+						<div class="slice ${ status.first ? 'current' : '' }" style="top: 0px; left: 100%;">
+						<c:forEach var="pbDTO" items="${ mainDTO.pb_list }" begin="${ i*4 }" end="${ i*4+3 }" varStatus="status_sub">
+							<div class="element  large best ${ status_sub.first ? 'first' : '' } ">
+								<a href="${ pbDTO.pb_link }" class="image"
+									style="display: block; background-image: url(&quot;${realPath}${ pbDTO.pb_element_img }&quot;);">
 									<div class="shading"></div>
-
 								</a>
-
 								<div class="desc">
 									<div class="best">
-										<div class="sale">NOW</div>
-										<div class="title">오늘 약속 장소 정했어요?</div>
-										<div class="subtitle">오늘 바로 예약 가능한 곳을 알아보세요.</div>
-									</div>
-								
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/Poing/search/searchList.do?banner_theme=9728" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543474395ca575afd8dbb.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~25% OFF</div>
-										<div class="title">스시 오마카세</div>
-										<div class="subtitle">매일매일 먹어도 질리지 않는 스시.</div>
+										<div class="sale">${ pbDTO.pb_sale }</div>
+										<div class="title">${ pbDTO.pb_title }</div>
+										<div class="subtitle">${ pbDTO.pb_descript }</div>
 									</div>
 								</div>
 							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=10860" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543480935ca5783d5d914.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~46% OFF</div>
-										<div class="title">도산공원</div>
-										<div class="subtitle">청담부터 로데오까지, 꾸준히 핫한 플레이스들.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/Poing/search/searchList.do?banner_theme=10952" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543487535ca57ad1d8b6a.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~ 20% OFF</div>
-										<div class="title">한우의 맛</div>
-										<div class="subtitle">콜키지 프리 혜택부터 워터에이징 한우 다이닝까지.</div>
-									</div>
-								</div>
-
-							</div>
+						</c:forEach>
 						</div>
-						<div class="slice" style="top: 0px; left: 100%;">
-							<div class="element  large best first ">
-								<a href="/product?banner_theme=9732" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543474895ca575e19efc6.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~40% OFF</div>
-										<div class="title">스테이크</div>
-										<div class="subtitle">정통 미국식부터 육향이 남다른 한우 스테이크까지.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=10948" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543485595ca57a0fd2feb.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">포잉 단독</div>
-										<div class="title">꼭 한번 가고 싶었던, 바로 그곳</div>
-										<div class="subtitle">일상적인 날도 특별한 날으로 만들고 싶다면.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9752" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543649355ca5ba073b95b.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~23% OFF</div>
-										<div class="title">스시 아닌 일식</div>
-										<div class="subtitle">갓포요리부터 토사요리까지. 너무나 다채로운.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9796" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471748715c3803d7b79e2.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~25% OFF</div>
-										<div class="title">호텔의 진화,</div>
-										<div class="subtitle">도심 속의 호캉스를 즐겨보세요.</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-						<div class="slice" style="top: 0px; left: 100%;">
-							<div class="element  large best first ">
-								<a href="/product?banner_theme=9788" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543480235ca577f7ad3b8.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">ITALIAN</div>
-										<div class="title">지중해의 매력을 가득 담은.</div>
-										<div class="subtitle">떠나고 싶지만 떠날 수 없을 때가 있죠.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9740" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543476485ca576809daaa.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~29% OFF</div>
-										<div class="title">이태원에서 약속이 있다면</div>
-										<div class="subtitle">한남동부터 이태원까지.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9792" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543480555ca57817b8aa5.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~24% OFF</div>
-										<div class="title">한식</div>
-										<div class="subtitle">한상 푸짐하게 차려진 집밥이 그립다면.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=11072" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15565216355cc6a2a3c960b.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">NEW</div>
-										<div class="title">5월의 신규 다이닝 티켓</div>
-										<div class="subtitle">이번 달 놓쳐선 안될 혜택</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-						<div class="slice" style="top: 0px; left: 100%;">
-							<div class="element  large best first ">
-								<a href="/product?banner_theme=9760" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543478645ca57758d8a6b.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~10% OFF</div>
-										<div class="title">프렌치</div>
-										<div class="subtitle">정교하고도 조화로운 프렌치의 세계.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9748" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543477245ca576cc9a458.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~30% OFF</div>
-										<div class="title">오감을 자극하는 불 맛</div>
-										<div class="subtitle">화려한 중식의 세계를 맛보세요.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9776" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543479455ca577a9d005e.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~25% OFF</div>
-										<div class="title">행복은 뷔페에 있으니까</div>
-										<div class="subtitle">훌륭하고 메뉴를 다양하게 즐길 수 있는 호텔 뷔페.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9768" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471748055c380395226e8.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">SWEETs</div>
-										<div class="title">가장 빠르게 행복해지는 방법</div>
-										<div class="subtitle">달콤한 유혹에 빠져봅시다.</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-						<div class="slice" style="top: 0px; left: 100%;">
-							<div class="element  large best first ">
-								<a href="/product?banner_theme=9780" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543479825ca577ce5cc57.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~33% OFF</div>
-										<div class="title">바 / 이자카야</div>
-										<div class="subtitle">포잉에서만 즐길 수 있는 특별한 할인 혜택.</div>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="element  large best  ">
-								<a href="/product?banner_theme=9764" class="image"
-									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTA0/15543479065ca57782dec6c.png&quot;);">
-									<div class="shading"></div>
-
-								</a>
-
-								<div class="desc">
-									<div class="best">
-										<div class="sale">~10% OFF</div>
-										<div class="title">컨템퍼러리</div>
-										<div class="subtitle">셰프의 세심한 터치가 가미된 새로운 다이닝.</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
+					</c:forEach>
+					
 					</div>
 					<i class="icon nav prev"></i> <i class="icon nav next"></i>
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		
+		
 		<div class="section small_flipper main slider">
 			<div class="title">카테고리별 검색</div>
 			<div class="body slider">
@@ -407,7 +71,7 @@
 					<div class="slider PoingSlider">
 						<div class="current slice" style="top: 0px; left: 0px;">
 							<div class="element  large awards first ">
-								<a href="/Poing/theme/hotPlace.do?seoul" class="image"
+								<a href="/Poing/theme/localPlace.do" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471926035c38491bc1e84.png&quot;);">
 									<div class="shading"></div>
 									<div class="center">
@@ -421,7 +85,7 @@
 							</div>
 
 							<div class="element  large awards  ">
-								<a href="/banner/theme/10424" class="image"
+								<a href="/Poing/theme/hotelPlace.do" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471925785c38490266d92.png&quot;);">
 									<div class="shading"></div>
 
@@ -433,7 +97,7 @@
 								</a>
 							</div>
 							<div class="element  large awards  ">
-								<a href="/banner/theme/10428" class="image"
+								<a href="/Poing/theme/foodPlace.do" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471925265c3848ce51588.png&quot;);">
 									<div class="shading"></div>
 

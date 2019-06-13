@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="com.util.ConnectionProvider"%>
-<%@page import="org.json.simple.JSONObject"%>
+
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -19,11 +19,11 @@ System.out.println("reserve_num="+reserve_num);
 
 String rest_seq = rnumNrest_seq.split(",")[1];
 
-String sql = "delete from rest_reserve where r_reserve_num = ?";
+String sql = "delete from rest_reserve where r_reserve_seq = ?";
 		
 Connection conn = null;
 PreparedStatement pstmt = null;
-JSONObject res = new JSONObject();
+
 boolean status = false;
 try{
 	   conn = ConnectionProvider.getConnection();

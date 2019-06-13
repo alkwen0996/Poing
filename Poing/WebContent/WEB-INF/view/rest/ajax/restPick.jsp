@@ -1,6 +1,5 @@
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="com.util.ConnectionProvider"%>
-<%@page import="org.json.simple.JSONObject"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -10,11 +9,12 @@
     
  <%
      	int rest_seq = Integer.parseInt(request.getParameter("id")); 
-        System.out.println("ajaxfav.jsp pnum="+rest_seq);
+        System.out.println("ajaxfav.jsp rest="+rest_seq);
         MemberDTO dto = (MemberDTO)request.getSession().getAttribute("authUser");
         int m_num= dto.getM_seq();
-        System.out.println("ajaxfav.jsp m_num="+m_num);
         int typecnt = request.getParameter("type").equals("on")?1:0;
+
+        System.out.println("ajaxfav.jsp m_num="+m_num+" type="+typecnt);
         String sql = "";
         
         if (typecnt==1) sql = "insert into  pick values (pick_seq.nextval, ?, null,null,?)  "; //1,100022, null,null

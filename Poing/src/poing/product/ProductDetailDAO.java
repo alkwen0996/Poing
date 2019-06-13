@@ -527,17 +527,17 @@ public class ProductDetailDAO {
 			rs = pstmt.executeQuery();
 
 			dto = new ProductDTO();
-			rs.next();
-			dto.setTic_seq(rs.getInt("tic_seq"));
-			dto.setTic_type(rs.getString("tic_type"));
-			dto.setRest_name(rs.getString("rest_name"));
-			dto.setRest_address(rs.getString("rest_address"));
-			dto.setTic_type(rs.getString("tic_type"));
-			dto.setE_name(rs.getString("e_name"));
-			dto.setEr_content(rs.getString("er_content"));
-			dto.setE_img(rs.getString("e_img"));
-			dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
-
+			while(rs.next()) {
+				dto.setTic_seq(rs.getInt("tic_seq"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setRest_name(rs.getString("rest_name"));
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setE_name(rs.getString("e_name"));
+				dto.setEr_content(rs.getString("er_content"));
+				dto.setE_img(rs.getString("e_img"));
+				dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -552,7 +552,7 @@ public class ProductDetailDAO {
 		return dto;
 	}
 
-	public ProductDTO selectdisplay(Connection conn, int tic_seq, int member_num) {
+	/*public ProductDTO selectdisplay(Connection conn, int tic_seq, int member_num) {
 		String sql = " select * from restaurant r join editer_review e on r.rest_seq = e.rest_seq join ticket t "
 				+ "on t.rest_seq = r.rest_seq join editer i on i.e_seq = e.e_seq where t.tic_seq = ? ";
 
@@ -571,7 +571,8 @@ public class ProductDetailDAO {
 			rs = pstmt.executeQuery();
 
 			dto = new ProductDTO();
-			rs.next();
+			while(rs.next()) {
+			
 			dto.setTic_seq(rs.getInt("tic_seq"));
 			dto.setTic_type(rs.getString("tic_type"));
 			dto.setRest_name(rs.getString("rest_name"));
@@ -581,18 +582,8 @@ public class ProductDetailDAO {
 			dto.setEr_content(rs.getString("er_content"));
 			dto.setE_img(rs.getString("e_img"));
 			dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
-			// dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
-
-			//			sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?)";
-			//			pstmt2 = conn.prepareStatement(sql);
-			//			pstmt2.setInt(1, member_num);
-			//			pstmt2.setInt(2, tic_seq);
-			//			rs2 = pstmt2.executeQuery();
-			//			rs2.next();
-			//			dto.setPick(rs2.getInt("cnt"));
-			//			System.out.println("productdetail DAO : cnt = " + rs2.getInt("cnt"));
-
-			// qna
+			}
+			
 			StringBuffer sql_qna = new StringBuffer();
 			sql_qna.append(" select * " + " from p_product p " + " join editer_review e on p.e_seq = e.e_seq "
 					+ " join product_img i on p.img_seq = i.img_seq " + " join p_restaurant r on r.p_num = p.p_num "
@@ -604,14 +595,14 @@ public class ProductDetailDAO {
 			rs_qna = pstmt_qna.executeQuery();
 			while (rs_qna.next()) {
 				// dto.setE_name(rs_qna.getString("e_name"));
-				/*
+				
 				 * dto.setQ_content(rs_qna.getString("q_content"));
 				 * dto.setQ_ctime(rs_qna.getString("q_ctime"));
 				 * dto.setReply_seq(rs_qna.getInt("reply_seq"));
 				 * dto.setReply_content(rs_qna.getString("reply_content"));
 				 * dto.setReply_ctime(rs_qna.getString("reply_ctime"));
 				 * dto.setAdmin_seq(rs_qna.getInt("admin_seq"));
-				 */
+				 
 			}
 
 		} catch (SQLException e) {
@@ -626,7 +617,7 @@ public class ProductDetailDAO {
 			}
 		}
 		return dto;
-	}
+	}*/
 
 	public ArrayList<ProductDTO> selectdisplay_QnA(Connection conn, int tic_seq) {
 

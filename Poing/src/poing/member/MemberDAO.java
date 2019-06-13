@@ -364,11 +364,7 @@ public class MemberDAO {
 				undto.setNt_target(rs.getString("nt_target"));
 				undto.setNt_m_seq(rs.getInt("nt_m_seq"));
 				undto.setNt_m_name(rs.getString("nt_m_name"));
-				undto.setNt_rev_seq(rs.getInt("nt_rev_seq"));
-				undto.setNt_rest_seq(rs.getInt("nt_rest_seq"));
-				undto.setNt_rest_name(rs.getString("nt_rest_name"));
 				undto.setNt_tic_seq(rs.getInt("nt_tic_seq"));
-				undto.setNt_tic_name(rs.getString("nt_tic_name"));
 				unlist.add(undto);
 			}// while
 		
@@ -423,11 +419,6 @@ public class MemberDAO {
 				pndto.setNt_target(rs.getString("nt_target"));
 				pndto.setNt_m_seq(rs.getInt("nt_m_seq"));
 				pndto.setNt_m_name(rs.getString("nt_m_name"));
-				pndto.setNt_rev_seq(rs.getInt("nt_rev_seq"));
-				pndto.setNt_rest_seq(rs.getInt("nt_rest_seq"));
-				pndto.setNt_rest_name(rs.getString("nt_rest_name"));
-				pndto.setNt_tic_seq(rs.getInt("nt_tic_seq"));
-				pndto.setNt_tic_name(rs.getString("nt_tic_name"));
 				pnlist.add(pndto);
 			}// while
 			rs.close();

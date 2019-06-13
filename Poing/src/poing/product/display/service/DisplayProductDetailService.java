@@ -14,8 +14,6 @@ import poing.product.ProductDetailDAO;
 import poing.product.QuestionDAO;
 import poing.product.QuestionDTO;
 import poing.product.RefundTicketDTO;
-import poing.product.ReplyDAO;
-import poing.product.ReplyDTO;
 import poing.product.PointHistoryDTO;
 
 
@@ -189,7 +187,7 @@ public class DisplayProductDetailService {
 	public ProductDTO select(int tic_seq, int member_num) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
 		try (Connection conn = ConnectionProvider.getConnection()) {			
-			ProductDTO dto = dao.selectdisplay(conn, tic_seq, member_num);
+			ProductDTO dto = dao.selectdisplay(conn, tic_seq);
 			conn.close();
 			// 로그 처리
 			// 
@@ -201,7 +199,7 @@ public class DisplayProductDetailService {
 	}
 
 	
-	public ArrayList<QuestionDTO> select_question(int p_num,int memberID) {
+	public ArrayList<QuestionDTO> select_question(int tic_seq) {
 		System.out.println("select_question");
 		QuestionDAO qdao = QuestionDAO.getInstance();
 		Connection conn = null;
@@ -217,20 +215,6 @@ public class DisplayProductDetailService {
 		return list_question;
 	}// select_question
 	
-	public ArrayList<ReplyDTO> select_reply(int p_num,int memberID) {
-		System.out.println("select_question");
-		ReplyDAO rdao = ReplyDAO.getInstance();
-		Connection conn = null;
-		ArrayList<ReplyDTO> list_reply = null;
-		try {
-			conn = ConnectionProvider.getConnection();
-			list_reply = rdao.selectDisplay(conn, memberID);
-			conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return list_reply;
-	}// select_question
+
 	
 }// class

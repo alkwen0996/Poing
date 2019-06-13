@@ -48,7 +48,7 @@
 		sql.append(" on unnt.rev_seq = revm.rev_seq ");
 
 		target_seq = rs_type.getInt("rev.rev_seq");
-		wuid = ;
+		wuid = rs_type.getInt("");
 
 	}  
 		else if(rs_type.getString("nt_pushtype") == "user"){
@@ -88,8 +88,8 @@
 			int is_block_on_user = rs.getInt("un_is_block_on_user");
 			int additional = rs.getInt("un_additional");
 			String contents = rs.getString("nt_typecontent");
-			int wuid = rs.getInt("un_m_seq");
-			String wuname = rs.getString("m.m_name");
+			wuid = rs.getInt("un_m_seq");
+			wuname = rs.getString("m.m_name");
 			String updated_at = rs.getString("pn_updated_at");
 			String created_at = rs.getString("pn_created_at");
 

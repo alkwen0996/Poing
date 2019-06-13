@@ -3,12 +3,48 @@ package poing.product;
 public class QuestionDTO {
 	
 	private int q_seq;
-	private int m_seq;
 	private String q_ctime;
 	private String q_content;
+	private int m_seq;
 	private int tic_seq;
 	private String m_name;
 	
+	private int reply_seq;
+	private String reply_ctime;
+	private String reply_content;
+	private String e_name;
+	private int e_seq;
+	
+	public int getReply_seq() {
+		return reply_seq;
+	}
+	public void setReply_seq(int reply_seq) {
+		this.reply_seq = reply_seq;
+	}
+	public String getReply_ctime() {
+		return reply_ctime;
+	}
+	public void setReply_ctime(String reply_ctime) {
+		this.reply_ctime = reply_ctime;
+	}
+	public String getReply_content() {
+		return reply_content;
+	}
+	public void setReply_content(String reply_content) {
+		this.reply_content = reply_content;
+	}
+	public String getE_name() {
+		return e_name;
+	}
+	public void setE_name(String e_name) {
+		this.e_name = e_name;
+	}
+	public int getE_seq() {
+		return e_seq;
+	}
+	public void setE_seq(int e_seq) {
+		this.e_seq = e_seq;
+	}
 	public int getQ_seq() {
 		return q_seq;
 	}

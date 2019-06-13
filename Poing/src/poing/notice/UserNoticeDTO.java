@@ -3,8 +3,6 @@ package poing.notice;
 public class UserNoticeDTO {
 	
 	private int un_seq; // 소식 일련번호
-	private int un_m_seq; // 로그인해있는 회원코드
-	private String un_m_name; // 로그인 해 있는 회원 이름.
 	private int un_is_read;
 	private int un_is_count;
 	private int un_is_poing;
@@ -15,16 +13,31 @@ public class UserNoticeDTO {
 	private String un_img_original;
 	private String un_img_thumnail;
 	private int nt_seq; // 알림 타입 코드번호.
+	private int un_m_seq; // 로그인해있는 회원코드
+	private String un_m_name; // 로그인 해 있는 회원 이름.(조인으로)
 	private String nt_pushtype; // 해당 알림에서 무엇을 했는지 ex)comment_reivew
 	private String nt_typecontent; // 해당 알림의 내용
 	private String nt_target; // 어떤종류의 알림인지 ex)reivew
+	private int nt_tic_seq; // target의 코드번호.
 	private int nt_m_seq; //누가 했는지 (고지용이 했으면) 고지용 의 회원번호
 	private String nt_m_name; //누가 했는지 (고지용이 했으면) 회원 이름.
-	private int nt_rev_seq; // 리뷰면? 리뷰번호
-	private String nt_rest_name;
-	private int nt_rest_seq;
-	private int nt_tic_seq;
-	private String nt_tic_name;
+	private int rc_seq;
+	private int follow_seq; // 팔로 코드번호
+	private int follower_seq; // 누가 팔로워 했는지.
+	private String follower_name; // 누가 팔로워했는지 이름.
+	private int reply_seq;
+	private int rl_seq;
+	private String rl_name; // 리뷰를 좋아요 한사람 이름
+	private int pick_seq;
+	private String pick_name; // 찜 한사람의 이름.
+	private int r_reserve_seq; // 예약 테이블에서 예약 번호.
+	private String rest_name; // 레스토랑 테이블에서 레스토랑 이름.
+	private int tic_purchase_seq; // tic_cart_purchase_detail에서
+	private String tic_purchas_state; // 티켓구매상태(결제완료/환불완료)
+	private String tic_name; // ticket 테이블에서 
+	private int tic_cart_seq;
+	private int tic_num_of_people;
+	private String tic_reserve_date;
 	
 	public int getUn_seq() {
 		return un_seq;
@@ -134,37 +147,114 @@ public class UserNoticeDTO {
 	public void setNt_m_name(String nt_m_name) {
 		this.nt_m_name = nt_m_name;
 	}
-	public int getNt_rev_seq() {
-		return nt_rev_seq;
-	}
-	public void setNt_rev_seq(int nt_rev_seq) {
-		this.nt_rev_seq = nt_rev_seq;
-	}
-	public String getNt_rest_name() {
-		return nt_rest_name;
-	}
-	public void setNt_rest_name(String nt_rest_name) {
-		this.nt_rest_name = nt_rest_name;
-	}
-	public int getNt_rest_seq() {
-		return nt_rest_seq;
-	}
-	public void setNt_rest_seq(int nt_rest_seq) {
-		this.nt_rest_seq = nt_rest_seq;
-	}
 	public int getNt_tic_seq() {
 		return nt_tic_seq;
 	}
 	public void setNt_tic_seq(int nt_tic_seq) {
 		this.nt_tic_seq = nt_tic_seq;
 	}
-	public String getNt_tic_name() {
-		return nt_tic_name;
+	public int getRc_seq() {
+		return rc_seq;
 	}
-	public void setNt_tic_name(String nt_tic_name) {
-		this.nt_tic_name = nt_tic_name;
+	public void setRc_seq(int rc_seq) {
+		this.rc_seq = rc_seq;
 	}
-	
+	public int getFollow_seq() {
+		return follow_seq;
+	}
+	public void setFollow_seq(int follow_seq) {
+		this.follow_seq = follow_seq;
+	}
+	public int getReply_seq() {
+		return reply_seq;
+	}
+	public void setReply_seq(int reply_seq) {
+		this.reply_seq = reply_seq;
+	}
+	public int getRl_seq() {
+		return rl_seq;
+	}
+	public void setRl_seq(int rl_seq) {
+		this.rl_seq = rl_seq;
+	}
+	public int getPick_seq() {
+		return pick_seq;
+	}
+	public void setPick_seq(int pick_seq) {
+		this.pick_seq = pick_seq;
+	}
+	public int getR_reserve_seq() {
+		return r_reserve_seq;
+	}
+	public void setR_reserve_seq(int r_reserve_seq) {
+		this.r_reserve_seq = r_reserve_seq;
+	}
+	public int getTic_purchase_seq() {
+		return tic_purchase_seq;
+	}
+	public void setTic_purchase_seq(int tic_purchase_seq) {
+		this.tic_purchase_seq = tic_purchase_seq;
+	}
+	public int getFollower_seq() {
+		return follower_seq;
+	}
+	public void setFollower_seq(int follower_seq) {
+		this.follower_seq = follower_seq;
+	}
+	public String getFollower_name() {
+		return follower_name;
+	}
+	public void setFollower_name(String follower_name) {
+		this.follower_name = follower_name;
+	}
+	public String getRl_name() {
+		return rl_name;
+	}
+	public void setRl_name(String rl_name) {
+		this.rl_name = rl_name;
+	}
+	public String getPick_name() {
+		return pick_name;
+	}
+	public void setPick_name(String pick_name) {
+		this.pick_name = pick_name;
+	}
+	public String getRest_name() {
+		return rest_name;
+	}
+	public void setRest_name(String rest_name) {
+		this.rest_name = rest_name;
+	}
+	public String getTic_purchas_state() {
+		return tic_purchas_state;
+	}
+	public void setTic_purchas_state(String tic_purchas_state) {
+		this.tic_purchas_state = tic_purchas_state;
+	}
+	public String getTic_name() {
+		return tic_name;
+	}
+	public void setTic_name(String tic_name) {
+		this.tic_name = tic_name;
+	}
+	public int getTic_cart_seq() {
+		return tic_cart_seq;
+	}
+	public void setTic_cart_seq(int tic_cart_seq) {
+		this.tic_cart_seq = tic_cart_seq;
+	}
+	public int getTic_num_of_people() {
+		return tic_num_of_people;
+	}
+	public void setTic_num_of_people(int tic_num_of_people) {
+		this.tic_num_of_people = tic_num_of_people;
+	}
+	public String getTic_reserve_date() {
+		return tic_reserve_date;
+	}
+	public void setTic_reserve_date(String tic_reserve_date) {
+		this.tic_reserve_date = tic_reserve_date;
+	}
 
 	
 }

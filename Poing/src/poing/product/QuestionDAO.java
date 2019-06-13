@@ -18,8 +18,14 @@ public class QuestionDAO {
 	public ArrayList<QuestionDTO> selectDisplay(Connection conn){
 		System.out.println("QuestionDAO displayl");
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select q.*,m.m_name m_name ");
-		sql.append(" from tic_question q join member m on q.m_seq = m.m_seq ");
+		sql.append(" select tq.q_seq q_seq,tq.m_seq m_seq,tq.q_ctime q_ctime,tq.q_content " ); 
+		sql.append("q_content, tq.tic_seq tic_seq, m.m_name m_name, e.e_name e_name, " ); 
+		sql.append("tr.reply_seq reply_seq, tr.reply_ctime reply_ctime, tr.reply_content " );
+		sql.append("reply_content");
+		sql.append(" from tic_question tq  ");
+		sql.append(" join tic_reply tr on tq.q_seq = tr.q_seq  ");
+		sql.append(" join member m on tq.m_seq = m.m_seq ");
+		sql.append(" join editer e on tr.e_seq = e.e_seq ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -38,6 +44,10 @@ public class QuestionDAO {
 				qdto.setQ_content(rs.getString("q_content"));
 				qdto.setTic_seq(rs.getInt("tic_seq"));
 				qdto.setM_name(rs.getString("m_name"));
+				qdto.setE_name(rs.getString("e_name"));
+				qdto.setReply_seq(rs.getInt("reply_seq"));
+				qdto.setReply_ctime(rs.getString("reply_ctime"));
+				qdto.setReply_content(rs.getString("reply_content"));
 				qlist.add(qdto);
 			}
 			

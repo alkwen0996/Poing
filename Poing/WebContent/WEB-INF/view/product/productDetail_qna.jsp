@@ -30,13 +30,7 @@
 			</div>
 	</c:if>		 	
 		
-			<c:forEach items = "${ list_question}" varStatus = "status" var = "list_question">
-			${list_question.q_content }
-			${list_question.q_ctime }			
-			${list_question.m_name }			
-			${list_reply[status.index].reply_content }
-			${list_reply[status.index].e_name }
-			${list_reply[status.index].reply_ctime }
+			<c:forEach items = "${ list_question}" varStatus = "status" var = "list_question"  >
 				<div class="body qna" data-id="${list_question.q_seq }">
 					<div class="title">질문&amp;답변</div>
 					<div class="question">
@@ -47,22 +41,23 @@
 						</div>
 					</div>
 					<div class="reply">
-						<span class="label">답변</span> <span class="name">${dto_reply.e_name }</span>
+						<span class="label">답변</span> <span class="name">${list_question.e_name }</span>
 						<div class="text">
-							${list_question.m_name }님, 안녕하세요! ${dto_reply.e_name }입니다.<br>
-							${dto_reply.reply_content }
-							<span class="time"style="display: inline;">${dto_reply.reply_ctime }</span>
+							${list_question.m_name }님, 안녕하세요! ${list_question.e_name }입니다.<br>
+							${list_question.reply_content }
+							<span class="time"style="display: inline;">${list_question.reply_ctime }</span>
 						</div>
 					</div>
 				</div>
-			</c:forEach>
+				</c:forEach>
+			
 
 
 <script>
 	$(".body.send_qna>button").click(function() {
 		if (poing.account.checkLoginState()) {
 			var data = {
-				'id' : ${param.q_seq},
+				'id' : ${param.tic_seq},
 				'inquiry' : $("#text").val(),
 				'ticket_seq':${param.tic_seq}
 			};

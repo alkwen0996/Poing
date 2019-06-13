@@ -84,8 +84,7 @@ public class DisplayTimelineService {
 		conn.close();
 		return nlist;
 	}
-		
-	}// getPoingNoticeDTO
+	// getPoingNoticeDTO
 	
 	public static boolean amIFollow(int memberID, int my_no) throws SQLException {
 		if (my_no == -1) {

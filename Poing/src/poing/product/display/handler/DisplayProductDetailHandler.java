@@ -12,7 +12,6 @@ import poing.product.OptionDAO;
 import poing.product.OptionDTO;
 import poing.product.ProductDTO;
 import poing.product.QuestionDTO;
-import poing.product.ReplyDTO;
 import poing.product.display.service.DisplayOptionService;
 import poing.product.display.service.DisplayProductDetailService;
 
@@ -35,12 +34,8 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			
 			List<ProductDTO> photoList = (List<ProductDTO>) service.selectRestPhotoImg(tic_seq);
 			ProductDTO dto = service.select(tic_seq);
-//			ArrayList<ProductDTO> list_qna = service.select_qna(tic_seq);
 			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-			
-			
-			ArrayList<QuestionDTO> list_question = null;// QnA
-			ArrayList<ReplyDTO> list_reply = null;// QnA
+	
 			
 			int member_num;
 			if(mdto==null) {dto = service.select(tic_seq);
@@ -49,6 +44,11 @@ public class DisplayProductDetailHandler implements CommandHandler {
 				dto = service.select(tic_seq,member_num);
 			}
 			
+			
+			ArrayList<QuestionDTO> list_question = service.select_question(tic_seq);// QnA
+			
+			
+			request.setAttribute("list_question", list_question);
 			request.setAttribute("photoList", photoList);
 			request.setAttribute("dto", dto);
 			request.setAttribute("pp", pp);

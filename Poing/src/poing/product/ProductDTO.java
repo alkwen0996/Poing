@@ -22,83 +22,12 @@ public class ProductDTO {
 	private String tic_request;
 	private String tic_reserve_date;
 	private int tic_option_seq;
-	private String tic_validate_content;
 	private String tic_explain_content;
+	private String tic_validate_content;
 	private int tic_img_seq;
 	private int tic_original_price;
 	private int photoRownum;
 	private int menuRownum;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -131,12 +60,6 @@ public class ProductDTO {
 	}
 	public void setTic_explain_content(String tic_explain_content) {
 		this.tic_explain_content = tic_explain_content;
-	}
-	public String getTic_validate_content() {
-		return tic_validate_content;
-	}
-	public void setTic_validate_content(String tic_validate_content) {
-		this.tic_validate_content = tic_validate_content;
 	}
 	public int getTic_option_seq() {
 		return tic_option_seq;

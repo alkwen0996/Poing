@@ -29,7 +29,7 @@ public class DisplayRestDetailHandler implements CommandHandler
 		}
 		try {
 			RestDetailService service = new RestDetailService();
-			RestListDTO dto = service.select(rest_seq);
+			ArrayList<String> dto = service.select(rest_seq);
 			ProductDTO restProduct = DisplayRestDetailReviewService.selectRestTicket(rest_seq); //레스토랑 티켓 이미지 티켓 이름
 			List<ProductDTO> list1 = service.selectRestProductOPtion(rest_seq); //레스토랑 옵션 리스트
 			

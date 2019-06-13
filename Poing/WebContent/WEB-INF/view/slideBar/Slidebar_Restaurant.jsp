@@ -43,7 +43,7 @@
 						<c:if test="${i%2 eq 0 }"><i class="icon star small even active" data-id="" data-index="${status.index}" style=""></i></c:if>
 					</c:if>
 				</c:forEach>
-				<span data-id="" data-grade="74">3.7</span>
+				<span data-id="" data-grade="${ dto.rest_starpoint }">${ dto.rest_starpoint }</span>
 				</div>
 				<button class="gray_red border_radius soft ${ dto.rest_fav eq 1 ? 'on' : '' }" 
 					data-type="poing.restaurants.favorite" data-id=${ dto.rest_seq } tabindex="-1">

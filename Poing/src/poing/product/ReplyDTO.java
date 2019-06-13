@@ -5,7 +5,7 @@ public class ReplyDTO {
 	private String reply_ctime;
 	private String reply_content;
 	private String e_name;
-	private String e_seq;
+	private int e_seq;
 	private int q_seq;
 	
 	public int getReply_seq() {
@@ -32,10 +32,10 @@ public class ReplyDTO {
 	public void setE_name(String e_name) {
 		this.e_name = e_name;
 	}
-	public String getE_seq() {
+	public int getE_seq() {
 		return e_seq;
 	}
-	public void setE_seq(String e_seq) {
+	public void setE_seq(int e_seq) {
 		this.e_seq = e_seq;
 	}
 	public int getQ_seq() {

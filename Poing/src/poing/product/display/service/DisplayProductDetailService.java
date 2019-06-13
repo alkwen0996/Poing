@@ -11,7 +11,11 @@ import com.util.ConnectionProvider;
 
 import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
+import poing.product.QuestionDAO;
+import poing.product.QuestionDTO;
 import poing.product.RefundTicketDTO;
+import poing.product.ReplyDAO;
+import poing.product.ReplyDTO;
 import poing.product.PointHistoryDTO;
 
 
@@ -185,19 +189,36 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public ArrayList<ProductDTO> select_qna(int tic_seq) {
-		System.out.println("select_qna");
-		ProductDetailDAO dao = ProductDetailDAO.getInstance();
+	public ArrayList<QuestionDTO> select_question(int p_num,int memberID) {
+		System.out.println("select_question");
+		QuestionDAO qdao = QuestionDAO.getInstance();
 		Connection conn = null;
-		ArrayList<ProductDTO> list_qna = null;
+		ArrayList<QuestionDTO> list_question = null;
 		try {
 			conn = ConnectionProvider.getConnection();
-			list_qna	 = dao.selectdisplay_QnA(conn, tic_seq);
+			list_question = qdao.selectDisplay(conn);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return list_qna;
-	}// select
+		return list_question;
+	}// select_question
+	
+	public ArrayList<ReplyDTO> select_reply(int p_num,int memberID) {
+		System.out.println("select_question");
+		ReplyDAO rdao = ReplyDAO.getInstance();
+		Connection conn = null;
+		ArrayList<ReplyDTO> list_reply = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			list_reply = rdao.selectDisplay(conn, memberID);
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list_reply;
+	}// select_question
+	
 }// class

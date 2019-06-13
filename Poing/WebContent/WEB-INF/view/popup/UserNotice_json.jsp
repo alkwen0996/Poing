@@ -5,69 +5,107 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
-trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
-
-
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	StringBuffer sql = new StringBuffer();
-	sql.append(" select * from ( ");
-	sql.append("  select * from  ");
-	sql.append("  (select m.M_NAME m_name,m.m_no m_no, r.REV_NO rev_no ");
-	sql.append(" from review r join member m on r.m_no = m.m_no ");
-	sql.append(" where r.m_no=m.m_no) mr ");
-	sql.append(" join userNotice u on rev_no = un_target_id ");
-	sql.append(" where rev_no = un_target_id) ur ");
-	sql.append(" join notice_type t on un_push_type = notice_push_type ");
-	sql.append(" where un_push_type = 'comment_review' ");
+	
+%>
 
+<%
+	StringBuffer sql_type = new StringBuffer();
+
+	sql_type.append(" select * from notice_type ");
+
+	Connection conn_type = null;
+	PreparedStatement pstmt_type = null;
+	ResultSet rs_type = null;
+
+	conn_type = ConnectionProvider.getConnection();
+	pstmt_type = conn_type.prepareStatement(sql_type.toString());
+	rs_type = pstmt_type.executeQuery();
+
+	// 타입별로 검색해오기
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	StringBuffer sql = new StringBuffer();
+	int target_seq = 0;
+	
+	int wuid = 0; 
+	String wuname = ""; 
+
+	if (rs_type.getString("nt_pushtype") == "review") {
+
+		sql.append(" select *  from ");
+		sql.append(" ( select *from userNotice un ");
+		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
+		sql.append(" ) unnt ");
+		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
+		sql.append(" join ( 	select * from review rev ");
+		sql.append(" join member m on rev.rev_m_seq = m.m_seq ) revm ");
+		sql.append(" on unnt.rev_seq = revm.rev_seq ");
+
+		target_seq = rs_type.getInt("rev.rev_seq");
+		wuid = ;
+
+	}  
+		else if(rs_type.getString("nt_pushtype") == "user"){
+		
+			sql.append(" select *  from( ");
+			sql.append(" select *from userNotice un ");
+			sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq) unnt ");
+			sql.append(" join member m on unnt.un_m_seq = m.m_seq  ");
+			sql.append(" join ( select * from member m join follow f on follower_seq = m.M_SEQ ) mf ");
+			sql.append(" on unnt.un_m_seq = mf.following_seq ");
+			sql.append(" where unnt.m_seq is not null ");
+			
+			target_seq = rs_type.getInt(" mf.follower_seq ");
+		
+		} 
+
 	JSONObject jsonObject = null;
-	JSONArray jsonArray=null;
-	try{
+	JSONArray jsonArray = null;
+	try {
 		conn = ConnectionProvider.getConnection();
 		pstmt = conn.prepareStatement(sql.toString());
 		rs = pstmt.executeQuery();
-		
+
 		jsonObject = new JSONObject();
-		 jsonArray = new JSONArray();
-		
-		while(rs.next()){
-			
-			int id = rs.getInt("un_id");
-			int user_id = rs.getInt("un_user_id");
-			String push_type = rs.getString("un_push_type");
-			int target_id = rs.getInt("un_target_id");
-			String target = rs.getString("un_target"); 
+		jsonArray = new JSONArray();
+
+		while (rs.next()) {
+
+			int id = rs.getInt("un_seq");
+			int user_id = rs.getInt("nt_m_seq");
+			String push_type = rs.getString("nt_push_type");
+			String target_id = rs.getString("target_seq");
+			String target = rs.getString("nt_target");
 			int is_read = rs.getInt("un_is_read");
-			int is_count =rs.getInt("un_is_count");
+			int is_count = rs.getInt("un_is_count");
 			int is_poing = rs.getInt("un_is_poing");
-			int additional = rs.getInt("un_additional");
 			int is_block_on_user = rs.getInt("un_is_block_on_user");
-			String contents = rs.getString("notice_type_content");
-			int wuid = rs.getInt("m_no");
-			String wuname = rs.getString("m_name");
-			String  updated_at = rs.getString("un_updated_at");
-			String  created_at = rs.getString("un_created_at");
-			
-			
+			int additional = rs.getInt("un_additional");
+			String contents = rs.getString("nt_typecontent");
+			int wuid = rs.getInt("un_m_seq");
+			String wuname = rs.getString("m.m_name");
+			String updated_at = rs.getString("pn_updated_at");
+			String created_at = rs.getString("pn_created_at");
+
 			JSONObject jsonData = new JSONObject();
-			
+
 			JSONArray image = new JSONArray();
 			JSONObject img_type = new JSONObject();
 			img_type.put("original", null);
-			img_type.put("thumbnail",null);
+			img_type.put("thumbnail", null);
 			image.add(img_type);
-			
+
 			jsonData.put("image", image);
-			
+
 			jsonData.put("schema", null);
-			jsonData.put("web_schema", null);		
-			
+			jsonData.put("web_schema", null);
+
 			jsonData.put("who_update", null);
 			jsonData.put("created_at", created_at);
 			jsonData.put("updated_at", updated_at);
@@ -81,33 +119,29 @@ trimDirectiveWhitespaces="true"%>
 			jsonData.put("is_read", is_read);
 			jsonData.put("target", target);
 			jsonData.put("target_id", target_id);
-			jsonData.put("mongo_target_id", target_id);
+			jsonData.put("mongo_target_id", null);
 			jsonData.put("push_type", push_type);
 			jsonData.put("user_id", user_id);
-			jsonData.put("object_id", null);			
+			jsonData.put("object_id", null);
 			jsonData.put("id", id);
-		
+
 			jsonArray.add(jsonData);
-			
 		}
-		
-		
-		
-	}catch(Exception e){
+	} catch (Exception e) {
 		e.printStackTrace();
-	}finally{
-		   pstmt.close();
-		   rs.close();
-		   conn.close();
-	   }
-	
+	} finally {
+		pstmt.close();
+		rs.close();
+		conn.close();
+	}
 %>
-<%=jsonArray %>
+<%=jsonArray%>
 
 
- 
- 
- <%-- 
+
+
+
+<%-- 
  [{
     "id": 7151396,
     "user_id": 1520328,

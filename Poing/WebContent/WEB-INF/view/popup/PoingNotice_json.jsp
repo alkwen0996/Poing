@@ -7,20 +7,65 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
- <%
+
+<%
+	StringBuffer sql_type = new StringBuffer();
 	
- 	StringBuffer sql = new StringBuffer();
-	sql.append(" with temp as(select * ");
-	sql.append(" from poingNotice pn ");
-	sql.append(" join notice_type nt on pn.pn_push_type = nt.notice_push_type ");
-	sql.append(" where nt.notice_push_type = 'level_up')  ");
-	sql.append(" select * from temp t, member m  ");
-	sql.append(" where t.pn_user_id = m.m_no  ");
+	sql_type.append(" select * from notice_type ");
 	
- 
+	Connection conn_type = null;
+	PreparedStatement pstmt_type = null;
+	ResultSet rs_type = null;
+	
+	conn_type = ConnectionProvider.getConnection();
+	pstmt_type = conn_type.prepareStatement(sql_type.toString());
+	rs_type = pstmt_type.executeQuery();
+	
+	// 타입별로 검색해오기
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	StringBuffer sql = new StringBuffer();
+	int target_seq = 0;
+	
+ if(rs_type.getString("nt_pushtype") == "place"){
+		
+		sql.append(" select *  from ");
+		sql.append(" ( select *from userNotice un ");
+		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
+		sql.append(" ) unnt ");
+		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
+		sql.append(" join ( 	select * from restaurant  ) rest ");
+		sql.append(" on unnt.rest_seq = rest.rest_seq ");
+		
+		target_seq = rs_type.getInt("rest.rest_seq");
+		
+	}else if(rs_type.getString("nt_pushtype") == "product"){
+		
+		sql.append(" select *  from ");
+		sql.append(" ( select *from userNotice un ");
+		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
+		sql.append(" ) unnt ");
+		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
+		sql.append(" join ( 	select * from ticket  ) tic ");
+		sql.append(" on unnt.tic_seq = tic.tic_seq ");
+		
+		target_seq = rs_type.getInt("tic.tic_seq");
+		
+	}
+	else if(rs_type.getString("nt_pushtype") == "user"){
+		
+		sql.append(" select *  from ");
+		sql.append(" ( select *from userNotice un ");
+		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
+		sql.append(" ) unnt ");
+		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
+		sql.append(" join ( 	select * from review rev ");
+		sql.append(" join member m on rev.rev_m_seq = m.m_seq ) revm ");
+		sql.append(" on unnt.rev_seq = revm.rev_seq; ");
+		
+	} 
+	
 	JSONObject jsonObject = null;
 	JSONArray jsonArray=null;
 	try{
@@ -33,21 +78,22 @@ trimDirectiveWhitespaces="true"%>
 		
 		while(rs.next()){
 			
-			int id = rs.getInt("pn_id");
-			int user_id = rs.getInt("pn_user_id");
-			String push_type = rs.getString("pn_push_type");
-			String target_id = rs.getString("pn_target_id");
-			String target = rs.getString("pn_target"); 
+			int id = rs.getInt("pn_seq");
+			int user_id = rs.getInt("pn_m_seq");
+			String push_type = rs.getString("nt_pushtype");
+			int target_id = target_seq;
+			String target = rs.getString("nt_target"); 
 			int is_read = rs.getInt("pn_is_read");
 			int is_count =rs.getInt("pn_is_count");
 			int is_poing = rs.getInt("pn_is_poing");
 			int is_block_on_user = rs.getInt("pn_is_block_on_user");
 			int additional = rs.getInt("pn_additional");
-			String contents = rs.getString("notice_type_content");
-			int wuid = rs.getInt("m_no");
+			String contents = rs.getString("nt_typecontent");
+			int wuid = rs.getInt("m_seq");
 			String wuname = rs.getString("m_name");
 			String  updated_at = rs.getString("pn_updated_at");
 			String  created_at = rs.getString("pn_created_at");
+			
 			
 			JSONObject jsonData = new JSONObject();
 			
@@ -57,10 +103,10 @@ trimDirectiveWhitespaces="true"%>
 			img_type.put("thumbnail",null);
 			image.add(img_type);
 			
-			jsonData.put("image", image);
 			
-			jsonData.put("schema", null);
 			jsonData.put("web_schema", null);		
+			jsonData.put("schema", null);
+			jsonData.put("image", image);
 			
 			jsonData.put("who_update", null);
 			jsonData.put("created_at", created_at);
@@ -80,9 +126,13 @@ trimDirectiveWhitespaces="true"%>
 			jsonData.put("user_id", user_id);
 			jsonData.put("object_id", null);			
 			jsonData.put("id", id);
-			
+		
 			jsonArray.add(jsonData);
+			
 		}
+		
+		
+		
 	}catch(Exception e){
 		e.printStackTrace();
 	}finally{
@@ -93,6 +143,8 @@ trimDirectiveWhitespaces="true"%>
 	
 %>
 <%=jsonArray %>
+
+ 
 
   
  

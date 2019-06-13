@@ -15,7 +15,7 @@ public class InsertQnAService {
 		int insertedCount =0;
 		try {
 			conn = ConnectionProvider.getConnection();
-			insertedCount = dao.insertQnA(conn, pdto);
+			//insertedCount = dao.;
 			conn.close();
 			
 		} catch (SQLException e) {

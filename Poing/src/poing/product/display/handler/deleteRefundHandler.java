@@ -21,8 +21,8 @@ public class deleteRefundHandler implements CommandHandler {
 		boolean result = false;
 
 		DisplayProductDetailService service = new DisplayProductDetailService();
-		int reserva_tic_seq = Integer.parseInt(request.getParameter("reserva_tic_seq"));
-		result = service.updateState(reserva_tic_seq);
+		int tc_purchas_seq = Integer.parseInt(request.getParameter("tc_purchas_seq"));
+		result = service.updateState(tc_purchas_seq);
 
 		
 //			List<RefundTicketDTO> list2 = service.selectRefund_tic(reserva_tic_seq);

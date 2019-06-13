@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="poing.product.OptionDTO"%>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="poing.product.ProductDTO"%>
@@ -27,14 +28,22 @@
    </title>
 </head>
 <%
-   ProductDTO dto = (ProductDTO) request.getAttribute("dto");
-   ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
-   MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-   
-//    int member_num = 0;
-//    if(mdto==null) member_num = 0;
-//    else member_num = mdto.getM_no();
-   
+List<ProductDTO> MenuImg = (List<ProductDTO>) request.getAttribute("MenuImg");
+	ProductDTO menuRownum = (ProductDTO) request.getAttribute("menuRownum");
+	ProductDTO menuDto = (ProductDTO) request.getAttribute("menuDto");
+	ProductDTO photoDto = (ProductDTO) request.getAttribute("photoDto");
+	ProductDTO dto = (ProductDTO) request.getAttribute("dto");
+	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
+	MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
+// 	List<ProductDTO> photoList = (List<ProductDTO>) request.getAttribute("photoList");
+
+	int member_num = 0;
+	
+	if (mdto == null) {
+		member_num = 0;
+	} else {
+		member_num = mdto.getM_seq();
+	}
 %>
 <body>
    <div id="wrap" class="">
@@ -57,8 +66,7 @@
                   <div class="inner">
                      <div class="header">
                         <span class="name">${dto.rest_name }</span> <span class="info">${dto.rest_address }-${dto.rest_foodinfo }</span>
-                        <button class="empty favorite " data-id=""
-                           tabindex="-1">
+                        <button class="empty favorite " data-id="${param.tic_seq}" tabindex="-1">
                            <%
                               if (dto.getPick() == 1) {
                            %>
@@ -75,12 +83,12 @@
                      <div class="body">
                         <div class="slider_wrap PoingSlider_wrap">
                            <div id="slider" class="PoingSlider">
-                              <div class="i_wrap slice current" style="top: 0px; left: 0%;">
                               <c:forEach items="${photoList }" var="photoList"  varStatus="status">
-                                 <i class="image" data-index="0" style="background-image: url('${photoList.tic_menu_images}')"
-                                    title="${photoList.tic_menu_images}"></i>
+
+                              <div class="i_wrap slice" style="top: 0px; left: -100%;">
+                                <i class="image" data-index="" style="background-image:url(/Poing${photoList.tic_img})" title=""></i>
+								</div>
                               </c:forEach>
-                              </div>
 
                            </div>
                         </div>
@@ -89,8 +97,16 @@
                               <span class="main">할인</span><br> <span class="sub">
                                  OFF</span>
                            </div>
-                           <span class="reduced">${dto.p_dc_money }</span><br> <span
-                              class="original">${dto.p_origin_money }</span>
+                           <span class="reduced">${dto.tic_dc_price }원</span><br> 
+                           
+                           <c:choose>
+                  <c:when test="${ dto.tic_original_price eq 0 }">
+                           </c:when>
+                  <c:when test="${ dto.tic_original_price ne 0 }">
+                           <span class="original">${dto.tic_original_price }원</span>
+                           </c:when>
+                           </c:choose>
+                           
                         </div>
                         <div id="left_time">
                                  남은시간 <span>9일 23:06:11</span>
@@ -113,7 +129,7 @@
                            
                         </ul>
                         <div class="summary">
-                           <span class="label">총 합계</span> <span class="value">${op.tic_dc_price }</span><span
+                           <span class="label">총 합계</span> <span class="value">${op.tic_dc_price }원</span><span
                               class="label"></span>
                         </div>
                      </div>
@@ -133,9 +149,18 @@
                   <li class="item photo"><a
                      href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=photo">포토</a>
                   </li>
+                  <c:choose>
+                  
+                  <c:when test="${ menuRownum.menuRownum ne 0}">
                   <li class="item menu"><a
                      href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=menu">메뉴</a>
                   </li>
+                  </c:when>
+                   <c:when test="${ menuRownum.menuRownum eq 0}">
+                  </c:when>
+                  
+                  
+                  </c:choose>
                   <li class="item map"><a
                      href="/Poing/product/detail.do?tic_seq=${param.tic_seq }&tab=map">지도</a>
                   </li>
@@ -152,11 +177,10 @@
                         page="/WEB-INF/view/product/productDetail_info.jsp" />
                   </c:when>
 
-                  <c:when test="${ param.tab eq 'photo' }">
+                  <c:when test="${ param.tab eq 'photo'}">
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_photo.jsp" />
                   </c:when>
-
                   <c:when test="${ param.tab eq 'menu' }">
                      <jsp:include
                         page="/WEB-INF/view/product/productDetail_menu.jsp" />

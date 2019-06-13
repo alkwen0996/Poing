@@ -17,8 +17,8 @@
         int typecnt = request.getParameter("type").equals("on")?1:0;
         String sql = "";
         
-        if (typecnt==1) sql = "insert into  pick values (pick_seq.nextval, ?, ?, null,null)  "; //1,100022, null,null
-        else sql = "delete from pick where m_no = ? and rest_no= ? "; 
+        if (typecnt==1) sql = "insert into  pick values (pick_seq.nextval, ?, null,null,?)  "; //1,100022, null,null
+        else sql = "delete from pick where m_seq = ? and rest_seq= ? "; 
         int cnt = 0;
         
         Connection conn = null;

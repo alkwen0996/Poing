@@ -1,4 +1,5 @@
 
+<%@page import="poing.product.ProductDTO"%>
 <%@page import="poing.rest.RestListDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="poing.rest.RestListDAO"%>
@@ -33,6 +34,7 @@
 </head>
 <%
 	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
+	ProductDTO restProduct = (ProductDTO) request.getAttribute("restProduct");
 	double starpoint = dto.getRest_starpoint();
 	int tenpoint = (int) Math.round(starpoint * 2);
 	request.setAttribute("tenpoint", tenpoint);

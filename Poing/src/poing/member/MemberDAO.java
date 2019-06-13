@@ -88,7 +88,7 @@ public class MemberDAO {
 	public static boolean chargePoint(Connection conn,int chargePoint, int m_seq){
 		boolean result1 = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update member set rp_seq= rp_seq+? where m_seq = ? ");
+		sql.append(" update member set m_point= m_point+? where m_seq = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		try {
@@ -128,6 +128,7 @@ public class MemberDAO {
 		sql.append(" update member set m_point = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, m_point);

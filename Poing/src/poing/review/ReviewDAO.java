@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import poing.product.PointHistoryDTO;
+import poing.product.ProductDTO;
+
 public class ReviewDAO {
 
 	public ReviewDAO() {}
@@ -470,6 +473,55 @@ public class ReviewDAO {
 		}
 		return result;
 	}
+//	public static int selectRestTicket(Connection conn, int rev_seq) throws SQLException {
+//		ProductDTO dto = null;
+//		String sql = null;
+//		sql = " select * from restaurant r join ticket t on r.rest_seq = "
+//				+ " t.rest_seq join tic_img i on i.tic_seq = t.tic_seq where r.rest_seq = ? ";
+//		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+//		pstmt.setInt(1, rev_seq);
+//		ResultSet rs = pstmt.executeQuery();
+//
+//		int result = 0;
+//		rs.next();
+//		
+//			result = rs.getInt("pick_cnt");
+//		
+//		return result;
+//	}
+	public static ProductDTO selectRestTicket(Connection conn, int rest_seq) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select t.tic_seq,t.tic_name,i.tic_img from restaurant r join ticket t on r.rest_seq = "
+				+ " t.rest_seq join tic_img i on i.tic_seq = t.tic_seq where r.rest_seq = ? and tic_img like %e_1.% ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, rest_seq);
+			
+			rs = pstmt.executeQuery();
+				rs.next();
+				dto = new ProductDTO();
+				dto.setTic_seq(rs.getInt("tic_seq"));
+				dto.setTic_name(rs.getString("tic_name"));
+				dto.setTic_img(rs.getString("tic_img"));
+			;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return dto;
+	}
+	
 	public static int countMyPickReview(Connection conn, int rev_seq) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" SELECT COUNT(*) pick_cnt FROM pick ");

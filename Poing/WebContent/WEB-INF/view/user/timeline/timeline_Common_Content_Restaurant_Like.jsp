@@ -37,10 +37,10 @@ int memberID = Integer.parseInt( request.getParameter("id") );
 			<c:if test="${status.index % 3 eq 0 }">
 				<div class="element  medium first">
 			</c:if>
-			<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}"
-				class="image"
-				data-src="http://c2.poing.co.kr/PIMAGE-original/MjAxNzEw/150839398359e843ff78add.jpeg"
-				style="display: block; background-color: gray">
+			<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}" 
+								class="image" 
+								style="display: block; 
+								background-image: url(/Poing${dto.rest_img});">    
 				<div class="shading"></div>
 
 				<div class="top">

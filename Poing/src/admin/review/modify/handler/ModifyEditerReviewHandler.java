@@ -1,17 +1,15 @@
 package admin.review.modify.handler;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import admin.AdminDTO;
 import admin.mvc.CommandHandler;
 import admin.review.EditerReviewDTO;
-import admin.review.write.service.WriteEditerReviewService;
+import admin.review.modify.service.ModifyEditerReviewService;
 
 public class ModifyEditerReviewHandler implements CommandHandler{
-	WriteEditerReviewService writeEditerReviewService = new WriteEditerReviewService();
+	ModifyEditerReviewService modifyEditerReviewService = new ModifyEditerReviewService();
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		AdminDTO authAdmin = (AdminDTO) request.getSession().getAttribute("authAdmin");
@@ -20,22 +18,15 @@ public class ModifyEditerReviewHandler implements CommandHandler{
 			response.sendRedirect("/Poing/admin/login.ad");
 			return null;
 		}
-		int e_seq = authAdmin.getE_seq();
-		
-		if (request.getMethod().equals("GET")) {
-			ArrayList<EditerReviewDTO> er_list = null;
-			er_list = writeEditerReviewService.getEditerReviewList(e_seq);
-			request.setAttribute("er_list", er_list);
-			return "editer_review";
+		int er_seq = Integer.parseInt(request.getParameter("er_seq"));
+
+		String er_contetn = request.getParameter("er_content");
+		boolean result = false;
+		result = modifyEditerReviewService.modifyEditerReview(er_seq, er_contetn);
+		if (result) {
+			System.out.println("변경 성공");
 		}
-		else if (request.getMethod().equals("POST"))	{
-			
-			int rest_seq = Integer.parseInt(request.getParameter("rest_seq"));
-			String er_content = request.getParameter("er_content");
-			writeEditerReviewService.addEditerReview(e_seq, rest_seq, er_content);
-			response.sendRedirect("/Poing/admin/editer_review.ad");
-		}
+		response.sendRedirect("/Poing/admin/editer_review.ad");
 		return null;
 	}
-
 }

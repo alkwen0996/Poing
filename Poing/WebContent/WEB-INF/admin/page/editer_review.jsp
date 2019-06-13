@@ -24,7 +24,7 @@
 <body>
 
 <jsp:include page="/WEB-INF/admin/layout/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include> 
 
 
 <div id="content">
@@ -54,7 +54,7 @@
 							<div class="chat-messages" id="chat-messages">
 								<div id="chat-messages-inner">
 									<p id="msg" class="user-linda" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av2.jpg" alt="">
+										<span class="msg-block">
 											<strong>검색어를 입력하세요</strong> 
 											<span class="msg"></span>
 										</span>
@@ -155,10 +155,10 @@
 									<c:forEach items="${ er_list }" var="er_dto">
 										<tr class="gradeC odd">
 											<td class="sorting_1" style="align-content: center">${ er_dto.rest_name }</td>
-											<td class=" ">${ er_dto.er_content }</td>
+											<td class="er_content">${ er_dto.er_content }</td>
 											<td class=" ">${ er_dto.er_wtime }</td>
 											<td>
-												<button class="btn btn-info btn-mini" onclick="location.href='modify_review.ad?er_seq=${ er_dto.er_seq }'">수정</button>
+												<button class="btn btn-info btn-mini modifyReview">수정</button> <!-- onclick="location.href='modify_review.ad?er_seq=${ er_dto.er_seq }'" -->
 												<button class="btn btn-danger btn-mini" onclick="location.href='delete_review.ad?er_seq=${ er_dto.er_seq }'">삭제</button>
 											</td>
 										</tr>
@@ -194,6 +194,7 @@
 <div class="row-fluid">
   <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
 </div>
+
 <!--end-Footer-part--> 
 <script src="js/jquery.min.js"></script> 
 <script src="js/jquery.ui.custom.js"></script> 
@@ -201,7 +202,7 @@
 <script src="js/bootstrap.min.js"></script> 
 <script src="js/bootstrap-colorpicker.js"></script> 
 <script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/jquery.toggle.buttons.js"></script> 
+<!-- <script src="js/jquery.toggle.buttons.js"></script>  -->
 <script src="js/masked.js"></script> 
 <script src="js/jquery.uniform.js"></script> 
 <script src="js/select2.min.js"></script> 
@@ -252,6 +253,16 @@
            	});
 		}
 	});
+	
+	$(".modifyReview").click(function() {
+		$(this).html("완료");
+		var td_content = $(this).parent().parent().children("td.er_content");
+		$form = $("<form></form>");
+		var textarea = $('<textarea>');
+		textarea.text('testset');
+		$form.add(textarea);
+		td_content.html(form);
+	})
 	</script>
 
 </body>

@@ -20,7 +20,7 @@ public class RemoveEditerReviewHandler implements CommandHandler{
 		int er_seq = Integer.parseInt(request.getParameter("er_seq"));
 		
 		boolean result = false;
-		removeEditerReviewService.removeEditerReview(er_seq);
+		result = removeEditerReviewService.removeEditerReview(er_seq);
 		if (result) {
 			System.out.println("삭제 성공");
 		}

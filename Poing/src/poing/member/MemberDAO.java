@@ -477,6 +477,7 @@ public class MemberDAO {
 				dto.setRest_starpoint(rs.getDouble("starpoint"));
 				dto.setRest_budget_type(rs.getString("rest_budget_type"));
 				dto.setRest_line_exp(rs.getString("rest_line_exp"));
+				dto.setRest_img(rs.getString("rest_img"));
 				int rest_menu_yn = 1;
 				if (rs.getString("rest_menu_img")==null) rest_menu_yn=0;
 				dto.setRest_menu_yn(rest_menu_yn);

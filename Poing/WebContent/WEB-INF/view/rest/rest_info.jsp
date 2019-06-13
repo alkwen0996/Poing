@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -82,18 +83,20 @@
 		<div class="body">${dto.rest_alchol}</div>
 	</div>
 	<hr>
+	<%
+	ArrayList<String> his = (ArrayList<String>)request.getAttribute("reserveHis");
+	String a="" , b="";
+	if (his.size()==1) a=his.get(0);
+	if (his.size()==2) {
+		a=his.get(0);
+		b=his.get(1);
+	}
+	%>
 	<div class="section single reservation_histories">
 		<div class="title ">최근 예약 히스토리</div>
 		<div class="body">
-			3840님이 2019.5.25 오후 7:00, 2명 예약하셨습니다.<span><script>
-									document
-											.write(moment('2019-05-23 10:31:24')
-													.locale('ko').fromNow());
-								</script>4시간 전</span><br>1167님이 2019.5.18 오후 12:30, 2명 예약하셨습니다.<span><script>
-										document.write(moment(
-												'2019-05-17 11:30:19').locale(
-												'ko').fromNow());
-									</script>6일 전</span>
+			<%=a%><br>
+			<%=b%>
 		</div>
 	</div>
 	<hr>

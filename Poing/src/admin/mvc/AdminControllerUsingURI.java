@@ -70,8 +70,6 @@ public class AdminControllerUsingURI extends HttpServlet{
 		if (command.indexOf(request.getContextPath()) == 0) {
 			command = command.substring(request.getContextPath().length());
 		}
-		request.setAttribute("command", command);
-		
 		CommandHandler handler = commandHandlerMap.get(command);
 		if (handler == null) {
 			System.out.println("AdminControllerUsingURI NullHandler");
@@ -86,6 +84,8 @@ public class AdminControllerUsingURI extends HttpServlet{
 		}
 		if(viewPage != null) {
 			String prefix = "/WEB-INF/admin/page/";
+			request.setAttribute("command", viewPage);
+
 			viewPage = prefix+viewPage+".jsp";
 			System.out.println("viewpage: " + viewPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

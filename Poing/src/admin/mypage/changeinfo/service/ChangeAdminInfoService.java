@@ -10,12 +10,12 @@ import admin.AdminDAO;
 public class ChangeAdminInfoService {
 	AdminDAO adminDAO = new AdminDAO();
 	
-	public boolean changeAdminInfo(String e_name, String e_pw, int e_seq) throws SQLException {
+	public boolean changeAdminInfo(String e_name, String e_pw, String e_selfintro, int e_seq) throws SQLException {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
-		result = adminDAO.updateEditerInfo(conn, e_name, e_pw, e_seq);
+		result = adminDAO.updateEditerInfo(conn, e_name, e_pw, e_selfintro, e_seq);
 		conn.close();
 		return result;
 	}

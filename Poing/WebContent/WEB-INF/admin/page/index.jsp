@@ -7,6 +7,27 @@
 <title>관리자 메인</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="js/jquery.min.js"></script> 
+<script src="js/excanvas.min.js"></script> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.flot.min.js"></script> 
+<script src="js/jquery.flot.resize.min.js"></script> 
+<script src="js/jquery.peity.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/fullcalendar.min.js"></script> 
+<script src="js/matrix.calendar.js"></script> 
+<script src="js/matrix.chat.js"></script> 
+<script src="js/jquery.validate.js"></script> 
+<script src="js/matrix.form_validation.js"></script> 
+<script src="js/jquery.wizard.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/matrix.popover.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.tables.js"></script> 
+<script src="js/matrix.interface.js"></script> 
 <style>
 <%@include file="/admin/css/bootstrap.min.css" %>
 <%@include file="/admin/css/bootstrap-responsive.min.css" %>
@@ -30,7 +51,7 @@
     <ul class="quick-actions">
       <li class="bg_lb"> <a href="index.ad"> <i class="icon-dashboard"></i> My Dashboard </a> </li>
       <li class="bg_lg"> <a href="banner_image.ad"> <i class="icon-picture"></i> 배너 이미지</a> </li>
-      <li class="bg_lo"> <a href="mainpage_image.ad"> <i class="icon-picture"></i> 메인페이지 이미지</a> </li>
+      <li class="bg_lo"> <a href="product_banner.ad"> <i class="icon-picture"></i> 메인페이지 이미지</a> </li>
       <li class="bg_ls"> <a href="editer_review.ad"> <i class="icon-pencil"></i> 에디터평 작성 </a> </li>
       <li class="bg_ly"> <a href="editer_mypage.ad"> <i class="icon-th-list"></i> 정보수정 </a> </li>
     </ul>
@@ -153,26 +174,6 @@
   <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
 </div>
 <!--end-Footer-part-->
-<script src="js/excanvas.min.js"></script> 
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.flot.min.js"></script> 
-<script src="js/jquery.flot.resize.min.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/fullcalendar.min.js"></script> 
-<script src="js/matrix.calendar.js"></script> 
-<script src="js/matrix.chat.js"></script> 
-<script src="js/jquery.validate.js"></script> 
-<script src="js/matrix.form_validation.js"></script> 
-<script src="js/jquery.wizard.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.popover.js"></script> 
-<script src="js/jquery.dataTables.min.js"></script> 
-<script src="js/matrix.tables.js"></script> 
-<script src="js/matrix.interface.js"></script> 
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to
   // a different page. Ignore if the value returned is a null string:

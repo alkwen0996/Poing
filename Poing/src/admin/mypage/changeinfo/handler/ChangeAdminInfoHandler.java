@@ -26,12 +26,14 @@ public class ChangeAdminInfoHandler implements CommandHandler{
 		int e_seq = authAdmin.getE_seq();
 		String e_name = request.getParameter("e_name");
 		String e_pw = request.getParameter("e_pw");
-		result = changeAdminInfoService.changeAdminInfo(e_name, e_pw, e_seq);
+		String e_selfintro = request.getParameter("e_selfintro");
+		result = changeAdminInfoService.changeAdminInfo(e_name, e_pw, e_selfintro, e_seq);
 		
 		if (result) {
 			System.out.println("editer 정보 변경 성공");
 			authAdmin.setE_pw(e_pw);
 			authAdmin.setE_name(e_name);
+			authAdmin.setE_selfintro(e_selfintro);
 		}
 		
 		response.sendRedirect("/Poing/admin/editer_mypage.ad");

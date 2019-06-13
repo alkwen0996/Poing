@@ -50,54 +50,36 @@
 					<div class="widget-title">
 						<span class="icon"> <i class="icon-align-justify"></i>
 						</span>
-						<h5>에디터 사진 설정</h5>
+						<h5>프로덕트 배너 수정 페이지</h5>
 					</div>
 					<div class="widget-content nopadding">
 						<form class="form-horizontal" enctype="multipart/form-data"
-							action="editer_image_change.ad" method="post">
+							action="modify_product_banner.ad" method="post">
 							<div class="control-group">
-								<label class="control-label">사용할 사진 선택</label>
+								<label class="control-label">바꿀 작은 이미지 선택</label>
 								<div class="controls">
 									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="editer_image"
+										<input type="file" size="19" name="small_image"
+											style="opacity: 0;"> <span class="filename">No
+											file selected</span> <span class="action">Choose File</span>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">바꿀 큰 이미지 선택</label>
+								<div class="controls">
+									<div class="uploader" id="uniform-undefined">
+										<input type="file" size="19" name="big_image"
 											style="opacity: 0;"> <span class="filename">No
 											file selected</span> <span class="action">Choose File</span>
 									</div>
 								</div>
 							</div>
 							<div class="form-actions">
-								<button type="submit" class="btn btn-success">Save</button>
+								<button type="submit" class="btn btn-success">확인</button>
+								<button class="btn btn-success" onclick="history.back(-1);">취소</button>
 							</div>
 						</form>
-					</div>
-				</div>
-			</div>
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-picture"></i>
-						</span>
-						<h5>현제 에디터 사진</h5>
-					</div>
-					<div class="widget-content">
-						<c:choose>
-							<c:when test="${ authAdmin.e_img eq null || authAdmin.e_img.isEmpty() }">
-								현재 에디터의 이미지가 없습니다.
-							</c:when>
-							<c:otherwise>
-							<ul class="thumbnails">
-								<li class="span2"><a> 
-								<img src="${ realPath }${ authAdmin.e_img }" alt="">
-								</a>
-								<div class="actions">
-									<a class="lightbox_trigger" href="${ realPath }${ authAdmin.e_img }">
-										<i class="icon-search"></i>
-									</a>
-								</div>
-								</li>
-							</ul>
-							</c:otherwise>
-						</c:choose>
 					</div>
 				</div>
 			</div>

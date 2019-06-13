@@ -40,41 +40,8 @@
 				class="icon-home"></i> Home</a> <a href="#">Sample pages</a> <a
 				href="#" class="current">Gallery</a>
 		</div>
-		<h1>배너 이미지</h1>
+		<h1>프로덕트 배너 리스트</h1>
 	</div>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-align-justify"></i>
-						</span>
-						<h5>사진 추가</h5>
-					</div>
-					<div class="widget-content nopadding">
-						<form class="form-horizontal" enctype="multipart/form-data" 
-							action="banner_image_add.ad" method="post">
-							<div class="control-group">
-								<label class="control-label">추가할 사진 선택</label>
-								<div class="controls">
-									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="banner_image" style="opacity: 0;">
-										<span class="filename">No file selected</span>
-										<span class="action">Choose File</span>
-									</div>
-								</div>
-							</div>
-							<div class="form-actions">
-								<button type="submit" class="btn btn-success">Save</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- row-fluid -->
-	</div>
-	<hr />
 	<div class="container-fluid">
 		<div class="row-fluid">
 				<div class="span12">
@@ -89,29 +56,38 @@
 								<thead>
 									<tr>
 										<th>순서</th>
-										<th>이미지</th>
-										<th>설정</th>
+										<th>작은이미지</th>
+										<th>배너이미지</th>
+										<th>세일</th>
+										<th>제목</th>
+										<th>설명</th>
+										<th>링크</th>
+										<th>수정/삭제</th>
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${ banner_list }" var="bannerImageDTO" varStatus="status">
+								<c:forEach items="${ pb_list }" var="pbDTO" varStatus="status">
 									<tr class="odd gradeX">
 										<td style="width: 30px">${ status.count }</td>
-										<td style="width: 500px"><img src="${ realPath }${ bannerImageDTO.banner_img }" alt=""></td>
-										<td style="width: 100px">
-											<a title="" class="" href="banner_image_remove.ad?banner_seq=${ bannerImageDTO.banner_seq }">
-												<i class="icon-remove"></i>
-											</a>
-											<a class="lightbox_trigger" href="${ realPath }${ bannerImageDTO.banner_img }"> 
-												<i class="icon-search"></i>
-											</a>
+										<td style="width: 70px"><img src="${ realPath }${ pbDTO.pb_element_img }" alt=""></td>
+										<td style="width: 200px"><img src="${ realPath }${ pbDTO.pb_banner_img }" alt=""></td>
+										<td style="width: 30px">${ pbDTO.pb_sale }</td>
+										<td style="width: 60px">${ pbDTO.pb_title }</td>
+										<td style="width: 100px">${ pbDTO.pb_descript }</td>
+										<td style="width: 100px">${ pbDTO.pb_link }</td>
+										<td style="width: 40px">
+											<button class="btn btn-info btn-mini "
+											onclick="location.href='modify_product_banner.ad?pb_seq=${ pbDTO.pb_seq }'">수정</button>
+											<button class="btn btn-danger btn-mini" 
+											onclick="location.href='delete_product_banner.ad?pb_seq=${ pbDTO.pb_seq }'">삭제</button>
+											<br>
 											<c:if test="${not status.first}">
-											<a class="" href="banner_image_move.ad?banner_seq=${ bannerImageDTO.banner_seq }&move=1"> 
+											<a class="" href="move_product_banner.ad?pb_seq=${ pbDTO.pb_seq }&move=1"> 
 												<i class="icon-arrow-up"></i>
 											</a>
 											</c:if>
 											<c:if test="${not status.last}">
-											<a class="" href="banner_image_move.ad?banner_seq=${ bannerImageDTO.banner_seq }&move=-1"> 
+											<a class="" href="move_product_banner.ad?pb_seq=${ pbDTO.pb_seq }&move=-1"> 
 												<i class="icon-arrow-down"></i>
 											</a>
 											</c:if>

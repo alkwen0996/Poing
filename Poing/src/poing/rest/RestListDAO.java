@@ -116,9 +116,10 @@ public class RestListDAO {
 		sql.append(" SELECT ROWNUM AS no, temp.* ");
 		sql.append(" FROM ");
 		sql.append(" ( ");
-		sql.append("    SELECT rest_seq, rest_name, rest_loc ");
-		sql.append("    FROM p_restaurant ");
-		sql.append("    WHERE REGEXP_LIKE(rest_name, ?, 'i') OR REGEXP_LIKE(rest_loc, ?, 'i') ");
+		sql.append("    SELECT rest.rest_seq, rest_name, rest_address, ri.rest_img ");
+		sql.append("    FROM restaurant rest ");
+		sql.append("    JOIN rest_img ri ON ri.ri_seq = rest.ri_seq  ");
+		sql.append("    WHERE REGEXP_LIKE(rest_name, ?, 'i') OR REGEXP_LIKE(rest_address, ?, 'i') ");
 		//sql.append("    ORDER BY rest_name ");
 		sql.append("    )temp ");
 		sql.append(" ) ");
@@ -138,12 +139,15 @@ public class RestListDAO {
 				resultDTO = new ReviewSearchDTO();
 				resultDTO.setId(rs.getInt("rest_seq"));
 				resultDTO.setName(rs.getString("rest_name"));
-				resultDTO.setDescription(rs.getString("rest_loc"));
+				resultDTO.setDescription(rs.getString("rest_address"));
+				resultDTO.setRest_img(rs.getString("rest_img"));
 				searchList.add(resultDTO);
 			} while (rs.next());
 		}
 		return searchList;
 	}
+	
+	
 
 	public List<RestListDTO> selectdisplay(Connection conn, String pop, String loc_code, String food_type,
 			String searchWord, int member_num, int current_page) {

@@ -41,7 +41,9 @@
   </filter>
   <filter-mapping>
     <filter-name>encodingFile</filter-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>*.do</url-pattern>
+    <url-pattern>*.ad</url-pattern>
+    <url-pattern>*.ow</url-pattern>
   </filter-mapping>
   
   <filter>

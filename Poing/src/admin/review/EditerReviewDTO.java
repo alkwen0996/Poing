@@ -2,12 +2,15 @@ package admin.review;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 public class EditerReviewDTO {
 	private int er_seq;
 	private int e_seq;
 	private String er_content;
 	private int rest_seq;
+	private String rest_name;
+	private Date er_wtime;
 	public int getEr_seq() {
 		return er_seq;
 	}
@@ -32,11 +35,25 @@ public class EditerReviewDTO {
 	public void setRest_seq(int rest_seq) {
 		this.rest_seq = rest_seq;
 	}
+	public String getRest_name() {
+		return rest_name;
+	}
+	public void setRest_name(String rest_name) {
+		this.rest_name = rest_name;
+	}
+	public Date getEr_wtime() {
+		return er_wtime;
+	}
+	public void setEr_wtime(Date er_wtime) {
+		this.er_wtime = er_wtime;
+	}
 	public EditerReviewDTO(ResultSet rs) throws SQLException {
 		this.er_seq = rs.getInt("er_seq");
 		this.e_seq = rs.getInt("e_seq");
 		this.er_content = rs.getString("er_content");
+		this.setEr_wtime(rs.getDate("er_wtime"));
 		this.rest_seq = rs.getInt("rest_seq");
+		this.rest_name = rs.getString("rest_name");
 	}
 	
 }

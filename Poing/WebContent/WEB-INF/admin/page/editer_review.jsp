@@ -53,27 +53,132 @@
 						<div class="chat-content panel-left2">
 							<div class="chat-messages" id="chat-messages">
 								<div id="chat-messages-inner">
-									<p id="msg-1" class="user-linda" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av2.jpg"
-											alt=""><strong>Linda</strong> <span class="time">-
-												16:09</span><span class="msg">Hello Every one do u want to
-												freindship with me?</span></span>
+									<p id="msg" class="user-linda" style="display: block;">
+										<span class="msg-block"><img src="img/demo/av2.jpg" alt="">
+											<strong>검색어를 입력하세요</strong> 
+											<span class="msg"></span>
+										</span>
 									</p>
-									<p id="msg-2" class="user-mark" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av3.jpg"
-											alt=""><strong>Mark</strong> <span class="time">-
-												16:09</span><span class="msg">Yuppi! why not sirji!!.</span></span>
-									</p>
-									<p id="msg-3" class="user-linda" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av2.jpg"
-											alt=""><strong>Linda</strong> <span class="time">-
-												16:09</span><span class="msg">Thanks!!! See you soon than</span></span>
-									</p>
-									<p id="msg-4" class="user-mark" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av3.jpg"
-											alt=""><strong>Mark</strong> <span class="time">-
-												16:09</span><span class="msg">ok Bye than!!!.</span></span>
-									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-align-justify"></i>
+						</span>
+						<h5>리뷰 작성</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<form action="editer_review.ad" method="post" class="form-horizontal">
+							<div class="ptag">
+								
+							</div>
+							<div class="control-group">
+								<label class="control-label" style="width: 60px">리뷰 내용</label>
+								<textarea class="span11" name="er_content" style="width: 543px; height: 110px;"></textarea>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn btn-success">저장</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-th"></i></span>
+						<h5>지금까지 작성한 리뷰</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper"
+							role="grid">
+							<table class="table table-bordered data-table dataTable"
+								id="DataTables_Table_0">
+								<thead>
+									<tr role="row">
+										<th class="ui-state-default" role="columnheader" tabindex="0"
+											aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Rendering engine: activate to sort column descending"
+											style="width: 237px;">
+											<div class="DataTables_sort_wrapper">
+												레스토랑 이름
+											<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
+											</div>
+										</th>
+										<th class="ui-state-default" role="columnheader" tabindex="0"
+											aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Rendering engine: activate to sort column descending"
+											style="width: 750px;">
+											<div class="DataTables_sort_wrapper">
+												레스토랑 이름
+											<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
+											</div>
+										</th>
+										<th class="ui-state-default" role="columnheader" tabindex="0"
+											aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Rendering engine: activate to sort column descending"
+											style="width: 130px;">
+											<div class="DataTables_sort_wrapper">
+												작성시간
+											<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
+											</div>
+										</th>
+										<th class="ui-state-default" role="columnheader" tabindex="0"
+											aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Rendering engine: activate to sort column descending"
+											style="width: 120px;">
+											수정 / 삭제
+										</th>
+								</thead>
+
+								<tbody role="alert" aria-live="polite" aria-relevant="all">
+									<c:if test="${ er_list eq null }">
+										<div>
+											작성한 리뷰가 없습니다.
+										</div>
+									</c:if>
+									<c:if test="${ er_list ne null }">
+									<c:forEach items="${ er_list }" var="er_dto">
+										<tr class="gradeC odd">
+											<td class="sorting_1" style="align-content: center">${ er_dto.rest_name }</td>
+											<td class=" ">${ er_dto.er_content }</td>
+											<td class=" ">${ er_dto.er_wtime }</td>
+											<td>
+												<button class="btn btn-info btn-mini" onclick="location.href='modify_review.ad?er_seq=${ er_dto.er_seq }'">수정</button>
+												<button class="btn btn-danger btn-mini" onclick="location.href='delete_review.ad?er_seq=${ er_dto.er_seq }'">삭제</button>
+											</td>
+										</tr>
+									</c:forEach>
+									</c:if>
+								</tbody>
+							</table>
+							<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
+								<div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
+								  <a tabindex="0" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default" id="DataTables_Table_0_first">First</a>
+								  <a tabindex="0" class="previous fg-button ui-button ui-state-default" id="DataTables_Table_0_previous">Previous</a>
+								  <span>
+								    <a tabindex="0" class="fg-button ui-button ui-state-default">1</a>
+								    <a tabindex="0" class="fg-button ui-button ui-state-default">2</a>
+								    <a tabindex="0" class="fg-button ui-button ui-state-default ui-state-disabled">3</a>
+								    <a tabindex="0" class="fg-button ui-button ui-state-default">4</a>
+								    <a tabindex="0" class="fg-button ui-button ui-state-default">5</a>
+								  </span>
+								  <a tabindex="0" class="next fg-button ui-button ui-state-default" id="DataTables_Table_0_next">Next</a>
+								  <a tabindex="0" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default" id="DataTables_Table_0_last">Last</a>
 								</div>
 							</div>
 						</div>
@@ -82,6 +187,7 @@
 			</div>
 		</div>
 	</div>
+
 </div>
 
 <!--Footer-part-->
@@ -102,14 +208,51 @@
 <script src="js/matrix.form_common.js"></script> 
 <script src="js/wysihtml5-0.3.0.js"></script> 
 <script src="js/jquery.peity.min.js"></script> 
-<script src="js/bootstrap-wysihtml5.js"></script> 
-<script>
+<script src="js/bootstrap-wysihtml5.js"></script>
+
+	<script>
 	$('.textarea_editor').wysihtml5();
 	
-	$(".searchRest").on("click", function() {
-		alert('setset');
-		console.log('test');
+	$(".searchRest").on("keyup", function() {
+		if( $(this).val().length > 0) 
+		{
+            $.ajax({'url': "/Poing/restaurant/search.do?searchWord="+encodeURIComponent($(this).val()),
+                    'type': "GET",
+                    'success': function(res) {
+                    	 res = $.parseJSON(res).data.ac_keywords;
+
+                         var list = $("#chat-messages-inner");
+                         list.empty();
+
+                         if(res.length > 0) {
+                             for(var i=0; i<res.length && i<5; ++i) {
+	                            var e = res[i];
+	                            var ptag = $("<p style='display: block;'>", {'data-id':e.id});
+								ptag.append( $("<img src='${realPath}"+e.rest_img+"'>") );
+								ptag.append( $("<strong>", {	'class':'name', 'text':e.name }) );
+								var button = $("<button>", {	'class':'check', 'text':'확인', 'style':'float: right'});
+								button.on("click", function() {
+									$("div.ptag").empty();
+									var ptag_parent = $(this).parent();
+									ptag_parent.children('.check').remove();
+									$("div.ptag").append(ptag_parent);
+								});
+								ptag.append( button );
+								ptag.append( $("<span>", {	'class':'desc msg', 'text':e.description }) );
+								ptag.append( $("<input>", {	'type':'hidden', 'value':e.id, 'name':'rest_seq' }) );
+								list.append(ptag);
+								
+                             }
+                         } else {
+                             var ptag = $("<p>");
+                             ptag.append( $("<div>", {'text':'검색 결과가 없습니다.' }) );
+                             list.append(ptag);
+                         }
+                    }
+           	});
+		}
 	});
-</script>
+	</script>
+
 </body>
 </html>

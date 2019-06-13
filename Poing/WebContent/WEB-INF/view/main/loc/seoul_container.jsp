@@ -357,7 +357,7 @@
 					<div class="slider PoingSlider">
 						<div class="current slice" style="top: 0px; left: 0px;">
 							<div class="element  large awards first ">
-								<a href="/Poing/theme/hotPlace.do?seoul" class="image"
+								<a href="/Poing/theme/localPlace.do" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471926035c38491bc1e84.png&quot;);">
 									<div class="shading"></div>
 									<div class="center">
@@ -371,7 +371,7 @@
 							</div>
 
 							<div class="element  large awards  ">
-								<a href="/banner/theme/10424" class="image"
+								<a href="/Poing/theme/hotelPlace.do" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471925785c38490266d92.png&quot;);">
 									<div class="shading"></div>
 
@@ -383,7 +383,7 @@
 								</a>
 							</div>
 							<div class="element  large awards  ">
-								<a href="/banner/theme/10428" class="image"
+								<a href="/Poing/theme/foodPlace.do" class="image"
 									style="display: block; background-image: url(&quot;http://c2.poing.co.kr/banner/MjAxOTAx/15471925265c3848ce51588.png&quot;);">
 									<div class="shading"></div>
 

@@ -50,6 +50,7 @@ public class EditerReviewDAO {
 				er_list.add(edto);
 			} while (rs.next());
 		}
+		rs.close();
 		pstmt.close();
 		return er_list;
 	}
@@ -70,7 +71,7 @@ public class EditerReviewDAO {
 		return result;
 	}
 	
-	public boolean insertEditerReview(Connection conn, int er_seq, String er_content) throws SQLException {
+	public boolean updateEditerReview(Connection conn, int er_seq, String er_content) throws SQLException {
 		boolean result = false;
 
 
@@ -87,5 +88,28 @@ public class EditerReviewDAO {
 		result = pstmt.executeUpdate()==0?false:true;
 		pstmt.close();
 		return result;
+	}
+
+	public EditerReviewDTO selectEditerReview(Connection conn, int er_seq) throws SQLException {
+		EditerReviewDTO erDTO = null;
+
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT er.*, rest.rest_name, ri.rest_img FROM editer_review er ");
+		sql.append(" JOIN restaurant rest ON er.rest_seq = rest.rest_seq ");
+		sql.append(" JOIN rest_img ri ON er.rest_seq = ri.rest_seq ");
+		sql.append(" WHERE er_seq = ? ");
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		
+		pstmt.setInt(1, er_seq);
+		
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next()) {
+			erDTO = new EditerReviewDTO(rs);
+			erDTO.setRest_img(rs.getString("rest_img"));
+		}
+		rs.close();
+		pstmt.close();
+		return erDTO;
 	}
 }

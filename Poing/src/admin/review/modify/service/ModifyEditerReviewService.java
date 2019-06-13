@@ -11,18 +11,21 @@ import admin.review.EditerReviewDTO;
 
 public class ModifyEditerReviewService{
 	EditerReviewDAO erDAO = new EditerReviewDAO();
-	public boolean addEditerReview(int e_seq, int rest_seq, String er_content) throws SQLException {
+
+	public boolean modifyEditerReview(int er_seq, String er_contetn) throws SQLException {
 		boolean result = false;
 		Connection conn = ConnectionProvider.getConnection();
-		result = erDAO.insertEditerReview(conn, e_seq, rest_seq, er_content);
+		result = erDAO.updateEditerReview(conn, er_seq, er_contetn);
 		conn.close();
 		return result;
 	}
-	public ArrayList<EditerReviewDTO> getEditerReviewList(int e_seq) throws SQLException {
-		ArrayList<EditerReviewDTO> er_list = null;
+
+	public EditerReviewDTO getModifyReviewInfo(int er_seq) throws SQLException {
+		EditerReviewDTO erDTO = null;
 		Connection conn = ConnectionProvider.getConnection();
-		er_list = erDAO.selectEditerReviewList(conn, e_seq);
+
+		erDTO = erDAO.selectEditerReview(conn, er_seq);
 		conn.close();
-		return er_list;
+		return erDTO;
 	}
 }

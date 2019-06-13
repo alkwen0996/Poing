@@ -66,20 +66,16 @@
 							</a>
 							<p class="valid_date">유효기간: ${dto.tic_validate_content }</p>
 
-<%-- 							<c:forEach items="${list}" var="list" varStatus="status"> --%>
-<!--                                                                     <li data-id="19044" data-limit="4"> -->
-                                        <div class="name">결제 금액 : </div>
-                                        
-<!--                                     </li> -->
-<%--                                         </c:forEach> --%>
+                                        <div class="name">결제한 티켓 총 금액 : ${dto.tic_totalmoney } </div>
 						</div></td>
 					<td class="reserve">
 						<div class="date">${dto.tic_reserve_date }</div>
+						<div class="date">${dto.tic_request }</div>
 						<div class="count">${dto.tic_num_of_people }명</div>
 					</td>
 					<td class="status"><span class="">결제완료</span>
 						<button class="refund" data1="${dto.tc_purchas_seq}"
-							data2="" style="">환불하기</button></td>
+							data2="${dto.tic_totalmoney }" style="">환불하기</button></td>
 
 				</tr>
 			</c:forEach>

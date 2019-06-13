@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
+import poing.product.ProductDTO;
 
 public class RestDetailDAO {
 
@@ -120,6 +123,42 @@ public class RestDetailDAO {
 		pstmt.close();
 		rs.close();
 		return dto;	
+	}
+	
+	public static List<ProductDTO> selectRestProductOPtion(Connection conn, int rest_seq) {
+		String sql = " select o.tic_option_seq, o.tic_op_name, o.tic_original_price, o.tic_dc_price from tic_option o join ticket t on o.tic_seq = t.tic_seq join restaurant r on r.rest_seq = t.rest_seq where t.rest_seq = ? ";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		ArrayList<ProductDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rest_seq);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				dto = new ProductDTO();
+				dto.setTic_option_seq(rs.getInt("tic_option_seq"));
+				dto.setTic_op_name(rs.getString("tic_op_name"));
+				dto.setTic_original_price(rs.getInt("tic_original_price"));
+				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
+				list.add(dto);
+			}
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 
 	public ArrayList<String> selectimage(Connection conn, int rest_seq) {

@@ -22,6 +22,29 @@ public class ProductDTO {
 	private String tic_request;
 	private String tic_reserve_date;
 	private int tic_option_seq;
+	private String tic_validate_content;
+	private String tic_explain_content;
+	private int tic_img_seq;
+	private int tic_original_price;
+	private int photoRownum;
+	private int menuRownum;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -79,6 +102,42 @@ public class ProductDTO {
 	
 	
 	
+	public int getMenuRownum() {
+		return menuRownum;
+	}
+	public void setMenuRownum(int menuRownum) {
+		this.menuRownum = menuRownum;
+	}
+	public int getPhotoRownum() {
+		return photoRownum;
+	}
+	public void setPhotoRownum(int photoRownum) {
+		this.photoRownum = photoRownum;
+	}
+	public int getTic_original_price() {
+		return tic_original_price;
+	}
+	public void setTic_original_price(int tic_original_price) {
+		this.tic_original_price = tic_original_price;
+	}
+	public int getTic_img_seq() {
+		return tic_img_seq;
+	}
+	public void setTic_img_seq(int tic_img_seq) {
+		this.tic_img_seq = tic_img_seq;
+	}
+	public String getTic_explain_content() {
+		return tic_explain_content;
+	}
+	public void setTic_explain_content(String tic_explain_content) {
+		this.tic_explain_content = tic_explain_content;
+	}
+	public String getTic_validate_content() {
+		return tic_validate_content;
+	}
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
+	}
 	public int getTic_option_seq() {
 		return tic_option_seq;
 	}

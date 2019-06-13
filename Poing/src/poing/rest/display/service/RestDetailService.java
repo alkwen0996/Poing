@@ -2,10 +2,12 @@ package poing.rest.display.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ArrayList;
 
 import com.util.ConnectionProvider;
 
+import poing.product.ProductDTO;
 import poing.rest.RestDetailDAO;
 import poing.rest.RestListDTO;
 import poing.review.ReviewDAO;
@@ -41,6 +43,13 @@ public class RestDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public List<ProductDTO> selectRestProductOPtion(int rest_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			List<ProductDTO> list = RestDetailDAO.selectRestProductOPtion(conn, rest_seq);
+			
+			// 
+			return list;
 
 	public ArrayList<String> select(int rest_seq) {
 		RestDetailDAO dao = RestDetailDAO.getInstance();	

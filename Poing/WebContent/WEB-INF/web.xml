@@ -102,6 +102,8 @@
     <url-pattern>/admin/editer_mypage.ad</url-pattern>
     <url-pattern>/admin/editer_image_change.ad</url-pattern>
     <url-pattern>/admin/editer_image_change.ad</url-pattern>
+    <url-pattern>/admin/editer_image_change.ad</url-pattern>
+    <url-pattern>/admin/product_banner.ad</url-pattern>
   </filter-mapping>
   
   <servlet>

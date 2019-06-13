@@ -10,21 +10,21 @@
 
 	<div>
 		<i class="image"
-			style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA1/15257572485af13540b96e1.jpeg)"></i>
-		<p class="desc">product가 있다면 나타나는 박스</p>
+			style="background-image: url(/Poing${restProduct.tic_img})"></i>
+		<p class="desc">${restProduct.tic_name}</p>
 		<div class="list">
 			<p class="label">옵션</p>
+			
+			<c:forEach items="${list1}" var="dto" varStatus="status">
 			<div class="">
-				<span class="name">1. 옵션1</span> <span class="actual_price">가격</span>
-				<span class="price">가격</span>
+				<span class="name">${dto.tic_op_name }</span> <span class="actual_price">${dto.tic_original_price }</span>
+				<span class="price">${dto.tic_dc_price }</span>
 			</div>
-			<div class="">
-				<span class="name">2. 두번째 이야기</span> <span class="actual_price">79,000원</span>
-				<span class="price">74,000원</span>
-			</div>
+			</c:forEach>
+			
 		</div>
 
-		<a href="/product/detail/4928" class="more">자세히 보러가기 &gt;</a>
+		<a href="/Poing/product/detail.do?tic_seq=${restProduct.tic_seq }" class="more">자세히 보러가기 &gt;</a>
 	</div>
 </div>
 

@@ -20,19 +20,22 @@ public class ProductDetailDAO {
 		return displaydao;
 	}
 
-	public static ArrayList<ProductDTO> selectRestPhotoImg(Connection conn, int tic_seq) {
-		String sql = " select * from ticket_menu_img where tic_seq = ? ";
+	public static List<ProductDTO> selectRestPhotoImg(Connection conn, int tic_seq) {
+		String sql = " select * from tic_img where tic_seq = ? ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, tic_seq);
 			rs = pstmt.executeQuery();
-			dto = new ProductDTO();
+
 			while(rs.next()) {
-			dto.setTic_menu_images(rs.getString("tic_menu_images"));
+			dto = new ProductDTO();
+			dto.setTic_img(rs.getString("tic_img"));
+			dto.setTic_img_seq(rs.getInt("tic_img_seq"));
 			list.add(dto);
 			}
 
@@ -49,8 +52,44 @@ public class ProductDetailDAO {
 		}
 		return list;
 	}
+	
+	public static List<ProductDTO> selectMenuImgList(Connection conn, int tic_seq) {
+		String sql = " select * from ticket_menu_img t join ticket a on a.tic_seq = "
+				+ " t.tic_seq join restaurant r on r.rest_seq = a.rest_seq where a.tic_seq = ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		ArrayList<ProductDTO> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tic_seq);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				dto = new ProductDTO();
+				dto.setTic_menu_images(rs.getString("tic_menu_images"));
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
 	public static List<ProductDTO> selectProductList(Connection conn, int cart_seq) {
-		String sql = " select c.tic_option_seq tic_option_seq,tic_op_name, tic_dc_price, tic_op_purchas_cnt from tic_option o join tic_cart_option_cnt c on o.tic_option_seq = c.tic_option_seq join cart a on a.tic_cart_seq = c.tic_cart_seq where a.tic_cart_seq =? ";
+		String sql = " select c.tic_option_seq tic_option_seq,tic_op_name, tic_dc_price, "
+				+ "tic_op_purchas_cnt from tic_option o join tic_cart_option_cnt c on o.tic_option_seq "
+				+ "= c.tic_option_seq join cart a on a.tic_cart_seq = c.tic_cart_seq where a.tic_cart_seq =? ";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -87,7 +126,11 @@ public class ProductDetailDAO {
 
 	public static List<RefundTicketDTO> selectReserva_tic(Connection conn) {
 		String sql = null;
-		sql = " select * from tic_cart_purchase_detail a join cart b on a.tic_cart_seq = b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = d.rest_seq where tic_purchas_state = '결제완료' ";
+		sql = " select tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people,"
+				+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq = "
+				+ " b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = "
+				+ " d.rest_seq join tic_img m on m.tic_seq = c.tic_seq where tic_purchas_state = '결제완료' "
+				+ " and tic_img like '%e_1.%' ";
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -99,10 +142,12 @@ public class ProductDetailDAO {
 			while (rs.next()) {
 				rdto = new RefundTicketDTO();
 				rdto.setRest_name(rs.getString("rest_name"));
-				rdto.setTic_validate_content(rs.getString("tic_validate_content"));
+				rdto.setTc_purchas_seq(rs.getInt("tc_purchas_seq"));
 				rdto.setTic_reserve_date(rs.getString("tic_reserve_date"));
 				rdto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 				rdto.setTic_img(rs.getString("tic_img"));
+				rdto.setTic_request(rs.getString("tic_request"));
+				rdto.setTic_totalmoney(rs.getInt("tic_totalmoney"));
 				list1.add(rdto);
 			}
 			;
@@ -124,15 +169,15 @@ public class ProductDetailDAO {
 	public ProductDetailDAO() {
 	}
 
-	public boolean updateTotalmoney(Connection conn, String totalmoney, int id) throws SQLException {
+	public boolean updateTotalmoney(Connection conn, int totalmoney, int id) throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update member set rp_seq = rp_seq + ? where m_no = ? ");
+		sql.append(" update member set m_point = m_point + ? where m_seq = ? ");
 		PreparedStatement pstmt = null;
 		boolean result = false;
 
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, totalmoney);
+			pstmt.setInt(1, totalmoney);
 			pstmt.setInt(2, id);
 			result = pstmt.executeUpdate() == 0 ? false : true;
 
@@ -146,16 +191,12 @@ public class ProductDetailDAO {
 	};
 
 	public static List<RefundTicketDTO> selectRefund_tic(Connection conn) {
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, "
-				+ "c_date,party_size,photo_img,op_cnt,op_price from cart c ");
-		sql.append("join totalcart t on c.cart_seq = t.cart_seq ");
-		sql.append(" join  p_option p on t.op_seq = p.op_seq ");
-		sql.append(" join p_product a on a.p_num = p.p_num ");
-		sql.append(" join p_restaurant l on l.p_num = a.p_num ");
-		sql.append(" join product_img i on i.img_seq = a.img_seq ");
-		sql.append(" join reserve_tic k on k.cart_seq = c.cart_seq ");
-		sql.append(" where p_state='환불완료' ");
+		String sql = null;
+		sql = " select tc_purchas_seq,tic_reserve_date,rest_name,tic_totalmoney,tic_num_of_people,tic_request,"
+				+ "tic_reserve_date, tic_totalmoney from cart c join tic_cart_purchase_detail t on c.tic_cart_seq"
+				+ " = t.tic_cart_seq join ticket k on k.tic_seq = t.tic_seq join restaurant z on z.rest_seq ="
+				+ " k.rest_seq where tic_purchas_state = '환불완료' ";
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<RefundTicketDTO> list2 = new ArrayList<>();
@@ -164,17 +205,16 @@ public class ProductDetailDAO {
 			rs = pstmt.executeQuery();
 			RefundTicketDTO rtdto = null;
 			while (rs.next()) {
+				//sysdate,rest_name,tic_totalmoney,tic_num_of_people,tic_request,tic_reserve_date, tic_totalmoney
 				rtdto = new RefundTicketDTO();
-				rtdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
+				rtdto.setTc_purchas_seq(rs.getInt("tc_purchas_seq"));
+				rtdto.setTic_reserve_date(rs.getString("tic_reserve_date"));
 				rtdto.setRest_name(rs.getString("rest_name"));
-				rtdto.setP_st_ed_date(rs.getString("p_st_ed_date"));
-				rtdto.setOp_name(rs.getString("op_name"));
-				rtdto.setC_date(rs.getString("c_date"));
-				rtdto.setParty_size(rs.getInt("party_size"));
-				rtdto.setPhoto_img(rs.getString("photo_img"));
-				rtdto.setOp_cnt(rs.getInt("op_cnt"));
-				rtdto.setOp_price(rs.getInt("op_price"));
-				rtdto.setP_dc_money(rs.getInt("p_dc_money"));
+				rtdto.setTic_totalmoney(rs.getInt("tic_totalmoney"));
+				rtdto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
+				rtdto.setTic_request(rs.getString("tic_request"));
+				rtdto.setTic_reserve_date(rs.getString("tic_reserve_date"));
+				rtdto.setTic_totalmoney(rs.getInt("tic_totalmoney"));
 				list2.add(rtdto);
 			}
 			;
@@ -206,7 +246,7 @@ public class ProductDetailDAO {
 			while (rs.next()) {
 				phdto = new PointHistoryDTO();
 				phdto.setPointUseHistory_seq(rs.getInt("pointUseHistory_seq"));
-				phdto.setM_no(rs.getInt("m_no"));
+				phdto.setM_no(rs.getInt("m_seq"));
 				phdto.setEventSysdate(rs.getString("eventSysdate"));
 				phdto.setUseContent(rs.getString("useContent"));
 				phdto.setPointRecord(rs.getString("pointRecord"));
@@ -257,15 +297,15 @@ public class ProductDetailDAO {
 		return phdto;
 	}
 
-	public boolean updateState(Connection conn, int reserva_tic_seq) throws SQLException {
+	public boolean updateState(Connection conn, int tc_purchas_seq) throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update reserve_tic set p_state = '삭제완료' where p_state = '환불완료' and reserva_tic_seq = ? ");
+		sql.append(" update tic_cart_purchase_detail set TIC_PURCHAS_STATE = '삭제완료' where TIC_PURCHAS_STATE = '환불완료' and tc_purchas_seq = ? ");
 		PreparedStatement pstmt = null;
 		boolean result = false;
 
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, reserva_tic_seq);
+			pstmt.setInt(1, tc_purchas_seq);
 			result = pstmt.executeUpdate() == 0 ? false : true;
 
 			pstmt.close();
@@ -277,23 +317,27 @@ public class ProductDetailDAO {
 		return result;
 	};
 
-	public boolean updatePayCart(Connection conn, int reserva_tic_seq, int m_no, String totalmoney)
+	public boolean updatePayCart(Connection conn, int tc_purchas_seq, int m_no, int totalmoney)
 			throws SQLException {
+		System.out.println(totalmoney);
+		System.out.println(m_no);
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update reserve_tic set p_state = '환불완료' where p_state = '결제완료' and reserva_tic_seq = ? ");
+		sql.append(" update tic_cart_purchase_detail set TIC_PURCHAS_STATE = '환불완료' where TIC_PURCHAS_STATE = '결제완료' and tc_purchas_seq = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		boolean result = false;
 
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, reserva_tic_seq);
+			pstmt.setInt(1, tc_purchas_seq);
 			result = pstmt.executeUpdate() == 0 ? false : true;
+			System.out.println(result);
+			
 			if (result) {
-				String sql2 = "insert into pointUseHistory (pointUseHistory_seq, m_no, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval, ?,sysdate,'티켓을 환불했습니다.',?)";
+				String sql2 = " insert into pointUseHistory (pointUseHistory_seq, m_seq, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval, ?,sysdate,'티켓을 환불했습니다.',?) ";
 				pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setInt(1, m_no);
-				pstmt2.setString(2, totalmoney);
+				pstmt2.setInt(2, totalmoney);
 				boolean result2 = pstmt2.executeUpdate() == 0 ? false : true;
 				System.out.println("updatePayCart");
 			}
@@ -472,57 +516,61 @@ public class ProductDetailDAO {
 		}
 		return dto2;
 	}
-
-	public static ProductDTO selectProductDetail(Connection conn, int p_num) {
-		String sql = " select * from tic_menu_info m " + "join tic_use_case c on m.p_num = c.p_num "
-				+ "join tic_guideInfo g on g.p_num = m.p_num " + "join tic_validate v on v.p_num = m.p_num "
-				+ "join tic_cancel_change h on h.p_num = m.p_num " + "where m.p_num = ? ";
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ProductDTO dto = null;
-		try {
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, p_num);
-			rs = pstmt.executeQuery();
-
-			dto = new ProductDTO();
-			rs.next();
-			dto.setTic_menu_info_content(rs.getString("tic_menu_info_content"));
-			dto.setTicg_content(rs.getString("ticg_content"));
-			dto.setTic_validate_content(rs.getString("tic_validate_content"));
-			dto.setTic_cancel_content(rs.getString("tic_cancel_content"));
-			dto.setTic_use_case_content(rs.getString("tic_use_case_content"));
-			dto.setTic_use_case_title(rs.getString("tic_use_case_title"));
-			dto.setTic_cancel_change_title(rs.getString("tic_cancel_change_title"));
-			dto.setTic_validate_title(rs.getString("tic_validate_title"));
-			dto.setTicg_title(rs.getString("ticg_title"));
-			dto.setTic_menu_info_title(rs.getString("tic_menu_info_title"));
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pstmt.close();
-				rs.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return dto;
-	}
+//
+//	public static ProductDTO selectProductDetail(Connection conn, int tic_seq) {
+//		String sql = " select * from tic_menu_info m " + "join tic_use_case c on m.p_num = c.p_num "
+//				+ "join tic_guideInfo g on g.p_num = m.p_num " + "join tic_validate v on v.p_num = m.p_num "
+//				+ "join tic_cancel_change h on h.p_num = m.p_num " + "where m.p_num = ? ";
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		ProductDTO dto = null;
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//
+//			pstmt.setInt(1, tic_seq);
+//			rs = pstmt.executeQuery();
+//
+//			dto = new ProductDTO();
+//			rs.next();
+//			dto.setTic_menu_info_content(rs.getString("tic_menu_info_content"));
+//			dto.setTicg_content(rs.getString("ticg_content"));
+//			dto.setTic_validate_content(rs.getString("tic_validate_content"));
+//			dto.setTic_cancel_content(rs.getString("tic_cancel_content"));
+//			dto.setTic_use_case_content(rs.getString("tic_use_case_content"));
+//			dto.setTic_use_case_title(rs.getString("tic_use_case_title"));
+//			dto.setTic_cancel_change_title(rs.getString("tic_cancel_change_title"));
+//			dto.setTic_validate_title(rs.getString("tic_validate_title"));
+//			dto.setTicg_title(rs.getString("ticg_title"));
+//			dto.setTic_menu_info_title(rs.getString("tic_menu_info_title"));
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				pstmt.close();
+//				rs.close();
+//				conn.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return dto;
+//	}
 
 	public ProductDTO selectdisplay(Connection conn, int tic_seq) {
-		String sql = " select * from restaurant r join editer_review e on r.rest_seq = e.rest_seq join ticket t "
-				+ "on t.rest_seq = r.rest_seq join editer i on i.e_seq = e.e_seq where t.tic_seq = ? ";
+		String sql = " select rownum,x. tic_explain_content, n.tic_original_price, "
+				+ " n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, t.tic_type, "
+				+ " i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant r join "
+				+ " editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
+				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on "
+				+ " n.tic_seq = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq where "
+				+ " t.tic_seq = ? and rownum = 1 ";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-
 			pstmt.setInt(1, tic_seq);
 			rs = pstmt.executeQuery();
 
@@ -537,6 +585,10 @@ public class ProductDetailDAO {
 			dto.setEr_content(rs.getString("er_content"));
 			dto.setE_img(rs.getString("e_img"));
 			dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
+			dto.setTic_original_price(rs.getInt("tic_original_price"));
+			dto.setTic_dc_price(rs.getInt("tic_dc_price"));
+			dto.setTic_explain_content(rs.getString("tic_explain_content"));
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -551,19 +603,111 @@ public class ProductDetailDAO {
 		}
 		return dto;
 	}
+	public ProductDTO photoRownum(Connection conn, int tic_seq) {
+		String sql = " select max(rownum) as photoRownum from tic_img where tic_seq = ? ";
 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tic_seq);
+			rs = pstmt.executeQuery();
+			dto = new ProductDTO();
+			rs.next();
+//			while(rs.next()) {
+			dto.setPhotoRownum(rs.getInt("photoRownum"));
+//			};
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	public ProductDTO menuRownum(Connection conn, int tic_seq) {
+		String sql = " select max(rownum) as menuRownum from ticket_menu_img where tic_seq = ? ";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tic_seq);
+			rs = pstmt.executeQuery();
+			dto = new ProductDTO();
+			rs.next();
+//			while(rs.next()) {
+			dto.setMenuRownum(rs.getInt("menuRownum"));
+//			};
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
+	public ProductDTO selectDetailMenu(Connection conn, int tic_seq) {
+		String sql = " select r.rest_seq,tic_menu_images from ticket_menu_img t join ticket "
+				+ " a on a.tic_seq = t.tic_seq join restaurant r on r.rest_seq ="
+				+ " a.rest_seq where a.tic_seq = ? and t.tic_menu_images like '%e_1.%' ";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		//
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tic_seq);
+			rs = pstmt.executeQuery();
+			dto = new ProductDTO();
+			while(rs.next()) {
+			dto.setRest_seq(rs.getInt("rest_seq"));
+			dto.setTic_menu_images(rs.getString("tic_menu_images"));
+			};
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
 	public ProductDTO selectdisplay(Connection conn, int tic_seq, int member_num) {
-		String sql = " select * from restaurant r join editer_review e on r.rest_seq = e.rest_seq join ticket t "
-				+ "on t.rest_seq = r.rest_seq join editer i on i.e_seq = e.e_seq where t.tic_seq = ? ";
+		String sql = " select rownum,x. tic_explain_content, n.tic_original_price, "
+				+ " n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, t.tic_type, "
+				+ " i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant r join "
+				+ " editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
+				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on "
+				+ " n.tic_seq = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq where "
+				+ " t.tic_seq = ? and rownum = 1 ";
 
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
-		PreparedStatement pstmt_qna = null;
 		ResultSet rs = null;
 		ResultSet rs2 = null;
-		ResultSet rs_qna = null;
 		ProductDTO dto = null;
-		ArrayList<ProductDTO> list = new ArrayList<>();
 		//
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -572,48 +716,28 @@ public class ProductDetailDAO {
 
 			dto = new ProductDTO();
 			rs.next();
-			dto.setTic_seq(rs.getInt("tic_seq"));
-			dto.setTic_type(rs.getString("tic_type"));
-			dto.setRest_name(rs.getString("rest_name"));
-			dto.setRest_address(rs.getString("rest_address"));
-			dto.setTic_type(rs.getString("tic_type"));
-			dto.setE_name(rs.getString("e_name"));
-			dto.setEr_content(rs.getString("er_content"));
-			dto.setE_img(rs.getString("e_img"));
-			dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
-			// dto.setP_st_ed_date(rs.getString("p_st_ed_date"));
+				dto.setTic_seq(rs.getInt("tic_seq"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setRest_name(rs.getString("rest_name"));
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setE_name(rs.getString("e_name"));
+				dto.setEr_content(rs.getString("er_content"));
+				dto.setE_img(rs.getString("e_img"));
+				dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
+				dto.setTic_original_price(rs.getInt("tic_original_price"));
+				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
+				dto.setTic_explain_content(rs.getString("tic_explain_content"));
 
-			//			sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?)";
-			//			pstmt2 = conn.prepareStatement(sql);
-			//			pstmt2.setInt(1, member_num);
-			//			pstmt2.setInt(2, tic_seq);
-			//			rs2 = pstmt2.executeQuery();
-			//			rs2.next();
-			//			dto.setPick(rs2.getInt("cnt"));
-			//			System.out.println("productdetail DAO : cnt = " + rs2.getInt("cnt"));
-
-			// qna
-			StringBuffer sql_qna = new StringBuffer();
-			sql_qna.append(" select * " + " from p_product p " + " join editer_review e on p.e_seq = e.e_seq "
-					+ " join product_img i on p.img_seq = i.img_seq " + " join p_restaurant r on r.p_num = p.p_num "
-					+ " join (select q_m_no,q_ctime,q_content,q_seq,q_tic_seq, "
-					+ " reply_seq,reply_ctime,reply_content,admin_seq " + "  from question q  "
-					+ " join reply rp on q_reply_seq = reply_seq) qrp on q_tic_seq = p.p_num " + " where p.p_num = ? ");
-			pstmt_qna = conn.prepareCall(sql_qna.toString());
-			pstmt_qna.setInt(1, tic_seq);
-			rs_qna = pstmt_qna.executeQuery();
-			while (rs_qna.next()) {
-				// dto.setE_name(rs_qna.getString("e_name"));
-				/*
-				 * dto.setQ_content(rs_qna.getString("q_content"));
-				 * dto.setQ_ctime(rs_qna.getString("q_ctime"));
-				 * dto.setReply_seq(rs_qna.getInt("reply_seq"));
-				 * dto.setReply_content(rs_qna.getString("reply_content"));
-				 * dto.setReply_ctime(rs_qna.getString("reply_ctime"));
-				 * dto.setAdmin_seq(rs_qna.getInt("admin_seq"));
-				 */
-			}
-
+		    sql = "select count(*) cnt from (select * from pick where m_seq = ? and tic_seq = ?)";
+		    pstmt2 = conn.prepareStatement(sql);
+		    pstmt2.setInt(1, member_num);
+		    pstmt2.setInt(2, tic_seq);
+		    rs2 = pstmt2.executeQuery();
+		    rs2.next();
+		    dto.setPick(rs2.getInt("cnt"));
+		    System.out.println("productdetail DAO : cnt = " + rs2.getInt("cnt"));
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

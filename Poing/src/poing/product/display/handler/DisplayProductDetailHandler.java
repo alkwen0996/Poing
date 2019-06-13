@@ -14,44 +14,53 @@ import poing.product.ProductDTO;
 import poing.product.display.service.DisplayOptionService;
 import poing.product.display.service.DisplayProductDetailService;
 
-
 public class DisplayProductDetailHandler implements CommandHandler {
 
+//			ProductDTO dto2 = service.selectProductDetail(tic_seq);
+//			request.setAttribute("dto2", dto2);
+//			ArrayList<ProductDTO> list_qna = service.select_qna(tic_seq);
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		OptionDAO odao = new OptionDAO();
 		int tic_seq = Integer.parseInt(request.getParameter("tic_seq"));
 		int totalCount = odao.getTotalCount(tic_seq);
-		
+
 		try {
 			DisplayProductDetailService service = new DisplayProductDetailService();
 			DisplayOptionService oservice = new DisplayOptionService();
 			List<OptionDTO> pp = oservice.select(tic_seq);
-			
-//			ProductDTO dto2 = service.selectProductDetail(tic_seq);
-//			request.setAttribute("dto2", dto2);   프로덕트 상세부분 쪽
-			
 			List<ProductDTO> photoList = (List<ProductDTO>) service.selectRestPhotoImg(tic_seq);
+			ProductDTO menuRownum =  service.menuRownum(tic_seq);
+
+
+			
 			ProductDTO dto = service.select(tic_seq);
-//			ArrayList<ProductDTO> list_qna = service.select_qna(tic_seq);
-			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
+			ProductDTO photoDto = service.photoRownum(tic_seq);
+			ProductDTO menuDto = service.selectDetailMenu(tic_seq);
+			List<ProductDTO> MenuImg = (List<ProductDTO>) service.selectMenuImgList(tic_seq);
+
+			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
+			
 			int member_num;
-			if(mdto==null) {dto = service.select(tic_seq);
+			if (mdto == null) {
+				dto = service.select(tic_seq);
 			} else {
 				member_num = mdto.getM_seq();
-				dto = service.select(tic_seq,member_num);
+				dto = service.select(tic_seq, member_num);
 			}
-			
+
+			request.setAttribute("menuRownum", menuRownum);
+			request.setAttribute("MenuImg", MenuImg);
+			request.setAttribute("menuDto", menuDto);
+			request.setAttribute("photoDto", photoDto);
 			request.setAttribute("photoList", photoList);
 			request.setAttribute("dto", dto);
 			request.setAttribute("pp", pp);
-		} catch (Exception e) { 
-				e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return "product/productDetail";
 	}
 
-	public static void main(String[] args) {
-	}
 
 }

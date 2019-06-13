@@ -7,6 +7,22 @@
 <title>리뷰 작성</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/bootstrap-colorpicker.js"></script> 
+<script src="js/bootstrap-datepicker.js"></script> 
+<!-- <script src="js/jquery.toggle.buttons.js"></script>  -->
+<script src="js/masked.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/matrix.form_common.js"></script> 
+<script src="js/wysihtml5-0.3.0.js"></script> 
+<script src="js/jquery.peity.min.js"></script> 
+<script src="js/bootstrap-wysihtml5.js"></script>
+
 <style>
 <%@include file="/admin/css/bootstrap.min.css" %>
 <%@include file="/admin/css/bootstrap-responsive.min.css" %>
@@ -20,11 +36,12 @@
 <%@include file="/admin/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/admin/layout/header.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include> 
 
 
 <div id="content">
@@ -54,7 +71,7 @@
 							<div class="chat-messages" id="chat-messages">
 								<div id="chat-messages-inner">
 									<p id="msg" class="user-linda" style="display: block;">
-										<span class="msg-block"><img src="img/demo/av2.jpg" alt="">
+										<span class="msg-block">
 											<strong>검색어를 입력하세요</strong> 
 											<span class="msg"></span>
 										</span>
@@ -110,6 +127,16 @@
 											aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
 											aria-sort="ascending"
 											aria-label="Rendering engine: activate to sort column descending"
+											style="width: 20px;">
+											<div class="DataTables_sort_wrapper">
+												번호
+											<span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-n"></span>
+											</div>
+										</th>
+										<th class="ui-state-default" role="columnheader" tabindex="0"
+											aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+											aria-sort="ascending"
+											aria-label="Rendering engine: activate to sort column descending"
 											style="width: 237px;">
 											<div class="DataTables_sort_wrapper">
 												레스토랑 이름
@@ -154,11 +181,12 @@
 									<c:if test="${ er_list ne null }">
 									<c:forEach items="${ er_list }" var="er_dto">
 										<tr class="gradeC odd">
+											<td>${ er_dto.er_seq }</td>
 											<td class="sorting_1" style="align-content: center">${ er_dto.rest_name }</td>
-											<td class=" ">${ er_dto.er_content }</td>
+											<td class="er_content">${ er_dto.er_content }</td>
 											<td class=" ">${ er_dto.er_wtime }</td>
 											<td>
-												<button class="btn btn-info btn-mini" onclick="location.href='modify_review.ad?er_seq=${ er_dto.er_seq }'">수정</button>
+												<button class="btn btn-info btn-mini modifyReview">수정</button> <!-- onclick="location.href='modify_review.ad?er_seq=${ er_dto.er_seq }'" -->
 												<button class="btn btn-danger btn-mini" onclick="location.href='delete_review.ad?er_seq=${ er_dto.er_seq }'">삭제</button>
 											</td>
 										</tr>
@@ -166,7 +194,7 @@
 									</c:if>
 								</tbody>
 							</table>
-							<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
+							<!-- <div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
 								<div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
 								  <a tabindex="0" class="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default" id="DataTables_Table_0_first">First</a>
 								  <a tabindex="0" class="previous fg-button ui-button ui-state-default" id="DataTables_Table_0_previous">Previous</a>
@@ -180,7 +208,7 @@
 								  <a tabindex="0" class="next fg-button ui-button ui-state-default" id="DataTables_Table_0_next">Next</a>
 								  <a tabindex="0" class="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default" id="DataTables_Table_0_last">Last</a>
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -194,23 +222,9 @@
 <div class="row-fluid">
   <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
 </div>
-<!--end-Footer-part--> 
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-colorpicker.js"></script> 
-<script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/jquery.toggle.buttons.js"></script> 
-<script src="js/masked.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.form_common.js"></script> 
-<script src="js/wysihtml5-0.3.0.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/bootstrap-wysihtml5.js"></script>
 
-	<script>
+<!--end-Footer-part--> 
+<script>
 	$('.textarea_editor').wysihtml5();
 	
 	$(".searchRest").on("keyup", function() {
@@ -252,6 +266,25 @@
            	});
 		}
 	});
+	
+	$(".modifyReview").click(function() {
+		if ($(this).html() == "완료") {
+			alert('수정 완료');
+			$form.submit();
+		}
+		else if($(this).html()=="수정"){
+			$(this).html("완료");
+			var td_content = $(this).parent().parent().children("td.er_content");
+			var er_seq = $(this).parent().parent().children("td:eq(0)").text()
+			$form = $("<form>", { 'action':'modify_review.ad', 'method':'post'});
+			$form.append( $("<input>", {'type':'hidden', 'value':er_seq, 'name':'er_seq' }) );
+			$textarea = $('<textarea>', {'style':'width: 850px', 'name':'er_content'});
+			$textarea.text(td_content.html());
+			$form.append($textarea);
+			td_content.html($form);
+		}
+		
+	})
 	</script>
 
 </body>

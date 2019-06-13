@@ -10,6 +10,7 @@ public class EditerReviewDTO {
 	private String er_content;
 	private int rest_seq;
 	private String rest_name;
+	private String rest_img;
 	private Date er_wtime;
 	public int getEr_seq() {
 		return er_seq;
@@ -54,6 +55,15 @@ public class EditerReviewDTO {
 		this.setEr_wtime(rs.getDate("er_wtime"));
 		this.rest_seq = rs.getInt("rest_seq");
 		this.rest_name = rs.getString("rest_name");
+	}
+	public EditerReviewDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	public String getRest_img() {
+		return rest_img;
+	}
+	public void setRest_img(String rest_img) {
+		this.rest_img = rest_img;
 	}
 	
 }

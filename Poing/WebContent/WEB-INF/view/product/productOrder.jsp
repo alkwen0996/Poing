@@ -48,9 +48,9 @@ while (ir.hasNext()) {
 	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
 			int tic_op_purchas_cnt = dto2.getTic_op_purchas_cnt();
 			int tic_dc_price = dto.getTic_dc_price();
-			int totalmoney = tic_op_purchas_cnt * tic_dc_price;
+// 			int totalmoney = tic_op_purchas_cnt * tic_dc_price;
 			int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
-			System.out.println(totalmoney);
+// 			System.out.println(totalmoney);
 			System.out.println(cart_seq);
 %>
 

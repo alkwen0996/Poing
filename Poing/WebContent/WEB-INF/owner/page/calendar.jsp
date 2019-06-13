@@ -16,15 +16,6 @@
 <%@include file="/owner/css/matrix-media.css" %>
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 <%@include file="/owner/css/jquery.gritter.css" %>
-<!-- 
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" type="text/css" href="css/fullcalendar.css" />
-<link rel="stylesheet" type="text/html" href="css/matrix-style.css" />
-<link rel="stylesheet" type="text/html" href="css/matrix-media.css" />
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/jquery.gritter.css" /> 
--->
 </style>
 </head>
 <body>

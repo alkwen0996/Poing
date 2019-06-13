@@ -14,8 +14,8 @@
 <%@include file="/owner/css/bootstrap-wysihtml5.css" %>
 <%@include file="/owner/css/matrix-style.css" %>
 <%@include file="/owner/css/matrix-media.css" %>
-<%@include file="/owner/font-awesome/css/font-awesome.css" %>
 <%@include file="/owner/css/jquery.gritter.css" %>
+<%@include file="/owner/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 

@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="poing.member.MemberDTO"%>
 <%@page import="com.util.ConnectionProvider"%>
-<%@page import="org.json.simple.JSONObject"%>
+
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -37,10 +37,10 @@ String message = request.getParameter("msg")==null?"":request.getParameter("msg"
 System.out.println("message="+message);
 
 
-String sql = "update rest_reserve set r_reserve_date =?, r_reserve_hour=?,  r_reserve_request = ?, r_reserve_num_of_people = ?  where r_reserve_num= ? ";
+String sql = "update rest_reserve set r_reserve_date =?, r_reserve_hour=?,  r_reserve_request = ?, r_reserve_num_of_people = ?  where r_reserve_seq= ? ";
 Connection conn = null;
 PreparedStatement pstmt = null;
-JSONObject res = new JSONObject();
+
 boolean status = false;
 try{
 	   conn = ConnectionProvider.getConnection();

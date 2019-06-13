@@ -30,6 +30,7 @@
 			ac_dto.put("id", reviewSearchDTO.getId());
 			ac_dto.put("name", reviewSearchDTO.getName());
 			ac_dto.put("description", reviewSearchDTO.getDescription());
+			ac_dto.put("rest_img", reviewSearchDTO.getRest_img());
 			ac_keywords.add(ac_dto);
 		}
 	}

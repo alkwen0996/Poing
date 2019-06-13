@@ -27,7 +27,13 @@ public class DisplayRestDetailHandler implements CommandHandler
 		}
 		try {
 			RestDetailService service = new RestDetailService();
-			RestListDTO dto = service.select(rest_seq);
+			RestListDTO dto = service.select(rest_seq, m_no);
+			ArrayList<String> imgList = service.select(rest_seq);
+			request.setAttribute("imgList", imgList);
+			
+			ArrayList<String> reserveHis = service.historySelect(rest_seq);
+			request.setAttribute("reserveHis", reserveHis);
+			
 			if (tab == null || tab.equals("info")) {
 				System.out.println();
 			}

@@ -75,7 +75,7 @@
                         <div class="slider_wrap PoingSlider_wrap">
                            <div id="slider" class="PoingSlider">
                               <div class="i_wrap slice current" style="top: 0px; left: 0%;">
-                              <c:forEach items="${photoList }" var="photoList">
+                              <c:forEach items="${photoList }" var="photoList"  varStatus="status">
                                  <i class="image" data-index="0" style="background-image: url('${photoList.tic_menu_images}')"
                                     title="${photoList.tic_menu_images}"></i>
                               </c:forEach>

@@ -28,8 +28,8 @@
    String thur = "";
    String fri = "";
    String sat = "";
-   String sql = "select * from rest_reserve_openhr where rest_seq = ? order by openday asc, openhour_by_day asc";
-   String sql2 = "select * from rest_reserve where r_reserve_num=?";
+   String sql = "select * from rest_reserve_openhr where rro_rest_seq = ? order by rro_openday asc, rro_openhour_by_day asc";
+   String sql2 = "select * from rest_reserve where r_reserve_seq=?";
    
    int party_size = 0;
    String date ="";
@@ -42,63 +42,101 @@
    PreparedStatement pstmt1 = null;
    ResultSet rs = null;
    ResultSet rs1 = null;
-   
+ 
+   PreparedStatement hpstmt = null;
+   ResultSet hrs = null;
+   String h0, h1,h2,h3,h4,h5,h6;
+   h6 ="\"11:30\", \"11:30\", \"12:30\", \"12:30\", \"18:00\", \"21:00\"";
+   h0 =h1=h2=h3=h4=h5=h6;
+   String holidaysql = "select rest_holiday from restaurant where  rest_seq = "+rest_seq;
    try {
 		conn =ConnectionProvider.getConnection();
+		
+		hpstmt = conn.prepareStatement(holidaysql);
+	   	hrs = hpstmt.executeQuery();
+	   	if (hrs.next()){
+	   	String holiday = hrs.getString("rest_holiday");
+		String [] holidays = holiday.split(",");
+	   	
+		xxx: for(int i=0; i<holidays.length; i++ ) {
+	   		switch(holidays[i].trim()){
+	   		case "연중무휴" : 
+	   			break xxx;
+	   		case "일요일": h0="";
+	   			break;
+	   		case "월요일": h1="";
+	   			break;
+	   		case "화요일": h2="";
+	   			break;
+	   		case "수요일": h3="";
+	   			break;
+	   		case "목요일": h4="";
+	   			break;
+	   		case "금요일": h5="";
+	   			break;
+	   		case "토요일": h6="";
+	   			break;
+	   		default:
+	   			break;
+	   		}
+	   	}
+	   	}
+		
+		
 	   	pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, rest_seq);
 		rs = pstmt.executeQuery();
 		RestReserveDTO dto = null;
 				
 		while (rs.next()) {	
-			switch(rs.getInt("openday")){
+			switch(rs.getInt("rro_openday")){
 			case 0:
 				if(sun.length()<1){
-					sun+="\""+rs.getString("openhour_by_day")+"\"";
+					sun+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						sun+=", \""+rs.getString("openhour_by_day")+"\"";	
+						sun+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 1:
 				if(mon.length()<1){
-					mon+="\""+rs.getString("openhour_by_day")+"\"";
+					mon+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						mon+=", \""+rs.getString("openhour_by_day")+"\"";	
+						mon+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 2:
 				if(tue.length()<1){
-					tue+="\""+rs.getString("openhour_by_day")+"\"";
+					tue+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						tue+=", \""+rs.getString("openhour_by_day")+"\"";	
+						tue+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 3:
 				if(wed.length()<1){
-					wed+="\""+rs.getString("openhour_by_day")+"\"";
+					wed+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						wed+=", \""+rs.getString("openhour_by_day")+"\"";	
+						wed+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 4:
 				if(thur.length()<1){
-					thur+="\""+rs.getString("openhour_by_day")+"\"";
+					thur+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						thur+=", \""+rs.getString("openhour_by_day")+"\"";	
+						thur+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 5:
 				if(fri.length()<1){
-					fri+="\""+rs.getString("openhour_by_day")+"\"";
+					fri+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						fri+=", \""+rs.getString("openhour_by_day")+"\"";	
+						fri+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			case 6:
 				if(sat.length()<1){
-					sat+="\""+rs.getString("openhour_by_day")+"\"";
+					sat+="\""+rs.getString("rro_openhour_by_day")+"\"";
 					} else {
-						sat+=", \""+rs.getString("openhour_by_day")+"\"";	
+						sat+=", \""+rs.getString("rro_openhour_by_day")+"\"";	
 					}
 				break;
 			}
@@ -204,58 +242,13 @@
                "target":"place",
                "target_id":14991,
                "start_end_times":[  
-                  [  
-                     "11:30",
-                     "14:00",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "07:00",
-                     "09:00",
-                     "11:30",
-                     "13:30",
-                     "18:00",
-                     "21:00"
-                  ],
-                  [  
-                     "11:30",
-                     "14:00",
-                     "18:00",
-                     "21:00"
-                  ]
+                 [<%=h0%>],
+       	 		 [<%=h1%>],
+          		 [<%=h2%>],
+          		 [<%=h3%>],
+          		 [<%=h4%>],
+          		 [<%=h5%>],
+           		 [<%=h6%>]
                ],
                "working_hours":[  
                   [  "10:00",

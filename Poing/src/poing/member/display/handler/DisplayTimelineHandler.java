@@ -12,6 +12,8 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
+import poing.product.ProductDTO;
+import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
 import poing.product.display.service.DisplayProductDetailService;
 import poing.product.display.service.ProductPayService;
@@ -21,23 +23,24 @@ import poing.review.ReviewDTO;
 
 public class DisplayTimelineHandler implements CommandHandler {
 	DisplayTimelineService displayTimelineService = new DisplayTimelineService();
-
+	
 	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+//		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 		
 		System.out.println("DisplayTimelineHandler.java process");
 		String tab = request.getParameter("tab");
 		String type = request.getParameter("type");
-
+		int my_no;
+		my_no = -1;
 		MemberDTO authUser = (MemberDTO) request.getSession().getAttribute("authUser");
 		int memberID = Integer.parseInt(request.getParameter("id"));
 		MemberDTO mdto = displayTimelineService.getMemberDTO(memberID);
 		request.setAttribute("mdto", mdto);
-		int my_no = -1;
 		if (authUser != null) {
 			my_no = authUser.getM_seq();
 		}
+		
 		if (my_no == -1) {
 			request.setAttribute("amIFollow", false);
 		}
@@ -48,7 +51,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		
 		if(tab == null)
 		{
-			if ( authUser != null && authUser.getM_seq() == mdto.getM_seq())
+			if ( authUser != null && my_no != -1 && authUser.getM_seq() == mdto.getM_seq())
 				tab = "reservation";
 			else
 				tab = "review";
@@ -62,7 +65,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}
-			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID, type);
+			String reservTab = "past";
+			if (type==null || type.equals("recent")) reservTab ="recent";
+			ArrayList<RestTimlineReserveDTO> reserve_list = displayTimelineService.getReseveRestDTO(memberID,reservTab);
 			request.setAttribute("reserve_list", reserve_list);
 		}
 		else if (tab.equals("coupon"))
@@ -76,6 +81,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 			ProductPayService service5 = new ProductPayService();
 			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
 			request.setAttribute("rev_tic_list", rev_tic_list);
+		
+//			DisplayProductDetailService service2 = new DisplayProductDetailService();
+//			List<ProductDTO> list = service2.selectProductList(cart_seq);
+//			request.setAttribute("list", list);
 			}
 		}
 		else if (tab.equals("review"))

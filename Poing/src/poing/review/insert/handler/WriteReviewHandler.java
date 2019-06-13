@@ -18,7 +18,7 @@ public class WriteReviewHandler implements CommandHandler{
 		System.out.println("WriteReviewHandler process called");
 		ReviewDTO dto = new ReviewDTO();
 		MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
-		dto.setRest_seq(Integer.parseInt(request.getParameter("id")));
+		dto.setRev_rest_seq((Integer.parseInt(request.getParameter("id"))));
 		dto.setRev_content(request.getParameter("text"));
 		try {
 			dto.setM_seq(mdto.getM_seq());

@@ -1842,7 +1842,6 @@
 			<c:choose>
 				<c:when test="${ param.tab eq null }">
 					<jsp:include page="/WEB-INF/layout/javascript/timeline_reserve.jsp"></jsp:include>
-					<jsp:include page="/WEB-INF/layout/javascript/timeline_review.jsp"></jsp:include>
 				</c:when>
 
 				<c:when test="${ param.tab eq 'reservation' }">

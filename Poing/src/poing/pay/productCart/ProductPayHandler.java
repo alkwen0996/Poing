@@ -19,15 +19,15 @@ public class ProductPayHandler implements CommandHandler {
 		
 		System.out.println("payHandler start");
 		int totalmoney = Integer.parseInt(request.getParameter("totalmoney"));
-		int rp_seq = Integer.parseInt(request.getParameter("rp_seq"));
+		int m_point = Integer.parseInt(request.getParameter("m_point"));
 		int point = Integer.parseInt(request.getParameter("point"));
-		int p_num = Integer.parseInt(request.getParameter("p_num"));
-		int m_no = Integer.parseInt(request.getParameter("m_no"));
+		int tic_seq = Integer.parseInt(request.getParameter("tic_seq"));
+		int m_seq = Integer.parseInt(request.getParameter("m_seq"));
 		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 		
 		String m_email = request.getParameter("m_email");
-		System.out.println(m_no);
-		System.out.println(p_num);
+		System.out.println(m_seq);
+		System.out.println(tic_seq);
 		System.out.println(cart_seq);
 		
 		
@@ -36,17 +36,17 @@ public class ProductPayHandler implements CommandHandler {
 		//레스토랑 이름 유효기간 예약 내역 날짜 시간 인원
 		
 		System.out.println(point);// 입력한값
-		System.out.println(rp_seq);
+		System.out.println(m_point);
 		System.out.println(totalmoney);
 		System.out.println(m_email);
-		boolean result1 = service.insertReserve_tic(p_num, m_no, cart_seq);
+		boolean result1 = service.insertReserve_tic(tic_seq, m_seq, cart_seq, totalmoney);
 		System.out.println(result1);
-		boolean result2 = service.selectRp_seq(m_no,rp_seq, totalmoney, m_email, point);
+		boolean result2 = service.selectRp_seq(m_seq, m_point, totalmoney, m_email, point);
 		System.out.println(result2);
 		
 		if (result2) {
 			// 세션 새로 저장
-			int new_rq_seq = rp_seq - totalmoney;
+			int new_rq_seq = m_point - totalmoney;
 
 			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
 			mdto.setM_point(new_rq_seq);

@@ -82,7 +82,6 @@ public class DisplayTimelineService {
 		ArrayList<RestListDTO> nlist = mdao.PickRestList(conn, memberID, page);
 		
 		conn.close();
-		System.out.println("displaytimlineService : 알림 list에 담김");
 		return nlist;
 	}
 		

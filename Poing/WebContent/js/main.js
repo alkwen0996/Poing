@@ -16345,7 +16345,14 @@ function getCookie(e) {
 }
 
 function Pagination(t) {
-  this.opt = t, this.opt.total_page < 1 || ($(t.selector).append("<div class='page-list'><ul class='pagination' onselectstart='return false;'></ul></div>"), this.target = $(t.selector + ">div.page-list"), this.list = $(this.target).children("ul.pagination"), this.pageChange = $.proxy(this.pageChange, this), $(this.target).delegate("li", "click", this.pageChange), isNaN(t.current_page) && (t.current_page = 1), this.render(t.current_page), this.list.children("li[data-page=" + t.current_page + "]").addClass("active"))
+  this.opt = t, 
+  this.opt.total_page < 1 || ($(t.selector).append("<div class='page-list'><ul class='pagination' onselectstart='return false;'></ul></div>"), 
+  this.target = $(t.selector + ">div.page-list"), 
+  this.list = $(this.target).children("ul.pagination"), 
+  this.pageChange = $.proxy(this.pageChange, this), 
+  $(this.target).delegate("li", "click", this.pageChange), isNaN(t.current_page) && (t.current_page = 1), 
+  this.render(t.current_page), 
+  this.list.children("li[data-page=" + t.current_page + "]").addClass("active"))
 }
 Pagination.prototype.defaultPaging = function(t) {
   window.search({

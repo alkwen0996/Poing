@@ -46,17 +46,23 @@ public class ModifyCartReservationHandler implements CommandHandler {
 			counts.add(Integer.parseInt((String) obj.get("counts")));
 		}
 		
-		int cart_seq = service.insertCart(m_no,c_date,party_size,message,ids, counts);
-		boolean result = service.insertTotalCart(cart_seq, ids, counts);
+		for (int j = 0; j < ids.size(); j++) {
+			System.out.println("티켓번호"+ids.get(j));
+			System.out.println("개수"+counts.get(j));
+			
+		}
+		
+		int tic_cart_seq = service.insertCart(m_no,c_date,party_size,message);
+		boolean result = service.insertTotalCart(tic_cart_seq, ids, counts);
 //		int cart_seq = service.select
 		System.out.println("ModifyCartReservationHandler.process line 23");
 		JSONObject jsonObject = new JSONObject();
 
-		jsonObject.put("cart_seq", cart_seq);
+		jsonObject.put("cart_seq", tic_cart_seq);
 		jsonObject.put("status", result);
 		
 		
-		request.setAttribute("cart_seq", cart_seq);
+		request.setAttribute("cart_seq", tic_cart_seq);
 		request.setAttribute("status", result);
 		return "productCart/modifyCartReservation";
 	}

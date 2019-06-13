@@ -55,9 +55,7 @@ public class CartDAO {
 			for (int i = 0; i < ids.length; i++) {
 				pstmt.setInt(1, cart_seq);
 				pstmt.setInt(2, Integer.parseInt(ids[i]));
-				System.out.println("id:" + Integer.parseInt(ids[i]));
 				pstmt.setInt(3, Integer.parseInt(counts[i]));
-				System.out.println("cnt:" + Integer.parseInt(counts[i]));
 				result = pstmt.executeUpdate()==0? false:true;
 				if (!result) {
 					break;
@@ -88,7 +86,7 @@ public class CartDAO {
 			while (rs.next()) {
 				dto = new ProductDTO();
 				dto.setTic_seq(rs.getInt("tic_seq"));
-				dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
+				dto.setCart_seq(rs.getInt("tic_cart_seq"));
 				dto.setRest_name(rs.getString("rest_name"));
 				dto.setTic_validate_content(rs.getString("tic_validate_content"));
 				dto.setTic_request(rs.getString("tic_request"));
@@ -123,11 +121,11 @@ public class CartDAO {
 				dto.setTic_seq(rs.getInt("tic_seq"));
 				dto.setTic_option_seq(rs.getInt("tic_option_seq"));
 				dto.setTic_op_purchas_cnt(rs.getInt("tic_op_purchas_cnt"));
-				dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
+				dto.setCart_seq(rs.getInt("tic_cart_seq"));
 				dto.setTic_op_name(rs.getString("tic_op_name"));
 				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
-				dto.setTic_op_min_cnt(rs.getInt("tic_op_min_cnt"));
-				dto.setTic_op_max_cnt(rs.getInt("tic_op_max_cnt"));
+				dto.setOp_min_cnt(rs.getInt("tic_op_min_cnt"));
+				dto.setOp_max_cnt(rs.getInt("tic_op_max_cnt"));
 				option.add(dto);
 			}
 		 
@@ -201,7 +199,7 @@ public class CartDAO {
 					dto = new ProductDTO();
 					dto = new ProductDTO();
 					dto.setTic_seq(rs.getInt("tic_seq"));
-					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
+					dto.setCart_seq(rs.getInt("tic_cart_seq"));
 					dto.setRest_name(rs.getString("rest_name"));
 					dto.setTic_validate_content(rs.getString("tic_validate_content"));
 					dto.setTic_request(rs.getString("tic_request"));
@@ -237,11 +235,11 @@ public class CartDAO {
 					dto.setTic_seq(rs.getInt("tic_seq"));
 					dto.setTic_option_seq(rs.getInt("tic_option_seq"));
 					dto.setTic_op_purchas_cnt(rs.getInt("tic_op_purchas_cnt"));
-					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
+					dto.setCart_seq(rs.getInt("tic_cart_seq"));
 					dto.setTic_op_name(rs.getString("tic_op_name"));
 					dto.setTic_dc_price(rs.getInt("tic_dc_price"));
-					dto.setTic_op_min_cnt(rs.getInt("tic_op_min_cnt"));
-					dto.setTic_op_max_cnt(rs.getInt("tic_op_max_cnt"));
+					dto.setOp_min_cnt(rs.getInt("tic_op_min_cnt"));
+					dto.setOp_max_cnt(rs.getInt("tic_op_max_cnt"));
 					option.add(dto);
 				}
 			 

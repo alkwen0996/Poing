@@ -37,7 +37,9 @@ public class RestListDTO {
 	private int totalcount;
 	private int rest_fav;
 		
+	public RestListDTO() {
 		
+	}
 		
 	public String getRest_food_type() {
 		return rest_food_type;

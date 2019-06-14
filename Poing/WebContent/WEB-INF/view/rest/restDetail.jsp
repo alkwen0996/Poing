@@ -84,12 +84,15 @@ setCookie('restlist', JSON.stringify(jsonObejct));
 </script>
 </head>
 <%
+	RestListDTO restTip = (RestListDTO) request.getAttribute("restTip");
+	RestListDTO listDTO = (RestListDTO) request.getAttribute("listDTO");
+	RestListDTO pdto = (RestListDTO) request.getAttribute("pdto");
 	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
 	ProductDTO restProduct = (ProductDTO) request.getAttribute("restProduct");
-	double starpoint = dto.getRest_starpoint();
-	int tenpoint = (int) Math.round(starpoint * 2);
-	request.setAttribute("tenpoint", tenpoint);
-	System.out.print(tenpoint);
+// 	double starpoint = dto.getRest_starpoint();
+// 	int tenpoint = (int) Math.round(starpoint * 2);
+// 	request.setAttribute("tenpoint", tenpoint);
+// 	System.out.print(tenpoint);
 %>
 
 <body>
@@ -102,11 +105,11 @@ setCookie('restlist', JSON.stringify(jsonObejct));
 				<div id="banner" class="restaurant_detail">
 					<div class="i_wrap background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="i_wrap blur background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="inner_wrap">
 						<div class="inner">

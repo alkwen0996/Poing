@@ -3,11 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- <div class="filter"> -->
-<%-- 		<a href="/Poing/timeline.do?id=${ param.id }&tab=alert&type=my" class="first selected">내 소식</a>  --%>
-<%-- 		<a href="/Poing/timeline.do?id=${ param.id }&tab=alert&type=poing" class="">포잉 알림</a> --%>
-<!-- 	</div> -->
-
 <div class="body empty payment refund">
                     <table>
                 <thead>

@@ -17,73 +17,37 @@
 	<table>
 		<thead>
 			<tr>
-				<th class="order" colspan="2">취소 / 환불내역</th>
+				<th class="info">상품명</th>
+				<th class="reserve">예약 내역</th>
 				<th class="status">상태</th>
-				<th class="pay_info">환불</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
+			<c:forEach items="${rev_use_list}" var="dto" varStatus="status">
 				<tr>
-					<td class="order"><span class="date">예약일<br>${dto.c_date}</span>
-						<span class="id">369496</span></td>
-					<td class="coupon"><a class="title"
-						href="/product/detail/5468">${dto.rest_name }</a>
-						<ul class="list">
-							<li>${dto.op_name }- ${dto.op_cnt }개</li>
-						</ul></td>
-					<td class="status"><span class="refund">환불 완료</span><br>
-						<button class="updateState" data="${dto.reserva_tic_seq}">삭제하기</button>
+					<td class="info"><a href="/Poing/product/main.do"> <i
+							class="image" style="background-image:url('/Poing${dto.tic_img}');"></i>
+					</a>
+
+						<div class="option">
+							<a class="title" href="/product/detail/5468"> <span>${dto.rest_name }</span>
+							</a>
+							<p class="valid_date">유효기간: ${dto.tic_reserve_date }</p>
+
+                                        <div class="name">결제한 티켓 총 금액 : ${dto.tic_totalmoney } </div>
+						</div></td>
+					<td class="reserve">
+						<div class="date">${dto.tic_reserve_date }</div>
+						<div class="date">${dto.tic_request }</div>
+						<div class="count">${dto.tic_num_of_people }명</div>
 					</td>
-					<td class="pay_info">
-						<div class="section info">
-							<p class="title">환불정보</p>
+					<td class="status"><span class="">사용 완료</span>
 
-							<div>
-								<span class="value"></span>
-							</div>
-
-							<div>
-								<span class="label">포인트 환불</span> <span class="value">${ dto.op_cnt * dto.p_dc_money}P</span>
-							</div>
-						</div>
-						<div class="section">
-							<p class="title">환불수단</p>
-
-							<div>
-								<span class="label">전액 환불</span>
-							</div>
-
-							<div>
-								<span class="label">총 포인트 환불</span> <span class="value">${ dto.op_cnt * dto.p_dc_money}P</span>
-							</div>
-						</div>
-					</td>
 				</tr>
-
 			</c:forEach>
 		</tbody>
 	</table>
-	<script>
-	$("button.updateState").click(function () {
-		$.ajax({
-			url: '/Poing/product/deleteRefund.do',
-			method: 'post',
-			dataType: 'JSON',
-			data:{
-				reserva_tic_seq : $(this).attr('data')
-			},
-			success: function (res) {
-				if (res.status) {
-				$.popup('/Poing/pick/popup/confirm.do', {'text': '삭제가 완료되었습니다.'});
-				setTimeout(location.reload.bind(location), 1000);
-				
-				}else{
-				}
-			}
-		});
-	})
-	</script>
+
 
 </div>

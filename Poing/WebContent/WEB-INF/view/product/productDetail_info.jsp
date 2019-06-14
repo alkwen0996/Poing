@@ -98,7 +98,7 @@
 						<div class="comment">${dto.er_content }</div>
 					</div>
 				
-				<a href="/Poing/restaurant/detail.do?rest_seq=${menuDto.rest_seq}" class="more">레스토랑 정보 더 자세히 알아보기&gt;</a>
+				<a href="/Poing/rest/detail.do?rest_seq=40424" class="more">레스토랑 정보 더 자세히 알아보기&gt;</a>
 			</div>
 		</div>
 			

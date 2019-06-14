@@ -21,12 +21,12 @@ public class DisplayMainService {
 		Connection conn = ConnectionProvider.getConnection();
 		ArrayList<ReviewDTO> rev_list = ReviewDAO.selectMainReview(conn );
 		ArrayList<BannerImageDTO> banner_list = BannerImageDAO.selectBannerImageList(conn);
-		//ArrayList<ProductBannerDTO> pb_list = ProductBannerDAO.selectProductBannerList(conn);
+		ArrayList<ProductBannerDTO> pb_list = ProductBannerDAO.selectProductBannerList(conn);
 				
 				
 		mainDTO.setRev_list(rev_list);
 		mainDTO.setBanner_list(banner_list);
-		//mainDTO.setPb_list(pb_list);
+		mainDTO.setPb_list(pb_list);
 		conn.close();
 		return mainDTO;
 	}

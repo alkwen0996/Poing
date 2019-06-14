@@ -38,7 +38,6 @@
 
 
 <%
-	
 List<ProductDTO> list = (List<ProductDTO>) request.getAttribute("list");
 Iterator<ProductDTO> ir = list.iterator();
 int sum = 0;
@@ -96,10 +95,10 @@ while (ir.hasNext()) {
                                     <tr data-id="1299328"> 
                         <td class="info">
                             <a class="image" href="/product/detail/5904" target="_blank">
-                                <i class="image border_radius medium" style="background-image: url(${dto.tic_img});"></i>
+                                <i class="image border_radius medium" style="background-image: url(/Poing${dto.tic_img});"></i>
                             </a>
                             <a class="name" href="/product/detail/5904" target="_blank">${dto.rest_name }</a>
-                            <div class="valid_date">유효기간: <span>${dto.tic_validate_content }</span></div>
+                            <div class="valid_date">유효기간: <span>${dto2.tic_reserve_date}</span></div>
 
                             <ul class="options">
                             
@@ -389,7 +388,7 @@ $(document).ready(function(){
         
     });//결제하기 버튼 눌렀을떄
     
-//});
+});
 </script>
 
 </div>

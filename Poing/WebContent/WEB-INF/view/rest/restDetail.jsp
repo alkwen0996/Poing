@@ -105,11 +105,11 @@ setCookie('restlist', JSON.stringify(jsonObejct));
 				<div id="banner" class="restaurant_detail">
 					<div class="i_wrap background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="i_wrap blur background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="inner_wrap">
 						<div class="inner">

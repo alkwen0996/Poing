@@ -598,7 +598,7 @@ public class ProductDetailDAO {
 //	}
 
 	public ProductDTO selectdisplay(Connection conn, int tic_seq) {
-		String sql = " select rownum,x. tic_explain_content,z.tic_img, "
+		String sql = " select rownum,x. tic_explain_content,z.tic_img,"
 				+ " n.tic_original_price, n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, "
 				+ " t.tic_type, i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant "
 				+ " r join editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "

@@ -36,6 +36,12 @@ public class ProductDTO {
 	
 	
 	
+	public String getTic_validate_content() {
+		return tic_validate_content;
+	}
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
+	}
 	public int getTic_cart_seq() {
 		return tic_cart_seq;
 	}

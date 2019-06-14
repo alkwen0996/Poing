@@ -57,7 +57,7 @@
 		<tbody>
 			<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
 				<tr>
-					<td class="info"><a href="/Poing/product/main.do"> <i
+					<td class="info"><a href="/Poing/main.do"> <i
 							class="image" style="background-image:url('/Poing${dto.tic_img}');"></i>
 					</a>
 

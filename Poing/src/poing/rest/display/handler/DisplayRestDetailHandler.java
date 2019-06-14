@@ -1,12 +1,14 @@
 package poing.rest.display.handler;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import poing.member.MemberDTO;
 import poing.mvc.CommandHandler;
+import poing.product.ProductDTO;
 import poing.rest.RestListDTO;
 import poing.rest.display.service.DisplayRestDetailReviewService;
 import poing.rest.display.service.RestDetailService;
@@ -27,7 +29,10 @@ public class DisplayRestDetailHandler implements CommandHandler
 		}
 		try {
 			RestDetailService service = new RestDetailService();
-			RestListDTO dto = service.select(rest_seq);
+			ArrayList<String> dto = service.select(rest_seq);
+			ProductDTO restProduct = DisplayRestDetailReviewService.selectRestTicket(rest_seq); //레스토랑 티켓 이미지 티켓 이름
+			List<ProductDTO> list1 = service.selectRestProductOPtion(rest_seq); //레스토랑 옵션 리스트
+			
 			if (tab == null || tab.equals("info")) {
 				System.out.println();
 			}
@@ -39,7 +44,9 @@ public class DisplayRestDetailHandler implements CommandHandler
 				request.setAttribute("paging", "");
 				request.setAttribute("list", list);
 			}
+			request.setAttribute("list1", list1);
 			request.setAttribute("dto", dto);
+			request.setAttribute("restProduct", restProduct);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

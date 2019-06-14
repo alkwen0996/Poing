@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import com.util.ConnectionProvider;
 
+import poing.product.ProductDTO;
 import poing.review.ReviewDAO;
 import poing.review.ReviewDTO;
 
@@ -21,4 +22,13 @@ public class DisplayRestDetailReviewService {
 		return list;
 	}
 	
+	
+	public static ProductDTO selectRestTicket(int rest_seq) throws SQLException {
+		Connection conn = null;
+		
+		conn = ConnectionProvider.getConnection();
+		ProductDTO dto = ReviewDAO.selectRestTicket(conn, rest_seq);
+		conn.close();
+		return dto;
+	}
 }

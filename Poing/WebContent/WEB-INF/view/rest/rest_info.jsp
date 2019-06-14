@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,21 +10,21 @@
 
 	<div>
 		<i class="image"
-			style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA1/15257572485af13540b96e1.jpeg)"></i>
-		<p class="desc">product가 있다면 나타나는 박스</p>
+			style="background-image: url(/Poing${restProduct.tic_img})"></i>
+		<p class="desc">${restProduct.tic_name}</p>
 		<div class="list">
 			<p class="label">옵션</p>
+			
+			<c:forEach items="${list1}" var="dto" varStatus="status">
 			<div class="">
-				<span class="name">1. 옵션1</span> <span class="actual_price">가격</span>
-				<span class="price">가격</span>
+				<span class="name">${dto.tic_op_name }</span> <span class="actual_price">${dto.tic_original_price }</span>
+				<span class="price">${dto.tic_dc_price }</span>
 			</div>
-			<div class="">
-				<span class="name">2. 두번째 이야기</span> <span class="actual_price">79,000원</span>
-				<span class="price">74,000원</span>
-			</div>
+			</c:forEach>
+			
 		</div>
 
-		<a href="/product/detail/4928" class="more">자세히 보러가기 &gt;</a>
+		<a href="/Poing/product/detail.do?tic_seq=${restProduct.tic_seq }" class="more">자세히 보러가기 &gt;</a>
 	</div>
 </div>
 
@@ -59,42 +60,43 @@
 	<hr>
 	<div class="section ">
 		<div class="title ">음식 종류</div>
-		<div class="body">일식 / 한식 / 반상 / 해산물요리 / 구이요리</div>
+		<div class="body">${dto.rest_food_type}</div>
 	</div>
 	<div class="section ">
 		<div class="title ">예산</div>
-		<div class="body">5만원 미만 (2인 기준)</div>
+		<div class="body">${dto.rest_budget_type}</div>
 	</div>
 	<hr>
 	<div class="section ">
 		<div class="title ">테이블</div>
-		<div class="body">룸 테이블, 홀 테이블</div>
+		<div class="body">${dto.rest_table_type}</div>
 	</div>
 	<div class="section ">
 		<div class="title ">부가 정보</div>
 		<div class="body">
-			코르키지가 가능한 <br> 베이비 시트가 준비되어 있는 <br> 야외 테라스 자리가 있는 <br>
-			런치 메뉴가 있는 <br> 룸이 준비되어 있는 <br> 단체석이 있는
+			${dto.rest_add_info}
 		</div>
 	</div>
 	<hr>
 	<div class="section ">
 		<div class="title ">판매 주류</div>
-		<div class="body">와인, 양주, 맥주, 소주 등</div>
+		<div class="body">${dto.rest_alchol}</div>
 	</div>
 	<hr>
+	<%
+	ArrayList<String> his = (ArrayList<String>)request.getAttribute("reserveHis");
+	String a="" , b="";
+	if (his.size()==1) a=his.get(0);
+	if (his.size()==2) {
+		a=his.get(0);
+		b=his.get(1);
+	}
+	%>
 	<div class="section single reservation_histories">
 		<div class="title ">최근 예약 히스토리</div>
 		<div class="body">
-			3840님이 2019.5.25 오후 7:00, 2명 예약하셨습니다.<span><script>
-									document
-											.write(moment('2019-05-23 10:31:24')
-													.locale('ko').fromNow());
-								</script>4시간 전</span><br>1167님이 2019.5.18 오후 12:30, 2명 예약하셨습니다.<span><script>
-										document.write(moment(
-												'2019-05-17 11:30:19').locale(
-												'ko').fromNow());
-									</script>6일 전</span>
+			<%=a%><br>
+			<%=b%>
 		</div>
 	</div>
 	<hr>

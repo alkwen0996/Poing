@@ -15,19 +15,6 @@ public class RestListService {
 		RestListDAO dao = RestListDAO.getInstance();	
 		try (Connection conn = ConnectionProvider.getConnection()) {	
 			List<RestListDTO> list = dao.selectdisplay(conn, current_page);
-			// 로그 처리
-			// 
-			//
-			return list;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public List<RestListDTO> select(String pop, String loc_code, String food_type, String searchWord, int current_page ) {
-		RestListDAO dao = RestListDAO.getInstance();	
-		try (Connection conn = ConnectionProvider.getConnection()) {	
-			List<RestListDTO> list = dao.selectdisplay(conn,pop, loc_code, food_type, searchWord,current_page);
 
 			return list;
 		} catch (SQLException e) {

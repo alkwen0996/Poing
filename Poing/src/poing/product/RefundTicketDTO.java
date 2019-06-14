@@ -20,27 +20,43 @@ public class RefundTicketDTO {
 	private String tic_reserve_date;
 	private int tic_num_of_people;
 	private String tic_img;
-	private String Tic_request;
-	private int Tic_totalmoney;
+	private int tic_totalmoney;
+	private String sysdate;
+	private String tic_request;
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	
 
 	public String getTic_request() {
-		return Tic_request;
+		return tic_request;
 	}
 
 	public void setTic_request(String tic_request) {
-		Tic_request = tic_request;
+		this.tic_request = tic_request;
+	}
+
+	public String getSysdate() {
+		return sysdate;
+	}
+
+	public void setSysdate(String sysdate) {
+		this.sysdate = sysdate;
 	}
 
 	public int getTic_totalmoney() {
-		return Tic_totalmoney;
+		return tic_totalmoney;
 	}
 
 	public void setTic_totalmoney(int tic_totalmoney) {
-		Tic_totalmoney = tic_totalmoney;
+		this.tic_totalmoney = tic_totalmoney;
 	}
 
 	public int getTc_purchas_seq() {

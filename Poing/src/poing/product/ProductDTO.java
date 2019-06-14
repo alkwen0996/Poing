@@ -23,6 +23,7 @@ public class ProductDTO {
 	private String tic_reserve_date;
 	private int tic_option_seq;
 	private String tic_explain_content;
+	private String tic_validate_content;
 	private int tic_img_seq;
 	private int tic_original_price;
 	private int photoRownum;
@@ -53,6 +54,9 @@ public class ProductDTO {
 	public void setTic_op_max_cnt(int tic_op_max_cnt) {
 		this.tic_op_max_cnt = tic_op_max_cnt;
 	}
+	
+	
+	
 	public int getMenuRownum() {
 		return menuRownum;
 	}

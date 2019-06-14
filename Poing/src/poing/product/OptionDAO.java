@@ -36,6 +36,7 @@ public class OptionDAO {
             op.setTic_seq(rs.getInt("tic_seq"));
             op.setTic_op_name(rs.getString("tic_op_name"));
             op.setTic_dc_price(rs.getInt("tic_dc_price"));
+            op.setTic_original_price(rs.getInt("tic_original_price"));
             op.setTic_op_min_cnt(rs.getInt("tic_op_min_cnt"));
             op.setTic_op_max_cnt(rs.getInt("tic_op_max_cnt"));
             pp.add(op);

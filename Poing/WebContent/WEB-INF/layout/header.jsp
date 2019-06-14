@@ -532,13 +532,13 @@
 							<li><input type="checkbox" id="food_all"><label
 								for="food_all">음식 전체</label></li>
 							<li><input type="checkbox"
-								id="c9f0f895fb98ab9159f51fd0297e236d" value="100"><label
+								id="c9f0f895fb98ab9159f51fd0297e236d" value="8"><label
 								for="c9f0f895fb98ab9159f51fd0297e236d">한식</label></li>
 							<li><input type="checkbox"
-								id="6512bd43d9caa6e02c990b0a82652dca" value="200"><label
+								id="6512bd43d9caa6e02c990b0a82652dca" value="11"><label
 								for="6512bd43d9caa6e02c990b0a82652dca">양식</label></li>
 							<li><input type="checkbox"
-								id="37693cfc748049e45d87b8c7d8b9aacd" value="300"><label
+								id="37693cfc748049e45d87b8c7d8b9aacd" value="23"><label
 								for="37693cfc748049e45d87b8c7d8b9aacd">중식</label></li>
 							<li><input type="checkbox"
 								id="c20ad4d76fe97759aa27a0c99bff6710" value="12"><label
@@ -658,7 +658,6 @@
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=reservation">예약</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=coupon">티켓</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=payment">결제</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=friends">친구찾기</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=setting">설정</div>
 									<div id="nav_logout" class="item">로그아웃</div>
 								</div>
@@ -669,14 +668,6 @@
 			</div>
 		</div>
 		<!-- menu section -->
-		<div class="menu_wrap">
-			<div id="nav_menu">
-				<a href="/seoul/event" class="underline ">이벤트</a> \
-				<a href="/seoul/restaurant" class="underline ">추천 테마</a>
-				<a href="/seoul/review" class="underline ">리뷰</a> 
-				<a href="/magazine" class="underline ">매거진</a>
-			</div>
-		</div>
 	</div>
 	<!-- //navgation -->
 </div>

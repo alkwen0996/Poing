@@ -9,6 +9,7 @@ public class AdminDTO {
 	private String e_pw; /* 에디터 비밀번호 */
 	private String e_name; /* 에디터 이름 */
 	private String e_img; /* 에디터 사진 */
+	private String e_selfintro;
 	public int getE_seq() {
 		return e_seq;
 	}
@@ -45,6 +46,13 @@ public class AdminDTO {
 		this.e_pw = rs.getString("e_pw");
 		this.e_name = rs.getString("e_name");
 		this.e_img = rs.getString("e_img");
+		this.e_selfintro = rs.getString("e_selfintro");
+	}
+	public String getE_selfintro() {
+		return e_selfintro;
+	}
+	public void setE_selfintro(String e_selfintro) {
+		this.e_selfintro = e_selfintro;
 	}
 	
 }

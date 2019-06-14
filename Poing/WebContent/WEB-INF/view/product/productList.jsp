@@ -55,7 +55,7 @@ int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
                         <div class="element  small_coupon">
                      </c:if>
                            <a href="/Poing/product/detail.do?tic_seq=${dto.tic_seq}" class="image"
-                              style="display: block; background-image: url(${dto.tic_img});">
+                              style="display: block; background-image: url(/Poing${dto.tic_img});">
                               <div class="shading"></div>
    
                               <div class="bottom">

@@ -14,7 +14,7 @@
 		<div class="reservation">
 			<a class="i_wrap image" href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq }"> <i
 				class="image border_radius hard"
-				style="background-image: url(https://pbs.twimg.com/media/D1dZVehWwAATF8a.jpg);"></i>
+				style="background-image: url(/Poing/${dto.rest_img});"></i>
 			</a>
 
 			<div class="info">

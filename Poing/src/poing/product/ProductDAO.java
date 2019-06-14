@@ -37,7 +37,7 @@ public class ProductDAO {
 		ResultSet rs = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		try {
-			pstmt = conn.prepareStatement(sql.toString());
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, first);
 			pstmt.setInt(2, end);
 			rs = pstmt.executeQuery();

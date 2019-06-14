@@ -44,12 +44,14 @@ public class RestDetailService {
 		}
 	}
 	
-	public List<ProductDTO> selectRestProductOPtion(int rest_seq) {
+	public List<ProductDTO> selectRestProductOPtion(int rest_seq) throws SQLException {
 		try (Connection conn = ConnectionProvider.getConnection()) {	
 			List<ProductDTO> list = RestDetailDAO.selectRestProductOPtion(conn, rest_seq);
 			
 			// 
 			return list;
+		}
+	}
 
 	public ArrayList<String> select(int rest_seq) {
 		RestDetailDAO dao = RestDetailDAO.getInstance();	

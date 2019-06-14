@@ -35,10 +35,7 @@
 <%
 	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
 	ProductDTO restProduct = (ProductDTO) request.getAttribute("restProduct");
-	double starpoint = dto.getRest_starpoint();
-	int tenpoint = (int) Math.round(starpoint * 2);
-	request.setAttribute("tenpoint", tenpoint);
-	System.out.print(tenpoint);
+
 %>
 
 <body>

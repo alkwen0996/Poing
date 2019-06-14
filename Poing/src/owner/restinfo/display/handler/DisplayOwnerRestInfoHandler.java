@@ -14,6 +14,12 @@ public class DisplayOwnerRestInfoHandler implements CommandHandler{
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		OwnerDTO owner = (OwnerDTO)request.getSession().getAttribute("authOwner");
+		if (owner == null) {
+			System.out.println("authOwner is null");
+			response.sendRedirect("/Poing/owner/login.ow");
+			return null;
+		}
+		
 		int rest_seq = owner.getRest_seq();
 		DisplayOwnerRestInfoService service = new DisplayOwnerRestInfoService();
 		RestListDTO dto = service.selectRestInfo(rest_seq);

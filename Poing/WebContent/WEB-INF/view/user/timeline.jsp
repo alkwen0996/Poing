@@ -309,6 +309,14 @@
 	
 </div> <!-- wrap end -->
 <script>
+
+$(".label").each(function(index,item) {
+	 if ($(this).text().trim()=="예약대기") $(this).attr("style","background-color:red !important");
+	 if ($(this).text().trim()=="예약불가통보") $(this).attr("style","background-color:gray !important");
+});
+
+
+
 	$("#pointCharge").click(function () {
 //  		$.ajax({
 //  			url: '/Poing/product/cartDelete.do',

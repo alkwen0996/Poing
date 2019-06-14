@@ -77,6 +77,9 @@
 .label{
 	font-size: 17px;
 }
+.fc-day-header {
+    font-size: 20px !important;
+ }
 </style>
 
 </head>
@@ -106,20 +109,21 @@
 		<div class="popup-row time">
 			<span class="label">예약시간</span>  <span id="r_reserve_hour" class="value"></span>
 		</div>
-		<div class="popup-row personnel">
-			<span class="label">인원수</span>  <span id="r_reserve_num_of_people" class="value"></span>
-		</div>
 		<div class="popup-row phone">
 			<span class="label">연락처</span>  <span class="value">010-0001-1024</span>
 		</div>
+		<div class="popup-row personnel">
+			<span id="numOfPeople" class="label">인원수</span>  <span id="r_reserve_num_of_people" class="value"></span>
+		</div>
 		<div class="popup-row comment">
-			<span class="label">요청사항</span>  <span id="r_reserve_request"  class="value"></span>
+			<span id="request" class="label">요청사항</span>  <span id="r_reserve_request"  class="value"></span>
 		</div>
 		<br><br>
 
-		<div class="confirm-btn" style="margin-left:20%;">
-			<button value ="" class="reserve_confirm" tabindex="-1" style="background-color: #08c; color: white; font-size: 17px; border:1px;">예약 확정 통보</button>
-			<button value="" class="reserve_reject" tabindex="-1" style="background-color: #c91b3c; color: white; font-size: 17px; border:1px;" >예약 불가 통보</button>
+		<div class="confirm-btn" style="">
+			<button value ="" class="reserve_confirm" tabindex="-1" style="width:100%; background-color: #08c; color: white; font-size: 17px; border:1px;">예약 확정 통보</button>
+			
+			<button value="" class="reserve_reject" tabindex="-1" style="margin-top: 7px; width:100%; background-color: #c91b3c; color: white; font-size: 17px; border:1px;" >예약 불가 통보</button>
 		</div>
     	
     	
@@ -236,25 +240,21 @@
 <script src='/Poing/fullcalendar/packages/daygrid/main.js'></script>
 <script src='/Poing/fullcalendar/packages/core/locales-all.js'></script>
 <script src="js/matrix.js"></script> 
-
 <%
 ArrayList<RestTimlineReserveDTO> list = (ArrayList<RestTimlineReserveDTO>)request.getAttribute("list"); 
 StringBuffer sb = new StringBuffer();
+
 if(list.size()>0){
-for( int i=0 ; i<list.size(); i++) {
-	if(i==0) {
-		sb.append("{");
-		sb.append("title: '예약 요청', start: '"+list.get(i).getR_reserve_date()+"',");
-		sb.append("id:'"+list.get(i).getR_reserve_seq()+"'}");
-	} else {
-		sb.append(",{");
-		sb.append("title: '예약 요청', start: '"+list.get(i).getR_reserve_date()+"',");
-		sb.append("id:'"+list.get(i).getR_reserve_seq()+"'}");
-	}
-	
-	/* if(i==0) reserveDate += "{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
-	else reserveDate += ",{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
-	} */
+	for( int i=0 ; i<list.size(); i++) {
+		if(list.get(i).getRestOrtic()==1) {
+			sb.append(",{");
+			sb.append("title: '"+list.get(i).getR_status_caled(list.get(i).getR_reserve_status())+"', start: '"+list.get(i).getR_reserve_date()+"',");
+			sb.append("id:'"+list.get(i).getR_reserve_seq()+" 1'}");
+		} else {
+			sb.append(",{");
+			sb.append("title: '"+list.get(i).getR_status_caled(list.get(i).getR_reserve_status())+"', start: '"+list.get(i).getR_reserve_date()+"',");
+			sb.append("id:'"+list.get(i).getR_reserve_seq()+" 0'}");
+		}
 	}
 }
 %>
@@ -290,6 +290,7 @@ window.onclick = function(event) {
 var calendarEl = document.getElementById('calendar_created');
 
 var calendar = new FullCalendar.Calendar(calendarEl, {
+  height: 950,
   plugins: [ 'dayGrid' ],
   locale: 'ko',	    
   header: {
@@ -301,7 +302,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
   	day: 'dd'
   },
   events: [
-  	<%=sb%>
+  	<%=sb.substring(1)%>
   ],
   eventClick: function(info) {
 	    
@@ -319,15 +320,34 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 				status = "오류발생. 다시 시도해주세요";
 				alert(status);
 			} else {
-				$("#m_name").text(data.m_name);
-				$("#r_reserve_date").text(data.r_reserve_date);
-				$("#r_reserve_hour").text(data.r_reserve_hour);
-				$("#r_reserve_num_of_people").text(data.r_reserve_num_of_people);
-				$("#r_reserve_request").text(data.r_reserve_request);
-				
-				$(".reserve_confirm").attr("value",info.event.id);
-				$(".reserve_reject").attr("value",info.event.id);
-				
+				if(data.type=="tic"){
+					$(".popup-title").text("티켓 예약 내역");
+					$("#m_name").text(data.m_name);
+					$("#r_reserve_date").text(data.r_reserve_date);
+					$("#r_reserve_hour").text(data.r_reserve_hour);
+					
+					$("#numOfPeople").text("");
+					$("#request").text("");
+					$("#r_reserve_num_of_people").text("");
+					$("#r_reserve_request").text("");
+					
+					$(".confirm-btn").attr("style","visibility: hidden");
+					
+				} else {
+					$("#m_name").text(data.m_name);
+					$("#r_reserve_date").text(data.r_reserve_date);
+					$("#r_reserve_hour").text(data.r_reserve_hour);
+					
+					$("#numOfPeople").text("인원수");
+					$("#request").text("요청사항");
+					$("#r_reserve_num_of_people").text(data.r_reserve_num_of_people);
+					$("#r_reserve_request").text(data.r_reserve_request);
+					
+					$(".reserve_confirm").attr("value",info.event.id);
+					$(".reserve_reject").attr("value",info.event.id);
+					$(".confirm-btn").attr("style","visibility: visible");
+					
+				}
 			}
 			modal.style.display = "block";
 		});
@@ -343,7 +363,7 @@ $(".reserve_confirm").click(function() {
 			method: "post",
 			dataType: 'json',
 			data: {
-				'reserve_seq': $(this).val()
+				'reserve_seq': $(this).val().split(" ")[0]
 			},
 			async: false
 		}).success(function (data) {
@@ -352,21 +372,49 @@ $(".reserve_confirm").click(function() {
 				status = "오류발생. 다시 시도해주세요";
 				alert(status);
 			} else {
-				$("#m_name").text(data.m_name);
-				$("#r_reserve_date").text(data.r_reserve_date);
-				$("#r_reserve_hour").text(data.r_reserve_hour);
-				$("#r_reserve_num_of_people").text(data.r_reserve_num_of_people);
-				$("#r_reserve_request").text(data.r_reserve_request);
-				
-				$(".reserve_confirm").attr("value",info.event.id);
-				$(".reserve_reject").attr("value",info.event.id);
-				
+				location.reload();
 			}
 			modal.style.display = "block";
 		});
 	
 })
 
+$(".reserve_reject").click(function() {
+	
+	 $.ajax({
+			url: '/Poing/owner/ajax/reserve_confirmN.ow',
+			method: "post",
+			dataType: 'json',
+			data: {
+				'reserve_seq': $(this).val().split(" ")[0]
+			},
+			async: false
+		}).success(function (data) {
+			var status = "";
+			if(data.status=="fail") {
+				status = "오류발생. 다시 시도해주세요";
+				alert(status);
+			} else {
+				location.reload();
+			}
+			modal.style.display = "block";
+		});
+	
+})
+
+$(".fc-title").each(function(index,item) {
+	 if ($(this).text().trim()=="예약확정") $(this).parent().attr("style","background-color:red");
+	 if ($(this).text().trim()=="예약불가통보") $(this).parent().attr("style","background-color:gray");
+	 if ($(this).text().trim()=="티켓") $(this).parent().attr("style","background-color:green");
+	});
+
+$(".fc-button").click(function() {
+	$(".fc-title").each(function(index,item) {
+		 if ($(this).text().trim()=="예약확정") $(this).parent().attr("style","background-color:red");  
+		 if ($(this).text().trim()=="예약불가통보") $(this).parent().attr("style","background-color:gray");
+		 if ($(this).text().trim()=="티켓") $(this).parent().attr("style","background-color:green");
+		});  
+});	 
 </script>
 </body>
 </html>

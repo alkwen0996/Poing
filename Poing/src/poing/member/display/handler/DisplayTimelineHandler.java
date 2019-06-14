@@ -80,6 +80,8 @@ public class DisplayTimelineHandler implements CommandHandler {
 			}else {
 			ProductPayService service5 = new ProductPayService();
 			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
+			List<RefundTicketDTO> rev_use_list = service.selectUseReserva_tic();
+			request.setAttribute("rev_use_list", rev_use_list);
 			request.setAttribute("rev_tic_list", rev_tic_list);
 		
 //			DisplayProductDetailService service2 = new DisplayProductDetailService();

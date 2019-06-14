@@ -334,6 +334,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 					$(".confirm-btn").attr("style","visibility: hidden");
 					
 				} else {
+					$(".popup-title").text("예약이 접수되었습니다. 확정/불가를 선택해 주세요");
 					$("#m_name").text(data.m_name);
 					$("#r_reserve_date").text(data.r_reserve_date);
 					$("#r_reserve_hour").text(data.r_reserve_hour);

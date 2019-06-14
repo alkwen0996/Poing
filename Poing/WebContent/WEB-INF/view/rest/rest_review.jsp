@@ -71,7 +71,7 @@
 </div>
 <c:forEach var="rev_dto" items="${list }" varStatus="status">
 <div class="body review list review_wrap ">
-		<div class="review" data-id="${rev_dto.rev_no }" data-place="${rev_dto.rest_no }" data-place-name="${rev_dto.rest_name }">
+		<div class="review" data-id="${rev_dto.rev_seq }" data-place="${rev_dto.rev_rest_seq }" data-place-name="${rev_dto.rest_name }">
 			<a class="author" href="/Poing/timeline.do?id=${rev_dto.m_no }">
 			<span class="thumbnail"	style="display: inline-block; background-image: url(&quot;${realPath}${ rev_dto.m_img ne null ? rev_dto.m_img : application.getAttribute('baseimg') }&quot;);"></span>
 				<div class="info">
@@ -86,9 +86,9 @@
 					</button>
 				</c:if>
 			</a> <a class="place"
-				href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rest_no }">
+				href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rev_rest_seq }">
 				<button class="favorite " type="button"
-					data-type="poing.restaurants.favorite" data-id="${ rev_dto.rest_no }"
+					data-type="poing.restaurants.favorite" data-id="${ rev_dto.rev_rest_seq }"
 					tabindex="-1">
 					<i class="icon heart small "></i>매장찜
 				</button>
@@ -107,7 +107,7 @@
 					</c:forEach>
 					<span id="pointComment"
 						style="display: inline-block; vertical-align: super;"
-						data-id="${ rev_dto.rev_no }" data-grade="${ rev_dto.rev_starpoint }"></span>
+						data-id="${ rev_dto.rev_seq }" data-grade="${ rev_dto.rev_starpoint }"></span>
 					<script type="text/javascript">
 											//$("#pointComment").text("${ rev_dto.rev_starpoint/10 } / " + ratingText[${ rev_dto.rev_starpoint/10 }]);
 										</script>
@@ -115,13 +115,13 @@
 				<div class="text" data-truncated="">${rev_dto.rev_content }</div>
 
 
-				<div class="photo" data-id="${rev_dto.rev_no }">
+				<div class="photo" data-id="${rev_dto.rev_seq }">
 					<c:if test="${rev_dto.images ne null}">
 						<c:forEach items="${rev_dto.images }" var="image_rev_dto">
 							<button class="empty i_wrap"
 								data-type="poing.popup.photoReviewViewerPopup"
-								data-id="${rev_dto.rev_no }" data-index="0"
-								data-image-selector=".photo[data-id=${rev_dto.rev_no }]>button>i"
+								data-id="${rev_dto.rev_seq }" data-index="0"
+								data-image-selector=".photo[data-id=${rev_dto.rev_seq }]>button>i"
 								tabindex="-1">
 								<i class="image border_radius soft"
 									data-origin="${ realPath }${ image_rev_dto }"
@@ -134,12 +134,12 @@
 
 				<button class="like_list"
 					data-type="poing.reviews.actions.user.showLikers"
-					data-id="${rev_dto.rev_no }" tabindex="-1">김수한님, jwjwjw님 외
+					data-id="${rev_dto.rev_seq }" tabindex="-1">김수한님, jwjwjw님 외
 					12명이 좋아합니다.</button>
 				<div class="action">
 					<button class="like ${ rev_dto.amIlike?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.like"
-						data-id="${rev_dto.rev_no }" tabindex="-1">
+						data-id="${rev_dto.rev_seq }" tabindex="-1">
 						<i class="icon like ${ rev_dto.amIlike?'on':' '}"></i>
 						<p>
 							좋아요 <span>${rev_dto.like_cnt }</span>
@@ -147,7 +147,7 @@
 					</button>
 					<button class="favorite ${ rev_dto.amIpick?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.favorite"
-						data-id="${rev_dto.rev_no }" tabindex="-1">
+						data-id="${rev_dto.rev_seq }" tabindex="-1">
 						<i class="icon heart small ${ rev_dto.amIpick?'on':' '}"></i>
 						<p>
 							찜하기 <span>${rev_dto.pick_cnt }</span>
@@ -155,7 +155,7 @@
 					</button>
 					<button class="comment" type="button"
 						data-type="poing.reviews.actions.user.loadComments"
-						data-id="${rev_dto.rev_no }" tabindex="-1">
+						data-id="${rev_dto.rev_seq }" tabindex="-1">
 						<i class="icon balloon"></i>
 						<p>
 							댓글 <span>${rev_dto.commend_cnt}</span>
@@ -165,10 +165,10 @@
 						<div class="article">
 							<button class="edit"
 								data-type="poing.reviews.actions.auth.modify2"
-								data-id="${ rev_dto.rev_no }" tabindex="-1">수정하기</button>
+								data-id="${ rev_dto.rev_seq }" tabindex="-1">수정하기</button>
 							<button class="delete"
 								data-type="poing.reviews.actions.auth.remove"
-								data-id="${ rev_dto.rev_no }" tabindex="-1">삭제하기</button>
+								data-id="${ rev_dto.rev_seq }" tabindex="-1">삭제하기</button>
 						</div>
 					</c:if>
 				</div>
@@ -200,7 +200,7 @@
 			<div class="write">
 				<span class="thumbnail"
 					style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></span>
-				<textarea data-id="${ rev_dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
+				<textarea data-id="${ rev_dto.rev_seq }" placeholder="댓글을 입력해주세요"></textarea>
 			</div>
 		</div>
 	</div>

@@ -67,6 +67,71 @@ public class ProductDAO {
 		return list;	
 	}
 	
+	public static ProductDTO selectPickRownum(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select max(rownum) as Pickrownum from pick p join ticket t on p.tic_seq = t.tic_seq ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO pickRownum = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pickRownum = new ProductDTO();
+				pickRownum.setPickrownum(rs.getInt("Pickrownum"));
+			}
+			;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return pickRownum;
+	}
+	
+	
+	public static List<ProductDTO> selectPickTicket(Connection conn){
+		String sql = null;
+		sql= " select rownum,z.rest_name,z.rest_address, t.tic_seq,t.tic_name,t.tic_type,o.tic_original_price,o.tic_dc_price, m.tic_img from pick p join ticket t on  p.tic_seq = t.tic_seq join tic_option o on o.tic_seq = t.tic_seq join tic_img m on m.tic_seq = t.tic_seq join restaurant z on z.rest_seq = t.rest_seq where rownum = 1 ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			ProductDTO dto = null;
+			while (rs.next()) {
+				dto = new ProductDTO();
+				dto.setTic_name(rs.getString("tic_name"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setTic_original_price(rs.getInt("tic_original_price"));
+				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
+				dto.setTic_img(rs.getString("tic_img"));
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setRest_name(rs.getString("rest_name"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return list;	
+	}
+	
 	public List<ProductDTO> sselectdisplay(Connection conn, int first, int end, int bpage){
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select no, tic_seq, rest_name, rest_address, tic_name, tic_type, tic_view_price, rest_foodinfo, rest_line_exp ");

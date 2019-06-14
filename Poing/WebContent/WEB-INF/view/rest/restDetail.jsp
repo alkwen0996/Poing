@@ -66,21 +66,33 @@ function deleteCokie(name) {
 	document.cookie = name + "=" + "; expires=" + now.toUTCString();
 }
 
-var jsonObejct = getCookie('restlist');
+var jsonObject = getCookie('restlist');
 if (jsonObject == null) {
-	jsonObejct = [];
+	jsonObject = [];
+}
+else {
+	jsonObject = JSON.parse(jsonObject);
 }
 var Rest = function (rest_name, rest_seq) {
 	this.rest_name = rest_name;
 	this.rest_seq = rest_seq;
-};
+}; 
 
-jsonObejct.add(restObject);
+restObject = new Rest('${ dto.rest_name }', '${ dto.rest_seq }');
 
-if (jsonObejct.length > 16) {
-	jsonObject.pop();
+var temp = jsonObject.filter(function(value, index, array) {
+	if (value.rest_seq != ${ dto.rest_seq }) {
+		return value;
+	}
+});
+jsonObject = temp;
+
+jsonObject.push(restObject);
+
+if (jsonObject.length > 20) {
+	jsonObject.shift();
 }
-setCookie('restlist', JSON.stringify(jsonObejct));
+setCookie('restlist', JSON.stringify(jsonObject));
 </script>
 </head>
 <%

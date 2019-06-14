@@ -21,9 +21,6 @@ public class PayCartInsertService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
-		
-		
 	}
 	
 	public boolean insertReserve_tics(int tic_seq, int m_seq, String[] cart_seq, int totalmoney) {

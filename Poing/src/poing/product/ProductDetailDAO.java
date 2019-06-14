@@ -834,7 +834,4 @@ public class ProductDetailDAO {
 
 		return result;
 	} // insertQnA
-	
-	
-
 }// class

@@ -29,21 +29,19 @@
 
 <body>
 	<%
+	
 
 %>
 	<!-- body wrap -->
 	<div id="wrap" class="">
 		<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 		<!-- header -->
-
 		<!-- container -->
 		<div id="container" class="">
 			<!-- 상단에 배너가 있는 레이아웃 -->
 			<div id="banner_wrap"></div>
 			<div id="content_wrap">
 				<!-- 1. 장바구니 -->
-
-
 				<div class="pay_process">
 					<p class="current">
 						<i class="cart"></i> <span>장바구니</span>
@@ -68,7 +66,6 @@
 									<th class="reserve">예약정보</th>
 								</tr>
 							</thead>
-
 							<tbody>
 							
 							<c:forEach items="${list}" var="dto">
@@ -181,7 +178,6 @@
 							<span class="label">총 결제금액: </span> <span class="value">원</span>
 						</div>
 					</div>
-
 					<div class="buttons">
 						<button type="button" class="back border_radius soft"
 							tabindex="-1">쇼핑 계속하기</button>
@@ -192,8 +188,8 @@
 			</div>
 		</div>
 	</div>
-
-				<script>
+	
+<script>
 $(document).ready(function(){
     // 상품 선택 체크박스
     $("tbody>tr>td>input").change(function(){
@@ -378,13 +374,16 @@ $(document).ready(function(){
                 if(res.status) {
                     var checked = $(".section.list>table>tbody>tr.selected");
                     var carts = [];
+                    var tic_seq = [];
                     for(var i=0;i<checked.length; ++i) {
                         var target = checked.eq(i);
                         carts[i] = target.data('id');
+                        tic_seq[i] = $(".section.list>table>tbody>tr.image")
                     }
-                    alert(carts);
+                    alert(tic_seq);
                     carts = carts.join(',');
-                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&tic_seq=1";
+                    tic_seq = tic_seq.join(',');
+                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&tic_seq=" + tic_seq;
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else $.popup("confirm", {'text':res.error.message, 'alert':true, 'wait':true});

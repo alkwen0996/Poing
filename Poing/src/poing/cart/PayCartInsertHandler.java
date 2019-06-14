@@ -21,6 +21,7 @@ public class PayCartInsertHandler implements CommandHandler {
 		int totalmoney = Integer.parseInt(request.getParameter("totalmoney"));
 		int m_point = Integer.parseInt(request.getParameter("m_point"));
 		int point = Integer.parseInt(request.getParameter("point"));
+		
 		int tic_seq = Integer.parseInt(request.getParameter("tic_seq"));
 		int m_seq = Integer.parseInt(request.getParameter("m_seq"));
 		String cart = request.getParameter("cart_seq");

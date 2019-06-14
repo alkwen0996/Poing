@@ -1,20 +1,18 @@
+<%@page import="poing.product.ProductDAO"%>
+<%@page import="poing.product.Paging"%>
 <%@page import="poing.product.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%	
-ProductDTO pickRownum = (ProductDTO) request.getAttribute("pickRownum");
-int rownum = pickRownum.getPickrownum();
-String a = null;
-if (rownum % 5 == 0) {
-	rownum = rownum / 5;
-} else if (rownum % 5 != 0) {
-	rownum = rownum / 5 + 1;
-}; 
-
-
+<%
+Paging paging =  (Paging)request.getAttribute("paging");
+int curpage = paging.getCurPage();
+int cpage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
+ProductDAO dao = new ProductDAO();
+int totalCount = dao.getTotalCount2();
+int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
 %>
+
 <div class="body empty">
 	<div class="filter">
 		<a href="/Poing/timeline.do?id=${ param.id }&tab=restaurant&type=restaurant" class="">찜한 매장</a>
@@ -30,7 +28,7 @@ if (rownum % 5 == 0) {
 				<div class="shading"></div>
 
 				<div class="bottom">
-					<span class="name">${ticList.rest_name }</span> <span class="area">${ticList.rest_address }</span>
+					<span class="name">${ticList.rest_name }</span> <span class="area"></span>
 				</div>
 				
 			</a>
@@ -41,8 +39,7 @@ if (rownum % 5 == 0) {
 					
 					<div class="price ">
 						<div class="ratio long ">${ticList.tic_type }</div>
-						<div class="discount">${ticList.tic_dc_price }</div>
-						<div class="origin">${ticList.tic_original_price }</div>
+						<div class="discount">${ticList.tic_view_price }</div>
 					</div>
 					
 				</div>
@@ -53,18 +50,32 @@ if (rownum % 5 == 0) {
 
 		
 	</div>
+</div>
 	
 	
 	<div id="restaurant_pagination">
-		<div class="page-list">
-			<ul class="pagination" onselectstart="return false;">
-				<li class="prevAll">&lt;&lt;</li>
-				<li class="prev">&lt;</li>
-				<li class="page active" data-page="1">1</li>
-				<li class="page" data-page="<%=rownum %>"><%=rownum %></li><!-- 로우넘 줘서 마지막값 -->
-				<li class="next">&gt;</li>
-				<li class="nextAll">&gt;&gt;</li>
-			</ul>
-		</div>
 	</div>
-</div>
+<%-- 	<script>
+
+            new Pagination({'selector':'#restaurant_pagination', 
+            				'current_page':<%=cpage%>,
+            				'per_page':12,
+            				'total_page':<%=endPageNo%>, 
+            				'event':function(page) {
+            					location.search = "id=${authUser.m_seq}&tab=restaurant&type=coupon&pg=" + page ;
+            				} });
+				</script> --%>
+ 	<script>
+		function restaurantPaging(page)
+		{
+			location.search = "id=${authUser.m_seq}&tab=restaurant&type=coupon&page=" + page ;
+		}
+	
+		new Pagination({
+			selector:'#restaurant_pagination', 
+			current_page:<%= cpage %>,
+			per_page:12, 
+			total_page:<%= endPageNo %>,
+			event:restaurantPaging
+			});
+	</script> 

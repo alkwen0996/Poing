@@ -12,6 +12,7 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
+import poing.product.ProductDAO;
 import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
@@ -106,23 +107,45 @@ public class DisplayTimelineHandler implements CommandHandler {
 			request.setAttribute("paging", paging);
 			request.setAttribute("review_list", review_list);
 		}
+		
 		//찜한 레스토랑 티켓
 		else if (tab.equals("restaurant")){
-		
-			if(type.equals("restaurant")) {
+			
+			if( type == null || type.equals("restaurant")) {
 			ArrayList<RestListDTO> pick_rest_list = null;
 			int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
 			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
 			request.setAttribute("pick_rest_list", pick_rest_list);
 		
 			}else if(type.equals("coupon")) { //티켓 찜
-				
 				DisplayProductDetailService service = new DisplayProductDetailService();
-				List<ProductDTO> ticList = service.selectPickTicket();
-				ProductDTO pickRownum = service.selectPickRownum();
+				/////////////////////////////////////////페이징처리
+				ProductDAO dao = new ProductDAO();
+				int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
+				int totalCount = dao.getTotalCount2();
 				
-				request.setAttribute("pickRownum", pickRownum);
+				int startPageNo = 1;
+				int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
+				System.out.println(endPageNo);
+				int prevPageNo = page == 1 ? 1 : page - 1;
+				int nextPageno = page == endPageNo ? endPageNo : page + 1;
+				
+				Paging paging = new Paging();
+				paging.setCurPage(page);
+				paging.setPageSize(12);
+				paging.setTotalCount(totalCount);
+				paging.setStartPageNo(startPageNo);
+				paging.setEndPageNo(endPageNo);
+				paging.setPrevPageNo(prevPageNo);
+				paging.setNextPageno(nextPageno);
+				
+				List<ProductDTO> ticList = service.selectPickTicket(page);
+//				ProductDTO pickRownum = service.selectPickRownum();
+				
+//				request.setAttribute("pickRownum", pickRownum);
+				request.setAttribute("endPageNo", endPageNo);
 				request.setAttribute("ticList", ticList);
+				request.setAttribute("paging", paging);
 				
 			}
 		}

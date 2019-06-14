@@ -138,9 +138,10 @@ setCookie('restlist', JSON.stringify(jsonObejct));
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>
-												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
+												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
+													<c:if test="${i%2 ne 0 }"><i class="icon star large odd " data-id="" data-index="${status.index}" style=""></i></c:if>
 													<c:if test="${i%2 eq 0 }">
-														<i class="icon star large even " data-id=""
+														<i class="icon star large even" data-id=""
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>

@@ -16,7 +16,7 @@
    int m_num= dto.getM_seq();
    System.out.println("ajaxfav.jsp m_num="+m_num);
    
-   String sql = "select count(*) cnt from (select * from pick where m_seq = ? and tic_seq = ?) ";
+   String sql = "select count(*) cnt from (select * from pick where m_seq = ? and rest_no = ?) ";
    int cnt = 0;
    Connection conn = null;
    PreparedStatement pstmt = null;
@@ -35,14 +35,14 @@
 	   cnt = rs.getInt("cnt");	   
 	   System.out.println("ajaxfav cnt: " + cnt);	   
 	   if(cnt==0){
-		   sql = "insert into pick (pick_seq,rest_seq, tic_seq,rev_seq, m_seq) values ( pick_seq.nextval,null, ?, null,null,? )";
+		   sql = "insert into pick (pick_seq,rest_no, tic_seq,rev_seq, m_seq) values ( pick_seq.nextval,null, ?, null,null,? )";
 		   pstmt2 = conn.prepareStatement(sql);
 		   pstmt2.setInt(1, m_num);
 		   pstmt2.setInt(2, p_num);
 		   int result = pstmt2.executeUpdate();
 		   System.out.println("ajaxfav.jsp: insert result "+result);
 	   } else if (cnt>0){
-		   sql = "delete from pick where m_seq=? and tic_seq=?";
+		   sql = "delete from pick where m_seq=? and rest_no=?";
 		   pstmt2 = conn.prepareStatement(sql);
 		   pstmt2.setInt(1, p_num);
 		   pstmt2.setInt(2, m_num);

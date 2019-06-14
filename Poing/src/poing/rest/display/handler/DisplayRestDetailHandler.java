@@ -56,12 +56,17 @@ public class DisplayRestDetailHandler implements CommandHandler
             request.setAttribute("paging", "");
             request.setAttribute("list", list);
          }
-         request.setAttribute("list1", list1);
+         	request.setAttribute("list1", list1);
 			request.setAttribute("dto", dto);
 			request.setAttribute("restProduct", restProduct);
+			
+			service.viewcountPlus(rest_seq);
       } catch (Exception e) {
          e.printStackTrace();
       }
+      
+      
+      
       return "rest/restDetail";
    }
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 $(document).ready(function () {
   // 임시저장
   poing.reviews.actions.temp.save($(".body.first"), 'seoul', 31404);
@@ -111,27 +110,7 @@ $(document).ready(function () {
     }
   });
 
-  // review view
-  $(".sort_list>.item").on("click", function () {
-    var item = $(this).data("item");
 
-    if (item == "최신순")
-      location.search = "review&type=time";
-    else if (item == "인기순")
-      location.search = "review&type=like";
-  });
-
-  function reviewPaging(page) {
-    location.search = "review&page=" + page + "&type=" + "time";
-  }
-
-  new Pagination({
-    selector: '#review_pagination',
-    current_page: 1,
-    per_page: 5,
-    total_page: 2,
-    event: reviewPaging
-  });
 });
 
 $("#detail_slider").parent().on("selectstart", function () {

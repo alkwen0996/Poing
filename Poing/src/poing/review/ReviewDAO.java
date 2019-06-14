@@ -80,13 +80,13 @@ public class ReviewDAO {
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" INSERT INTO review ");
-		sql.append(" (rev_seq,         rest_seq, rev_wtime, rev_mtime, rev_content, m_seq, rev_starpoint) values ");
-		sql.append(" (rev_seq.nextval,?      , sysdate  , sysdate  , ?          , ?   , ?) ");
+		sql.append(" (rev_seq,           rev_rest_seq, rev_wtime, rev_mtime, rev_content, rev_m_seq, rev_starpoint) VALUES ");
+		sql.append(" (review_seq.nextval,?           , sysdate  , sysdate  , ?          , ?        , ?) ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		StringBuffer sql2 = new StringBuffer();
-		sql2.append(" SELECT rev_seq.currval cur FROM dual ");
+		sql2.append(" SELECT review_seq.currval cur FROM dual ");
 
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
@@ -393,8 +393,10 @@ public class ReviewDAO {
 
 	public static ArrayList<ReviewDTO> selectRestReview(Connection conn, int rest_seq, int my_no, String type, int curPage) throws SQLException {
 		StringBuffer sql = new StringBuffer();
+		
+		sql.append(" SELECT * FROM (");
 		sql.append(" WITH reviewlist as ( ");
-		sql.append( "SELECT ROWNUM num, rev.*, rest.rest_name, rest.rest_address, ri.rest_img, mem.m_name, mem.m_img, ");
+		sql.append( "SELECT rev.*, rest.rest_name, rest.rest_address, ri.rest_img, mem.m_name, mem.m_img, ");
 		sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = rev.rev_m_seq) m_ercnt, ");
 		sql.append( "(SELECT COUNT(*) FROM review WHERE rev_m_seq = rev.rev_m_seq) m_revcnt,  ");
 		sql.append( "(SELECT COUNT(*) FROM review_like WHERE rev_seq = rev.rev_seq) like_cnt, ");
@@ -404,23 +406,23 @@ public class ReviewDAO {
 			sql.append( ",(SELECT COUNT(*) FROM follow WHERE following_seq = rev.rev_m_seq AND follower_seq = ?) amIfollow ");
 			sql.append( ",(SELECT COUNT(*) FROM review_like WHERE rev_seq = rev.rev_seq AND m_seq = ?) amIlike ");
 			sql.append( ",(SELECT COUNT(*) FROM pick WHERE rev_seq = rev.rev_seq AND m_seq = ?) amIpick ");
-
 		}
 		sql.append( "FROM review rev ");
 		sql.append( "JOIN restaurant rest ON rev.rev_rest_seq =  rest.rest_seq ");
 		sql.append( "JOIN member mem ON rev.rev_m_seq = mem.m_seq ");
 		sql.append(" JOIN rest_img ri ON rest.ri_seq = ri.ri_seq ");
 		sql.append( "WHERE rest.rest_seq = ? ");
-		if (type==null || type.equals("time")) {
+		if (type==null || type.isEmpty() || type.equals("time")) {
 			sql.append( "ORDER BY rev_wtime DESC ");
 		}
 		else if(type.equals("like")) {
 			sql.append( "ORDER BY like_cnt DESC ");
 		}
 		sql.append(" ) ");
-		sql.append(" SELECT reviewlist.* ");
+		sql.append(" SELECT ROWNUM ro, reviewlist.* ");
 		sql.append(" FROM reviewlist ");
-		sql.append(" WHERE reviewlist.num BETWEEN ? AND ? ");
+		sql.append(" ) ");
+		sql.append(" WHERE ro BETWEEN ? AND ? ");
 
 
 		PreparedStatement pstmt = null;

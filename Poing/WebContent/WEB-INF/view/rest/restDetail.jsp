@@ -30,15 +30,69 @@
 </c:if>
 
 <title>Poing 레스토랑 디테일 테스트</title>
+<script>
+function setCookie(name, value, exdays) {
+	var now = new Date();
+	now.setDate(now.getDate() + exdays);
+	now.setTime(now.getTime() + 1000*10) //10초 유지 추가
+	//Thu, 18 Apr 2019 01:33:39 GMT
+	document.cookie = name + "=" + escape(value) + "; expires=" + now.toUTCString() + "; path=/;";
+	//localhost도메인에안, 모든 웹 어플리케이션에서 사용하겠다면 path=/
+}
 
+function getCookie(name) {
+	var cookies = document.cookie;
+	var carr = cookies.split("; ");
+	var result = "";
+	for (let i = 0; i < carr.length; i++) {
+		var rarr = carr[i].split("=");
+		if (rarr[0] == name) {
+			return unescape( rarr[1] );
+		}
+	}
+	return null;
+}
+
+function deleteCokie(name) {
+	//쿠키 삭제 메서드는 따로 없음으로 만료시점을 과거로 만들어 삭제한다.  
+	// 고정 10일
+	if(getCookie(name))
+	{
+		return;
+	}
+	var now = new Date();
+	now.setDate(now.getDate() - 1); //과거로 설정
+	//Thu, 18 Apr 2019 01:33:39 GMT
+	document.cookie = name + "=" + "; expires=" + now.toUTCString();
+}
+
+var jsonObejct = getCookie('restlist');
+if (jsonObject == null) {
+	jsonObejct = [];
+}
+var Rest = function (rest_name, rest_seq) {
+	this.rest_name = rest_name;
+	this.rest_seq = rest_seq;
+};
+
+jsonObejct.add(restObject);
+
+if (jsonObejct.length > 16) {
+	jsonObject.pop();
+}
+setCookie('restlist', JSON.stringify(jsonObejct));
+</script>
 </head>
 <%
+	RestListDTO restTip = (RestListDTO) request.getAttribute("restTip");
+	RestListDTO listDTO = (RestListDTO) request.getAttribute("listDTO");
+	RestListDTO pdto = (RestListDTO) request.getAttribute("pdto");
 	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
 	ProductDTO restProduct = (ProductDTO) request.getAttribute("restProduct");
-	double starpoint = dto.getRest_starpoint();
-	int tenpoint = (int) Math.round(starpoint * 2);
-	request.setAttribute("tenpoint", tenpoint);
-	System.out.print(tenpoint);
+// 	double starpoint = dto.getRest_starpoint();
+// 	int tenpoint = (int) Math.round(starpoint * 2);
+// 	request.setAttribute("tenpoint", tenpoint);
+// 	System.out.print(tenpoint);
 %>
 
 <body>

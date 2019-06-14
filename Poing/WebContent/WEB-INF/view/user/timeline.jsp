@@ -7,18 +7,6 @@
 <head>
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
 	
-	<style type="text/css">
-	.pointCharge{
-    font-size: 16px;
-    background: #c91b3c;
-    padding: 3px 8px;
-    border-radius: 7px;
-    margin-left: 10px;
-    cursor: pointer;
-    vertical-align: middle;
-	}
-	
-	</style>
 	
 	<style>
 		<%@include file="/css/style.css" %>
@@ -26,6 +14,17 @@
 		
 	</style>
 	
+	<style type="text/css">
+	
+ 	#pointCharge{ 
+background-color: #c91b3c;
+color: #ffffff;
+padding: 3px 8px;
+    border-radius: 7px;
+    margin-left: 10px;
+ 	}
+	
+	</style>
 	<script type="text/javascript" 
         src="<%= request.getContextPath() %>/js/jquery-3.4.1.js"></script>
 	<script type="text/javascript"

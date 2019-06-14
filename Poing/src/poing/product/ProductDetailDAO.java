@@ -1,4 +1,3 @@
-    
 package poing.product;
 
 import java.sql.Connection;
@@ -130,7 +129,7 @@ public class ProductDetailDAO {
 				+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq = "
 				+ " b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = "
 				+ " d.rest_seq join tic_img m on m.tic_seq = c.tic_seq where tic_purchas_state = '결제완료' "
-				+ " and tic_img like '%e_1.%' ";
+				+ " and tic_img like '%e_1.%' and to_date(substr(tic_reserve_date,0,10),'yyyy-mm-dd') >= sysdate ";
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -162,6 +161,47 @@ public class ProductDetailDAO {
 				e.printStackTrace();
 			}
 		}
+		return list1;
+	}
+		
+		public static List<RefundTicketDTO> selectUseReserva_tic(Connection conn) {
+			String sql = null;
+			sql = " select tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people, "
+					+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq "
+					+ " = b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = "
+					+ " d.rest_seq join tic_img m on m.tic_seq = c.tic_seq where tic_purchas_state = '결제완료' and "
+					+ " tic_img like '%e_1.%' and to_date(substr(tic_reserve_date,0,10),'yyyy-mm-dd') < sysdate ";
+			PreparedStatement pstmt = null;
+
+			ResultSet rs = null;
+			ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				RefundTicketDTO rdto = null;
+				while (rs.next()) {
+					rdto = new RefundTicketDTO();
+					rdto.setRest_name(rs.getString("rest_name"));
+					rdto.setTc_purchas_seq(rs.getInt("tc_purchas_seq"));
+					rdto.setTic_reserve_date(rs.getString("tic_reserve_date"));
+					rdto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
+					rdto.setTic_img(rs.getString("tic_img"));
+					rdto.setTic_request(rs.getString("tic_request"));
+					rdto.setTic_totalmoney(rs.getInt("tic_totalmoney"));
+					list1.add(rdto);
+				}
+				;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					pstmt.close();
+					rs.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 
 		return list1;
 	}
@@ -558,13 +598,13 @@ public class ProductDetailDAO {
 //	}
 
 	public ProductDTO selectdisplay(Connection conn, int tic_seq) {
-		String sql = " select rownum,x. tic_explain_content, n.tic_original_price, "
-				+ " n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, t.tic_type, "
-				+ " i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant r join "
-				+ " editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
-				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on "
-				+ " n.tic_seq = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq where "
-				+ " t.tic_seq = ? and rownum = 1 ";
+		String sql = " select rownum,x. tic_explain_content,z.tic_img, "
+				+ " n.tic_original_price, n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, "
+				+ " t.tic_type, i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant "
+				+ " r join editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
+				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on n.tic_seq "
+				+ " = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq join tic_img z on z.tic_seq "
+				+ " = t.tic_seq where t.tic_seq = ? and rownum = 1 ";
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -576,7 +616,9 @@ public class ProductDetailDAO {
 
 			dto = new ProductDTO();
 			rs.next();
+//			dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
 			dto.setTic_seq(rs.getInt("tic_seq"));
+			dto.setTic_img(rs.getString("tic_img"));
 			dto.setTic_type(rs.getString("tic_type"));
 			dto.setRest_name(rs.getString("rest_name"));
 			dto.setRest_address(rs.getString("rest_address"));

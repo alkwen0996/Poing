@@ -29,7 +29,7 @@
 						tabindex="-1" style="top: 0px; left: -100%;">
 						<i class="image"
 							style="background-image:url(/Poing${photoList1.tic_img})"
-							title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+							title=""></i>
 					</button>
 				 </c:forEach>
 					
@@ -55,7 +55,7 @@
 					<div class="slice" style="left: 0px;">
 					<c:forEach items="${photoList }" var="photoList3" varStatus="status">
                                                     <div class="i_wrap" data-index="${photoList2.tic_img_seq }">
-                                <i class="image" style="background-image:url(/Poing${photoList3.tic_img})" title="킨카 스시바 이자카야 청담 티켓 이미지"></i>
+                                <i class="image" style="background-image:url(/Poing${photoList3.tic_img})" title=""></i>
 							</div>
 							</c:forEach>
 						                            

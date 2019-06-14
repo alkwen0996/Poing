@@ -20,7 +20,7 @@ public class RestDetailService {
 			RestListDTO dto = dao.selectdisplay(conn, rest_seq);
 			int rev_cnt = ReviewDAO.countRestReview(conn, rest_seq);
 			dto.setRest_review_cnt(rev_cnt);
-			
+
 			// 
 			return dto;
 		} catch (SQLException e) {
@@ -36,6 +36,18 @@ public class RestDetailService {
 			imgList = dao.selectimage(conn, rest_seq);
 			int rev_cnt = ReviewDAO.countRestReview(conn, rest_seq);
 			//dto.setRest_review_cnt(rev_cnt);
+
+			// 
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public RestListDTO selectRestEditer(int rest_seq) {
+		RestDetailDAO dao = RestDetailDAO.getInstance();	
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			RestListDTO dto = dao.selectRestEditer(conn, rest_seq);
+			//dto.setRest_review_cnt(rev_cnt);
 			
 			// 
 			return dto;
@@ -44,20 +56,46 @@ public class RestDetailService {
 		}
 	}
 	
-	public List<ProductDTO> selectRestProductOPtion(int rest_seq) {
+	public RestListDTO selectRestTip(int rest_seq) {
+		RestDetailDAO dao = RestDetailDAO.getInstance();	
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			RestListDTO dto = dao.selectRestTip(conn, rest_seq);
+			//dto.setRest_review_cnt(rev_cnt);
+			
+			// 
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public RestListDTO restPhotorownum(int rest_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()) {	
+			RestListDTO dto = RestDetailDAO.restPhotorownum(conn, rest_seq);
+			
+			// 
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<ProductDTO> selectRestProductOPtion(int rest_seq) throws SQLException {
 		try (Connection conn = ConnectionProvider.getConnection()) {	
 			List<ProductDTO> list = RestDetailDAO.selectRestProductOPtion(conn, rest_seq);
 			
 			// 
 			return list;
+		}
+	}
 
 	public ArrayList<String> select(int rest_seq) {
 		RestDetailDAO dao = RestDetailDAO.getInstance();	
 		try (Connection conn = ConnectionProvider.getConnection()) {	
-			
+
 			ArrayList<String> imgList = new ArrayList<>();
 			imgList = dao.selectimage(conn, rest_seq);
-	 
+
 			return imgList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -67,10 +105,10 @@ public class RestDetailService {
 	public ArrayList<String> historySelect(int rest_seq) {
 		RestDetailDAO dao = RestDetailDAO.getInstance();	
 		try (Connection conn = ConnectionProvider.getConnection()) {	
-			
+
 			ArrayList<String> reserveHisList = new ArrayList<>();
 			reserveHisList = dao.selectReservHis(conn, rest_seq);
-	 
+
 			return reserveHisList;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

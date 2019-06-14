@@ -16,6 +16,7 @@ public class DeleteCartService {
             result = cartdao.deleteCart(conn, tic_cart_seq);
             conn.close();
             
+            
             return result;
       } catch (SQLException e) {
          throw new RuntimeException(e);

@@ -35,14 +35,34 @@
 <%@include file="/admin/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("form").on("submit", function(event) {
+			$("input").each(function(index, element) {
+				if (!$(this).val()) {  
+					alert("모든 내용을 입력하세요");
+					event.preventDefault();
+					return false;
+				}
+			});
+		});
+	});
+</script>
+
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/admin/layout/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/admin/layout/sidebar.jsp"></jsp:include>
 
-
 <div id="content">
+
+	<div id="content-header">
+		<div id="breadcrumb">
+			<a href="#" class="tip-bottom" data-original-title="Go to Home"><i class="icon-home"></i> Home</a> <a href="#">Sample pages</a> <a href="#" class="current">Gallery</a>
+		</div>
+		<h1>프로덕트 배너 추가</h1>
+	</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span6">
@@ -50,105 +70,65 @@
 					<div class="widget-title">
 						<span class="icon"> <i class="icon-align-justify"></i>
 						</span>
-						<h5>에디터 사진 설정</h5>
+						<h5>프로덕트 베너 사진 설정</h5>
 					</div>
 					<div class="widget-content nopadding">
-						<form class="form-horizontal" enctype="multipart/form-data"
-							action="editer_image_change.ad" method="post">
+						<form class="form-horizontal" enctype="multipart/form-data" action="add_product_banner.ad" method="post">
 							<div class="control-group">
-								<label class="control-label">사용할 사진 선택</label>
+								<label class="control-label">메인페이지 사진 선택</label>
 								<div class="controls">
+								<input type="hidden" name="type" value="pb_element_img"/>
 									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="editer_image"
-											style="opacity: 0;"> <span class="filename">No
-											file selected</span> <span class="action">Choose File</span>
+										<input type="file" size="19" name="pb_element_img" style="opacity: 0;"> 
+										<span class="filename">No file selected</span> <span class="action">Choose File</span>
 									</div>
 								</div>
 							</div>
+							<div class="control-group">
+								<label class="control-label">배너 사진 선택</label>
+								<div class="controls">
+								<input type="hidden" name="type" value="pb_banner_img"/>
+									<div class="uploader" id="uniform-undefined">
+										<input type="file" size="19" name="pb_banner_img" style="opacity: 0;"> 
+										<span class="filename">No file selected</span> <span class="action">Choose File</span>
+									</div>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">세일명 :</label>
+								<div class="controls">
+									<input name="pb_sale" type="text" class="span11" value="">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">제목 :</label>
+								<div class="controls">
+									<input name="pb_title" type="text" class="span11" value="">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">설명 :</label>
+								<div class="controls">
+									<input name="pb_descript" type="text" class="span11" value="">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">링크주소 :</label>
+								<div class="controls">
+									<input name="pb_link" type="text" class="span11" value="">
+								</div>
+							</div>
 							<div class="form-actions">
-								<button type="submit" class="btn btn-success">Save</button>
+							<button type="" class="btn btn-success">Save</button>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-picture"></i>
-						</span>
-						<h5>현제 에디터 사진</h5>
-					</div>
-					<div class="widget-content">
-						<c:choose>
-							<c:when test="${ authAdmin.e_img eq null || authAdmin.e_img.isEmpty() }">
-								현재 에디터의 이미지가 없습니다.
-							</c:when>
-							<c:otherwise>
-							<ul class="thumbnails">
-								<li class="span2"><a> 
-								<img src="${ realPath }${ authAdmin.e_img }" alt="">
-								</a>
-								<div class="actions">
-									<a class="lightbox_trigger" href="${ realPath }${ authAdmin.e_img }">
-										<i class="icon-search"></i>
-									</a>
-								</div>
-								</li>
-							</ul>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
+	
 	<!-- container-fluid -->
-
-	<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span6">
-			<div class="widget-box">
-				<div class="widget-title">
-					<span class="icon"> <i class="icon-align-justify"></i>
-					</span>
-					<h5>에디터 정보</h5>
-				</div>
-				<div class="widget-content nopadding">
-					<form action="editer_info_change.ad" method="get" class="form-horizontal">
-						<div class="control-group">
-							<label class="control-label">닉네임 :</label>
-							<div class="controls">
-								<input name="e_name" type="text" class="span11" value="${ authAdmin.e_name }">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label">아이디</label>
-							<div class="controls">
-								<input type="text" class="span11" value="${ authAdmin.e_id }" disabled="disabled">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label">변경할 비밀번호</label>
-							<div class="controls">
-								<input name="e_pw" value="${ authAdmin.e_pw }" type="password" class="span11" placeholder="Enter Password">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label">자기소개</label>
-							<div class="controls">
-								<input name="e_selfintro" type="text" class="span11" value="${ authAdmin.e_selfintro }">
-							</div>
-						</div>
-						<div class="form-actions">
-							<button type="submit" class="btn btn-success">Save</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div><!-- row-fluid -->
-</div><!-- container-fluid -->
 </div><!-- content -->
 	<!--Footer-part-->
 <div class="row-fluid">

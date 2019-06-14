@@ -18,9 +18,9 @@ public class RestListDAO {
 	public RestListDAO() {}
 
 	public List<RestListDTO> selectdisplay(Connection conn, int current_page){
-		
+
 		StringBuffer sql = new StringBuffer();
-		
+
 		sql.append("select rownum ynum, x.* from ( ");
 		sql.append(" select distinct a.*, b.rest_img  , c.pop_loc_code,c.gen_loc_code, ");
 		sql.append(		   " c.gen_loc, c.pop_loc, d.food_code, nvl(e.tic_seq,0) tic_yn, nvl(f.review_cnt_p,0) review_cnt, ");
@@ -35,7 +35,7 @@ public class RestListDAO {
 		sql.append(" left join (SELECT rest_seq, rest_menu_img from rest_menu_img where rowid in (select max(rowid) from rest_menu_img group by rest_seq )) h on a.rest_seq = h.rest_seq ");
 		sql.append(" left join (select distinct rest_seq, COUNT(*)OVER(PARTITION BY rest_seq) img_cnt_p from rest_img) i on a.rest_seq = i.rest_seq ");
 		sql.append(" order by starpoint desc nulls last ) x ");		
-				
+
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
@@ -45,10 +45,10 @@ public class RestListDAO {
 		int countlist = 12;
 		int countPage = 10; 
 		int totalpage = 0;
-		
+
 		int start =0;
 		int end = 0;
-		
+
 		try {
 			pstmt2 = conn.prepareStatement("select count(*) totalcount from ( "+sql+" )");
 			rs2 = pstmt2.executeQuery();
@@ -64,7 +64,7 @@ public class RestListDAO {
 			end = current_page*12>totalcount?totalcount:current_page*12;
 			System.out.println("new sql start= "+start);
 			System.out.println("end= "+end);
-			
+
 			pstmt = conn.prepareStatement("select y.* from ( "+sql+" where rownum<=?) y where ynum>=? " );
 			pstmt.setInt(2, start);
 			pstmt.setInt(1, end);
@@ -86,14 +86,14 @@ public class RestListDAO {
 				if (rs.getString("rest_menu_img")==null) rest_menu_yn=0;
 				dto.setRest_menu_yn(rest_menu_yn);
 				dto.setRest_img_cnt(rs.getInt("img_cnt"));
-				
+
 				list.add(dto);
 			}
 			if(list!=null) {
 				list.get(0).setTotalpage(totalpage);
 				list.get(0).setTotalcount(totalcount);				
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -146,8 +146,8 @@ public class RestListDAO {
 		}
 		return searchList;
 	}
-	
-	
+
+
 
 	public List<RestListDTO> selectdisplay(Connection conn, String pop, String loc_code, String food_type,
 			String searchWord, int member_num, int current_page) {
@@ -173,44 +173,44 @@ public class RestListDAO {
 		System.out.println("loc_code ="+loc_code);
 		System.out.println("food_type ="+food_type);
 		System.out.println("searchWord ="+searchWord);
-		
+
 		int totalcount = 0;
 		int countlist = 12;
 		int countPage = 10; 
 		int totalpage = 0;
-		
+
 		int start =0;
 		int end = 0;
-		
+
 		if(pop!=null ) sql.append( "pop_loc_code in ("+pop+") " );
-		
+
 		if(food_type!=null) {
 			if(pop!=null) sql.append( "and " );
-						    sql.append( "food_code in (" + food_type +") " );
+			sql.append( "food_code in (" + food_type +") " );
 		}
 		if(searchWord!=null ) {
 			if(pop!=null || food_type!=null) {
-							sql.append(" and ");
+				sql.append(" and ");
 			}
-							sql.append( "(rest_name like '%"+searchWord+"%' or rest_line_exp like '%"+searchWord+"%') " );
+			sql.append( "(rest_name like '%"+searchWord+"%' or rest_line_exp like '%"+searchWord+"%') " );
 		}
 		if(loc_code!=null) {
 			if(pop!=null || food_type!=null || searchWord!=null) {
 				sql.append(" and ");
 			}
-				sql.append("loc_code in ("+ loc_code +")");
+			sql.append("loc_code in ("+ loc_code +")");
 		}
-		
-		
+
+
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmtcnt = null;
-		
+
 		ResultSet rs = null;
 		ResultSet rs2 = null;
 		ResultSet rscnt = null;
 		ArrayList<RestListDTO> list = new ArrayList<>();
 		try {
-			
+
 			System.out.println(sql.toString());
 			pstmtcnt = conn.prepareStatement("select count(*) totalcount from ( "+sql.toString()+" )");
 			rscnt = pstmtcnt.executeQuery();
@@ -224,14 +224,14 @@ public class RestListDAO {
 
 			start = (current_page-1)*12+1;
 			end = current_page*12>totalcount?totalcount:current_page*12;
-			
-			
+
+
 			//실제 검색된 데이터 담기
 			pstmt = conn.prepareStatement("select y.* from ( "+sql.toString()+" and rownum<=?) y where ynum>=? " );
 			pstmt.setInt(2, start);
 			pstmt.setInt(1, end);
 			System.out.println("로그인+검색 페이징"+start+"~"+end);
-			
+
 			rs2 = pstmt.executeQuery();
 			RestListDTO dto = null;
 			while (rs2.next()) {
@@ -262,20 +262,20 @@ public class RestListDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				
+
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}	
 		return list;	
-			
+
 	}
 
 	public List<RestListDTO> selectdisplay(Connection conn, int member_num, int current_page) {
-		
+
 		StringBuffer sql = new StringBuffer();
-		
+
 		sql.append("select rownum ynum, x.* from ( ");
 		sql.append(" select distinct a.*, b.rest_img  , c.pop_loc_code,c.gen_loc_code, ");
 		sql.append(		   " c.gen_loc, c.pop_loc, d.food_code, nvl(e.tic_seq,0) tic_yn, nvl(f.review_cnt_p,0) review_cnt, ");
@@ -291,7 +291,7 @@ public class RestListDAO {
 		sql.append(" left join (select distinct rest_seq, COUNT(*)OVER(PARTITION BY rest_seq) img_cnt_p from rest_img) i on a.rest_seq = i.rest_seq ");
 		sql.append(" left join (select * from pick where m_seq="+member_num+") j on a.rest_seq= j.rest_no ");
 		sql.append(" order by starpoint desc nulls last ) x ");		
-				
+
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
@@ -301,10 +301,10 @@ public class RestListDAO {
 		int countlist = 12;
 		int countPage = 10; 
 		int totalpage = 0;
-		
+
 		int start =0;
 		int end = 0;
-		
+
 		try {
 			pstmt2 = conn.prepareStatement("select count(*) totalcount from ( "+sql+" )");
 			rs2 = pstmt2.executeQuery();
@@ -320,7 +320,7 @@ public class RestListDAO {
 			end = current_page*12>totalcount?totalcount:current_page*12;
 			System.out.println("new sql start= "+start);
 			System.out.println("end= "+end);
-			
+
 			pstmt = conn.prepareStatement("select y.* from ( "+sql+" where rownum<=?) y where ynum>=? " );
 			pstmt.setInt(2, start);
 			pstmt.setInt(1, end);
@@ -350,7 +350,7 @@ public class RestListDAO {
 				list.get(0).setTotalpage(totalpage);
 				list.get(0).setTotalcount(totalcount);				
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -363,7 +363,7 @@ public class RestListDAO {
 			}
 		}	
 		return list;	
-		
+
 	}
 
 	public List<RestListDTO> selectdisplay(Connection conn) {
@@ -407,4 +407,60 @@ public class RestListDAO {
 		}	
 		return list;	
 	}
+
+
+
+	public static List<RestListDTO> selectSlidebarRestdisplay(Connection conn, int member_num) throws SQLException {
+
+		StringBuffer sql = new StringBuffer();
+		sql.append(" WITH rest_list AS( ");
+		sql.append("     SELECT rest.rest_seq, rest.rest_name, ri.rest_img, NVL(plc.loc_add, glc.gen_loc_code)  || '·' || ft.food_type loc_food, ");
+		sql.append("     NVL((SELECT ROUND(AVG(rev_starpoint), 1) FROM review rv WHERE rv.rev_rest_seq = rest.rest_seq), 0) star_point ");
+		if (member_num != -1) {
+			sql.append("     ,( ");
+			sql.append("         SELECT COUNT(*) FROM member mem ");
+			sql.append("         JOIN pick ON pick.m_seq = mem.m_seq ");
+			sql.append("         WHERE pick.rest_no = rest.rest_seq AND mem.m_seq = ? ");
+			sql.append("     ) rest_fav ");
+		}
+		sql.append("     FROM restaurant rest ");
+		sql.append("     JOIN rest_img ri ON rest.ri_seq = ri.ri_seq ");
+		sql.append("     JOIN loc_code_per_rest lcpr ON rest.rest_seq = lcpr.rest_seq ");
+		sql.append("     JOIN pop_loc_code plc ON plc.pop_loc_code = lcpr.pop_loc_code ");
+		sql.append("     JOIN general_loc_code glc ON glc.gen_loc_code = lcpr.gen_loc_code ");
+		sql.append("     JOIN food_type ft ON ft.food_code = (SELECT fcpr.food_code FROM food_code_per_rest fcpr WHERE fcpr.rest_seq = rest.rest_seq AND ROWNUM = 1) ");
+		sql.append("     ORDER BY star_point desc ");
+		sql.append(" ) ");
+		sql.append(" SELECT * FROM rest_list WHERE rownum < 6 ");
+
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<RestListDTO> rest_slidebar_list = null;
+		RestListDTO restDTO = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		if (member_num != -1) {
+			pstmt.setInt(1, member_num);
+		}
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+			rest_slidebar_list = new ArrayList<>();
+			do {
+				restDTO = new RestListDTO();
+				restDTO.setRest_seq(rs.getInt("rest_seq"));
+				restDTO.setRest_name(rs.getString("rest_name"));
+				restDTO.setRest_img(rs.getString("rest_img"));
+				restDTO.setRest_address(rs.getString("loc_food"));
+				restDTO.setRest_starpoint(rs.getDouble("star_point"));
+				if (member_num != -1) {
+					restDTO.setRest_fav(rs.getInt("rest_fav"));
+				}
+				rest_slidebar_list.add(restDTO);
+			} while (rs.next());
+		}
+		rs.close();
+		pstmt.close();
+		return rest_slidebar_list;
+	}
+
 }

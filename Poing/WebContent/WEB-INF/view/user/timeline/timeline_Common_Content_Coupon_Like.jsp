@@ -49,9 +49,9 @@ if (rownum % 5 == 0) {
 			</div>
 
 		</div>
+	</c:forEach>
 
 		
-	</c:forEach>
 	</div>
 	
 	
@@ -61,13 +61,7 @@ if (rownum % 5 == 0) {
 				<li class="prevAll">&lt;&lt;</li>
 				<li class="prev">&lt;</li>
 				<li class="page active" data-page="1">1</li>
-<%-- 				<c:choose> --%>
-<%-- 				<c:when test="<%=rownum %> != 1"> --%>
 				<li class="page" data-page="<%=rownum %>"><%=rownum %></li><!-- 로우넘 줘서 마지막값 -->
-<%-- 				</c:when> --%>
-<%-- 				<c:when test="<%=rownum %> = 1"> --%>
-<%-- 				</c:when> --%>
-<%-- 				</c:choose> --%>
 				<li class="next">&gt;</li>
 				<li class="nextAll">&gt;&gt;</li>
 			</ul>

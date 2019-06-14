@@ -17,4 +17,5 @@ public class AddBannerImageService {
 		conn.close();
 		return result;
 	}
+	
 }

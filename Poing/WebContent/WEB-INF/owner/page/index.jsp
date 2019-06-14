@@ -69,8 +69,8 @@
 					</a>
 				</li>
 				<li class="bg_lr">
-					<a href="rest_menu.ow">
-					<i class="icon-info-sign"></i>레스토랑 수정요청
+					<a href="rest_cal.ow">
+					<i class="icon-info-sign"></i>레스토랑 예약관리
 					</a>
 				</li>
 			</ul>

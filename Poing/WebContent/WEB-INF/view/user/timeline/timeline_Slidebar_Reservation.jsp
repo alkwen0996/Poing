@@ -1,3 +1,4 @@
+<%@page import="java.util.HashSet"%>
 <%@page import="poing.rest.RestTimlineReserveDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,11 +15,18 @@
 <%
 ArrayList<RestTimlineReserveDTO> list = (ArrayList<RestTimlineReserveDTO>)request.getAttribute("reserve_list");
 String reserveDate = "";
+
+HashSet<String> set  = new HashSet<String>();
 for( int i=0 ; i<list.size(); i++) {
-	if(i==0) reserveDate += "{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
-	else reserveDate += ",{title: '예약', start: '"+list.get(i).getR_reserve_date()+"'}";
+	set.add(list.get(i).getR_reserve_date().trim());
 }
 
+ArrayList<String> hashlist = new ArrayList(set);
+
+for( int i=0 ; i<hashlist.size(); i++) {
+	if(i==0) reserveDate += "{title: '예약', start: '"+hashlist.get(i)+"'}";
+	else reserveDate += ",{title: '예약', start: '"+hashlist.get(i)+"'}";
+}
 %>
 <script>
 <%-- 

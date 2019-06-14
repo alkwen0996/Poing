@@ -18,7 +18,7 @@
         String sql = "";
         
         if (typecnt==1) sql = "insert into  pick values (pick_seq.nextval, ?, null,null,?)  "; //1,100022, null,null
-        else sql = "delete from pick where m_seq = ? and rest_seq= ? "; 
+        else sql = "delete from pick where m_seq = ? and rest_no= ? "; 
         int cnt = 0;
         
         Connection conn = null;

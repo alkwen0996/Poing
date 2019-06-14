@@ -1,6 +1,7 @@
 package poing.rest.display.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
@@ -113,5 +114,12 @@ public class RestDetailService {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	public void viewcountPlus(int rest_seq) throws SQLException {
+		
+		Connection conn = ConnectionProvider.getConnection();
+		String sql = "update restaurant set rest_view_cnt = rest_view_cnt+0.5 where rest_seq ="+rest_seq;
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.executeUpdate();
 	}
 }

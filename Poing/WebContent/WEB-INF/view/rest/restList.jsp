@@ -151,7 +151,7 @@
 								<span class="shaing"></span>
 								<div class="top">
 									예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
-									&nbsp; 조회수 ${dto.rest_view_cnt} <br>
+									&nbsp; 조회수 ${dto.rest_view_cnt-(dto.rest_view_cnt%1)} <br>
 									<button class="" data-type="poing.restaurants.favorite"
 										data-id="${dto.rest_seq }" onclick='return false;'>
 										<i class="icon favorite ${dto.rest_fav ne 0 ? 'on' : '' }"></i>

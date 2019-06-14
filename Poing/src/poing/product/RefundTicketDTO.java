@@ -14,8 +14,82 @@ public class RefundTicketDTO {
 	private int op_cnt;
 	private int op_price;
 	private int p_dc_money;
+	private int tc_purchas_seq;
+	private String tic_validate_content;
+	private String tic_op_name;
+	private String tic_reserve_date;
+	private int tic_num_of_people;
+	private String tic_img;
+	private String Tic_request;
+	private int Tic_totalmoney;
 	
 	
+	
+	
+
+	public String getTic_request() {
+		return Tic_request;
+	}
+
+	public void setTic_request(String tic_request) {
+		Tic_request = tic_request;
+	}
+
+	public int getTic_totalmoney() {
+		return Tic_totalmoney;
+	}
+
+	public void setTic_totalmoney(int tic_totalmoney) {
+		Tic_totalmoney = tic_totalmoney;
+	}
+
+	public int getTc_purchas_seq() {
+		return tc_purchas_seq;
+	}
+
+	public void setTc_purchas_seq(int tc_purchas_seq) {
+		this.tc_purchas_seq = tc_purchas_seq;
+	}
+
+	public String getTic_validate_content() {
+		return tic_validate_content;
+	}
+
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
+	}
+
+	public String getTic_op_name() {
+		return tic_op_name;
+	}
+
+	public void setTic_op_name(String tic_op_name) {
+		this.tic_op_name = tic_op_name;
+	}
+
+	public String getTic_reserve_date() {
+		return tic_reserve_date;
+	}
+
+	public void setTic_reserve_date(String tic_reserve_date) {
+		this.tic_reserve_date = tic_reserve_date;
+	}
+
+	public int getTic_num_of_people() {
+		return tic_num_of_people;
+	}
+
+	public void setTic_num_of_people(int tic_num_of_people) {
+		this.tic_num_of_people = tic_num_of_people;
+	}
+
+	public String getTic_img() {
+		return tic_img;
+	}
+
+	public void setTic_img(String tic_img) {
+		this.tic_img = tic_img;
+	}
 
 	public int getP_dc_money() {
 		return p_dc_money;

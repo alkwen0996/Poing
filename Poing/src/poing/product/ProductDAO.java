@@ -21,9 +21,18 @@ public class ProductDAO {
 	
 	public List<ProductDTO> selectdisplay(Connection conn, int first, int end){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select rownum,m.tic_img,t.tic_view_price, t.tic_seq, r.rest_name,r.rest_address,t.tic_name,t.tic_type from ");
-		sql.append(" ticket t join restaurant r on t.rest_seq = r.rest_seq join tic_img m on m.tic_seq = t.tic_seq where rownum between ? and ? ");
-			   
+		sql.append(" select no, tic_img, tic_view_price, tic_seq, rest_name, rest_address, tic_name, tic_type ");
+		sql.append(" from ( ");
+		sql.append(" select rownum no, tic_img, tic_view_price, tic_seq, rest_name, rest_address, tic_name, tic_type ");
+		sql.append(" from ( ");
+		sql.append(" select tic_img, tic_view_price, t.tic_seq, rest_name, rest_address, tic_name, tic_type ");
+		sql.append(" from ticket t ");
+		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
+		sql.append(" join tic_img m on m.tic_seq = t.tic_seq ");
+		sql.append(" where tic_img like '%e_1.%' ");
+		sql.append(" ) a ");
+		sql.append(" ) b ");
+		sql.append(" where b.no between ? and ? ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();

@@ -142,7 +142,7 @@ public class CartDAO {
 	 public boolean deleteCart(Connection conn, int tic_cart_seq) throws SQLException {
 	      StringBuffer sql = new StringBuffer();
 	      
-	      sql.append(" delete from cart where tic_cart_seq = ? ");
+	      sql.append(" delete from tic_cart_option_cnt where tic_cart_seq = ? ");
 	      
 	      PreparedStatement pstmt = null;
 	      
@@ -152,10 +152,17 @@ public class CartDAO {
 	      pstmt.setInt(1, tic_cart_seq);
 	     
 	      result = pstmt.executeUpdate()==0? false:true;
+	      
+	      if(!result) {
+	    	  StringBuffer sql2 = new StringBuffer();
+	    	  sql2.append(" delete from cart where tic_cart_seq = ? ");
+	    	  pstmt = conn.prepareStatement(sql2.toString());
+	    	  pstmt.setInt(1, tic_cart_seq);
+	    	  result = pstmt.executeUpdate()==0? false:true;
+	      }
 	      pstmt.close();
 	      
-	      return false;
-
+	      return result;
 	   }
 	 
 	 public boolean updateCart(Connection conn, int tic_num_of_people, String tic_request, String tic_reserve_date, int tic_cart_seq) throws SQLException {

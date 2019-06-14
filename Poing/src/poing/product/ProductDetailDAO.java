@@ -53,51 +53,43 @@ public class ProductDetailDAO {
 	}
 
 	public static List<RefundTicketDTO> selectReserva_tic(Connection conn) {
-		StringBuffer sql = new StringBuffer();
-		sql.append(" SELECT op_cnt,p_dc_money ,reserva_tic_seq,p_st_ed_date,op_name, rest_name, "
-				+ "c_date,party_size,photo_img,op_cnt,op_price from cart c ");
-		sql.append(" join totalcart t on c.cart_seq = t.cart_seq join  p_option p on t.op_seq = p.op_seq ");
-		sql.append(" join p_product a on a.p_num = p.p_num ");
-		sql.append(" join p_restaurant l on l.p_num = a.p_num ");
-		sql.append(" join product_img i on i.img_seq = a.img_seq ");
-		sql.append(" join reserve_tic k on k.cart_seq = c.cart_seq ");
-		sql.append(" where p_state='결제완료' ");
-		PreparedStatement pstmt = null;
+	      String sql = null;
+	      sql = " select tc_purchas_seq,rest_name,tic_validate_content,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people,tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq = b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = d.rest_seq join tic_validate z on z.tic_seq = c.tic_seq join tic_img m on m.tic_seq = c.tic_seq where tic_purchas_state = '결제완료' ";
+	      PreparedStatement pstmt = null;
 
-		ResultSet rs = null;
-		ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
-		try {
-			pstmt = conn.prepareStatement(sql.toString());
-			rs = pstmt.executeQuery();
-			RefundTicketDTO rdto = null;
-			while (rs.next()) {
-				rdto = new RefundTicketDTO();
-				rdto.setReserva_tic_seq(rs.getInt("reserva_tic_seq"));
-				rdto.setRest_name(rs.getString("rest_name"));
-				rdto.setP_st_ed_date(rs.getString("p_st_ed_date"));
-				rdto.setOp_name(rs.getString("op_name"));
-				rdto.setC_date(rs.getString("c_date"));
-				rdto.setParty_size(rs.getInt("party_size"));
-				rdto.setPhoto_img(rs.getString("photo_img"));
-				rdto.setP_dc_money(rs.getInt("p_dc_money"));
-				rdto.setOp_cnt(rs.getInt("op_cnt"));
-				list1.add(rdto);
-			}
-			;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				pstmt.close();
-				rs.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+	      ResultSet rs = null;
+	      ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
+	      try {
+	         pstmt = conn.prepareStatement(sql);
+	         rs = pstmt.executeQuery();
+	         RefundTicketDTO rdto = null;
+	         while (rs.next()) {
+	            rdto = new RefundTicketDTO();
+	            rdto.setRest_name(rs.getString("rest_name"));
+	            rdto.setTc_purchas_seq(rs.getInt("tc_purchas_seq"));
+	            rdto.setTic_validate_content(rs.getString("tic_validate_content"));
+	            rdto.setTic_reserve_date(rs.getString("tic_reserve_date"));
+	            rdto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
+	            rdto.setTic_img(rs.getString("tic_img"));
+	            rdto.setTic_request(rs.getString("tic_request"));
+	            rdto.setTic_totalmoney(rs.getInt("tic_totalmoney"));
+	            list1.add(rdto);
+	         }
+	         ;
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            pstmt.close();
+	            rs.close();
+	            conn.close();
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         }
+	      }
 
-		return list1;
-	}
+	      return list1;
+	   }
 
 	public ProductDetailDAO() {
 	}
@@ -170,6 +162,7 @@ public class ProductDetailDAO {
 
 		return list2;
 	}
+
 
 	public static List<PointHistoryDTO> PointHistory(Connection conn) {
 		StringBuffer sql = new StringBuffer();

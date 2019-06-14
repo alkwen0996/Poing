@@ -76,6 +76,10 @@ public class DisplayTimelineHandler implements CommandHandler {
 			ProductPayService service5 = new ProductPayService();
 			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
 			request.setAttribute("rev_tic_list", rev_tic_list);
+		
+//			DisplayProductDetailService service2 = new DisplayProductDetailService();
+//			List<ProductDTO> list = service2.selectProductList(cart_seq);
+//			request.setAttribute("list", list);
 			}
 		}
 		else if (tab.equals("review"))

@@ -43,7 +43,6 @@
 	   int a = list2.getTic_dc_price() * list2.getTic_op_purchas_cnt();
 	   sum+=a;
 	}
-	
 
 %>
 
@@ -354,8 +353,8 @@ $(document).ready(function(){
         
          var data = {
            cart_ids : [],
-           cart_seq: ${param.cart_seq},
-           // tic_seq: ${param.tic_seq},
+          // cart_seq: (${param.cart_seq}),
+            tic_seq: ${param.tic_seq},
             point: $("#point").val(),
             totalmoney: <%=sum%>,
             m_email: "${authUser.m_email}",
@@ -368,7 +367,7 @@ $(document).ready(function(){
         }); 
 
         $.ajax({
-            'url': "/Poing/product/p_payMent.do",
+            'url': "/Poing/product/p_payMents.do?cart_seq=${param.cart_seq}",
             'method': "POST",
             'dataType': "JSON",
             'context': this,

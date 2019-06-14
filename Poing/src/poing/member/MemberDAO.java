@@ -84,6 +84,32 @@ public class MemberDAO {
 		}
 		return result1;
 	}
+	
+	public static boolean insertReserv_tics(Connection conn, int tic_seq, int m_seq, String[] cart_seq, int totalmoney){
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" insert into tic_cart_purchase_detail (TC_PURCHAS_SEQ, TIC_SEQ, TIC_CART_SEQ, M_SEQ, TIC_PURCHAS_STATE, tic_totalmoney)" );
+		sql.append(" values (tic_cart_purchase_detail_seq.nextval, ?, ?, ?,'결제완료',?) ");
+		PreparedStatement pstmt = null;
+		try {
+			for (int i = 0; i < cart_seq.length; i++) {
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, tic_seq);
+				pstmt.setInt(2, Integer.parseInt(cart_seq[i]));
+				pstmt.setInt(3, m_seq);
+				pstmt.setInt(4, totalmoney);
+				//
+				result = pstmt.executeUpdate()==0? false:true;				
+			}
+			// 
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	public static boolean chargePoint(Connection conn,int chargePoint, int m_seq){
 		boolean result1 = false;
@@ -583,4 +609,3 @@ public class MemberDAO {
 	}
 
 }// class
-

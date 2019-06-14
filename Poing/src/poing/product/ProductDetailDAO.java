@@ -1,4 +1,3 @@
-    
 package poing.product;
 
 import java.sql.Connection;

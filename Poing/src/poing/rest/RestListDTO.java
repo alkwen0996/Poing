@@ -44,7 +44,9 @@ public class RestListDTO {
 	
 	
 		
+	public RestListDTO() {
 		
+	}
 		
 	public String getE_img() {
 		return e_img;

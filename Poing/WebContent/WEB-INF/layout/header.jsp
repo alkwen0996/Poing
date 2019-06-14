@@ -658,7 +658,6 @@
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=reservation">예약</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=coupon">티켓</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=payment">결제</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=friends">친구찾기</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=setting">설정</div>
 									<div id="nav_logout" class="item">로그아웃</div>
 								</div>
@@ -669,14 +668,6 @@
 			</div>
 		</div>
 		<!-- menu section -->
-		<div class="menu_wrap">
-			<div id="nav_menu">
-				<a href="/seoul/event" class="underline ">이벤트</a> \
-				<a href="/seoul/restaurant" class="underline ">추천 테마</a>
-				<a href="/seoul/review" class="underline ">리뷰</a> 
-				<a href="/magazine" class="underline ">매거진</a>
-			</div>
-		</div>
 	</div>
 	<!-- //navgation -->
 </div>

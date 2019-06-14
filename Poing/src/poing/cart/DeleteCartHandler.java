@@ -13,6 +13,7 @@ public class DeleteCartHandler implements CommandHandler{
       int tic_cart_seq = Integer.parseInt(request.getParameter("id"));
       System.out.println(tic_cart_seq);
       boolean result = service.deleteCart(tic_cart_seq);
+      System.out.println("결과@@@@@@@@@@@@@@@@@@@@@@@@@@2" + result);
       return "product/productCart";
    }
 

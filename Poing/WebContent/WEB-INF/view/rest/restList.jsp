@@ -84,11 +84,6 @@
 	sb.append("] ");  
 	
 	
-	//MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-	//int member_num = 0;
-	//if(mdto==null) member_num = 0;
-	//else member_num = mdto.getM_no();
-	
  	ArrayList<RestListDTO> list1 = (ArrayList<RestListDTO>) request.getAttribute("list");
 	int totalcount = 0;
 	int totalpage = 0;

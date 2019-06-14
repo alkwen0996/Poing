@@ -82,8 +82,8 @@ public class ProductBannerDAO {
 		StringBuffer sql = new StringBuffer();
 		conn.setAutoCommit(false);
 		sql.append(" INSERT INTO product_banner ");
-		sql.append(" (pb_seq, pb_sale, pb_title, pb_descript, pb_link) VALUES");
-		sql.append(" (product_banner_seq.nextval, ?, ?, ?, ?) ");
+		sql.append(" (pb_seq, pb_sale, pb_title, pb_descript, pb_link, pb_turn_no) VALUES");
+		sql.append(" (product_banner_seq.nextval, ?, ?, ?, ?, (SELECT MAX(pb_turn_no) FROM product_banner)) ");
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, pb_sale);

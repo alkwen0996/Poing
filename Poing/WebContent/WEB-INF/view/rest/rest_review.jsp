@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-
-
-%>
 <div class="body first">
 	<div class="title">리뷰 쓰기</div>
 	<ul class="list">
@@ -65,22 +61,35 @@
 <div class="sort_wrap">
 	<span class="title">리뷰</span>
 	<ul class="sort_list">
-		<li class="item " data-item="최신순">최신순</li>
-		<li class="item selected" data-item="인기순">인기순</li>
+		<li class="item ${ param.type eq null || param.type.isEmpty() || param.type eq 'time' ? 'selected' : ''}" data-item="최신순">최신순</li>
+		<li class="item ${ param.type eq 'like' ? 'selected' : ''}" data-item="인기순">인기순</li>
 	</ul>
 </div>
+
+<script type="text/javascript">
+// review view
+  $(".sort_list>.item").on("click", function () {
+    var item = $(this).data("item");
+
+    if (item == "최신순")
+      location.search = "?rest_seq=41972&tab=review&type=time";
+    else if (item == "인기순")
+      location.search = "?rest_seq=41972&tab=review&type=like";
+  });
+</script>
+  
 <c:forEach var="rev_dto" items="${list }" varStatus="status">
 <div class="body review list review_wrap ">
 		<div class="review" data-id="${rev_dto.rev_seq }" data-place="${rev_dto.rev_rest_seq }" data-place-name="${rev_dto.rest_name }">
-			<a class="author" href="/Poing/timeline.do?id=${rev_dto.m_no }">
+			<a class="author" href="/Poing/timeline.do?id=${rev_dto.m_seq }">
 			<span class="thumbnail"	style="display: inline-block; background-image: url(&quot;${realPath}${ rev_dto.m_img ne null ? rev_dto.m_img : application.getAttribute('baseimg') }&quot;);"></span>
 				<div class="info">
 					<p class="name">${rev_dto.m_name }</p>
 					<p class="stat">${rev_dto.m_revcnt} 리뷰, ${rev_dto.m_ercnt} 팔로워</p>
 				</div> 
-				<c:if test="${ authUser.m_no ne rev_dto.m_no }">
+				<c:if test="${ authUser.m_seq ne rev_dto.m_seq }">
 					<button class="follow ${ rev_dto.amIfollow?'on':' '}" type="button"
-						data-type="poing.user.follow" data-id="${ rev_dto.m_no }"
+						data-type="poing.user.follow" data-id="${ rev_dto.m_seq }"
 						tabindex="-1">
 						<i class="icon follow ${ rev_dto.amIfollow?'on':' '}"></i>팔로우
 					</button>
@@ -93,7 +102,7 @@
 					<i class="icon heart small "></i>매장찜
 				</button>
 				<p class="name">${rev_dto.rest_name}</p>
-				<p class="info">${rev_dto.rest_loc}</p>
+				<p class="info">${rev_dto.rest_address}</p>
 			</a>
 			<div class="body">
 				<div class="time  loaded" style="display: block;">${rev_dto.rev_wtime}</div>
@@ -132,10 +141,6 @@
 					</c:if>
 				</div>
 
-				<button class="like_list"
-					data-type="poing.reviews.actions.user.showLikers"
-					data-id="${rev_dto.rev_seq }" tabindex="-1">김수한님, jwjwjw님 외
-					12명이 좋아합니다.</button>
 				<div class="action">
 					<button class="like ${ rev_dto.amIlike?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.like"
@@ -161,7 +166,7 @@
 							댓글 <span>${rev_dto.commend_cnt}</span>
 						</p>
 					</button>
-					<c:if test="${ authUser.m_no eq rev_dto.m_no }">
+					<c:if test="${ authUser.m_seq eq rev_dto.m_seq }">
 						<div class="article">
 							<button class="edit"
 								data-type="poing.reviews.actions.auth.modify2"
@@ -183,7 +188,7 @@
 							<p class="time loaded" style="display: block;">${ rev_dto.cdto.rc_wtime }</p>
 							<a class="name" href="/timeline/1517256">${ rev_dto.cdto.m_name }</a>
 							<p class="text">${ rev_dto.cdto.rc_content }</p>
-							<c:if test="${ rev_dto.cdto.m_no eq authUser.m_no }">
+							<c:if test="${ rev_dto.cdto.m_no eq authUser.m_seq }">
 								<div class="action">
 									<button type="button" class="edit"
 										data-type="poing.reviews.comment.modify"
@@ -209,16 +214,16 @@
 
 
 <div id="review_pagination">
-	<div class="page-list">
-		<ul class="pagination" onselectstart="return false;">
-			<li class="prevAll">&lt;&lt;</li>
-			<li class="prev">&lt;</li>
-			<li class="page active" data-page="1">1</li>
-			<li class="page" data-page="2">2</li>
-			<li class="page" data-page="3">3</li>
-			<li class="next">&gt;</li>
-			<li class="nextAll">&gt;&gt;</li>
-		</ul>
-	</div>
 </div>
-
+<script>
+  function reviewPaging(page) {
+    location.search = "?rest_seq=${param.rest_seq}&tab=${param.tab}&page="+page+"&type=${param.type}";
+  }
+  new Pagination({
+    selector: '#review_pagination',
+    current_page: ${ curPage },
+    per_page: 5,
+    total_page: ${ totalPage },
+    event: reviewPaging
+  });
+</script>

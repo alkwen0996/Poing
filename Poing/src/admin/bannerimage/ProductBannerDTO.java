@@ -58,8 +58,8 @@ public class ProductBannerDTO {
 		this.pb_sale = rs.getString("pb_sale");
 		this.pb_title = rs.getString("pb_title");
 		this.pb_descript = rs.getString("pb_descript");
-//		this.pb_element_img = rs.getString("pb_element_img");
-//		this.pb_banner_img = rs.getString("pb_banner_img");
+		this.pb_element_img = rs.getString("pb_element_img");
+		this.pb_banner_img = rs.getString("pb_banner_img");
 		this.pb_link = rs.getString("pb_link");
 	};
 }

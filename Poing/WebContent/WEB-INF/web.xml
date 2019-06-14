@@ -104,6 +104,9 @@
     <url-pattern>/admin/editer_image_change.ad</url-pattern>
     <url-pattern>/admin/editer_image_change.ad</url-pattern>
     <url-pattern>/admin/product_banner.ad</url-pattern>
+    <url-pattern>/admin/move_product_banner.ad</url-pattern>
+    <url-pattern>/admin/add_product_banner.ad</url-pattern>
+    <url-pattern>/admin/modify_product_banner.ad</url-pattern>
   </filter-mapping>
   
   <servlet>

@@ -8,21 +8,12 @@
 <div class="body empty coupon ">
 	<div class="filter">
 		<a href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=all&totalmoney=${param.totalmoney}"
-			class="first selected">전체보기</a> <a
-			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=useable&totalmoney=${param.totalmoney}">사용
+			>전체보기</a> <a
+			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=useable&totalmoney=${param.totalmoney}" class="first selected">사용
 			예정 티켓</a> <a
 			href="/Poing/timeline.do?id=${ param.id }&tab=coupon&type=unuseable&totalmoney=${param.totalmoney}">이미
 			사용한 티켓</a>
 	</div>
-	<% 
-	ArrayList<RefundTicketDTO> list = (ArrayList<RefundTicketDTO>) request.getAttribute("rev_tic_list");
-	Iterator<RefundTicketDTO> ir = list.iterator();
-	while (ir.hasNext()) {
-		RefundTicketDTO refundTicketDTO = (RefundTicketDTO) ir.next();
-		System.out.println("refundTicketDTO.getOp_cnt: "+refundTicketDTO.getOp_cnt());
-		System.out.println("refundTicketDTO.getP_dc_money: "+refundTicketDTO.getP_dc_money());
-	}
-	%>
 	<table>
 		<thead>
 			<tr>
@@ -35,36 +26,38 @@
 		<tbody>
 			<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
 				<tr>
-					<td class="info"><a href="/product/detail/5468"> <i
-							class="image" style="background-image:url(${dto.photo_img});"></i>
+					<td class="info"><a href="/Poing/product/main.do"> <i
+							class="image" style="background-image:url('/Poing${dto.tic_img}');"></i>
 					</a>
 
 						<div class="option">
 							<a class="title" href="/product/detail/5468"> <span>${dto.rest_name }</span>
 							</a>
-							<p class="valid_date">유효기간: ${dto.p_st_ed_date }</p>
+							<p class="valid_date">유효기간: ${dto.tic_reserve_date }</p>
 
-							<span class="selected"> ${dto.op_name } </span>
+                                        <div class="name">결제한 티켓 총 금액 : ${dto.tic_totalmoney } </div>
 						</div></td>
 					<td class="reserve">
-						<div class="date">${dto.c_date }</div>
-						<div class="count">${dto.party_size }명</div>
+						<div class="date">${dto.tic_reserve_date }</div>
+						<div class="date">${dto.tic_request }</div>
+						<div class="count">${dto.tic_num_of_people }명</div>
 					</td>
 					<td class="status"><span class="">결제완료</span>
-						<button class="refund" data1="${dto.reserva_tic_seq}"
-							data2="${dto.op_cnt * dto.p_dc_money}" style="">환불하기</button></td>
+						<button class="refund" data1="${dto.tc_purchas_seq}"
+							data2="${dto.tic_totalmoney }" style="">환불하기</button></td>
+
 				</tr>
 			</c:forEach>
 		</tbody>
-	</table>
-	<script>
+</table>
+<script>
 	$("button.refund").click(function () {
 		$.ajax({
 			url: '/Poing/product/cartDelete.do',
 			method: 'post',
 			dataType: 'JSON',
 			data:{
-				reserva_tic_seq : $(this).attr('data1'),
+				tc_purchas_seq : $(this).attr('data1'),
 				totalmoney : $(this).attr('data2'),
 				id :${param.id}
 			},
@@ -80,5 +73,6 @@
 	})
 	</script>
 </div>
+
 
 

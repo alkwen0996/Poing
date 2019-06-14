@@ -491,8 +491,7 @@ public class ReviewDAO {
 	//	}
 	public static ProductDTO selectRestTicket(Connection conn, int rest_seq) throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select t.tic_seq,t.tic_name,i.tic_img from restaurant r join ticket t on r.rest_seq = "
-				+ " t.rest_seq join tic_img i on i.tic_seq = t.tic_seq where r.rest_seq = ? and tic_img like %e_1.% ");
+		sql.append(" select t.tic_seq,t.tic_name,i.tic_img from restaurant r join ticket t on r.rest_seq = t.rest_seq join tic_img i on i.tic_seq = t.tic_seq where r.rest_seq = ? and tic_img like '%e_1.%' ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ProductDTO dto = null;

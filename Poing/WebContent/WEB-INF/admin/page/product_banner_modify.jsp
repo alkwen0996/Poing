@@ -35,6 +35,20 @@
 <%@include file="/admin/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("form").on("submit", function(event) {
+			$("input").each(function(index, element) {
+				if (!$(this).val()) {  
+					alert("모든 내용을 입력하세요");
+					event.preventDefault();
+					return false;
+				}
+			});
+		});
+	});
+</script>
+
 </head>
 <body>
 
@@ -43,94 +57,80 @@
 
 
 <div id="content">
+
+<div id="content-header">
+	<div id="breadcrumb">
+		<a href="#" class="tip-bottom" data-original-title="Go to Home"><i class="icon-home"></i> Home</a> <a href="#">Sample pages</a> <a href="#" class="current">Gallery</a>
+	</div>
+	<h1>프로덕트 배너 수정</h1>
+</div>
+
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-align-justify"></i>
-						</span>
-						<h5>프로덕트 배너 수정 페이지</h5>
-					</div>
-					<div class="widget-content nopadding">
-						<form class="form-horizontal" enctype="multipart/form-data"
-							action="modify_product_banner.ad" method="post">
-							<div class="control-group">
-								<label class="control-label">바꿀 작은 이미지 선택</label>
-								<div class="controls">
-									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="small_image"
-											style="opacity: 0;"> <span class="filename">No
-											file selected</span> <span class="action">Choose File</span>
-									</div>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label">바꿀 큰 이미지 선택</label>
-								<div class="controls">
-									<div class="uploader" id="uniform-undefined">
-										<input type="file" size="19" name="big_image"
-											style="opacity: 0;"> <span class="filename">No
-											file selected</span> <span class="action">Choose File</span>
-									</div>
-								</div>
-							</div>
-							<div class="form-actions">
-								<button type="submit" class="btn btn-success">확인</button>
-								<button class="btn btn-success" onclick="history.back(-1);">취소</button>
-							</div>
-						</form>
-					</div>
+		<div class="span6">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-picture"></i>
+					</span>
+					<h5>현재 배너 이미지</h5>
+				</div>
+				<div class="widget-content">
+					<ul class="thumbnails">
+						<li class="span2">
+						<img src="${ realPath }${ pbDTO.pb_element_img }" alt="">
+						</li>
+						<li class="span2">
+						<img src="${ realPath }${ pbDTO.pb_banner_img }" alt="">
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- container-fluid -->
-
-	<div class="container-fluid">
-	<div class="row-fluid">
 		<div class="span6">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-align-justify"></i>
 					</span>
-					<h5>에디터 정보</h5>
+					<h5>프로덕트 베너 수정</h5>
 				</div>
 				<div class="widget-content nopadding">
-					<form action="editer_info_change.ad" method="get" class="form-horizontal">
+					<form  action="modify_product_banner.ad" method="post">
+						<input type="hidden" name="pb_seq" value="${ pbDTO.pb_seq }"/>
 						<div class="control-group">
-							<label class="control-label">닉네임 :</label>
+							<label class="control-label">세일명 :</label>
 							<div class="controls">
-								<input name="e_name" type="text" class="span11" value="${ authAdmin.e_name }">
+								<input name="pb_sale" type="text" class="span11" value="${ pbDTO.pb_sale }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">아이디</label>
+							<label class="control-label">제목 :</label>
 							<div class="controls">
-								<input type="text" class="span11" value="${ authAdmin.e_id }" disabled="disabled">
+								<input name="pb_title" type="text" class="span11" value="${ pbDTO.pb_title }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">변경할 비밀번호</label>
+							<label class="control-label">설명 :</label>
 							<div class="controls">
-								<input name="e_pw" value="${ authAdmin.e_pw }" type="password" class="span11" placeholder="Enter Password">
+								<input name="pb_descript" type="text" class="span11" value="${ pbDTO.pb_descript }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">자기소개</label>
+							<label class="control-label">링크주소 :</label>
 							<div class="controls">
-								<input name="e_selfintro" type="text" class="span11" value="${ authAdmin.e_selfintro }">
+								<input name="pb_link" type="text" class="span11" value="${ pbDTO.pb_link }">
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-success">Save</button>
+						<button type="" class="btn btn-success">Save</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-	</div><!-- row-fluid -->
-</div><!-- container-fluid -->
+		</div>
+	</div>
+	
+	<!-- container-fluid -->
 </div><!-- content -->
 	<!--Footer-part-->
 <div class="row-fluid">

@@ -36,11 +36,42 @@ public class RestListDTO {
 	private int totalpage;
 	private int totalcount;
 	private int rest_fav;
+	private int restPhotorownum;
+	private String e_img;
+	private String e_name;
+	private String er_content;
+	
+	
+	
 		
 	public RestListDTO() {
 		
 	}
 		
+	public String getE_img() {
+		return e_img;
+	}
+	public void setE_img(String e_img) {
+		this.e_img = e_img;
+	}
+	public String getE_name() {
+		return e_name;
+	}
+	public void setE_name(String e_name) {
+		this.e_name = e_name;
+	}
+	public String getEr_content() {
+		return er_content;
+	}
+	public void setEr_content(String er_content) {
+		this.er_content = er_content;
+	}
+	public int getRestPhotorownum() {
+		return restPhotorownum;
+	}
+	public void setRestPhotorownum(int restPhotorownum) {
+		this.restPhotorownum = restPhotorownum;
+	}
 	public String getRest_food_type() {
 		return rest_food_type;
 	}

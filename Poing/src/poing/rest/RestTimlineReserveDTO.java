@@ -13,8 +13,29 @@ public class RestTimlineReserveDTO {
 	private int m_num;
 	private int r_reserve_numofpeople;
 	private String rest_img;
+	private String m_name;
+	private int restOrtic;
 	
-	
+
+	public int getRestOrtic() {
+		return restOrtic;
+	}
+	public void setRestOrtic(int restOrtic) {
+		this.restOrtic = restOrtic;
+	}
+	public String getR_status_caled(int r_status) {
+		if (r_status==1) return "예약요청";
+		else if (r_status==2) return "예약확정";
+		else if (r_status==3) return "예약불가통보";
+		else if (r_status==-1) return "티켓";
+		else  return "예약불가통보";
+	}
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
 	public String getRest_img() {
 		return rest_img;
 	}

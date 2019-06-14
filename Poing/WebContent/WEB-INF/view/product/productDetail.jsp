@@ -56,11 +56,11 @@ List<ProductDTO> MenuImg = (List<ProductDTO>) request.getAttribute("MenuImg");
             
                <div class="i_wrap background">
                   <i class="image"
-                     style="width: 100%; height: 100%; background-image: url('http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173005bd26db482508.png')"></i>
+                     style="width: 100%; height: 100%; background-image: url(/Poing${dto.tic_img})"></i>
                </div>
                <div class="i_wrap blur background">
                   <i class="image"
-                     style="width: 100%; height: 100%; background-image: url('http://c2.poing.co.kr/MRI-original/MjAxODEw/15405173005bd26db482508.png')"></i>
+                     style="width: 100%; height: 100%; background-image: url(/Poing${dto.tic_img})"></i>
                </div>
                <div class="inner_wrap">
                   <div class="inner">

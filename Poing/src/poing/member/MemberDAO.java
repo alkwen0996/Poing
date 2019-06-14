@@ -607,5 +607,6 @@ public class MemberDAO {
 		}
 		return mem_slide_list;
 	}
+	
 
 }// class

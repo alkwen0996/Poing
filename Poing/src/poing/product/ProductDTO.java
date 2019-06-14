@@ -31,11 +31,26 @@ public class ProductDTO {
 	private int tic_cart_seq;
 	private int tic_op_min_cnt;
 	private int tic_op_max_cnt;
+	private int Pickrownum;
 	
 	
 	
 	
 	
+	
+	
+	public int getPickrownum() {
+		return Pickrownum;
+	}
+	public void setPickrownum(int pickrownum) {
+		Pickrownum = pickrownum;
+	}
+	public String getTic_validate_content() {
+		return tic_validate_content;
+	}
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
+	}
 	public int getTic_cart_seq() {
 		return tic_cart_seq;
 	}

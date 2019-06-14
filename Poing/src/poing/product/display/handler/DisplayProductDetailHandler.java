@@ -37,6 +37,7 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			ProductDTO dto = service.select(tic_seq);
 			ProductDTO photoDto = service.photoRownum(tic_seq);
 			ProductDTO menuDto = service.selectDetailMenu(tic_seq);
+			
 			List<ProductDTO> MenuImg = (List<ProductDTO>) service.selectMenuImgList(tic_seq);
 
 			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
@@ -49,6 +50,7 @@ public class DisplayProductDetailHandler implements CommandHandler {
 				dto = service.select(tic_seq, member_num);
 			}
 
+			
 			request.setAttribute("menuRownum", menuRownum);
 			request.setAttribute("MenuImg", MenuImg);
 			request.setAttribute("menuDto", menuDto);

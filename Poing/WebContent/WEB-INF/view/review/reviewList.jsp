@@ -185,10 +185,6 @@
 												</c:if>
 											</div>
 
-											<%-- <button class="like_list"
-												data-type="poing.reviews.actions.user.showLikers"
-												data-id="${dto.rev_seq }" tabindex="-1">김수한님,
-												jwjwjw님 외 12명이 좋아합니다.</button> --%>
 											<div class="action">
 												<button class="like ${ dto.amIlike?'on':' '}" type="button"
 													data-type="poing.reviews.actions.user.like"

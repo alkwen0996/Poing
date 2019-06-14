@@ -598,7 +598,7 @@ public class ProductDetailDAO {
 //	}
 
 	public ProductDTO selectdisplay(Connection conn, int tic_seq) {
-		String sql = " select rownum,x. tic_explain_content,z.tic_img, "
+		String sql = " select rownum,x. tic_explain_content,z.tic_img,"
 				+ " n.tic_original_price, n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, "
 				+ " t.tic_type, i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant "
 				+ " r join editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
@@ -631,7 +631,6 @@ public class ProductDetailDAO {
 			dto.setTic_dc_price(rs.getInt("tic_dc_price"));
 			dto.setTic_explain_content(rs.getString("tic_explain_content"));
 			
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -645,6 +644,53 @@ public class ProductDetailDAO {
 		}
 		return dto;
 	}
+	
+	public ProductDTO selectInfo(Connection conn, int tic_seq) {
+		String sql = " select rownum,x. tic_explain_content, n.tic_original_price, "
+				+ " n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, t.tic_type, "
+				+ " i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant r join "
+				+ " editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
+				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on "
+				+ " n.tic_seq = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq where "
+				+ " t.tic_seq = ? and rownum = 1 ";
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tic_seq);
+			rs = pstmt.executeQuery();
+
+			dto = new ProductDTO();
+			rs.next();
+			dto.setTic_seq(rs.getInt("tic_seq"));
+			dto.setTic_type(rs.getString("tic_type"));
+			dto.setRest_name(rs.getString("rest_name"));
+			dto.setRest_address(rs.getString("rest_address"));
+			dto.setTic_type(rs.getString("tic_type"));
+			dto.setE_name(rs.getString("e_name"));
+			dto.setEr_content(rs.getString("er_content"));
+			dto.setE_img(rs.getString("e_img"));
+			dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
+			dto.setTic_original_price(rs.getInt("tic_original_price"));
+			dto.setTic_dc_price(rs.getInt("tic_dc_price"));
+			dto.setTic_explain_content(rs.getString("tic_explain_content"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
 	public ProductDTO photoRownum(Connection conn, int tic_seq) {
 		String sql = " select max(rownum) as photoRownum from tic_img where tic_seq = ? ";
 
@@ -737,13 +783,13 @@ public class ProductDetailDAO {
 	}
 	
 	public ProductDTO selectdisplay(Connection conn, int tic_seq, int member_num) {
-		String sql = " select rownum,x. tic_explain_content, n.tic_original_price, "
-				+ " n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, t.tic_type, "
-				+ " i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant r join "
-				+ " editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
-				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on "
-				+ " n.tic_seq = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq where "
-				+ " t.tic_seq = ? and rownum = 1 ";
+		String sql = " select rownum,x. tic_explain_content,z.tic_img,"
+				+ " n.tic_original_price, n.tic_dc_price, t.tic_seq, r.rest_name,r.rest_address, "
+				+ " t.tic_type, i.e_name, e.er_content, i.e_img, r.rest_foodinfo from restaurant "
+				+ " r join editer_review e on r.rest_seq = e.rest_seq join ticket t on t.rest_seq "
+				+ " = r.rest_seq join editer i on i.e_seq = e.e_seq join tic_option n on n.tic_seq "
+				+ " = t.tic_seq join tic_explain x on x.tic_seq = t.tic_seq join tic_img z on z.tic_seq "
+				+ " = t.tic_seq where t.tic_seq = ? and rownum = 1 ";
 
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -770,6 +816,7 @@ public class ProductDetailDAO {
 				dto.setTic_original_price(rs.getInt("tic_original_price"));
 				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
 				dto.setTic_explain_content(rs.getString("tic_explain_content"));
+				dto.setTic_img(rs.getString("tic_img"));
 
 		    sql = "select count(*) cnt from (select * from pick where m_seq = ? and tic_seq = ?)";
 		    pstmt2 = conn.prepareStatement(sql);
@@ -878,6 +925,4 @@ public class ProductDetailDAO {
 		return result;
 	} // insertQnA
 	
-	
-
 }// class

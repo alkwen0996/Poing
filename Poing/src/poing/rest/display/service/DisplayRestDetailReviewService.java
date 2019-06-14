@@ -22,7 +22,6 @@ public class DisplayRestDetailReviewService {
 		return list;
 	}
 	
-	
 	public static ProductDTO selectRestTicket(int rest_seq) throws SQLException {
 		Connection conn = null;
 		

@@ -26,7 +26,7 @@
 						data-type="poing.popup.photoReviewViewerPopup" data-index="${photoList2.tic_img_seq }"
 						data-image-selector="#photo_slider>.i_wrap>i"
 						data-origin-selector="#content.detail.photo>.body>.section>.origin>a"
-						tabindex="-1" style="top: 0px; left: -100%;">
+						tabindex="-1" style="top: 0px; left: 0%;">
 						<i class="image"
 							style="background-image:url(/Poing${photoList1.tic_img})"
 							title=""></i>

@@ -66,21 +66,33 @@ function deleteCokie(name) {
 	document.cookie = name + "=" + "; expires=" + now.toUTCString();
 }
 
-var jsonObejct = getCookie('restlist');
+var jsonObject = getCookie('restlist');
 if (jsonObject == null) {
-	jsonObejct = [];
+	jsonObject = [];
+}
+else {
+	jsonObject = JSON.parse(jsonObject);
 }
 var Rest = function (rest_name, rest_seq) {
 	this.rest_name = rest_name;
 	this.rest_seq = rest_seq;
-};
+}; 
 
-jsonObejct.add(restObject);
+restObject = new Rest('${ dto.rest_name }', '${ dto.rest_seq }');
 
-if (jsonObejct.length > 16) {
-	jsonObject.pop();
+var temp = jsonObject.filter(function(value, index, array) {
+	if (value.rest_seq != ${ dto.rest_seq }) {
+		return value;
+	}
+});
+jsonObject = temp;
+
+jsonObject.push(restObject);
+
+if (jsonObject.length > 20) {
+	jsonObject.shift();
 }
-setCookie('restlist', JSON.stringify(jsonObejct));
+setCookie('restlist', JSON.stringify(jsonObject));
 </script>
 </head>
 <%
@@ -105,11 +117,11 @@ setCookie('restlist', JSON.stringify(jsonObejct));
 				<div id="banner" class="restaurant_detail">
 					<div class="i_wrap background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="i_wrap blur background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="inner_wrap">
 						<div class="inner">

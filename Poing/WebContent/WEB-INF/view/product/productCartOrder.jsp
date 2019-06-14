@@ -354,7 +354,7 @@ $(document).ready(function(){
          var data = {
            cart_ids : [],
           // cart_seq: (${param.cart_seq}),
-            tic_seq: ${param.tic_seq},
+           // tic_seq: ${param.tic_seq},
             point: $("#point").val(),
             totalmoney: <%=sum%>,
             m_email: "${authUser.m_email}",
@@ -367,7 +367,7 @@ $(document).ready(function(){
         }); 
 
         $.ajax({
-            'url': "/Poing/product/p_payMents.do?cart_seq=${param.cart_seq}",
+            'url': "/Poing/product/p_payMents.do?cart_seq=${param.cart_seq}&tic_seq=${param.tic_seq}",
             'method': "POST",
             'dataType': "JSON",
             'context': this,

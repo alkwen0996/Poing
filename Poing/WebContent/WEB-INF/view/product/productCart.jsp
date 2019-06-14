@@ -35,15 +35,12 @@
 	<div id="wrap" class="">
 		<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 		<!-- header -->
-
 		<!-- container -->
 		<div id="container" class="">
 			<!-- 상단에 배너가 있는 레이아웃 -->
 			<div id="banner_wrap"></div>
 			<div id="content_wrap">
 				<!-- 1. 장바구니 -->
-
-
 				<div class="pay_process">
 					<p class="current">
 						<i class="cart"></i> <span>장바구니</span>
@@ -68,12 +65,11 @@
 									<th class="reserve">예약정보</th>
 								</tr>
 							</thead>
-
 							<tbody>
 							
 							<c:forEach items="${list}" var="dto">
 								<c:if test="${dto.tic_request eq null && dto.tic_reserve_date eq null && dto.tic_num_of_people == 0 }">
-									<tr class="selected" data-id="${dto.tic_cart_seq }" data-valid="false">
+									<tr class="selected" data-id="${dto.tic_cart_seq }" data-valid="false" >
 									<td class="select"><input type="checkbox" class="single"
 										checked=""></td>
 									<td class="info"><a class="image"
@@ -124,11 +120,11 @@
 							
 							<c:forEach items="${list}" var="dto">
 								<c:if test="${dto.tic_request ne null || dto.tic_reserve_date ne null || dto.tic_num_of_people != 0 }">
-									<tr class="selected" data-id="${dto.tic_cart_seq }" data-valid="true">
+									<tr class="selected" data-id="${dto.tic_cart_seq }" data-valid="true" data-tic="${dto.tic_seq }" >
 									<td class="select"><input type="checkbox" class="single"
 										checked=""></td>
 									<td class="info"><a class="image"
-										href="/Poing/product/detail.do?tic_seq=${dto.tic_seq }" target="_blank"> 
+										href="/Poing/product/detail.do?tic_seq=${dto.tic_seq }" target="_blank" id="ts"> 
 										<i class="image border_radius medium"
 											style="background-image: url(${dto.tic_img});"></i>
 									</a>
@@ -181,7 +177,6 @@
 							<span class="label">총 결제금액: </span> <span class="value">원</span>
 						</div>
 					</div>
-
 					<div class="buttons">
 						<button type="button" class="back border_radius soft"
 							tabindex="-1">쇼핑 계속하기</button>
@@ -192,8 +187,8 @@
 			</div>
 		</div>
 	</div>
-
-				<script>
+	
+<script>
 $(document).ready(function(){
     // 상품 선택 체크박스
     $("tbody>tr>td>input").change(function(){
@@ -352,6 +347,7 @@ $(document).ready(function(){
     $(".pay.cart>.buttons>.link").click(function(){
         var checked = $(".section.list>table>tbody>tr.selected");
         var data = [];
+        
 
         if(checked.length == 0) {
             $.popup("/Poing/popup/checkTicket.do", {'text':'상품을 선택해주세요!', 'alert':true});
@@ -378,13 +374,16 @@ $(document).ready(function(){
                 if(res.status) {
                     var checked = $(".section.list>table>tbody>tr.selected");
                     var carts = [];
+                    var tic_seq = [];
                     for(var i=0;i<checked.length; ++i) {
+                   		var a = $("#ts");
                         var target = checked.eq(i);
                         carts[i] = target.data('id');
+                        tic_seq[i] = target.data('tic');   
                     }
-                    alert(carts);
                     carts = carts.join(',');
-                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&tic_seq=1";
+                    
+                    location.href = "/Poing/cart/PayCart.do?cart_seq=" + carts + "&tic_seq=" + tic_seq;
                 } else {
                     if($.inArray(res.error.code, [1503]) > -1) alert(res.error.message);
                     else $.popup("confirm", {'text':res.error.message, 'alert':true, 'wait':true});

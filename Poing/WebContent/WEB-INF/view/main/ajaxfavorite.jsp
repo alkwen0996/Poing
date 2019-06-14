@@ -35,17 +35,17 @@
 	   cnt = rs.getInt("cnt");	   
 	   System.out.println("ajaxfav cnt: " + cnt);	   
 	   if(cnt==0){
-		   sql = "insert into pick (pick_seq,rest_no, tic_seq,rev_seq, m_seq) values ( pick_seq.nextval,null, ?, null,null,? )";
+		   sql = "insert into pick (pick_seq,tic_seq, m_seq) values ( pick_seq.nextval, ?,? )";
 		   pstmt2 = conn.prepareStatement(sql);
-		   pstmt2.setInt(1, m_num);
-		   pstmt2.setInt(2, p_num);
+		   pstmt2.setInt(1, p_num);
+		   pstmt2.setInt(2, m_num);
 		   int result = pstmt2.executeUpdate();
 		   System.out.println("ajaxfav.jsp: insert result "+result);
 	   } else if (cnt>0){
 		   sql = "delete from pick where m_seq=? and rest_no=?";
 		   pstmt2 = conn.prepareStatement(sql);
-		   pstmt2.setInt(1, p_num);
-		   pstmt2.setInt(2, m_num);
+		   pstmt2.setInt(1, m_num);
+		   pstmt2.setInt(2, p_num);
 		   int result = pstmt2.executeUpdate();
 		   System.out.println("ajaxfav.jsp: delete result"+result);
 	   }

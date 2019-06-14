@@ -144,7 +144,7 @@ setCookie('restlist', JSON.stringify(jsonObejct));
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>
-											</c:forEach>  
+											</c:forEach>
 											<span style="display:inline-block;vertical-align:super;" data-id="" data-grade="78">${dto.rest_starpoint/2}점</span>
 											
 										</div>

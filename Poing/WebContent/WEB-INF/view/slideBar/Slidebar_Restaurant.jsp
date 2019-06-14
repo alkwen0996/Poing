@@ -33,17 +33,14 @@
 				</div>
 				<div class="info">${ dto.rest_address }</div>
 				<div class="grade">
-				<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
-					<c:if test="${i <= ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
-						<c:if test="${i%2 ne 0 }"><i class="icon star small odd active" data-id="" data-index="${status.index}" style=""></i></c:if>
-						<c:if test="${i%2 eq 0 }"><i class="icon star small even active" data-id="" data-index="${status.index}" style=""></i></c:if>
-					</c:if>
-					<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
-						<c:if test="${i%2 ne 0 }"><i class="icon star small odd active" data-id="" data-index="${status.index}" style=""></i></c:if>
-						<c:if test="${i%2 eq 0 }"><i class="icon star small even active" data-id="" data-index="${status.index}" style=""></i></c:if>
-					</c:if>
-				</c:forEach>
-				<span data-id="" data-grade="${ dto.rest_starpoint }">${ dto.rest_starpoint }</span>
+				<c:forEach varStatus="status" var="i" begin="1" end="10" step="1"><c:if 
+					test="${i <= ((dto.rest_starpoint/10)+(((dto.rest_starpoint/10)%1>0.5)?(1-((dto.rest_starpoint/10)%1))%1:-((dto.rest_starpoint/10)%1)))}"><c:if 
+					test="${i%2 ne 0 }"><i class="icon star small odd active" data-id="" data-index="${status.index}" style=""></i></c:if><c:if 
+					test="${i%2 eq 0 }"><i class="icon star small even active" data-id="" data-index="${status.index}" style=""></i></c:if></c:if><c:if 
+					test="${i >  ((dto.rest_starpoint/10)+(((dto.rest_starpoint/10)%1>0.5)?(1-((dto.rest_starpoint/10)%1))%1:-((dto.rest_starpoint/10)%1)))}"><c:if 
+					test="${i%2 ne 0 }"><i class="icon star small odd" data-id="" data-index="${status.index}" style=""></i></c:if><c:if 
+					test="${i%2 eq 0 }"><i class="icon star small even" data-id="" data-index="${status.index}" style=""></i></c:if></c:if></c:forEach>
+				<span data-id="" data-grade="${ dto.rest_starpoint }">${ dto.rest_starpoint /10 /2 }</span>
 				</div>
 				<button class="gray_red border_radius soft ${ dto.rest_fav eq 1 ? 'on' : '' }" 
 					data-type="poing.restaurants.favorite" data-id=${ dto.rest_seq } tabindex="-1">

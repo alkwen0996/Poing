@@ -64,7 +64,7 @@
 						<div class="option">
 							<a class="title" href="/product/detail/5468"> <span>${dto.rest_name }</span>
 							</a>
-							<p class="valid_date">유효기간: ${dto.tic_validate_content }</p>
+							<p class="valid_date">유효기간: ${dto.tic_reserve_date }</p>
 
                                         <div class="name">결제한 티켓 총 금액 : ${dto.tic_totalmoney } </div>
 						</div></td>

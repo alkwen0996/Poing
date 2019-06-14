@@ -4935,17 +4935,17 @@ div#header {
   color: #fff
 }
 
-#banner > div.inner_wrap > div > div.name > button {
-  width: 70px;
-  height: 27px;
-  padding: 0 8px;
-  vertical-align: middle;
-  margin-left: 10px;
-  color: #fff;
-  background: 0 0;
-  border: 1px solid #fff;
-  font-size: 0
-}
+/* #banner > div.inner_wrap > div > div.name > button { */
+/*   width: 70px; */
+/*   height: 27px; */
+/*   padding: 0 8px; */
+/*   vertical-align: middle; */
+/*   margin-left: 10px; */
+/*   color: #fff; */
+/*   background: 0 0; */
+/*   border: 1px solid #fff; */
+/*   font-size: 0 */
+/* } */
 
 #banner > div.inner_wrap > div > div.name > button.on {
   background: #c91b3c;

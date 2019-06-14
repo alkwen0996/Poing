@@ -23,6 +23,17 @@ public class ProductPayService {
 		
 		
 	}
+	public List<RefundTicketDTO> selectUseReserva_tic() {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			List<RefundTicketDTO> list = ProductDetailDAO.selectUseReserva_tic(conn);
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		
+	}
 	
 	public boolean insertReserve_tic(int tic_seq, int m_seq, int cart_seq, int totalmoney) {
 		boolean insertCheck = false;

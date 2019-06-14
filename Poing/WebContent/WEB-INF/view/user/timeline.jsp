@@ -16,15 +16,13 @@
 	
 	<style type="text/css">
 	
-/* 	.pointCharge{ */
-/*     font-size: 16px; */
-/*     background: #c91b3c; */
-/*     padding: 3px 8px; */
-/*     border-radius: 7px; */
-/*     margin-left: 10px; */
-/*     cursor: pointer; */
-/*     vertical-align: middle; */
-/* 	} */
+ 	#pointCharge{ 
+background-color: #c91b3c;
+color: #ffffff;
+padding: 3px 8px;
+    border-radius: 7px;
+    margin-left: 10px;
+ 	}
 	
 	</style>
 	<script type="text/javascript" 

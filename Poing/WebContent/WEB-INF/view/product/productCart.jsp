@@ -85,7 +85,7 @@
 											data-id="${dto.tic_cart_seq }" tabindex="-1">옵션변경</button> 
 											<a class="name" href="/Poing/product/detail.do?p_num=${dto.tic_seq }" target="_blank">${dto.rest_name }</a>
 										<div class="valid_date">
-											유효기간: <span>${dto.tic_validate_content }</span>
+											유효기간: <span></span>
 										</div>
 									
 									<c:forEach items="${option }" var="opt">	
@@ -136,7 +136,7 @@
 											data-id="${dto.tic_cart_seq }" tabindex="-1">옵션변경</button> 
 											<a class="name" href="/Poing/product/detail.do?tic_seq=${dto.tic_seq }" target="_blank">${dto.rest_name }</a>
 										<div class="valid_date">
-											유효기간: <span>${dto.tic_validate_content }</span>
+											유효기간: <span></span>
 										</div>
 									
 									<c:forEach items="${option }" var="opt">	

@@ -68,9 +68,8 @@ public class CartDAO {
 
 	public List<ProductDTO> CartList(Connection conn) throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select distinct c.tic_cart_seq, r.rest_name, tv.tic_validate_content, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+		sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
 		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
-		sql.append(" join tic_validate tv on tv.tic_seq = t.tic_seq ");
 		sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
 		sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
 		sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
@@ -88,7 +87,6 @@ public class CartDAO {
 				dto.setTic_seq(rs.getInt("tic_seq"));
 				dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 				dto.setRest_name(rs.getString("rest_name"));
-				dto.setTic_validate_content(rs.getString("tic_validate_content"));
 				dto.setTic_request(rs.getString("tic_request"));
 				dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 				dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
@@ -142,18 +140,19 @@ public class CartDAO {
 	 public boolean deleteCart(Connection conn, int tic_cart_seq) throws SQLException {
 	      StringBuffer sql = new StringBuffer();
 	      
+	      boolean result = false;
 	      sql.append(" delete from tic_cart_option_cnt where tic_cart_seq = ? ");
 	      
 	      PreparedStatement pstmt = null;
 	      
-	      boolean result = false;
 	      pstmt = conn.prepareStatement(sql.toString());
 	     
 	      pstmt.setInt(1, tic_cart_seq);
 	     
 	      result = pstmt.executeUpdate()==0? false:true;
 	      
-	      if(!result) {
+	      System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + result);
+	      if(result == true) {
 	    	  StringBuffer sql2 = new StringBuffer();
 	    	  sql2.append(" delete from cart where tic_cart_seq = ? ");
 	    	  pstmt = conn.prepareStatement(sql2.toString());
@@ -185,9 +184,8 @@ public class CartDAO {
 	 
 	 public List<ProductDTO> selectoption(Connection conn, int cart_seq) throws SQLException {
 			StringBuffer sql = new StringBuffer();
-			sql.append(" select distinct c.tic_cart_seq, r.rest_name, tv.tic_validate_content, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+			sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
 			sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
-			sql.append(" join tic_validate tv on tv.tic_seq = t.tic_seq ");
 			sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
 			sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
 			sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
@@ -208,7 +206,6 @@ public class CartDAO {
 					dto.setTic_seq(rs.getInt("tic_seq"));
 					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 					dto.setRest_name(rs.getString("rest_name"));
-					dto.setTic_validate_content(rs.getString("tic_validate_content"));
 					dto.setTic_request(rs.getString("tic_request"));
 					dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 					dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
@@ -337,9 +334,8 @@ public class CartDAO {
 	
 	public List<ProductDTO> selectCartOrder(Connection conn, String[] cart_seq) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select distinct c.tic_cart_seq, r.rest_name, tv.tic_validate_content, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+		sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
 		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
-		sql.append(" join tic_validate tv on tv.tic_seq = t.tic_seq ");
 		sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
 		sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
 		sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
@@ -363,7 +359,6 @@ public class CartDAO {
 					dto.setTic_seq(rs.getInt("tic_seq"));
 					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 					dto.setRest_name(rs.getString("rest_name"));
-					dto.setTic_validate_content(rs.getString("tic_validate_content"));
 					dto.setTic_request(rs.getString("tic_request"));
 					dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 					dto.setTic_reserve_date(rs.getString("tic_reserve_date"));

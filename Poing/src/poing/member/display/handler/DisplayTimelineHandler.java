@@ -106,14 +106,27 @@ public class DisplayTimelineHandler implements CommandHandler {
 			request.setAttribute("paging", paging);
 			request.setAttribute("review_list", review_list);
 		}
+		//찜한 레스토랑 티켓
+		else if (tab.equals("restaurant")){
 		
-		else if (tab.equals("restaurant"))
-		{
+			if(type.equals("restaurant")) {
 			ArrayList<RestListDTO> pick_rest_list = null;
 			int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
 			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
 			request.setAttribute("pick_rest_list", pick_rest_list);
+		
+			}else if(type.equals("coupon")) { //티켓 찜
+				
+				DisplayProductDetailService service = new DisplayProductDetailService();
+				List<ProductDTO> ticList = service.selectPickTicket();
+				ProductDTO pickRownum = service.selectPickRownum();
+				
+				request.setAttribute("pickRownum", pickRownum);
+				request.setAttribute("ticList", ticList);
+				
+			}
 		}
+		
 		else if (tab.equals("alert"))
 		{
 			if (authUser == null || authUser.getM_seq() != mdto.getM_seq()) 

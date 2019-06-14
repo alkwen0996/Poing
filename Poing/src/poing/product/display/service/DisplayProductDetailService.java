@@ -13,9 +13,30 @@ import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
 import poing.product.PointHistoryDTO;
+import poing.product.ProductDAO;
 
 
 public class DisplayProductDetailService {
+	
+	public List<ProductDTO> selectPickTicket() {
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			List<ProductDTO> list = ProductDAO.selectPickTicket(conn);
+			
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public ProductDTO selectPickRownum() {
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			ProductDTO pickRownum = ProductDAO.selectPickRownum(conn);
+			
+			return pickRownum;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	public List<ProductDTO> selectRestPhotoImg(int tic_seq) {
 		try (Connection conn = ConnectionProvider.getConnection()){	

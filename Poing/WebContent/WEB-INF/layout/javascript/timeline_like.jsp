@@ -12,18 +12,6 @@ $(".sort_list>.item").on("click", function () {
 	}
 });
 
-function restaurantPaging(page) {
-	location.search = "?restaurant&page=" + page + "&type=" + "coupon";
-}
-
-new Pagination({
-	selector: '#restaurant_pagination',
-	current_page: 1,
-	per_page: 10,
-	total_page: 2,
-	event: restaurantPaging
-});
-
 
 
 

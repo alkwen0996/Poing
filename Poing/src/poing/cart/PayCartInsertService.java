@@ -10,6 +10,7 @@ import poing.member.MemberDAO;
 import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
 import poing.product.PointHistoryDTO;
+import poing.product.ProductDTO;
 
 public class PayCartInsertService {
 	
@@ -23,7 +24,7 @@ public class PayCartInsertService {
 		}
 	}
 	
-	public boolean insertReserve_tics(int tic_seq, int m_seq, String[] cart_seq, int totalmoney) {
+	public boolean insertReserve_tics(String[] tic_seq, int m_seq, String[] cart_seq, int totalmoney) {
 		boolean insertCheck = false;
 		try {
 			Connection conn = ConnectionProvider.getConnection();
@@ -54,6 +55,6 @@ public class PayCartInsertService {
 			throw new RuntimeException(e);
 		}
 		return updateCheck;
-
 	}
+	
 }

@@ -85,7 +85,7 @@ public class MemberDAO {
 		return result1;
 	}
 	
-	public static boolean insertReserv_tics(Connection conn, int tic_seq, int m_seq, String[] cart_seq, int totalmoney){
+	public static boolean insertReserv_tics(Connection conn, String[] tic_seq, int m_seq, String[] cart_seq, int totalmoney){
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" insert into tic_cart_purchase_detail (TC_PURCHAS_SEQ, TIC_SEQ, TIC_CART_SEQ, M_SEQ, TIC_PURCHAS_STATE, tic_totalmoney)" );
@@ -94,7 +94,7 @@ public class MemberDAO {
 		try {
 			for (int i = 0; i < cart_seq.length; i++) {
 				pstmt = conn.prepareStatement(sql.toString());
-				pstmt.setInt(1, tic_seq);
+				pstmt.setInt(1, Integer.parseInt(tic_seq[i]));
 				pstmt.setInt(2, Integer.parseInt(cart_seq[i]));
 				pstmt.setInt(3, m_seq);
 				pstmt.setInt(4, totalmoney);

@@ -1,3 +1,6 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="org.json.simple.JSONObject"%>
@@ -53,6 +56,7 @@ while (ir.hasNext()) {
 			int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 // 			System.out.println(totalmoney);
 			System.out.println(cart_seq);
+	
 %>
 
         <!-- body wrap -->

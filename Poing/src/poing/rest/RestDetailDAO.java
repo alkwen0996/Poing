@@ -59,7 +59,75 @@ public class RestDetailDAO {
 		rs.close();
 		return dto;	
 	}*/
+	public RestListDTO selectRestEditer(Connection conn,int rest_seq) {
+		String sql = null;
+		sql = " select e_img, e_name,er_content from editer e join editer_review r on e.e_seq = "
+				+ " r.e_seq join restaurant a on a.rest_seq = r.rest_seq where a.rest_seq = ? ";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RestListDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rest_seq);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				dto = new RestListDTO();
+				dto.setE_img(rs.getString("e_img"));
+				dto.setE_name(rs.getString("e_name"));
+				dto.setEr_content(rs.getString("er_content"));
+			
+			}
+			
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
+	public RestListDTO selectRestTip(Connection conn,int rest_seq) {
+		String sql = null;
+		sql = " select rest_tip from restaurant where rest_seq = ? ";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RestListDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rest_seq);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				dto = new RestListDTO();
+				dto.setRest_tip(rs.getString("rest_tip"));
+			
+			}
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
 	public RestListDTO selectdisplay(Connection conn, int rest_seq, int m_no) throws SQLException {
 		
 		System.out.println("restDetailDAO");
@@ -160,7 +228,35 @@ public class RestDetailDAO {
 		}
 		return list;
 	}
+	
+	public static RestListDTO restPhotorownum(Connection conn, int rest_seq) {
+		String sql = " select max(rownum) restPhotorownum from rest_img where rest_seq = ? ";
 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RestListDTO dto = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rest_seq);
+			rs = pstmt.executeQuery();
+			dto = new RestListDTO();
+			rs.next();
+			dto.setRestPhotorownum(rs.getInt("restPhotorownum"));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return dto;
+	}
+	
 	public ArrayList<String> selectimage(Connection conn, int rest_seq) {
 		ArrayList<String> list = new ArrayList<>();
 		
@@ -175,6 +271,7 @@ public class RestDetailDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
+				
 				list.add(rs.getString("rest_img"));
 			}
 			

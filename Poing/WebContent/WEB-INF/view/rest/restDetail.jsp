@@ -33,12 +33,15 @@
 
 </head>
 <%
+	RestListDTO restTip = (RestListDTO) request.getAttribute("restTip");
+	RestListDTO listDTO = (RestListDTO) request.getAttribute("listDTO");
+	RestListDTO pdto = (RestListDTO) request.getAttribute("pdto");
 	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
 	ProductDTO restProduct = (ProductDTO) request.getAttribute("restProduct");
-	double starpoint = dto.getRest_starpoint();
-	int tenpoint = (int) Math.round(starpoint * 2);
-	request.setAttribute("tenpoint", tenpoint);
-	System.out.print(tenpoint);
+// 	double starpoint = dto.getRest_starpoint();
+// 	int tenpoint = (int) Math.round(starpoint * 2);
+// 	request.setAttribute("tenpoint", tenpoint);
+// 	System.out.print(tenpoint);
 %>
 
 <body>

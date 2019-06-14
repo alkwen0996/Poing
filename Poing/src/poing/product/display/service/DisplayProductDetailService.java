@@ -18,9 +18,16 @@ import poing.product.ProductDAO;
 
 public class DisplayProductDetailService {
 	
-	public List<ProductDTO> selectPickTicket() {
+	public List<ProductDTO> selectPickTicket(int page) {
+		int cpage = page;
+		int numberOfBlock = 12;
+		int first = (cpage-1) * numberOfBlock + 1;
+		int end = (cpage-1) * numberOfBlock + numberOfBlock;
+		System.out.println(first);
+		System.out.println(end);
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<ProductDTO> list = ProductDAO.selectPickTicket(conn);
+			List<ProductDTO> list = ProductDAO.selectPickTicket(conn, first, end);
+			conn.close();
 			
 			return list;
 		} catch (SQLException e) {

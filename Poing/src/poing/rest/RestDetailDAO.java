@@ -328,4 +328,46 @@ public class RestDetailDAO {
 		return list;
 	}
 
+	public RestListDTO selectOwnerDisplay(Connection conn, int rest_seq) {
+		
+		RestListDTO dto = new RestListDTO();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from restaurant where rest_seq ="+rest_seq;
+		System.out.println("selctOwnerDisp sql="+sql);
+		try {
+			
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				dto.setRest_name(rs.getString("rest_name"));
+				dto.setRest_tel(rs.getString("rest_tel") );
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setRest_hour(rs.getString("rest_hour"));
+				dto.setRest_holiday(rs.getString("rest_holiday"));
+				dto.setRest_budget_type(rs.getString("rest_budget_type"));
+				dto.setRest_line_exp(rs.getString("rest_line_exp"));
+				dto.setRest_tip(rs.getString("rest_tip"));
+				dto.setRest_foodinfo(rs.getString("rest_foodinfo"));
+				dto.setRest_table_type(rs.getString("rest_table_type"));
+				dto.setRest_add_info(rs.getString("rest_add_info"));
+				dto.setRest_alchol(rs.getString("rest_alcohol"));
+			}
+			
+			
+		} catch (Exception e) {
+			try {
+				pstmt.close();
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		return dto;
+	}
+
 }

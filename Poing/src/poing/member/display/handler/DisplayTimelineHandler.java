@@ -24,7 +24,6 @@ import poing.review.ReviewDTO;
 public class DisplayTimelineHandler implements CommandHandler {
 	DisplayTimelineService displayTimelineService = new DisplayTimelineService();
 	
-	@Override
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
 		

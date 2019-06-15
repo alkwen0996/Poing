@@ -23,7 +23,7 @@
 				
 				<c:forEach items="${photoList }" var="photoList1" varStatus="status">
 					<button class="empty i_wrap current slice"
-						data-type="poing.popup.photoReviewViewerPopup" data-index="${photoList2.tic_img_seq }"
+						data-type="poing.popup.photoReviewViewerPopup" data-index="${status.index+1 }"
 						data-image-selector="#photo_slider>.i_wrap>i"
 						data-origin-selector="#content.detail.photo>.body>.section>.origin>a"
 						tabindex="-1" style="top: 0px; left: 0%;">
@@ -42,8 +42,7 @@
 			</div>
 			<div class="origin">
 			<c:forEach items="${photoList }" var="photoList2" varStatus="status">
-									<a href="" target="_blank" data-index="${photoList2.tic_img_seq }" style="display: none;"></a>
-
+									<a href="" target="_blank" data-index="${status.index+1 }" style="display: none;"></a>
 									</c:forEach>
 							</div>
 			<div class="count">
@@ -54,7 +53,7 @@
 				<div class="nav">
 					<div class="slice" style="left: 0px;">
 					<c:forEach items="${photoList }" var="photoList3" varStatus="status">
-                                                    <div class="i_wrap" data-index="${photoList2.tic_img_seq }">
+                                                    <div class="i_wrap" data-index="${status.index+1 }">
                                 <i class="image" style="background-image:url(/Poing${photoList3.tic_img})" title=""></i>
 							</div>
 							</c:forEach>

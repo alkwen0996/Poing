@@ -78,9 +78,11 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}else {
+				MemberDTO mdto1 = (MemberDTO)request.getSession().getAttribute("authUser");
+				int m_seq = mdto1.getM_seq();
 			ProductPayService service5 = new ProductPayService();
-			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
-			List<RefundTicketDTO> rev_use_list = service.selectUseReserva_tic();
+			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic(m_seq);
+			List<RefundTicketDTO> rev_use_list = service.selectUseReserva_tic(m_seq);
 			request.setAttribute("rev_use_list", rev_use_list);
 			request.setAttribute("rev_tic_list", rev_tic_list);
 		
@@ -171,7 +173,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}else {
-			List<RefundTicketDTO> payment_list = service2.selectRefund_tic();//환불 되고나서
+				MemberDTO mdto1 = (MemberDTO)request.getSession().getAttribute("authUser");
+				int m_seq = mdto1.getM_seq();
+			List<RefundTicketDTO> payment_list = service2.selectRefund_tic(m_seq);//환불 되고나서
 			request.setAttribute("payment_list", payment_list);
 			}
 			

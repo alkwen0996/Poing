@@ -123,19 +123,20 @@ public class ProductDetailDAO {
 		return list;
 	}
 
-	public static List<RefundTicketDTO> selectReserva_tic(Connection conn) {
+	public static List<RefundTicketDTO> selectReserva_tic(Connection conn, int m_seq) {
 		String sql = null;
-		sql = " select tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people,"
-				+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq = "
-				+ " b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = "
-				+ " d.rest_seq join tic_img m on m.tic_seq = c.tic_seq where tic_purchas_state = '결제완료' "
-				+ " and tic_img like '%e_1.%' and to_date(substr(tic_reserve_date,0,10),'yyyy-mm-dd') >= sysdate ";
+		sql = " select b.m_seq,tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people,"
+				+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq = b.tic_cart_seq"
+				+ " join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = d.rest_seq join tic_img"
+				+ " m on m.tic_seq = c.tic_seq join member b on b.m_seq = a.m_seq where tic_purchas_state = '결제완료'"
+				+ " and tic_img like '%e_1.%' and to_date(substr(tic_reserve_date,0,10),'yyyy-mm-dd') >= sysdate and b.m_seq = ? ";
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
 		ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, m_seq);
 			rs = pstmt.executeQuery();
 			RefundTicketDTO rdto = null;
 			while (rs.next()) {
@@ -164,19 +165,20 @@ public class ProductDetailDAO {
 		return list1;
 	}
 		
-		public static List<RefundTicketDTO> selectUseReserva_tic(Connection conn) {
+		public static List<RefundTicketDTO> selectUseReserva_tic(Connection conn, int m_seq) {
 			String sql = null;
-			sql = " select tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people, "
+			sql = " select b.m_seq,tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people, "
 					+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq "
 					+ " = b.tic_cart_seq join ticket c on c.tic_seq = a.tic_seq join restaurant d on c.rest_seq = "
-					+ " d.rest_seq join tic_img m on m.tic_seq = c.tic_seq where tic_purchas_state = '결제완료' and "
-					+ " tic_img like '%e_1.%' and to_date(substr(tic_reserve_date,0,10),'yyyy-mm-dd') < sysdate ";
+					+ " d.rest_seq join tic_img m on m.tic_seq = c.tic_seq join member b on b.m_seq = a.m_seq where tic_purchas_state = '결제완료' and "
+					+ " tic_img like '%e_1.%' and to_date(substr(tic_reserve_date,0,10),'yyyy-mm-dd') < sysdate and b.m_seq = ? ";
 			PreparedStatement pstmt = null;
 
 			ResultSet rs = null;
 			ArrayList<RefundTicketDTO> list1 = new ArrayList<>();
 			try {
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, m_seq);
 				rs = pstmt.executeQuery();
 				RefundTicketDTO rdto = null;
 				while (rs.next()) {
@@ -230,18 +232,19 @@ public class ProductDetailDAO {
 		return result;
 	};
 
-	public static List<RefundTicketDTO> selectRefund_tic(Connection conn) {
+	public static List<RefundTicketDTO> selectRefund_tic(Connection conn,int m_seq) {
 		String sql = null;
-		sql = " select tc_purchas_seq,tic_reserve_date,rest_name,tic_totalmoney,tic_num_of_people,tic_request,"
-				+ "tic_reserve_date, tic_totalmoney from cart c join tic_cart_purchase_detail t on c.tic_cart_seq"
-				+ " = t.tic_cart_seq join ticket k on k.tic_seq = t.tic_seq join restaurant z on z.rest_seq ="
-				+ " k.rest_seq where tic_purchas_state = '환불완료' ";
+		sql = " select b.m_seq,tc_purchas_seq,tic_reserve_date,rest_name,tic_totalmoney,tic_num_of_people,tic_request,tic_reserve_date,"
+				+ " tic_totalmoney from cart c join tic_cart_purchase_detail t on c.tic_cart_seq =t.tic_cart_seq join"
+				+ " ticket k on k.tic_seq = t.tic_seq join restaurant z on z.rest_seq = k.rest_seq join member b on b.m_seq"
+				+ " = t.m_seq where tic_purchas_state = '환불완료' and b.m_seq = ? ";
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<RefundTicketDTO> list2 = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, m_seq);
 			rs = pstmt.executeQuery();
 			RefundTicketDTO rtdto = null;
 			while (rs.next()) {
@@ -273,14 +276,15 @@ public class ProductDetailDAO {
 		return list2;
 	}
 
-	public static List<PointHistoryDTO> PointHistory(Connection conn) {
+	public static List<PointHistoryDTO> PointHistory(Connection conn,int m_seq) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select * from pointUseHistory ");
+		sql.append(" select * from pointUseHistory p join member m on m.m_seq = p.m_seq where m.m_seq = ? ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<PointHistoryDTO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, m_seq);
 			rs = pstmt.executeQuery();
 			PointHistoryDTO phdto = null;
 			while (rs.next()) {
@@ -308,14 +312,15 @@ public class ProductDetailDAO {
 		return list;
 	}
 
-	public static PointHistoryDTO selectRownum(Connection conn) {
+	public static PointHistoryDTO selectRownum(Connection conn, int m_seq) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select rownum from pointUseHistory ");
+		sql.append(" select rownum from pointUseHistory p join member m on m.m_seq = p.m_seq where m.m_seq = ? ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		PointHistoryDTO phdto = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, m_seq);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				phdto = new PointHistoryDTO();

@@ -18,9 +18,10 @@ public class DisplayPointHistoryHandler implements CommandHandler {
 	public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			DisplayProductDetailService service2 = new DisplayProductDetailService();
-			
-			List<PointHistoryDTO> list3 = service2.PointHistory();//포인트 기록
-			PointHistoryDTO phdto = service2.selectRownum();
+			MemberDTO mdto1 = (MemberDTO)request.getSession().getAttribute("authUser");
+			int m_seq = mdto1.getM_seq();
+			List<PointHistoryDTO> list3 = service2.PointHistory(m_seq);//포인트 기록
+			PointHistoryDTO phdto = service2.selectRownum(m_seq);
 			
 			request.setAttribute("phdto", phdto);
 			request.setAttribute("list3", list3);

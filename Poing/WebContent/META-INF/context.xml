@@ -6,15 +6,7 @@
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="oracle.jdbc.OracleDriver"
-<<<<<<< HEAD
-<<<<<<< HEAD
 		url="jdbc:oracle:thin:@172.17.107.68:1521:xe"
-=======
-		url="jdbc:oracle:thin:@localhost:1521:xe"
->>>>>>> branch 'kouzie' of https://github.com/Kouzie/Poing.git
-=======
-		url="jdbc:oracle:thin:@localhost:1521:xe"
->>>>>>> refs/remotes/origin/kouzie
 		username="poing_project"
 		password="poing" 
 		maxTotal="20"

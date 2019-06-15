@@ -42,6 +42,25 @@
 		style="display: none; z-index: 10000; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: url(http://c1.poing.co.kr/original/images/spiffygif_52x52.gif) no-repeat center center black; opacity: 0.6; filter: alpha(opacity = 60);"></i>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div id="photoReviewViewerPopupShading" class="shading_bg"></div>
 	<div id="photoReviewViewerPopup" class="popup ">
 		<div class="section photo side">
@@ -65,6 +84,33 @@
 		<div class="close">
 			<i class="icon close large"></i>
 		</div>
+	</div>
+
+
+
+	<div id="editorReviewsPopupShading" class="shading_bg"></div>
+	<div id="editorReviewsPopup" class="popup">
+		<div class="i_wrap close">
+			<i class="icon close"></i>
+		</div>
+		<ul class="list">
+			<li class="item">
+				<div class="i_wrap">
+					<i class="image border_radius circle"
+						style="background-image: url(http://c2.poing.co.kr/EDITOR-PPMjAxNzA2/1498116708594b726486550.jpeg)"></i>
+				</div>
+				<div class="comment">
+					<div class="name">
+						배상준 에디터 <span class="tendency"> You are what you eat. </span>
+					</div>
+					<div class="text">클래식한 프렌치 요리로 서울에서 둘째가라면 서러운 라미띠에. 장명식 셰프의
+						라미띠에는 국내 식재료와 프랑스 전통 조리법을 한국식으로 재해석한 요리가 돋보이는 곳이다. 클래식한 프렌치 요리를 맛볼
+						수 있기 때문에 프렌치를 처음 접하는 사람에게도, 프렌치를 좋아하는 사람에게도 적극 추천한다. 코스의 길이와 퀄리티에
+						비해 가격도 합리적인 편. 프라이빗 룸이 준비되어 있어 특별한 날 방문하기에도 좋다. 소중한 사람들과 함께 기억에 남을
+						식사를 원한다면 주저 없이 라미띠에를 추천한다.</div>
+				</div>
+			</li>
+		</ul>
 	</div>
 
 

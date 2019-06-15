@@ -180,7 +180,7 @@ $(document).ready(function () {
 });
 (function () {
 	var target = $("#left_time>span");
-	var end = moment('2019-05-31 18:00:00');
+	var end = moment('${ dto.tic_enddate }');
 
 	var calc_time = function (start, end) {
 		var diff = end.diff(start, 'seconds');

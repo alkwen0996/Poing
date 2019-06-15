@@ -40,9 +40,6 @@
 		style="display: none; z-index: 10000; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: url(http://c1.poing.co.kr/original/images/spiffygif_52x52.gif) no-repeat center center black; opacity: 0.6; filter: alpha(opacity = 60);"></i>
 
 
-
-
-
 	<div id="reportShading" class="shading_bg"></div>
 	<div id="report_popup">
 		<i class="icon close"></i>
@@ -59,7 +56,6 @@
 
 		<button type="button" class="report_confirm" disabled="" tabindex="-1">확인</button>
 	</div>
-
 
 
 	<div id="reserveShading" class="shading_bg"></div>
@@ -100,8 +96,8 @@
 		</div>
 
 		<div class="popup-row comment result">
-			<span class="date"></span> <span class="time"></span> <span
-				class="count"></span>
+			<span class="date"></span> <span class="time"></span> 
+			<span class="count"></span>
 		</div>
 
 		<%-- <div class="popup-row confirm">

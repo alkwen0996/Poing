@@ -1,6 +1,5 @@
 package poing.product.display.handler;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;

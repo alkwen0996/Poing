@@ -112,18 +112,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 		
 		//찜한 레스토랑 티켓
 		else if (tab.equals("restaurant")){
-<<<<<<< HEAD
-<<<<<<< HEAD
 		
-			if(type == null || type.equals("restaurant")) {
-=======
 			
 			if( type == null || type.equals("restaurant")) {
->>>>>>> branch 'kouzie' of https://github.com/Kouzie/Poing.git
-=======
-			
-			if( type == null || type.equals("restaurant")) {
->>>>>>> refs/remotes/origin/kouzie
 			ArrayList<RestListDTO> pick_rest_list = null;
 			int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
 			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);

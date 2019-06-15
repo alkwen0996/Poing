@@ -22,9 +22,11 @@
  #map {
         height: 100%;
       }
-.page active > a:link { color: #969696; text-decoration: none;}
+.page active > a:link { color: #969696 !important; text-decoration: none !important;}
 .page > a:visited { color: #969696; text-decoration: none;}
+.page > a:link { color: #969696; text-decoration: none;}
 .page > a:hover { color: #969696; text-decoration: none;}
+.pagination > li > a  { color: #969696; text-decoration: none;}
 
 </style>
 <script>
@@ -106,9 +108,9 @@
 		newurl += "pop=" + request.getParameter("pop");
 		ucnt++;
 	}
-	if (request.getParameter("pop") != null) {
-		if (ucnt > 0)newurl += "&pop=" + request.getParameter("pop");
-		else newurl += "pop=" + request.getParameter("pop");
+	if (request.getParameter("food_type") != null) {
+		if (ucnt > 0)newurl += "&food_type=" + request.getParameter("food_type");
+		else newurl += "food_type=" + request.getParameter("food_type");
 		ucnt++;
 	}
 	if (request.getParameter("add") != null) {
@@ -210,9 +212,8 @@
 				</div>
 				
 				<div id="pager">
-					<%-- <div class="page-list">
+					<div class="page-list">
 						<ul class="pagination" onselectstart="return false;">
-							
 							<li class="prevAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=1">&lt;&lt;</a></li>
 							<li class="prev"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=prev%>">&lt;</a></li>
 							<c:if test="${list eq null }">
@@ -232,32 +233,13 @@
 							<li class="nextAll"><a href="/Poing/rest/list.do?<%=newurl%>&page=<%=totalpage%>">&gt;&gt;</a></li>
 
 						</ul>
-					</div> --%>
+					</div> 
 				</div> 
 
 			</div><!-- content -->
 			
 			<script>
-				new Pagination({
-					selector : '#pager',
-					current_page : <%=cpage%>,
-					per_page : 10,
-					total_page : <%=totalpage%>,
-					event : function(page) {
-						location.search = "<%=newurl%>&page=" + page;
-					}
-				});
-				$("ul.sort_order_spread>li").click(
-						function() {
-							$(this).addClass('selected').siblings()
-									.removeClass('selected');
-							window.search({
-								set : {
-									'order_rule' : $(this).attr('data-order')
-								},
-								reset : [ 'page', 'r_num' ]
-							});
-						});
+				
 			</script>
 		</div><!-- content_wrap -->
 	</div>

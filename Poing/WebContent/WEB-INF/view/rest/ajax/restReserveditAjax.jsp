@@ -37,7 +37,7 @@ String message = request.getParameter("msg")==null?"":request.getParameter("msg"
 System.out.println("message="+message);
 
 
-String sql = "update rest_reserve set r_reserve_date =?, r_reserve_hour=?,  r_reserve_request = ?, r_reserve_num_of_people = ?  where r_reserve_seq= ? ";
+String sql = "update rest_reserve set r_reserve_date =?, r_reserve_hour=?,  r_reserve_request = ?, r_reserve_status = 1,r_reserve_num_of_people = ?  where r_reserve_seq= ? ";
 Connection conn = null;
 PreparedStatement pstmt = null;
 

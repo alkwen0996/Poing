@@ -178,6 +178,7 @@ public class RestDetailDAO {
 		
 		//dto.setRest_tic_code(rs.getInt("p_num")); 티켓.. 쿼리에는 넣어놨음
 		dto.setRest_holiday(rs.getString("rest_holiday"));
+		dto.setRest_address(rs.getString("rest_address"));
 		dto.setRest_line_exp(rs.getString("rest_line_exp"));
 		dto.setRest_food_type(rs.getString("food_type"));
 		dto.setRest_alchol(rs.getString("rest_alcohol"));

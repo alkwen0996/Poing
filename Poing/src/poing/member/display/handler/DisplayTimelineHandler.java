@@ -12,6 +12,7 @@ import poing.mvc.CommandHandler;
 import poing.notice.PoingNoticeDTO;
 import poing.notice.UserNoticeDTO;
 import poing.product.Paging;
+import poing.product.ProductDAO;
 import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
 import poing.product.RefundTicketDTO;
@@ -77,9 +78,11 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}else {
+				MemberDTO mdto1 = (MemberDTO)request.getSession().getAttribute("authUser");
+				int m_seq = mdto1.getM_seq();
 			ProductPayService service5 = new ProductPayService();
-			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic();
-			List<RefundTicketDTO> rev_use_list = service.selectUseReserva_tic();
+			List<RefundTicketDTO> rev_tic_list = service5.selectReserva_tic(m_seq);
+			List<RefundTicketDTO> rev_use_list = service.selectUseReserva_tic(m_seq);
 			request.setAttribute("rev_use_list", rev_use_list);
 			request.setAttribute("rev_tic_list", rev_tic_list);
 		
@@ -106,23 +109,50 @@ public class DisplayTimelineHandler implements CommandHandler {
 			request.setAttribute("paging", paging);
 			request.setAttribute("review_list", review_list);
 		}
+		
 		//찜한 레스토랑 티켓
 		else if (tab.equals("restaurant")){
+<<<<<<< HEAD
 		
 			if(type == null || type.equals("restaurant")) {
+=======
+			
+			if( type == null || type.equals("restaurant")) {
+>>>>>>> branch 'kouzie' of https://github.com/Kouzie/Poing.git
 			ArrayList<RestListDTO> pick_rest_list = null;
 			int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
 			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);
 			request.setAttribute("pick_rest_list", pick_rest_list);
 		
 			}else if(type.equals("coupon")) { //티켓 찜
-				
 				DisplayProductDetailService service = new DisplayProductDetailService();
-				List<ProductDTO> ticList = service.selectPickTicket();
-				ProductDTO pickRownum = service.selectPickRownum();
+				/////////////////////////////////////////페이징처리
+				ProductDAO dao = new ProductDAO();
+				int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
+				int totalCount = dao.getTotalCount2();
 				
-				request.setAttribute("pickRownum", pickRownum);
+				int startPageNo = 1;
+				int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
+				System.out.println(endPageNo);
+				int prevPageNo = page == 1 ? 1 : page - 1;
+				int nextPageno = page == endPageNo ? endPageNo : page + 1;
+				
+				Paging paging = new Paging();
+				paging.setCurPage(page);
+				paging.setPageSize(12);
+				paging.setTotalCount(totalCount);
+				paging.setStartPageNo(startPageNo);
+				paging.setEndPageNo(endPageNo);
+				paging.setPrevPageNo(prevPageNo);
+				paging.setNextPageno(nextPageno);
+				
+				List<ProductDTO> ticList = service.selectPickTicket(page);
+//				ProductDTO pickRownum = service.selectPickRownum();
+				
+//				request.setAttribute("pickRownum", pickRownum);
+				request.setAttribute("endPageNo", endPageNo);
 				request.setAttribute("ticList", ticList);
+				request.setAttribute("paging", paging);
 				
 			}
 		}
@@ -148,7 +178,9 @@ public class DisplayTimelineHandler implements CommandHandler {
 				response.sendRedirect("/Poing/timeline.do?id="+mdto.getM_seq());
 				return null;
 			}else {
-			List<RefundTicketDTO> payment_list = service2.selectRefund_tic();//환불 되고나서
+				MemberDTO mdto1 = (MemberDTO)request.getSession().getAttribute("authUser");
+				int m_seq = mdto1.getM_seq();
+			List<RefundTicketDTO> payment_list = service2.selectRefund_tic(m_seq);//환불 되고나서
 			request.setAttribute("payment_list", payment_list);
 			}
 			

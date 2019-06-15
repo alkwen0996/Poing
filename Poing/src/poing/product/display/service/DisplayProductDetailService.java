@@ -18,9 +18,16 @@ import poing.product.ProductDAO;
 
 public class DisplayProductDetailService {
 	
-	public List<ProductDTO> selectPickTicket() {
+	public List<ProductDTO> selectPickTicket(int page) {
+		int cpage = page;
+		int numberOfBlock = 12;
+		int first = (cpage-1) * numberOfBlock + 1;
+		int end = (cpage-1) * numberOfBlock + numberOfBlock;
+		System.out.println(first);
+		System.out.println(end);
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<ProductDTO> list = ProductDAO.selectPickTicket(conn);
+			List<ProductDTO> list = ProductDAO.selectPickTicket(conn, first, end);
+			conn.close();
 			
 			return list;
 		} catch (SQLException e) {
@@ -70,10 +77,10 @@ public class DisplayProductDetailService {
 //		}
 //	}
 	
-	public PointHistoryDTO selectRownum() {
+	public PointHistoryDTO selectRownum(int m_seq) {
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			PointHistoryDTO rtdto = ProductDetailDAO.selectRownum(conn);
+			PointHistoryDTO rtdto = ProductDetailDAO.selectRownum(conn, m_seq);
 			
 			return rtdto;
 		} catch (SQLException e) {
@@ -81,9 +88,9 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public List<PointHistoryDTO> PointHistory() {
+	public List<PointHistoryDTO> PointHistory(int m_seq) {
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn);
+			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn,m_seq);
 			
 			return list3;
 		} catch (SQLException e) {
@@ -111,10 +118,10 @@ public class DisplayProductDetailService {
 		
 	}
 	
-	public List<RefundTicketDTO> selectRefund_tic() {
+	public List<RefundTicketDTO> selectRefund_tic(int m_seq) {
 		RefundTicketDTO rtdto = new RefundTicketDTO();
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<RefundTicketDTO> list2 = ProductDetailDAO.selectRefund_tic(conn);
+			List<RefundTicketDTO> list2 = ProductDetailDAO.selectRefund_tic(conn, m_seq);
 			
 			return list2;
 		} catch (SQLException e) {

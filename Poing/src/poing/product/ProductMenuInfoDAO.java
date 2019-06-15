@@ -33,6 +33,8 @@ public class ProductMenuInfoDAO {
 				p_menuinfo_list.add(p_menuinfo);
 			} while (rs.next());
 		}
+		pstmt.close();
+		rs.close();
 		return p_menuinfo_list;
 	}
 	public ArrayList<String> selectProductMenuAdviceList(Connection conn, int tic_seq) throws SQLException {
@@ -56,6 +58,8 @@ public class ProductMenuInfoDAO {
 				tic_menu_advice_content_list.add(tic_menu_advice_content);
 			} while (rs.next());
 		}
+		pstmt.close();
+		rs.close();
 		return tic_menu_advice_content_list;
 	}
 }

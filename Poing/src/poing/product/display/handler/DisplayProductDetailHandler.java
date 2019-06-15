@@ -60,6 +60,17 @@ public class DisplayProductDetailHandler implements CommandHandler {
 			request.setAttribute("p_menuinfo_list", p_menuinfo_list);
 			request.setAttribute("tic_menu_advice_content_list", tic_menu_advice_content_list);
 			
+			ArrayList<String> tic_validate_content_list = service.selectMenuAdviceList(tic_seq);
+			ArrayList<String> tic_validate_advice_content = service.selectValidateAdviceList(tic_seq);
+			request.setAttribute("tic_validate_content_list", tic_validate_content_list);
+			request.setAttribute("tic_validate_advice_content", tic_validate_advice_content);
+			
+			ArrayList<String> ticg_content_list = service.selectGuideList(tic_seq);
+			ArrayList<String> tic_use_case_content_list = service.selectUsecaseList(tic_seq);
+			request.setAttribute("ticg_content_list", ticg_content_list);
+			request.setAttribute("tic_use_case_content_list", tic_use_case_content_list);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

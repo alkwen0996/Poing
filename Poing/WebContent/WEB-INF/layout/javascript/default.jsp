@@ -48,6 +48,7 @@
 				.show();
 		});
 
+		
 		$("body").on("beforeShow", ".shading_bg", function () {
 			if ($(this).is(":visible")) {
 				return;

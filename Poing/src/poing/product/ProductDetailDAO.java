@@ -931,4 +931,80 @@ public class ProductDetailDAO {
 		return result;
 	} // insertQnA
 	
+	public ArrayList<String> selectProductValidateList(Connection conn, int tic_seq) throws SQLException {
+		ArrayList<String> tic_validate_content_list = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT tic_validate_content FROM TIC_VALIDATE WHERE tic_seq = ?");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, tic_seq);
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+			tic_validate_content_list = new ArrayList<>();
+			do {
+				tic_validate_content_list.add(rs.getString("tic_validate_content"));
+			} while (rs.next());
+		}
+		pstmt.close();
+		rs.close();
+		return tic_validate_content_list;
+	}
+	public ArrayList<String> selectProductValidateAdviceList(Connection conn, int tic_seq) throws SQLException {
+		ArrayList<String> tic_validate_advice_list = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT tic_validate_advice_content FROM tic_validate_advice WHERE tic_seq = ?");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, tic_seq);
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+			tic_validate_advice_list = new ArrayList<>();
+			do {
+				tic_validate_advice_list.add(rs.getString("tic_validate_advice_content"));
+			} while (rs.next());
+		}
+		pstmt.close();
+		rs.close();
+		return tic_validate_advice_list;
+	}
+	public ArrayList<String> selectProductGuideList(Connection conn, int tic_seq) throws SQLException {
+		ArrayList<String> ticg_content_list = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM tic_guideinfo WHERE tic_seq = ?");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, tic_seq);
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+			ticg_content_list = new ArrayList<>();
+			do {
+				ticg_content_list.add(rs.getString("ticg_content"));
+			} while (rs.next());
+		}
+		pstmt.close();
+		rs.close();
+		return ticg_content_list;
+	}
+	public ArrayList<String> selectProductUsecaseList(Connection conn, int tic_seq) throws SQLException {
+		ArrayList<String> tic_use_case_content_list = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM tic_use_case WHERE tic_seq = ? ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, tic_seq);
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+			tic_use_case_content_list = new ArrayList<>();
+			do {
+				tic_use_case_content_list.add(rs.getString("tic_use_case_content"));
+			} while (rs.next());
+		}
+		pstmt.close();
+		rs.close();
+		return tic_use_case_content_list;
+	}
 }// class

@@ -20,6 +20,7 @@ import poing.product.ProductDAO;
 
 public class DisplayProductDetailService {
 	ProductMenuInfoDAO pmiDAO = new ProductMenuInfoDAO();
+	ProductDetailDAO dao = new ProductDetailDAO();
 	public List<ProductDTO> selectPickTicket(int page) {
 		int cpage = page;
 		int numberOfBlock = 12;
@@ -58,7 +59,7 @@ public class DisplayProductDetailService {
 	}
 	
 	public boolean updateTotalmoney(int totalmoney, int id) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+				
 		boolean result = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 			result = dao.updateTotalmoney(conn, totalmoney, id);
@@ -148,7 +149,7 @@ public class DisplayProductDetailService {
 	}
 	
 	public boolean updatePayCart(int tc_purchas_seq, int m_no, int totalmoney) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+				
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 			 result2 = dao.updatePayCart(conn, tc_purchas_seq, m_no, totalmoney);
@@ -160,7 +161,7 @@ public class DisplayProductDetailService {
 	}
 	
 	public boolean updateState(int tc_purchas_seq) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+				
 		boolean result3 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 			result3 = dao.updateState(conn, tc_purchas_seq);
@@ -308,4 +309,41 @@ public class DisplayProductDetailService {
 		conn.close();
 		return tic_menu_advice_content_list;
 	}
+	
+	public ArrayList<String> selectValidateList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_validate_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_validate_content_list = dao.selectProductValidateList(conn, tic_seq);
+		conn.close();
+		return tic_validate_content_list;
+	}
+	
+	public ArrayList<String> selectValidateAdviceList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_validate_advice_content = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_validate_advice_content = dao.selectProductValidateAdviceList(conn, tic_seq);
+		conn.close();
+		return tic_validate_advice_content;
+	}
+	
+	public ArrayList<String> selectGuideList(int tic_seq) throws SQLException {
+		ArrayList<String> ticg_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		ticg_content_list = dao.selectProductGuideList(conn, tic_seq);
+		conn.close();
+		return ticg_content_list;
+	}
+	public ArrayList<String> selectUsecaseList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_user_case_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_user_case_content_list = dao.selectProductUsecaseList(conn, tic_seq);
+		conn.close();
+		return tic_user_case_content_list;
+	}
+	
+	
 }// class

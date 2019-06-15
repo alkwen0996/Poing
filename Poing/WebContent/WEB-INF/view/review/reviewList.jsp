@@ -145,7 +145,7 @@
 											<p class="info">${dto.rest_address}</p>
 										</a>
 										<div class="body">
-											<div class="time  loaded" style="display: block;">${dto.rev_wtime}</div>
+											<div class="time " style="display: block;">${dto.rev_wtime}</div>
 											<div class="grade">
 
 												<c:forEach varStatus="status" var="i" begin="1" end="10"
@@ -230,7 +230,7 @@
 														style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : applicationScope.baseprofile }')"
 														href="/Poing/timeline.do?id=${ dto.cdto.rc_m_seq }"></a>
 													<div class="author">
-														<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
+														<p class="time " style="display: block;">${ dto.cdto.rc_wtime }</p>
 														<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
 														<p class="text">${ dto.cdto.rc_content }</p>
 														<c:if test="${ dto.cdto.rc_m_seq eq authUser.m_seq }">

@@ -11,7 +11,7 @@
 					data-image-selector="#menu_slider>.i_wrap>i" tabindex="-1"
 					style="top: 0px; left: 0px;">
 					<i class="image"
-						style="background-image: url(/Poing${MenuImg1.tic_menu_images})"></i>
+						style="background-image: url(${realPath}${MenuImg1.tic_menu_images})"></i>
 				</button>
 				</c:forEach>
 				
@@ -28,10 +28,9 @@
 				<c:forEach items="${MenuImg }" var="MenuImg2" varStatus="status">
 					<div class="i_wrap selected" data-index="0">
 						<i class="image"
-							style="background-image: url(/Poing${MenuImg2.tic_menu_images})"></i>
+							style="background-image: url(${ realPath }${MenuImg2.tic_menu_images})"></i>
 					</div>
-					</c:forEach>
-					
+				</c:forEach>
 				</div>
 			</div>
 			<span class="prev">&lt;</span> <span class="next">&gt;</span>

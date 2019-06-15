@@ -28,11 +28,13 @@
 		<div class="title">프로모션 이용 가능 시간</div>
 		<div class="body">
 			<ul>
-				<li>날짜 : 2019. 4. 1 (금) ~ 2019. 6. 30 (일)</li>
-				<li>런치 : 11:30~14:30 (L.O. 14:00)</li>
-				<li>디너 : 17:30~22:00 (L.O 21:00)</li>
+				<c:forEach items="${ tic_validate_content_list }" var="content">
+					<li>${ content }</li>
+				</c:forEach>
 				<p></p>
-				<p>*선택이 불가한 날짜는 만석, 대관, 매장 휴무일 등으로 예약이 불가능한 날입니다.</p>
+				<c:forEach items="${ tic_validate_content_list }" var="content">
+					<p>${ content }</p>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
@@ -40,11 +42,9 @@
 		<div class="title">안내사항</div>
 		<div class="body">
 			<ul>
-				<li>구매와 동시에 예약이 이루어지는 상품입니다.</li>
-				<li>신한카드 Tasty 결제 시 10% 추가 결제일 할인 혜택이 제공됩니다. 자세한 내용은 신한카드
-					홈페이지에서 확인하실 수 있습니다.</li>
-				<li>1월 1일 ~ 12월 31일까지 마스터 프리미엄 카드 등록 후 결제 시 레드포인트 2% 추가 적립 혜택이
-					제공됩니다. 자세한 내용은 마스터 카드 홈페이지에서 확인하실 수 있습니다.</li>
+				<c:forEach items="${ ticg_content_list }" var="content">
+					<li>${ content }</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>
@@ -52,9 +52,9 @@
 		<div class="title">사용방법</div>
 		<div class="body">
 			<ul>
-				<li>예약 일시에 매장 방문 후, 예약자 성함을 말씀해주세요.</li>
-				<li>티켓에 포함되지 않은 메뉴는 매장에서 추가로 결제하실 수 있으며, 추가 요금은 할인 혜택이 적용되지
-					않습니다.</li>
+				<c:forEach items="${ tic_use_case_content_list }" var="content">
+					<li>${ content }</li>
+				</c:forEach>
 			</ul>
 		</div>
 	</div>

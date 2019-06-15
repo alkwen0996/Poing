@@ -1,5 +1,7 @@
 package poing.product;
 
+import java.sql.Date;
+
 public class ProductDTO {
 	
 	private int rest_seq;
@@ -32,13 +34,19 @@ public class ProductDTO {
 	private int tic_op_min_cnt;
 	private int tic_op_max_cnt;
 	private int Pickrownum;
+	private Date tic_enddate;
 	
 	
 	
 	
 	
 	
-	
+	public Date getTic_enddate() {
+		return tic_enddate;
+	}
+	public void setTic_enddate(Date tic_enddate) {
+		this.tic_enddate = tic_enddate;
+	}
 	public int getPickrownum() {
 		return Pickrownum;
 	}

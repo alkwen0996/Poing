@@ -11,7 +11,7 @@
 			
 			<c:forEach items="${imgList}" var="dto" varStatus="status">
 				<button class="empty i_wrap current slice"
-					data-type="poing.popup.photoReviewViewerPopup" data-index="${status.index+1 }"
+					data-type="poing.popup.photoReviewViewerPopup" data-index="${status.index }"
 					data-image-selector="#photo_slider>.i_wrap>i"
 					data-origin-selector="#content.detail.photo>.body>.section>.origin>a"
 					tabindex="-1" style="top: 0px; left: 0%;">
@@ -36,7 +36,7 @@
 			<div class="nav">
 				<div class="slice" style="left: 0px;">
 				<c:forEach items="${imgList}" var="dto" varStatus="status">
-					<div class="i_wrap selected" data-index="${status.index+1 }">
+					<div class="i_wrap selected" data-index="${status.index }">
 						<i class="image"
 							style="background-image: url(/Poing${dto})"
 							title="라미띠에 매장 이미지"></i>

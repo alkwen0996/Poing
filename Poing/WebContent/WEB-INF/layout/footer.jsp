@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div id="footer_wrap">
 	<div id="footer">
-		<img class="logo" src="http://c1.poing.co.kr/original/images/logo.png">
+		<img class="logo" src="/Poing/upload/mainpage/logo.png">
 		<div class="slogan">
 			최고의 레스토랑을 즐기는 특별한 방법.
 			<div class="fb-like fb_iframe_widget"

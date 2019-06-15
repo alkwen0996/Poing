@@ -15,9 +15,9 @@ import poing.product.ProductDTO;
 
 public class PayCartInsertService {
 	
-	public List<RefundTicketDTO> selectReserva_tic() {
+	public List<RefundTicketDTO> selectReserva_tic(int m_seq) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn);
+			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn, m_seq);
 			conn.close();
 			return list;
 		} catch (SQLException e) {

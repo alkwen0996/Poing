@@ -17,6 +17,7 @@ public class RemoveProductBannerService {
 
 		Connection conn = null;
 		conn = ConnectionProvider.getConnection();
+		result = pbDAO.deleteProductBannerImage(conn, pb_seq);
 		result = pbDAO.deleteProductBanner(conn, pb_seq);
 		conn.close();
 		return result;

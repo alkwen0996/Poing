@@ -61,7 +61,7 @@
 
 
 						<a
-							href="https://www.poing.co.kr/seou/restaurant/search?query[theme_childe_sub3]={dto.hotelnumber }"
+							href="/Poing/rest/list.do?pop=${ dto.l_seq }"
 							class="image"
 							style="display: block; background-image:url(&quot;/Poing/${dto.l_img}&quot;);">
 							<div class="shading"></div>

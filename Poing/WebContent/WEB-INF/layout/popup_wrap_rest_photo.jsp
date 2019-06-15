@@ -106,8 +106,8 @@
 		</div>
 
 		<div class="popup-row comment result">
-			<span class="date"></span> <span class="time"></span> <span
-				class="count"></span>
+			<span class="date"></span> <span class="time"></span> 
+			<span class="count"></span>
 		</div>
 
 		<div class="popup-row confirm">

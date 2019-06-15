@@ -18,6 +18,8 @@ public class ProductDetailDAO {
 	public static ProductDetailDAO getInstance() {
 		return displaydao;
 	}
+	public ProductDetailDAO() {
+	}
 
 	public static List<ProductDTO> selectRestPhotoImg(Connection conn, int tic_seq) {
 		String sql = " select * from tic_img where tic_seq = ? ";
@@ -164,8 +166,8 @@ public class ProductDetailDAO {
 		}
 		return list1;
 	}
-		
-		public static List<RefundTicketDTO> selectUseReserva_tic(Connection conn, int m_seq) {
+	
+	public static List<RefundTicketDTO> selectUseReserva_tic(Connection conn, int m_seq) {
 			String sql = null;
 			sql = " select b.m_seq,tc_purchas_seq,rest_name,tic_reserve_date,tic_num_of_people,tic_img,tic_num_of_people, "
 					+ " tic_request,tic_totalmoney from tic_cart_purchase_detail a join cart b on a.tic_cart_seq "
@@ -208,8 +210,6 @@ public class ProductDetailDAO {
 		return list1;
 	}
 
-	public ProductDetailDAO() {
-	}
 
 	public boolean updateTotalmoney(Connection conn, int totalmoney, int id) throws SQLException {
 		StringBuffer sql = new StringBuffer();

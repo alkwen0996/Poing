@@ -9,7 +9,7 @@
 	<li class="rest_review_tables rest_review_detail"><a href="review_tables.ow"><i class="icon icon-comment"></i> <span>레스토랑 리뷰</span></a> </li>
 	<li class="rest_image"><a href="rest_image.ow"><i class="icon icon-picture"></i> <span>레스토랑 사진</span></a></li>
 	<li class="rest_menu"><a href="rest_menu.ow"><i class="icon icon-list-alt"></i> <span>레스토랑 메뉴</span></a></li>
-	<li class="calendar"><a href="rest_cal.ow"><i class="icon icon-bookmark"></i> <span>레스토랑 예약관리</span></a></li>
+	<li class="rest_calendar"><a href="rest_cal.ow"><i class="icon icon-bookmark"></i> <span>레스토랑 예약관리</span></a></li>
 	
 	<li class=""><a href=""><i class="icon icon-plus"></i> <span>티켓 등록</span></a></li>
 	<li class=""><a href=""><i class="icon icon-list-alt"></i> <span>티켓 정보</span></a></li>

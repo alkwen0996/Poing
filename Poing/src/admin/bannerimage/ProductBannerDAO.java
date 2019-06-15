@@ -61,6 +61,17 @@ public class ProductBannerDAO {
 		pstmt.close();
 		return result;
 	}
+	public boolean deleteProductBannerImage(Connection conn, int pb_seq) throws SQLException {
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" DELETE FROM product_banner_img ");
+		sql.append(" WHERE pb_seq = ? ");
+		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+		pstmt.setInt(1, pb_seq);
+		result = pstmt.executeUpdate()==0?false:true;
+		pstmt.close();
+		return result;
+	}
 	public boolean insertProductBannerImage(Connection conn, int pb_seq, String imagePath_elem, String imagePath_banner) throws SQLException {
 		boolean result = false;
 
@@ -83,7 +94,7 @@ public class ProductBannerDAO {
 		conn.setAutoCommit(false);
 		sql.append(" INSERT INTO product_banner ");
 		sql.append(" (pb_seq, pb_sale, pb_title, pb_descript, pb_link, pb_turn_no) VALUES");
-		sql.append(" (product_banner_seq.nextval, ?, ?, ?, ?, (SELECT MAX(pb_turn_no) FROM product_banner)) ");
+		sql.append(" (product_banner_seq.nextval, ?, ?, ?, ?, (SELECT MAX(pb_turn_no)+1 FROM product_banner)) ");
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		pstmt.setString(1, pb_sale);

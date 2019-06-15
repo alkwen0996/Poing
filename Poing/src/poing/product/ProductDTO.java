@@ -37,10 +37,6 @@ public class ProductDTO {
 	private Date tic_enddate;
 	
 	
-	
-	
-	
-	
 	public Date getTic_enddate() {
 		return tic_enddate;
 	}

@@ -10,7 +10,7 @@
 			<div id="photo_slider" class="PoingSlider">
 			
 			<c:forEach items="${imgList}" var="dto" varStatus="status">
-				<button class="empty i_wrap current slice"
+				<button class="empty i_wrap slice ${ status.first ? 'current' :  ''}"
 					data-type="poing.popup.photoReviewViewerPopup" data-index="${status.index }"
 					data-image-selector="#photo_slider>.i_wrap>i"
 					data-origin-selector="#content.detail.photo>.body>.section>.origin>a"

@@ -47,7 +47,7 @@
 				<div class="body">
 				<c:forEach items="${list}" var="dto" varStatus="status">
 					<div class="element  large past_image ${ status.index % 3 ne 0 ? 'first' : '' } ">
-					<a href="https://www.poing.co.kr/seou/restaurant/search?query[theme_childe_sub3]={dto.hotelnumber }"
+					<a href="/Poing/rest/list.do?searchWord=호텔"
 						class="image"
 						style="display: block; background-image:url(&quot;/Poing/${dto.h_img}&quot;);">
 						<div class="shading"></div>

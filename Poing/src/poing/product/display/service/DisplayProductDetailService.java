@@ -11,13 +11,15 @@ import com.util.ConnectionProvider;
 
 import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
+import poing.product.ProductMenuInfoDAO;
+import poing.product.ProductMenuInfoDTO;
 import poing.product.RefundTicketDTO;
 import poing.product.PointHistoryDTO;
 import poing.product.ProductDAO;
 
 
 public class DisplayProductDetailService {
-	
+	ProductMenuInfoDAO pmiDAO = new ProductMenuInfoDAO();
 	public List<ProductDTO> selectPickTicket(int page) {
 		int cpage = page;
 		int numberOfBlock = 12;
@@ -288,4 +290,22 @@ public class DisplayProductDetailService {
 		
 		return list_qna;
 	}// select
+	
+	
+	public ArrayList<ProductMenuInfoDTO> selectMenuInfoList(int tic_seq) throws SQLException {
+		ArrayList<ProductMenuInfoDTO> p_menuinfo_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		p_menuinfo_list = pmiDAO.selectProductMenuInfoList(conn, tic_seq);
+		conn.close();
+		return p_menuinfo_list;
+	}
+	public ArrayList<String> selectMenuAdviceList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_menu_advice_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_menu_advice_content_list = pmiDAO.selectProductMenuAdviceList(conn, tic_seq);
+		conn.close();
+		return tic_menu_advice_content_list;
+	}
 }// class

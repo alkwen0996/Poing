@@ -120,6 +120,10 @@
 		if (ucnt > 0) newurl += "&searchWord=" + request.getParameter("searchWord");
 		else newurl += "searchWord=" + request.getParameter("searchWord");
 	} 
+	if (request.getParameter("food_type") != null) {
+		if (ucnt > 0) newurl += "&food_type=" + request.getParameter("food_type");
+		else newurl += "food_type=" + request.getParameter("food_type");
+	} 
 	
 %>
 <body>
@@ -382,7 +386,6 @@ url: 'www.google.com'
      }
    }
   --%>
-
 </script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3AEpRuYNo5NnomHPAXXRCyXxgtYzz3g&callback=initMap"></script>

@@ -15,6 +15,11 @@
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/matrix.js"></script>
 </head>
 <body>
 
@@ -111,9 +116,5 @@
   <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>
 </div>
 <!--end-Footer-part-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/matrix.js"></script>
 </body>
 </html>

@@ -1980,7 +1980,7 @@ input[type=checkbox].slide-toggle {
 input[type=checkbox].slide-toggle+label span {
   height: 24px;
   padding: 4px 0 0 45px;
-  background-image: url(http://c1.poing.co.kr/original/images/image-sheet.png);
+  background-image: url(/Poing/upload/mainpage/image-sheet.png);
   background-position: -523px -122px;
   line-height: 18px;
   cursor: pointer
@@ -2013,7 +2013,7 @@ input[type=radio]+label {
   padding-left: 20px;
   font-size: 13px;
   line-height: 13px;
-  background-image: url(http://c1.poing.co.kr/original/images/checkbox.png);
+  background-image: url(/Poing/upload/mainpage/checkbox.png);
   background-repeat: no-repeat;
   background-position: 0 -35px
 }
@@ -2051,7 +2051,7 @@ body.popup_state {
 i {
   width: 100%;
   height: 100%;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png)
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png)
 }
 
 i.logo,
@@ -2149,7 +2149,7 @@ i.icon.iphone_down {
 i.icon.notice {
   width: 37px;
   height: 37px;
-  background-image: url(http://c1.poing.co.kr/original/images/bell.png)
+  background-image: url(/Poing/upload/mainpage/bell.png)
 }
 
 i.icon.facebook {
@@ -2487,7 +2487,7 @@ i.icon.small_slider.next:hover {
 }
 
 i.icon.save {
-  background-image: url(http://c1.poing.co.kr/original/images/review/save.gif);
+  background-image: url(/Poing/upload/mainpage/save.gif);
   width: 21px;
   height: 21px;
   background-position: center center
@@ -2668,7 +2668,7 @@ i.icon.small_comment {
 i.icon.cart {
   width: 37px;
   height: 37px;
-  background-image: url(http://c1.poing.co.kr/original/images/cart.png)
+  background-image: url(/Poing/upload/mainpage/cart.png)
 }
 
 i.icon.question {
@@ -3644,7 +3644,7 @@ div#header {
   height: 37px;
   top: 0;
   left: 0;
-  background-image: url(http://c1.poing.co.kr/original/images/mask.png);
+  background-image: url(/Poing/upload/mainpage/mask.png);
   line-height: 37px;
   text-align: center;
   font-size: 10px
@@ -3745,14 +3745,6 @@ div#header {
   padding: 0
 }
 
-.main #banner {
-  display: table;
-  height: 540px;
-  z-index: 1;
-  background-image: url(http://c1.poing.co.kr/original/images/home/banner.png);
-  overflow: visible
-}
-
 .main #banner>.body {
   display: table-cell;
   text-align: center
@@ -3849,7 +3841,7 @@ div#header {
 .happy_talk {
   width: 60px;
   height: 60px;
-  background-image: url(http://c1.poing.co.kr/original/images/happy_talk.png);
+  background-image: url(/Poing/upload/mainpage/happy_talk.png);
   background-size: 100%;
   position: fixed;
   bottom: 2%;
@@ -4286,7 +4278,7 @@ div#header {
   padding-top: 12px;
   text-align: center;
   margin-right: 20px;
-  background: url(http://c1.poing.co.kr/original/images/recent_sheet.png) -177px -380px;
+  background: url(/Poing/upload/mainpage/recent_sheet.png) -177px -380px;
   font-weight: 700;
   line-height: 20px
 }
@@ -4436,7 +4428,7 @@ div#header {
   background-position: -430px -266px;
   width: 12px;
   height: 12px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   border: 0;
   vertical-align: middle
 }
@@ -4489,7 +4481,7 @@ div#header {
   margin: 0 0 0 6px;
   width: 13px;
   height: 13px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   background-position: -395px -265px;
   vertical-align: middle
 }
@@ -4858,12 +4850,12 @@ div#header {
   width: 324px;
   height: 11px;
   text-align: left;
-  background-image: url(http://c1.poing.co.kr/original/images/user/gage_nofull.png)
+  background-image: url(/Poing/upload/mainpage/gage_nofull.png)
 }
 
 #banner.user>.inner_wrap>.inner>.level_bar>i {
   background-position: left;
-  background-image: url(http://c1.poing.co.kr/original/images/user/gage_full.png)
+  background-image: url(/Poing/upload/mainpage/gage_full.png)
 }
 
 #banner.user>.inner_wrap>.inner>.level_qna {
@@ -4993,12 +4985,12 @@ div#header {
   width: 324px;
   height: 11px;
   text-align: left;
-  background-image: url(http://c1.poing.co.kr/original/images/user/gage_nofull.png)
+  background-image: url(/Poing/upload/mainpage/gage_nofull.png)
 }
 
 #banner.timeline>.inner_wrap>.inner>.level_bar>i {
   background-position: left;
-  background-image: url(http://c1.poing.co.kr/original/images/user/gage_full.png)
+  background-image: url(/Poing/upload/mainpage/gage_full.png)
 }
 
 #banner.timeline>.inner_wrap>.inner>.info {
@@ -5559,7 +5551,7 @@ div#header {
   height: 52px;
   padding-top: 7px;
   text-align: center;
-  background: url(http://c1.poing.co.kr/original/images/recent_sheet.png) -325px -380px;
+  background: url(/Poing/upload/mainpage/recent_sheet.png) -325px -380px;
   font-weight: 500;
   line-height: 17px;
   color: #fff;
@@ -5646,18 +5638,6 @@ div#header {
   font-weight: 700
 }
 
-#browser_background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  background-image: url(http://c1.poing.co.kr/original/images/browser/back.png);
-  z-index: 0;
-  background-size: cover;
-  background-repeat: no-repeat
-}
-
 #browser,
 button.browser_btn {
   position: fixed;
@@ -5732,7 +5712,7 @@ button.browser_btn {
   display: inline-block;
   width: 34px;
   height: 34px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png)
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png)
 }
 
 #footer>.download>.android {
@@ -5771,15 +5751,6 @@ div.popup-inner>ul.popup-tab-content:after {
   content: ""
 }
 
-div#quickmenu-nav {
-  background-image: url(http://c1.poing.co.kr/original/images/main/main.png);
-  min-height: 580px;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover
-}
-
 div#quickmenu-nav-wrapper {
   width: 970px;
   position: relative;
@@ -5790,7 +5761,7 @@ div#quickmenu-nav-wrapper {
 
 div#quickmenu-nav>div#quickmenu-nav-wrapper>i#nav-logo {
   margin-top: -35px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   display: block;
   background-position: -3px -4px;
   width: 102px;
@@ -5865,7 +5836,7 @@ div#searchbox-wrapper>div.searchbox>div.box-action.on {
   float: right;
   width: 16px;
   height: 12px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   display: inline-block
 }
 
@@ -8273,7 +8244,7 @@ div.confirmNo:hover {
   width: 14px;
   height: 14px;
   margin-left: 7px;
-  background-image: url(http://c1.poing.co.kr/original/images/checkbox.png);
+  background-image: url(/Poing/upload/mainpage/checkbox.png);
   background-position: 0 -35px;
   vertical-align: bottom
 }
@@ -8593,13 +8564,6 @@ div.confirmNo:hover {
   opacity: .4 !important
 }
 
-.element.extra_large.done>a>.done {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: url(http://c1.poing.co.kr/original/images/offline/cooking/done.png)
-}
 
 .element.extra_large.done>a>.center {
   opacity: .2
@@ -8673,7 +8637,7 @@ div.confirmNo:hover {
 }
 
 .lazy {
-  background: url(http://c1.poing.co.kr/original/images/initial.png) center center no-repeat #fff !important;
+  background: url(/Poing/upload/mainpage/initial.png) center center no-repeat #fff !important;
   background-size: contain !important
 }
 
@@ -8748,7 +8712,7 @@ div.confirmNo:hover {
 }
 
 .element.disabled:hover>.image>.shading {
-  background-image: url(http://c1.poing.co.kr/original/images/home/unavailable.png);
+  background-image: url(/Poing/upload/mainpage/unavailable.png);
   background-color: rgba(0, 0, 0, .8);
   opacity: 1;
   background-size: cover
@@ -8995,7 +8959,7 @@ div.confirmNo:hover {
   width: 44px;
   height: 44px;
   border-radius: 100%;
-  background: url(http://c1.poing.co.kr/original/images/common/default_profile_162.png) center center no-repeat;
+  background: url(/Poing/upload/mainpage/default_profile_162.png) center center no-repeat;
   vertical-align: middle;
   background-size: cover;
   display: inline-block
@@ -9206,7 +9170,7 @@ span.star {
 }
 
 span.star {
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   background-repeat: no-repeat;
   width: 10px;
   height: 19px
@@ -11241,7 +11205,7 @@ div.reserve-popup.pay_popup>.confirm-btn>button.mypage {
 }
 
 .ui-widget-header .ui-icon {
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png)
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png)
 }
 
 .ui-datepicker .ui-datepicker-next span,
@@ -11461,7 +11425,7 @@ span.ui-state-default {
   top: 0;
   left: 0;
   content: " ";
-  background: url(http://c1.poing.co.kr/original/images/recent_sheet.png) -209px -125px
+  background: url(/Poing/upload/mainpage/recent_sheet.png) -209px -125px
 }
 
 #reservation_calendar>.desc>.coupon,
@@ -11504,7 +11468,7 @@ span.ui-state-default {
 }
 
 #reservation_calendar>.desc>.coupon {
-  background: url(http://c1.poing.co.kr/original/images/recent_sheet.png) -186px -125px;
+  background: url(/Poing/upload/mainpage/recent_sheet.png) -186px -125px;
   margin: 5px 2px 0 0
 }
 
@@ -12276,7 +12240,7 @@ ul.sort_order_spread>li:last-child {
   width: 30000px;
   position: absolute;
   top: 0;
-  background-image: url(http://c1.poing.co.kr/original/images/mask.png)
+  background-image: url(/Poing/upload/mainpage/mask.png)
 }
 
 .trislider>.left.shadow {
@@ -14382,7 +14346,7 @@ ul.sort_order_spread>li:last-child {
   position: absolute;
   top: 0;
   left: 0;
-  background: url(http://c1.poing.co.kr/original/images/mask.png)
+  background: url(/Poing/upload/mainpage/mask.png)
 }
 
 #popup>.guide {
@@ -14661,7 +14625,7 @@ ul.sort_order_spread>li:last-child {
   height: 30px;
   top: 9px;
   background-position: -1095px -287px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png)
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png)
 }
 
 #sign>.body>div>.email {
@@ -14679,7 +14643,7 @@ ul.sort_order_spread>li:last-child {
   height: 23px;
   top: 11px;
   background-position: -1125px -287px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png)
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png)
 }
 
 #sign>.body>.join>.facebook {
@@ -14719,41 +14683,6 @@ ul.sort_order_spread>li:last-child {
   margin-bottom: 22px;
   color: #fff;
   background: #1ec800
-}
-
-#naverIdLogin a:after,
-#sign>.body>.join>.naver:after {
-  content: '';
-  width: 25px;
-  height: 22px;
-  top: 13px;
-  left: 52px;
-  background-image: url(http://c1.poing.co.kr/original/images/naver_logo.png);
-  position: absolute
-}
-
-#naverIdLogin a {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 48px;
-  background: #1ec800 !important;
-  border-radius: 4px;
-  margin-bottom: 5px
-}
-
-#naverIdLogin a:before {
-  content: '�ㅼ씠踰� 濡쒓렇��';
-  color: #fff;
-  width: inherit;
-  font-size: 16px;
-  text-align: center;
-  line-height: 48px;
-  position: absolute
-}
-
-#naverIdLogin img {
-  display: none
 }
 
 #forgot_password {
@@ -14944,7 +14873,7 @@ ul.sort_order_spread>li:last-child {
 #reserve_coupon>.body>i.image {
   width: 100%;
   height: 137px;
-  background-image: url(http://c1.poing.co.kr/original/images/pay/reserve_notice.png);
+  background-image: url(/Poing/upload/mainpage/reserve_notice.png);
   padding: 0 !important;
   margin: 0 !important
 }
@@ -15038,7 +14967,7 @@ ul.sort_order_spread>li:last-child {
   height: 25px;
   border: 0;
   padding: 0;
-  background: url(http://c1.poing.co.kr/original/images/recent_sheet.png)
+  background: url(/Poing/upload/mainpage/recent_sheet.png)
 }
 
 #reserve_coupon>.body>.request>.box.count>div>.decrease {
@@ -15312,7 +15241,7 @@ ul.sort_order_spread>li:last-child {
 
 #add_card>.body>form>table tr>td.body>select {
   font-size: 12px;
-  background: url(http://c1.poing.co.kr/original/images/red_arrow.png) 90% no-repeat;
+  background: url(/Poing/upload/mainpage/red_arrow.png) 90% no-repeat;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -15659,7 +15588,7 @@ ul.sort_order_spread>li:last-child {
   margin: 0 0 0 6px;
   width: 13px;
   height: 13px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   background-position: -395px -265px;
   vertical-align: middle
 }
@@ -15689,7 +15618,7 @@ ul.sort_order_spread>li:last-child {
   width: 250px;
   border-radius: 4px;
   padding: 20px;
-  background: url(http://c1.poing.co.kr/original/images/mask.png);
+  background: url(/Poing/upload/mainpage/mask.png);
   text-align: center;
   line-height: 16px
 }
@@ -15719,7 +15648,7 @@ ul.sort_order_spread>li:last-child {
 }
 
 #confirm>.buttons>button {
-  background: url(http://c1.poing.co.kr/original/images/mask.png) !important;
+  background: url(/Poing/upload/mainpage/mask.png) !important;
   color: #fff !important
 }
 
@@ -15787,7 +15716,7 @@ ul.sort_order_spread>li:last-child {
   height: 322px;
   padding: 0;
   margin: 10px 0 0;
-  background-image: url(http://c1.poing.co.kr/original/images/user/point.png)
+  background-image: url(/Poing/upload/mainpage/point.png)
 }
 
 #level_qna {
@@ -15796,7 +15725,7 @@ ul.sort_order_spread>li:last-child {
 }
 
 #level_qna>.body>i.image {
-  background-image: url(http://c1.poing.co.kr/original/images/user/level.png);
+  background-image: url(/Poing/upload/mainpage/level.png);
   padding: 0;
   margin: 0
 }
@@ -16275,7 +16204,7 @@ ul.sort_order_spread>li:last-child {
   margin: 0 0 0 6px;
   width: 12px;
   height: 12px;
-  background-image: url(http://c1.poing.co.kr/original/images/recent_sheet.png);
+  background-image: url(/Poing/upload/mainpage/recent_sheet.png);
   background-position: -396px -266px;
   vertical-align: middle
 }
@@ -16405,13 +16334,6 @@ ul.sort_order_spread>li:last-child {
   padding: 20px 0
 }
 
-i.icon.naver_pay {
-  width: 117px;
-  height: 30px;
-  margin-top: -7px;
-  margin-left: 10px;
-  background-image: url(http://c1.poing.co.kr/original/images/naver_pay.png)
-}
 
 .pay>.section.type>.t {
   font-size: 20px;
@@ -16515,7 +16437,7 @@ i.icon.naver_pay {
 
 .pay>.section.type>.paybox>.body>.box>.info>select {
   font-size: 14px;
-  background: url(http://c1.poing.co.kr/original/images/red_arrow.png) 97% no-repeat;
+  background: url(/Poing/upload/mainpage/red_arrow.png) 97% no-repeat;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

@@ -109,7 +109,7 @@ public class DisplayTimelineHandler implements CommandHandler {
 		//찜한 레스토랑 티켓
 		else if (tab.equals("restaurant")){
 		
-			if(type.equals("restaurant")) {
+			if(type == null || type.equals("restaurant")) {
 			ArrayList<RestListDTO> pick_rest_list = null;
 			int page = request.getParameter("page")==null?1:Integer.parseInt(request.getParameter("page"));
 			pick_rest_list = displayTimelineService.getPickRestList(memberID, page);

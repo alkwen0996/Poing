@@ -16,6 +16,16 @@
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/bootstrap-colorpicker.js"></script>
+<script src="js/bootstrap-datepicker.js"></script> 
+<script src="js/matrix.form_common.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/matrix.js"></script>
 </head>
 <body>
 
@@ -148,14 +158,5 @@
 </div>
 </div>
 <!--end-Footer-part-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/bootstrap-colorpicker.js"></script>
-<script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/matrix.form_common.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/matrix.js"></script>
 </body>
 </html>

@@ -20,6 +20,14 @@
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 </style>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/select2.min.js"></script>
+<script src="js/jquery.peity.min.js"></script> 
 </head>
 <body>
 
@@ -195,17 +203,10 @@
 	   } 
     };
 </script> 
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/select2.min.js"></script>
 <script>
     $('select').select2();
-    </script>
+</script>
  
-<script src="js/jquery.peity.min.js"></script> 
 <!--<script src="js/select2.min.js"></script> -->
 
 </body>

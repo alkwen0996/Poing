@@ -42,9 +42,6 @@
 				</div>
 				<div class="text" data-truncated="">${dto.rev_content }</div>
 				
-				<button class="like_list"
-					data-type="poing.reviews.actions.user.showLikers" data-id="${dto.rev_seq }"
-					tabindex="-1">YN님, 투명인간님 외 16명이 좋아합니다.</button>
 				<div class="action">
 					<button class="like ${ dto.amIlike?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.like" data-id="${dto.rev_seq }"

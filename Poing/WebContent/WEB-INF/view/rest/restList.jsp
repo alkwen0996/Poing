@@ -134,7 +134,6 @@
 				<div class="result">
 					총 <span class="highlight"><%=totalcount%></span>개가 검색되었습니다.
 				</div>
-`
 				<ul class="sort_order_spread">
 					<li class="" data-order="average_grade">별점순</li>
 					<li class="" data-order="reservation">예약순</li>
@@ -152,7 +151,7 @@
 								<div class="top">
 									예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
 									&nbsp; 조회수 ${dto.rest_view_cnt-(dto.rest_view_cnt%1)} <br>
-									<button class="" data-type="poing.restaurants.favorite"
+									<button class="${dto.rest_fav ne 0 ? 'on' : '' }" data-type="poing.restaurants.favorite"
 										data-id="${dto.rest_seq }" onclick='return false;'>
 										<i class="icon favorite ${dto.rest_fav ne 0 ? 'on' : '' }"></i>
 									</button>

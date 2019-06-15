@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
 	<link rel='stylesheet' type='text/css' href='<%= request.getContextPath() %>/css/poing.slider.css'>
-	
+	<!--  -->
 	
 	<style>
 		<%@include file="/css/style.css" %>

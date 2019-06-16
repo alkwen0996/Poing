@@ -67,7 +67,7 @@
 
                                         user.profile = 'http://c1.poing.co.kr/original/images/common/default_profile_162.png';
                                         if(user.profile_image)
-                                            user.profile = user.profile_image.thumbnail.url;
+                                            user.profile = "/Poing"+user.profile_image;
                                         user.state = user.follow_state? 'on':'';
                                         user.me = (user.id == "${ authUser.m_seq }");
 

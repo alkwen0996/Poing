@@ -15,7 +15,7 @@
 	<div class="body review list review_wrap">
 		<div class="review" data-id="${dto.rev_seq }" data-place="${dto.rev_rest_seq }"
 			data-place-name="${dto.rest_name }">
-			<a class="place" href="/Poing/rest/detail.do?rev_rest_seq=${dto.rev_rest_seq }"> <span
+			<a class="place" href="/Poing/rest/detail.do?rest_seq=${dto.rev_rest_seq }"> <span
 				class="thumbnail"
 				style="display: block; background-image: url(&quot;${realPath}${ dto.rest_img }&quot;);"></span>
 				<button class="favorite " type="button"
@@ -150,7 +150,7 @@
 					</button>
 				</c:if>
 			</a> <a class="place"
-				href="/Poing/rest/detail.do?rev_rest_seq=${ dto.rev_rest_seq }">
+				href="/Poing/rest/detail.do?rest_seq=${ dto.rev_rest_seq }">
 				<button class="favorite " type="button"
 					data-type="poing.restaurants.favorite" data-id="${ dto.rev_rest_seq }"
 					tabindex="-1">

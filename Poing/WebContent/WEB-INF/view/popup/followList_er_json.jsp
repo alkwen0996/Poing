@@ -1,3 +1,4 @@
+<%@page import="poing.member.MemberDTO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="com.util.ConnectionProvider"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -8,16 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <% 
-StringBuffer sql = new StringBuffer();
-sql.append( "WITH temp AS(  ");
-sql.append( "    SELECT * FROM member ");
-sql.append( "    WHERE m_seq IN ( SELECT follower_seq FROM follow WHERE following_seq = ?) ");
-sql.append( ") ");
-sql.append( "SELECT temp.m_seq fer_no, temp.m_name fer_name, temp.m_img fer_img,  ");
-sql.append( "(SELECT COUNT(*) FROM follow WHERE follower_seq = temp.m_seq) ercnt, ");
-sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_seq) edcnt, ");
-sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_seq AND follower_seq = ?) amIfollow ");
-sql.append( "FROM temp ");
+
 JSONObject jsonObject = new JSONObject();
 JSONObject data = new JSONObject();
 jsonObject.put("status", true);
@@ -32,22 +24,34 @@ jsonObject.put("meta", meta);
 
 JSONObject follower = null;
 try {
+	StringBuffer sql = new StringBuffer();
+	sql.append( "WITH temp AS(  ");
+	sql.append( "    SELECT * FROM member ");
+	sql.append( "    WHERE m_seq IN ( SELECT follower_seq FROM follow WHERE following_seq = ?) ");
+	sql.append( ") ");
+	sql.append( "SELECT temp.m_seq fer_no, temp.m_name fer_name, temp.m_img fer_img,  ");
+	sql.append( "(SELECT COUNT(*) FROM review WHERE rev_m_seq = temp.m_seq) revcnt, ");
+	sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_seq) edcnt, ");
+	sql.append( "(SELECT COUNT(*) FROM follow WHERE following_seq = temp.m_seq AND follower_seq = ?) amIfollow ");
+	sql.append( "FROM temp ");
 	Connection conn = ConnectionProvider.getConnection();
 	PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-	String m_seq = request.getParameter("id");
+	int m_seq = -1;
+	MemberDTO authUser = (MemberDTO) session.getAttribute("authUser");
+	if(authUser!=null)
+		m_seq = authUser.getM_seq();
 	pstmt.setString(1, request.getParameter("id"));
-	pstmt.setString(2, request.getParameter("id"));
+	pstmt.setInt(2, m_seq);
 	ResultSet rs = pstmt.executeQuery();
 	while(rs.next()) {
 		follower = new JSONObject();
 		follower.put("object_id", null);
 		follower.put("id", rs.getInt("fer_no"));
 		follower.put("web_name", rs.getString("fer_name"));
-		follower.put("profile_image", null);//rs.getString("fer_img"));
+		follower.put("profile_image", rs.getString("fer_img"));//rs.getString("fer_img"));
 		follower.put("follow_state", rs.getInt("amIfollow")==0?false:true);
-		follower.put("follower_count", rs.getInt("ercnt"));
 		follower.put("follower_count", rs.getInt("edcnt"));
-		follower.put("review_count", 0);
+		follower.put("review_count", rs.getInt("revcnt"));
 		JSONObject temp = new JSONObject();
 		temp.put("follower", follower);
 		follows.add(temp);

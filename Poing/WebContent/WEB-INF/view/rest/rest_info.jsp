@@ -52,7 +52,7 @@
 		<div class="body">
 			<div class="editor_review">
 				<i class="image"
-					style="background-image: url(${listDTO.e_img})"></i>
+					style="background-image: url(${realPath}${listDTO.e_img})"></i>
 				<div class="content">
 					<span class="name">${listDTO.e_name }</span><span class="desc"></span>
 					<p class="text">${listDTO.er_content }</p>

@@ -17,8 +17,13 @@ public class DisplayCartHandler implements CommandHandler{
    public String process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   CartDAO cartdao = new CartDAO();
 	   try{
+		   int m_seq = -1;
+		   MemberDTO authUser = (MemberDTO)request.getSession().getAttribute("authUser");
+		   if (authUser != null) {
+			   m_seq = authUser.getM_seq();
+		}
 		   DisplayCartService service = new DisplayCartService();
-		   List<ProductDTO> list = service.select();
+		   List<ProductDTO> list = service.select(m_seq);
 		   List<ProductDTO> option = service.selectop();
 			request.setAttribute("option", option);
 		   request.setAttribute("list", list);

@@ -66,21 +66,23 @@ public class CartDAO {
 		return result;
 	}
 
-	public List<ProductDTO> CartList(Connection conn) throws SQLException {
+	public List<ProductDTO> CartList(Connection conn, int m_seq) throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+		sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq, t.tic_enddate from ticket t ");
 		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
 		sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
 		sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
 		sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
 		sql.append(" join cart c on c.tic_cart_seq = tc.tic_cart_seq ");
 		sql.append(" where tic_img like '%e_1.p%' ");
+		sql.append(" and c.m_seq = ? ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		
 			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, m_seq);
 			rs = pstmt.executeQuery();
 			ProductDTO dto = null;
 			while (rs.next()) {
@@ -92,15 +94,13 @@ public class CartDAO {
 				dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 				dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
 				dto.setTic_img(rs.getString("tic_img"));
+				dto.setTic_enddate(rs.getDate("tic_enddate"));
 				list.add(dto);
 			}
 	 
 			pstmt.close();
 			rs.close();
-			
-			
 		return list;
-		
 	}
 	
 	public List<ProductDTO> OptionList(Connection conn) throws SQLException {

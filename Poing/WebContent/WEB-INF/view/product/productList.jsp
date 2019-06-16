@@ -33,14 +33,16 @@ int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
       <div id="container" class>
          <div id="banner_wrap">
             <div id="banner" class="image "
-               style="background-image: url(http://c2.poing.co.kr/banner/MjAxOTA0/15543549885ca5932c9a0ad.png)">
+               style="background-image: url(http://c1.poing.co.kr/original/images/product/banner.png)">
                <div class="title_wrap">
-                  <div class="title">도산공원</div>
+                  <div class="title">포잉 다이닝 티켓을 통해 최고의 레스토랑들을
+					<br>합리적인 가격에 만나보세요.</div>
                </div>
                <div class="line">
                   <hr>
                </div>
-               <div class="subtitle">청담부터 로데오까지, 꾸준히 핫한 플레이스들.</div>
+               <div class="subtitle">Curated by Poing
+				</div>
             </div>
          </div>
          <div id="content_wrap">

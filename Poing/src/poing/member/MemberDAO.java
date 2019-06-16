@@ -350,18 +350,19 @@ public class MemberDAO {
 	public ArrayList<UserNoticeDTO> getUserNoticeList(Connection conn, int memberID) throws SQLException {
 		System.out.println("MemberDAO getUserNoticeList()");
 		StringBuffer sql = new StringBuffer();
-
+		
 		sql.append(" select * from ( ");
 		sql.append(" select * from   ");
-		sql.append(" (select m.M_NAME m_name,m.m_seq m_seq, r.REV_NO rev_no ") ;
-		sql.append(" from review r join member m on r.m_seq = m.m_seq ") ;
-		sql.append(" where r.m_seq=m.m_seq) mr ") ;
-		sql.append(" join userNotice u on rev_no = un_target_id ") ;
-		sql.append(" where rev_no = un_target_id ") ;
+		sql.append(" (select m.M_NAME m_name,m.m_seq m_seq, r.rev_seq rev_seq ") ;
+		sql.append(" from review r join member m on r.rev_m_seq = m.m_seq ") ;
+		sql.append(" where r.rev_m_seq=m.m_seq) mr ") ;
+		sql.append(" join userNotice u on rev_seq = un_target_id ") ;
+		sql.append(" where rev_seq = un_target_id ") ;
 		sql.append(" ) ur ") ;
 		sql.append(" join notice_type t on un_push_type = notice_push_type ") ;
 		sql.append(" where un_push_type = 'comment_review' ") ;
-
+		
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<UserNoticeDTO> unlist = null;

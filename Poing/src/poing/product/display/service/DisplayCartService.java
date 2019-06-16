@@ -48,10 +48,10 @@ public class DisplayCartService {
 	      }
 	   }
    
-   public List<ProductDTO> select() {
+   public List<ProductDTO> select(int m_seq) {
 			
 		try (Connection conn = ConnectionProvider.getConnection()) {			
-			List<ProductDTO> list = cartdao.CartList(conn);
+			List<ProductDTO> list = cartdao.CartList(conn, m_seq);
 			conn.close();
 			// 로그 처리
 			// 

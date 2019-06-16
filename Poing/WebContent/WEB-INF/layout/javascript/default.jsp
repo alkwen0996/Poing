@@ -48,6 +48,7 @@
 				.show();
 		});
 
+		
 		$("body").on("beforeShow", ".shading_bg", function () {
 			if ($(this).is(":visible")) {
 				return;
@@ -1984,7 +1985,7 @@
 				.html());
 		});
 		$("#nav_recommend>ul.recent>li:not('.title')").on("click", function () {
-			location.href = "/restaurant/detail/" + $(this).attr('data-id');
+			location.href = "/Poing/rest/detail.do?rest_seq=" + $(this).attr('data-id');
 		});
 		$(function () {
 			var $list = $("#nav_recommend>ul.recent>li:not('.title')");

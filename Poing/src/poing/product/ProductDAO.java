@@ -21,9 +21,18 @@ public class ProductDAO {
 	
 	public List<ProductDTO> selectdisplay(Connection conn, int first, int end){
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select rownum,m.tic_img,t.tic_view_price, t.tic_seq, r.rest_name,r.rest_address,t.tic_name,t.tic_type from ");
-		sql.append(" ticket t join restaurant r on t.rest_seq = r.rest_seq join tic_img m on m.tic_seq = t.tic_seq where rownum between ? and ? ");
-			   
+		sql.append(" select no, tic_img, tic_view_price, tic_seq, rest_name, rest_address, tic_name, tic_type ");
+		sql.append(" from ( ");
+		sql.append(" select rownum no, tic_img, tic_view_price, tic_seq, rest_name, rest_address, tic_name, tic_type ");
+		sql.append(" from ( ");
+		sql.append(" select tic_img, tic_view_price, t.tic_seq, rest_name, rest_address, tic_name, tic_type ");
+		sql.append(" from ticket t ");
+		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
+		sql.append(" join tic_img m on m.tic_seq = t.tic_seq ");
+		sql.append(" where tic_img like '%e_1.%' ");
+		sql.append(" ) a ");
+		sql.append(" ) b ");
+		sql.append(" where b.no between ? and ? ");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<ProductDTO> list = new ArrayList<>();
@@ -42,6 +51,75 @@ public class ProductDAO {
 				dto.setTic_type(rs.getString("tic_type"));
 				dto.setTic_view_price(rs.getInt("tic_view_price"));
 				dto.setTic_img(rs.getString("tic_img"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+		return list;	
+	}
+	
+	public static ProductDTO selectPickRownum(Connection conn) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select max(rownum) as Pickrownum from pick p join ticket t on p.tic_seq = t.tic_seq ");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductDTO pickRownum = null;
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pickRownum = new ProductDTO();
+				pickRownum.setPickrownum(rs.getInt("Pickrownum"));
+			}
+			;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return pickRownum;
+	}
+	
+	
+	public static List<ProductDTO> selectPickTicket(Connection conn, int first,int end){
+		String sql = null;
+		sql= " select no,tic_seq,tic_view_price,rest_name,rest_address,tic_name,tic_type, tic_img from(select rownum no,tic_seq,tic_view_price,rest_name,rest_address,tic_name,tic_type, tic_img from(select tic_seq,tic_view_price,rest_name,rest_address,tic_name,tic_type, tic_img from pick p join ticket t on p.tic_seq = t.tic_seq join tic_img m on m.tic_seq = t.tic_seq join restaurant z on z.rest_seq = t.rest_seq where tic_img like '%image_1.%') a)b where b.no between ? and ? ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1,first);
+			pstmt.setInt(2,end);
+			System.out.println(first);
+			System.out.println(end);
+			rs = pstmt.executeQuery();
+			ProductDTO dto = null;
+			while (rs.next()) {
+				dto = new ProductDTO();
+				dto.setTic_view_price(rs.getInt("tic_view_price"));
+				dto.setTic_seq(rs.getInt("tic_seq"));
+				dto.setTic_name(rs.getString("tic_name"));
+				dto.setTic_type(rs.getString("tic_type"));
+				dto.setTic_img(rs.getString("tic_img"));
+				dto.setRest_address(rs.getString("rest_address"));
+				dto.setRest_name(rs.getString("rest_name"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -221,6 +299,35 @@ public class ProductDAO {
 			}
 		} 
 		 catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+				rs.close();
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		} return total;
+	}
+	public int getTotalCount2() {
+		int total = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = ConnectionProvider.getConnection();
+			String sql = " select max(rownum) from pick p join ticket t on"
+					+ " p.tic_seq = t.tic_seq join tic_img m on m.tic_seq ="
+					+ " t.tic_seq join restaurant z on z.rest_seq ="
+					+ " t.rest_seq where tic_img like '%image_1.%' ";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {

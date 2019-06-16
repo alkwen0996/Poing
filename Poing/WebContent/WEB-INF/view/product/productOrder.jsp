@@ -1,3 +1,6 @@
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="org.json.simple.JSONObject"%>
@@ -48,10 +51,11 @@ while (ir.hasNext()) {
 	ProductDTO dto2 = (ProductDTO) request.getAttribute("dto2");
 			int tic_op_purchas_cnt = dto2.getTic_op_purchas_cnt();
 			int tic_dc_price = dto.getTic_dc_price();
-			int totalmoney = tic_op_purchas_cnt * tic_dc_price;
+// 			int totalmoney = tic_op_purchas_cnt * tic_dc_price;
 			int cart_seq = Integer.parseInt(request.getParameter("cart_seq"));
-			System.out.println(totalmoney);
+// 			System.out.println(totalmoney);
 			System.out.println(cart_seq);
+	
 %>
 
         <!-- body wrap -->
@@ -91,10 +95,10 @@ while (ir.hasNext()) {
                                     <tr data-id="1299328"> 
                         <td class="info">
                             <a class="image" href="/product/detail/5904" target="_blank">
-                                <i class="image border_radius medium" style="background-image: url(${dto.tic_img});"></i>
+                                <i class="image border_radius medium" style="background-image: url(/Poing${dto.tic_img});"></i>
                             </a>
                             <a class="name" href="/product/detail/5904" target="_blank">${dto.rest_name }</a>
-                            <div class="valid_date">유효기간: <span>${dto.tic_validate_content }</span></div>
+                            <div class="valid_date">유효기간: <span>${dto2.tic_reserve_date}</span></div>
 
                             <ul class="options">
                             

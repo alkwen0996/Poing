@@ -84,11 +84,37 @@ public class MemberDAO {
 		}
 		return result1;
 	}
+	
+	public static boolean insertReserv_tics(Connection conn, String[] tic_seq, int m_seq, String[] cart_seq, int totalmoney){
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		sql.append(" insert into tic_cart_purchase_detail (TC_PURCHAS_SEQ, TIC_SEQ, TIC_CART_SEQ, M_SEQ, TIC_PURCHAS_STATE, tic_totalmoney)" );
+		sql.append(" values (tic_cart_purchase_detail_seq.nextval, ?, ?, ?,'결제완료',?) ");
+		PreparedStatement pstmt = null;
+		try {
+			for (int i = 0; i < cart_seq.length; i++) {
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setInt(1, Integer.parseInt(tic_seq[i]));
+				pstmt.setInt(2, Integer.parseInt(cart_seq[i]));
+				pstmt.setInt(3, m_seq);
+				pstmt.setInt(4, totalmoney);
+				//
+				result = pstmt.executeUpdate()==0? false:true;				
+			}
+			// 
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	public static boolean chargePoint(Connection conn,int chargePoint, int m_seq){
 		boolean result1 = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" update member set rp_seq= rp_seq+? where m_seq = ? ");
+		sql.append(" update member set m_point= m_point+? where m_seq = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		try {
@@ -128,6 +154,7 @@ public class MemberDAO {
 		sql.append(" update member set m_point = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, m_point);
@@ -598,6 +625,6 @@ public class MemberDAO {
 		}
 		return mem_slide_list;
 	}
+	
 
 }// class
-

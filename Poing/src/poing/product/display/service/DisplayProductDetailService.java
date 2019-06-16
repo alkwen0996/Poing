@@ -13,16 +13,26 @@ import poing.product.ProductDTO;
 import poing.product.ProductDetailDAO;
 import poing.product.QuestionDAO;
 import poing.product.QuestionDTO;
+import poing.product.ProductMenuInfoDAO;
+import poing.product.ProductMenuInfoDTO;
 import poing.product.RefundTicketDTO;
 import poing.product.PointHistoryDTO;
+import poing.product.ProductDAO;
 
 
 public class DisplayProductDetailService {
-	
-	public List<ProductDTO> selectRestPhotoImg(int tic_seq) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+	ProductMenuInfoDAO pmiDAO = new ProductMenuInfoDAO();
+	ProductDetailDAO dao = new ProductDetailDAO();
+	public List<ProductDTO> selectPickTicket(int page) {
+		int cpage = page;
+		int numberOfBlock = 12;
+		int first = (cpage-1) * numberOfBlock + 1;
+		int end = (cpage-1) * numberOfBlock + numberOfBlock;
+		System.out.println(first);
+		System.out.println(end);
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<ProductDTO> list = dao.selectRestPhotoImg(conn, tic_seq);
+			List<ProductDTO> list = ProductDAO.selectPickTicket(conn, first, end);
+			conn.close();
 			
 			return list;
 		} catch (SQLException e) {
@@ -30,8 +40,28 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public boolean updateTotalmoney(String totalmoney, int id) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+	public ProductDTO selectPickRownum() {
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			ProductDTO pickRownum = ProductDAO.selectPickRownum(conn);
+			
+			return pickRownum;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<ProductDTO> selectRestPhotoImg(int tic_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			List<ProductDTO> list = ProductDetailDAO.selectRestPhotoImg(conn, tic_seq);
+			
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public boolean updateTotalmoney(int totalmoney, int id) {
+				
 		boolean result = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
 			result = dao.updateTotalmoney(conn, totalmoney, id);
@@ -42,20 +72,20 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public ProductDTO selectProductDetail(int tic_seq) {
-		try (Connection conn = ConnectionProvider.getConnection()){	
-			ProductDTO dto = ProductDetailDAO.selectProductDetail(conn, tic_seq);
-			
-			return dto;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+//	public ProductDTO selectProductDetail(int tic_seq) {
+//		try (Connection conn = ConnectionProvider.getConnection()){	
+//			ProductDTO dto = ProductDetailDAO.selectProductDetail(conn, tic_seq);
+//			
+//			return dto;
+//		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 	
-	public PointHistoryDTO selectRownum() {
+	public PointHistoryDTO selectRownum(int m_seq) {
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			PointHistoryDTO rtdto = ProductDetailDAO.selectRownum(conn);
+			PointHistoryDTO rtdto = ProductDetailDAO.selectRownum(conn, m_seq);
 			
 			return rtdto;
 		} catch (SQLException e) {
@@ -63,11 +93,20 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public List<PointHistoryDTO> PointHistory() {
+	public List<PointHistoryDTO> PointHistory(int m_seq) {
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn);
+			List<PointHistoryDTO> list3 = ProductDetailDAO.PointHistory(conn,m_seq);
 			
 			return list3;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public List<ProductDTO> selectMenuImgList(int tic_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()){	
+			List<ProductDTO> list = ProductDetailDAO.selectMenuImgList(conn, tic_seq);
+			
+			return list;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -84,11 +123,10 @@ public class DisplayProductDetailService {
 		
 	}
 	
-	public List<RefundTicketDTO> selectRefund_tic() {
+	public List<RefundTicketDTO> selectRefund_tic(int m_seq) {
 		RefundTicketDTO rtdto = new RefundTicketDTO();
-		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			List<RefundTicketDTO> list2 = ProductDetailDAO.selectRefund_tic(conn);
+			List<RefundTicketDTO> list2 = ProductDetailDAO.selectRefund_tic(conn, m_seq);
 			
 			return list2;
 		} catch (SQLException e) {
@@ -112,11 +150,11 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public boolean updatePayCart(int reserva_tic_seq, int m_no, String totalmoney) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+	public boolean updatePayCart(int tc_purchas_seq, int m_no, int totalmoney) {
+				
 		boolean result2 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			 result2 = dao.updatePayCart(conn, reserva_tic_seq, m_no, totalmoney);
+			 result2 = dao.updatePayCart(conn, tc_purchas_seq, m_no, totalmoney);
 			 
 			 return result2;
 		} catch (SQLException e) {
@@ -124,11 +162,11 @@ public class DisplayProductDetailService {
 		}
 	}
 	
-	public boolean updateState(int reserva_tic_seq) {
-		ProductDetailDAO dao = new ProductDetailDAO();		
+	public boolean updateState(int tc_purchas_seq) {
+				
 		boolean result3 = true;
 		try (Connection conn = ConnectionProvider.getConnection()){	
-			result3 = dao.updateState(conn, reserva_tic_seq);
+			result3 = dao.updateState(conn, tc_purchas_seq);
 			
 			return result3;
 		} catch (SQLException e) {
@@ -183,6 +221,47 @@ public class DisplayProductDetailService {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public ProductDTO selectDetailMenu(int tic_seq) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
+		try (Connection conn = ConnectionProvider.getConnection()) {			
+			ProductDTO dto = dao.selectDetailMenu(conn, tic_seq);
+			conn.close();
+			// 로그 처리
+			// 
+			//
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public ProductDTO photoRownum(int tic_seq) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
+		try (Connection conn = ConnectionProvider.getConnection()) {			
+			ProductDTO dto = dao.photoRownum(conn, tic_seq);
+			conn.close();
+			// 로그 처리
+			// 
+			//
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public ProductDTO menuRownum(int tic_seq) {
+		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
+		try (Connection conn = ConnectionProvider.getConnection()) {			
+			ProductDTO dto = dao.menuRownum(conn, tic_seq);
+			conn.close();
+			// 로그 처리
+			// 
+			//
+			return dto;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public ProductDTO select(int tic_seq, int member_num) {
 		ProductDetailDAO dao = ProductDetailDAO.getInstance();		
@@ -213,8 +292,60 @@ public class DisplayProductDetailService {
 		}
 		
 		return list_question;
-	}// select_question
+	}// select
 	
-
+	
+	public ArrayList<ProductMenuInfoDTO> selectMenuInfoList(int tic_seq) throws SQLException {
+		ArrayList<ProductMenuInfoDTO> p_menuinfo_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		p_menuinfo_list = pmiDAO.selectProductMenuInfoList(conn, tic_seq);
+		conn.close();
+		return p_menuinfo_list;
+	}
+	public ArrayList<String> selectMenuAdviceList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_menu_advice_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_menu_advice_content_list = pmiDAO.selectProductMenuAdviceList(conn, tic_seq);
+		conn.close();
+		return tic_menu_advice_content_list;
+	}
+	
+	public ArrayList<String> selectValidateList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_validate_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_validate_content_list = dao.selectProductValidateList(conn, tic_seq);
+		conn.close();
+		return tic_validate_content_list;
+	}
+	
+	public ArrayList<String> selectValidateAdviceList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_validate_advice_content = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_validate_advice_content = dao.selectProductValidateAdviceList(conn, tic_seq);
+		conn.close();
+		return tic_validate_advice_content;
+	}
+	
+	public ArrayList<String> selectGuideList(int tic_seq) throws SQLException {
+		ArrayList<String> ticg_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		ticg_content_list = dao.selectProductGuideList(conn, tic_seq);
+		conn.close();
+		return ticg_content_list;
+	}
+	public ArrayList<String> selectUsecaseList(int tic_seq) throws SQLException {
+		ArrayList<String> tic_user_case_content_list = null;
+		Connection conn = null;
+		conn = ConnectionProvider.getConnection();
+		tic_user_case_content_list = dao.selectProductUsecaseList(conn, tic_seq);
+		conn.close();
+		return tic_user_case_content_list;
+	}
+	
 	
 }// class

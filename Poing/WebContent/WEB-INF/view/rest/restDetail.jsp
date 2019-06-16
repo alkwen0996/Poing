@@ -1,4 +1,5 @@
 
+<%@page import="poing.product.ProductDTO"%>
 <%@page import="poing.rest.RestListDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="poing.rest.RestListDAO"%>
@@ -29,8 +30,82 @@
 </c:if>
 
 <title>Poing 레스토랑 디테일 테스트</title>
+<script>
+function setCookie(name, value, exdays) {
+	var now = new Date();
+	now.setDate(now.getDate() + exdays);
+	now.setTime(now.getTime() + 1000*10) //10초 유지 추가
+	//Thu, 18 Apr 2019 01:33:39 GMT
+	document.cookie = name + "=" + escape(value) + "; expires=" + now.toUTCString() + "; path=/;";
+	//localhost도메인에안, 모든 웹 어플리케이션에서 사용하겠다면 path=/
+}
 
+function getCookie(name) {
+	var cookies = document.cookie;
+	var carr = cookies.split("; ");
+	var result = "";
+	for (let i = 0; i < carr.length; i++) {
+		var rarr = carr[i].split("=");
+		if (rarr[0] == name) {
+			return unescape( rarr[1] );
+		}
+	}
+	return null;
+}
+
+function deleteCokie(name) {
+	//쿠키 삭제 메서드는 따로 없음으로 만료시점을 과거로 만들어 삭제한다.  
+	// 고정 10일
+	if(getCookie(name))
+	{
+		return;
+	}
+	var now = new Date();
+	now.setDate(now.getDate() - 1); //과거로 설정
+	//Thu, 18 Apr 2019 01:33:39 GMT
+	document.cookie = name + "=" + "; expires=" + now.toUTCString();
+}
+
+var jsonObject = getCookie('restlist');
+if (jsonObject == null) {
+	jsonObject = [];
+}
+else {
+	jsonObject = JSON.parse(jsonObject);
+}
+var Rest = function (rest_name, rest_seq) {
+	this.rest_name = rest_name;
+	this.rest_seq = rest_seq;
+}; 
+
+restObject = new Rest('${ dto.rest_name }', '${ dto.rest_seq }');
+
+var temp = jsonObject.filter(function(value, index, array) {
+	if (value.rest_seq != ${ dto.rest_seq }) {
+		return value;
+	}
+});
+jsonObject = temp;
+
+jsonObject.push(restObject);
+
+if (jsonObject.length > 20) {
+	jsonObject.shift();
+}
+setCookie('restlist', JSON.stringify(jsonObject));
+</script>
 </head>
+<%
+	RestListDTO restTip = (RestListDTO) request.getAttribute("restTip");
+	RestListDTO listDTO = (RestListDTO) request.getAttribute("listDTO");
+	RestListDTO pdto = (RestListDTO) request.getAttribute("pdto");
+	RestListDTO dto = (RestListDTO) request.getAttribute("dto");
+	ProductDTO restProduct = (ProductDTO) request.getAttribute("restProduct");
+// 	double starpoint = dto.getRest_starpoint();
+// 	int tenpoint = (int) Math.round(starpoint * 2);
+// 	request.setAttribute("tenpoint", tenpoint);
+// 	System.out.print(tenpoint);
+%>
 
 <body>
 
@@ -42,11 +117,11 @@
 				<div id="banner" class="restaurant_detail">
 					<div class="i_wrap background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: gray; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="i_wrap blur background">
 						<i class="image"
-							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(#)"></i>
+							style="width: 100%; height: 100%; bakcgounrd-color: black; background-image: url(/Poing${restProduct.tic_img})"></i>
 					</div>
 					<div class="inner_wrap">
 						<div class="inner">
@@ -75,13 +150,14 @@
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>
-												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
+												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
+													<c:if test="${i%2 ne 0 }"><i class="icon star large odd " data-id="" data-index="${status.index}" style=""></i></c:if>
 													<c:if test="${i%2 eq 0 }">
-														<i class="icon star large even " data-id=""
+														<i class="icon star large even" data-id=""
 															data-index="${status.index}" style=""></i>
 													</c:if>
 												</c:if>
-											</c:forEach>  
+											</c:forEach>
 											<span style="display:inline-block;vertical-align:super;" data-id="" data-grade="78">${dto.rest_starpoint/2}점</span>
 											
 										</div>
@@ -218,7 +294,6 @@
 
 		<jsp:include page="/WEB-INF/layout/popup_wrap_rest.jsp"></jsp:include>
 
-		<%-- <jsp:include page="/WEB-INF/layout/script.jsp"></jsp:include> --%>
 		<jsp:include page="/WEB-INF/layout/javascript/default.jsp"></jsp:include>
 	</div>
 	

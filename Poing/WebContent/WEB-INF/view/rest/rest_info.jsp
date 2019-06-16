@@ -10,21 +10,31 @@
 
 	<div>
 		<i class="image"
-			style="background-image: url(http://c2.poing.co.kr/MRI-original/MjAxODA1/15257572485af13540b96e1.jpeg)"></i>
-		<p class="desc">product가 있다면 나타나는 박스</p>
+			style="background-image: url(/Poing${restProduct.tic_img})"></i>
+		<p class="desc">${restProduct.tic_name}</p>
 		<div class="list">
 			<p class="label">옵션</p>
+			
 			<div class="">
-				<span class="name">1. 옵션1</span> <span class="actual_price">가격</span>
-				<span class="price">가격</span>
+			<c:forEach items="${list1}" var="dto" varStatus="status">
+			
+				<span class="name">${dto.tic_op_name }</span> 
+				
+				<c:choose>
+				<c:when test="${dto.tic_original_price ne 0}">
+				<span class="actual_price">${dto.tic_original_price }</span>
+				</c:when>
+				<c:when test="${dto.tic_original_price eq 0}">
+				</c:when>
+				</c:choose>
+				
+				<span class="price">${dto.tic_dc_price }</span>
+			</c:forEach>
 			</div>
-			<div class="">
-				<span class="name">2. 두번째 이야기</span> <span class="actual_price">79,000원</span>
-				<span class="price">74,000원</span>
-			</div>
+			
 		</div>
 
-		<a href="/product/detail/4928" class="more">자세히 보러가기 &gt;</a>
+		<a href="/Poing/product/detail.do?tic_seq=${restProduct.tic_seq }" class="more">자세히 보러가기 &gt;</a>
 	</div>
 </div>
 
@@ -33,9 +43,7 @@
 	<div class="section single ">
 		<div class="title red">Tip</div>
 		<div class="body">
-			- 선택이 불가한 날짜는 만석, 대관, 매장 휴무일 등으로 예약이 불가능한 날입니다.<br> - 매장 상황에 따라
-			요청사항의 반영이 어려울 수도 있는 점 양해 부탁드립니다.<br> - 코르키지는 병당 2만원(와인), 3만원(양주,
-			사케)입니다.
+			${restTip.rest_tip }
 		</div>
 	</div>
 	<hr>
@@ -44,15 +52,10 @@
 		<div class="body">
 			<div class="editor_review">
 				<i class="image"
-					style="background-image: url(http://c2.poing.co.kr/EDITOR-PP/57613254668a4822dc000036.png)"></i>
+					style="background-image: url(${listDTO.e_img})"></i>
 				<div class="content">
-					<span class="name">이지은</span><span class="desc">음식은 우리의 공감대,
-						세계적인 공감대이다.</span>
-					<p class="text">압구정 도산공원 근처 장어요리를 전문으로 하는 한정식 레스토랑, 만. '만'은 장어를
-						뜻하는 한자로, 장어를 이용한 메뉴들이 이곳의 시그니쳐 메뉴이기는 하지만, 그 외 새우, 낙지 등 해산물을 활용한
-						다양한 메뉴들도 준비되어 있다. 점심과 저녁 모두 여러 가지의 단품 메뉴와 코스 요리 중에 고를 수 있다. 식사 메뉴,
-						서비스, 인테리어 모두 깔끔하고 정갈하며 큰 규모의 매장에 맞게 다양한 크기의 룸이 준비되어 있어 각종 모임에 방문하기
-						좋다.</p>
+					<span class="name">${listDTO.e_name }</span><span class="desc"></span>
+					<p class="text">${listDTO.er_content }</p>
 				</div>
 			</div>
 		</div>

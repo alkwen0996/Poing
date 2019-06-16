@@ -11,14 +11,13 @@
  <%
    
    int p_num = Integer.parseInt(request.getParameter("id")); //product num
-   System.out.println("ajaxfav.jsp pnum="+p_num);
+   System.out.println("ajaxfavorite.jsp line 14ajaxfav.jsp pnum="+p_num);
    MemberDTO dto = (MemberDTO)request.getSession().getAttribute("authUser");
    int m_num= dto.getM_seq();
    System.out.println("ajaxfav.jsp m_num="+m_num);
    
-   String sql = "select count(*) cnt from (select * from pick where m_no = ? and tic_no = ?) ";
+   String sql = "select count(*) cnt from (select * from pick where m_seq = ? and rest_no = ?) ";
    int cnt = 0;
-   // 0 ��밡�� 1 �Ұ�
    Connection conn = null;
    PreparedStatement pstmt = null;
    PreparedStatement pstmt2 = null;
@@ -36,14 +35,14 @@
 	   cnt = rs.getInt("cnt");	   
 	   System.out.println("ajaxfav cnt: " + cnt);	   
 	   if(cnt==0){
-		   sql = "insert into pick (pick_seq, m_no, tic_no) values ( pick_seq.nextval, ?, ? )";
+		   sql = "insert into pick (pick_seq,tic_seq, m_seq) values ( pick_seq.nextval, ?,? )";
 		   pstmt2 = conn.prepareStatement(sql);
-		   pstmt2.setInt(1, m_num);
-		   pstmt2.setInt(2, p_num);
+		   pstmt2.setInt(1, p_num);
+		   pstmt2.setInt(2, m_num);
 		   int result = pstmt2.executeUpdate();
 		   System.out.println("ajaxfav.jsp: insert result "+result);
 	   } else if (cnt>0){
-		   sql = "delete from pick where m_no=? and tic_no=?";
+		   sql = "delete from pick where m_seq=? and rest_no=?";
 		   pstmt2 = conn.prepareStatement(sql);
 		   pstmt2.setInt(1, m_num);
 		   pstmt2.setInt(2, p_num);

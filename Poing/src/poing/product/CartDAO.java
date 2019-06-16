@@ -68,13 +68,13 @@ public class CartDAO {
 
 	public List<ProductDTO> CartList(Connection conn) throws SQLException {
 		StringBuffer sql = new StringBuffer();
-		sql.append(" select distinct c.tic_cart_seq, r.rest_name, tv.tic_validate_content, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+		sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
 		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
-		sql.append(" join tic_validate tv on tv.tic_seq = t.tic_seq ");
 		sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
 		sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
 		sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
 		sql.append(" join cart c on c.tic_cart_seq = tc.tic_cart_seq ");
+		sql.append(" where tic_img like '%e_1.p%' ");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,9 +86,8 @@ public class CartDAO {
 			while (rs.next()) {
 				dto = new ProductDTO();
 				dto.setTic_seq(rs.getInt("tic_seq"));
-				dto.setCart_seq(rs.getInt("tic_cart_seq"));
+				dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 				dto.setRest_name(rs.getString("rest_name"));
-				dto.setTic_validate_content(rs.getString("tic_validate_content"));
 				dto.setTic_request(rs.getString("tic_request"));
 				dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 				dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
@@ -121,11 +120,11 @@ public class CartDAO {
 				dto.setTic_seq(rs.getInt("tic_seq"));
 				dto.setTic_option_seq(rs.getInt("tic_option_seq"));
 				dto.setTic_op_purchas_cnt(rs.getInt("tic_op_purchas_cnt"));
-				dto.setCart_seq(rs.getInt("tic_cart_seq"));
+				dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 				dto.setTic_op_name(rs.getString("tic_op_name"));
 				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
-				dto.setOp_min_cnt(rs.getInt("tic_op_min_cnt"));
-				dto.setOp_max_cnt(rs.getInt("tic_op_max_cnt"));
+				dto.setTic_op_min_cnt(rs.getInt("tic_op_min_cnt"));
+				dto.setTic_op_max_cnt(rs.getInt("tic_op_max_cnt"));
 				option.add(dto);
 			}
 		 
@@ -142,20 +141,28 @@ public class CartDAO {
 	 public boolean deleteCart(Connection conn, int tic_cart_seq) throws SQLException {
 	      StringBuffer sql = new StringBuffer();
 	      
-	      sql.append(" delete from cart where tic_cart_seq = ? ");
+	      boolean result = false;
+	      sql.append(" delete from tic_cart_option_cnt where tic_cart_seq = ? ");
 	      
 	      PreparedStatement pstmt = null;
 	      
-	      boolean result = false;
 	      pstmt = conn.prepareStatement(sql.toString());
 	     
 	      pstmt.setInt(1, tic_cart_seq);
 	     
 	      result = pstmt.executeUpdate()==0? false:true;
+	      
+	      System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + result);
+	      if(result == true) {
+	    	  StringBuffer sql2 = new StringBuffer();
+	    	  sql2.append(" delete from cart where tic_cart_seq = ? ");
+	    	  pstmt = conn.prepareStatement(sql2.toString());
+	    	  pstmt.setInt(1, tic_cart_seq);
+	    	  result = pstmt.executeUpdate()==0? false:true;
+	      }
 	      pstmt.close();
 	      
-	      return false;
-
+	      return result;
 	   }
 	 
 	 public boolean updateCart(Connection conn, int tic_num_of_people, String tic_request, String tic_reserve_date, int tic_cart_seq) throws SQLException {
@@ -178,14 +185,14 @@ public class CartDAO {
 	 
 	 public List<ProductDTO> selectoption(Connection conn, int cart_seq) throws SQLException {
 			StringBuffer sql = new StringBuffer();
-			sql.append(" select distinct c.tic_cart_seq, r.rest_name, tv.tic_validate_content, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+			sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
 			sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
-			sql.append(" join tic_validate tv on tv.tic_seq = t.tic_seq ");
 			sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
 			sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
 			sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
 			sql.append(" join cart c on c.tic_cart_seq = tc.tic_cart_seq ");
-			sql.append(" where c.tic_cart_seq = ? ");
+			sql.append(" where tic_img like '%e_1.p%' ");
+			sql.append(" and c.tic_cart_seq = ? ");
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -199,9 +206,8 @@ public class CartDAO {
 					dto = new ProductDTO();
 					dto = new ProductDTO();
 					dto.setTic_seq(rs.getInt("tic_seq"));
-					dto.setCart_seq(rs.getInt("tic_cart_seq"));
+					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 					dto.setRest_name(rs.getString("rest_name"));
-					dto.setTic_validate_content(rs.getString("tic_validate_content"));
 					dto.setTic_request(rs.getString("tic_request"));
 					dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
 					dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
@@ -235,11 +241,11 @@ public class CartDAO {
 					dto.setTic_seq(rs.getInt("tic_seq"));
 					dto.setTic_option_seq(rs.getInt("tic_option_seq"));
 					dto.setTic_op_purchas_cnt(rs.getInt("tic_op_purchas_cnt"));
-					dto.setCart_seq(rs.getInt("tic_cart_seq"));
+					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
 					dto.setTic_op_name(rs.getString("tic_op_name"));
 					dto.setTic_dc_price(rs.getInt("tic_dc_price"));
-					dto.setOp_min_cnt(rs.getInt("tic_op_min_cnt"));
-					dto.setOp_max_cnt(rs.getInt("tic_op_max_cnt"));
+					dto.setTic_op_min_cnt(rs.getInt("tic_op_min_cnt"));
+					dto.setTic_op_max_cnt(rs.getInt("tic_op_max_cnt"));
 					option.add(dto);
 				}
 			 
@@ -328,22 +334,89 @@ public class CartDAO {
         return result;
      }
 	
-	/*public static int CheckCart(Connection conn, int cart_seq) throws SQLException {
-	      StringBuffer sql = new StringBuffer();
-	      sql.append(" select count(*) from totalcart where cart_seq in( ? ) ");
-	      PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      
-	      pstmt = conn.prepareStatement(sql.toString());
-	      pstmt.setInt(1, cart_seq);
-	      rs = pstmt.executeQuery();
-	      int cart_num = -1;
-	        while (rs.next()) {
-	           cart_num = rs.getInt(1);   
-	         }
-	      
-	      return cart_num;
-	   }*/
+	public List<ProductDTO> selectCartOrder(Connection conn, String[] cart_seq) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select distinct c.tic_cart_seq, r.rest_name, i.tic_img, c.tic_num_of_people, c.tic_request, c.tic_reserve_date, t.tic_seq from ticket t ");
+		sql.append(" join restaurant r on t.rest_seq = r.rest_seq ");
+		sql.append(" join tic_img i on i.tic_seq = t.tic_seq ");
+		sql.append(" join tic_option o on o.tic_seq = t.tic_seq ");
+		sql.append(" join tic_cart_option_cnt tc on o.tic_option_seq = tc.tic_option_seq ");
+		sql.append(" join cart c on c.tic_cart_seq = tc.tic_cart_seq ");
+		sql.append(" where tic_img like '%e_1.p%' ");
+		sql.append(" and c.tic_cart_seq = ? ");
 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductDTO> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql.toString());
 
+			for (int i = 0; i < cart_seq.length; i++) {
+				pstmt.setInt(1, Integer.parseInt(cart_seq[i]));
+				rs = pstmt.executeQuery();
+				ProductDTO dto = null;
+				
+				dto = new ProductDTO();
+				while (rs.next()) {
+					dto = new ProductDTO();
+					dto.setTic_seq(rs.getInt("tic_seq"));
+					dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
+					dto.setRest_name(rs.getString("rest_name"));
+					dto.setTic_request(rs.getString("tic_request"));
+					dto.setTic_num_of_people(rs.getInt("tic_num_of_people"));
+					dto.setTic_reserve_date(rs.getString("tic_reserve_date"));
+					dto.setTic_img(rs.getString("tic_img"));
+					list.add(dto);
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	public List<ProductDTO> selectCartOrderOption(Connection conn, String[] cart_seq) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select * from tic_option o ");
+		sql.append(" join tic_cart_option_cnt tc on tc.tic_option_seq = o.tic_option_seq ");
+		sql.append(" where tc.tic_cart_seq = ? ");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<ProductDTO> option = new ArrayList<>();
+		
+			pstmt = conn.prepareStatement(sql.toString());
+		for (int i = 0; i < cart_seq.length; i++) {
+			pstmt.setInt(1, Integer.parseInt(cart_seq[i]));
+			rs = pstmt.executeQuery();
+			ProductDTO dto = null;
+			while (rs.next()) {
+				dto = new ProductDTO();
+				dto.setTic_seq(rs.getInt("tic_seq"));
+				dto.setTic_option_seq(rs.getInt("tic_option_seq"));
+				dto.setTic_op_purchas_cnt(rs.getInt("tic_op_purchas_cnt"));
+				dto.setTic_cart_seq(rs.getInt("tic_cart_seq"));
+				dto.setTic_op_name(rs.getString("tic_op_name"));
+				dto.setTic_dc_price(rs.getInt("tic_dc_price"));
+				dto.setTic_op_min_cnt(rs.getInt("tic_op_min_cnt"));
+				dto.setTic_op_max_cnt(rs.getInt("tic_op_max_cnt"));
+				option.add(dto);
+			}
+		}
+		 
+			pstmt.close();
+			rs.close();
+			
+		return option;
+		
+	}
+	
 }

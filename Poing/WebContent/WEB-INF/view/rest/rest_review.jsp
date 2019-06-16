@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-
-
-%>
 <div class="body first">
 	<div class="title">리뷰 쓰기</div>
 	<ul class="list">
@@ -65,38 +61,51 @@
 <div class="sort_wrap">
 	<span class="title">리뷰</span>
 	<ul class="sort_list">
-		<li class="item " data-item="최신순">최신순</li>
-		<li class="item selected" data-item="인기순">인기순</li>
+		<li class="item ${ param.type eq null || param.type.isEmpty() || param.type eq 'time' ? 'selected' : ''}" data-item="최신순">최신순</li>
+		<li class="item ${ param.type eq 'like' ? 'selected' : ''}" data-item="인기순">인기순</li>
 	</ul>
 </div>
+
+<script type="text/javascript">
+// review view
+  $(".sort_list>.item").on("click", function () {
+    var item = $(this).data("item");
+
+    if (item == "최신순")
+      location.search = "?rest_seq=41972&tab=review&type=time";
+    else if (item == "인기순")
+      location.search = "?rest_seq=41972&tab=review&type=like";
+  });
+</script>
+  
 <c:forEach var="rev_dto" items="${list }" varStatus="status">
 <div class="body review list review_wrap ">
-		<div class="review" data-id="${rev_dto.rev_no }" data-place="${rev_dto.rest_no }" data-place-name="${rev_dto.rest_name }">
-			<a class="author" href="/Poing/timeline.do?id=${rev_dto.m_no }">
+		<div class="review" data-id="${rev_dto.rev_seq }" data-place="${rev_dto.rev_rest_seq }" data-place-name="${rev_dto.rest_name }">
+			<a class="author" href="/Poing/timeline.do?id=${rev_dto.m_seq }">
 			<span class="thumbnail"	style="display: inline-block; background-image: url(&quot;${realPath}${ rev_dto.m_img ne null ? rev_dto.m_img : application.getAttribute('baseimg') }&quot;);"></span>
 				<div class="info">
 					<p class="name">${rev_dto.m_name }</p>
 					<p class="stat">${rev_dto.m_revcnt} 리뷰, ${rev_dto.m_ercnt} 팔로워</p>
 				</div> 
-				<c:if test="${ authUser.m_no ne rev_dto.m_no }">
+				<c:if test="${ authUser.m_seq ne rev_dto.m_seq }">
 					<button class="follow ${ rev_dto.amIfollow?'on':' '}" type="button"
-						data-type="poing.user.follow" data-id="${ rev_dto.m_no }"
+						data-type="poing.user.follow" data-id="${ rev_dto.m_seq }"
 						tabindex="-1">
 						<i class="icon follow ${ rev_dto.amIfollow?'on':' '}"></i>팔로우
 					</button>
 				</c:if>
 			</a> <a class="place"
-				href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rest_no }">
+				href="/Poing/rest/detail.do?rest_seq=${ rev_dto.rev_rest_seq }">
 				<button class="favorite " type="button"
-					data-type="poing.restaurants.favorite" data-id="${ rev_dto.rest_no }"
+					data-type="poing.restaurants.favorite" data-id="${ rev_dto.rev_rest_seq }"
 					tabindex="-1">
 					<i class="icon heart small "></i>매장찜
 				</button>
 				<p class="name">${rev_dto.rest_name}</p>
-				<p class="info">${rev_dto.rest_loc}</p>
+				<p class="info">${rev_dto.rest_address}</p>
 			</a>
 			<div class="body">
-				<div class="time  loaded" style="display: block;">${rev_dto.rev_wtime}</div>
+				<div class="time " style="display: block;">${rev_dto.rev_wtime}</div>
 				<div class="grade">
 
 					<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
@@ -107,7 +116,7 @@
 					</c:forEach>
 					<span id="pointComment"
 						style="display: inline-block; vertical-align: super;"
-						data-id="${ rev_dto.rev_no }" data-grade="${ rev_dto.rev_starpoint }"></span>
+						data-id="${ rev_dto.rev_seq }" data-grade="${ rev_dto.rev_starpoint }"></span>
 					<script type="text/javascript">
 											//$("#pointComment").text("${ rev_dto.rev_starpoint/10 } / " + ratingText[${ rev_dto.rev_starpoint/10 }]);
 										</script>
@@ -115,13 +124,13 @@
 				<div class="text" data-truncated="">${rev_dto.rev_content }</div>
 
 
-				<div class="photo" data-id="${rev_dto.rev_no }">
+				<div class="photo" data-id="${rev_dto.rev_seq }">
 					<c:if test="${rev_dto.images ne null}">
 						<c:forEach items="${rev_dto.images }" var="image_rev_dto">
 							<button class="empty i_wrap"
 								data-type="poing.popup.photoReviewViewerPopup"
-								data-id="${rev_dto.rev_no }" data-index="0"
-								data-image-selector=".photo[data-id=${rev_dto.rev_no }]>button>i"
+								data-id="${rev_dto.rev_seq }" data-index="0"
+								data-image-selector=".photo[data-id=${rev_dto.rev_seq }]>button>i"
 								tabindex="-1">
 								<i class="image border_radius soft"
 									data-origin="${ realPath }${ image_rev_dto }"
@@ -132,14 +141,10 @@
 					</c:if>
 				</div>
 
-				<button class="like_list"
-					data-type="poing.reviews.actions.user.showLikers"
-					data-id="${rev_dto.rev_no }" tabindex="-1">김수한님, jwjwjw님 외
-					12명이 좋아합니다.</button>
 				<div class="action">
 					<button class="like ${ rev_dto.amIlike?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.like"
-						data-id="${rev_dto.rev_no }" tabindex="-1">
+						data-id="${rev_dto.rev_seq }" tabindex="-1">
 						<i class="icon like ${ rev_dto.amIlike?'on':' '}"></i>
 						<p>
 							좋아요 <span>${rev_dto.like_cnt }</span>
@@ -147,7 +152,7 @@
 					</button>
 					<button class="favorite ${ rev_dto.amIpick?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.favorite"
-						data-id="${rev_dto.rev_no }" tabindex="-1">
+						data-id="${rev_dto.rev_seq }" tabindex="-1">
 						<i class="icon heart small ${ rev_dto.amIpick?'on':' '}"></i>
 						<p>
 							찜하기 <span>${rev_dto.pick_cnt }</span>
@@ -155,20 +160,20 @@
 					</button>
 					<button class="comment" type="button"
 						data-type="poing.reviews.actions.user.loadComments"
-						data-id="${rev_dto.rev_no }" tabindex="-1">
+						data-id="${rev_dto.rev_seq }" tabindex="-1">
 						<i class="icon balloon"></i>
 						<p>
 							댓글 <span>${rev_dto.commend_cnt}</span>
 						</p>
 					</button>
-					<c:if test="${ authUser.m_no eq rev_dto.m_no }">
+					<c:if test="${ authUser.m_seq eq rev_dto.m_seq }">
 						<div class="article">
 							<button class="edit"
 								data-type="poing.reviews.actions.auth.modify2"
-								data-id="${ rev_dto.rev_no }" tabindex="-1">수정하기</button>
+								data-id="${ rev_dto.rev_seq }" tabindex="-1">수정하기</button>
 							<button class="delete"
 								data-type="poing.reviews.actions.auth.remove"
-								data-id="${ rev_dto.rev_no }" tabindex="-1">삭제하기</button>
+								data-id="${ rev_dto.rev_seq }" tabindex="-1">삭제하기</button>
 						</div>
 					</c:if>
 				</div>
@@ -180,10 +185,10 @@
 							style="background-image: url('${realPath}${ rev_dto.cdto.m_img ne null ? rev_dto.cdto.m_img : application.getAttribute('baseimg') }')"
 											href="/Poing/timeline.do?id=${ rev_dto.cdto.m_no }"></a>
 						<div class="author">
-							<p class="time loaded" style="display: block;">${ rev_dto.cdto.rc_wtime }</p>
+							<p class="time" style="display: block;">${ rev_dto.cdto.rc_wtime }</p>
 							<a class="name" href="/timeline/1517256">${ rev_dto.cdto.m_name }</a>
 							<p class="text">${ rev_dto.cdto.rc_content }</p>
-							<c:if test="${ rev_dto.cdto.m_no eq authUser.m_no }">
+							<c:if test="${ rev_dto.cdto.m_no eq authUser.m_seq }">
 								<div class="action">
 									<button type="button" class="edit"
 										data-type="poing.reviews.comment.modify"
@@ -200,7 +205,7 @@
 			<div class="write">
 				<span class="thumbnail"
 					style="background-image: url('${realPath}${ authUser.m_img ne null ? authUser.m_img : application.getAttribute("baseimg") }')"></span>
-				<textarea data-id="${ rev_dto.rev_no }" placeholder="댓글을 입력해주세요"></textarea>
+				<textarea data-id="${ rev_dto.rev_seq }" placeholder="댓글을 입력해주세요"></textarea>
 			</div>
 		</div>
 	</div>
@@ -209,16 +214,16 @@
 
 
 <div id="review_pagination">
-	<div class="page-list">
-		<ul class="pagination" onselectstart="return false;">
-			<li class="prevAll">&lt;&lt;</li>
-			<li class="prev">&lt;</li>
-			<li class="page active" data-page="1">1</li>
-			<li class="page" data-page="2">2</li>
-			<li class="page" data-page="3">3</li>
-			<li class="next">&gt;</li>
-			<li class="nextAll">&gt;&gt;</li>
-		</ul>
-	</div>
 </div>
-
+<script>
+  function reviewPaging(page) {
+    location.search = "?rest_seq=${param.rest_seq}&tab=${param.tab}&page="+page+"&type=${param.type}";
+  }
+  new Pagination({
+    selector: '#review_pagination',
+    current_page: ${ curPage },
+    per_page: 5,
+    total_page: ${ totalPage },
+    event: reviewPaging
+  });
+</script>

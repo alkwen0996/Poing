@@ -14,9 +14,29 @@
 <%@include file="/owner/css/bootstrap-wysihtml5.css" %>
 <%@include file="/owner/css/matrix-style.css" %>
 <%@include file="/owner/css/matrix-media.css" %>
-<%@include file="/owner/css/jquery.gritter.css" %>
 <%@include file="/owner/font-awesome/css/font-awesome.css" %>
 </style>
+
+<script src="js/excanvas.min.js"></script> 
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/jquery.flot.min.js"></script> 
+<script src="js/jquery.flot.resize.min.js"></script> 
+<script src="js/jquery.peity.min.js"></script> 
+<script src="js/fullcalendar.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.dashboard.js"></script> 
+<script src="js/matrix.interface.js"></script> 
+<script src="js/matrix.chat.js"></script> 
+<script src="js/jquery.validate.js"></script> 
+<script src="js/matrix.form_validation.js"></script> 
+<script src="js/jquery.wizard.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/matrix.popover.js"></script> 
+<script src="js/jquery.dataTables.min.js"></script> 
+<script src="js/matrix.tables.js"></script> 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
 </head>
@@ -69,8 +89,8 @@
 					</a>
 				</li>
 				<li class="bg_lr">
-					<a href="rest_menu.ow">
-					<i class="icon-info-sign"></i>레스토랑 수정요청
+					<a href="rest_cal.ow">
+					<i class="icon-bookmark"></i>레스토랑 예약관리
 					</a>
 				</li>
 			</ul>
@@ -80,22 +100,26 @@
 				<!-- 만약 티켓이 없다면 -->
 				<li class="bg_lr">
 					<a href="review_tables.ow"> 
-					<i class="icon-info-sign"></i>티켓 등록
+					<i class="icon-plus"></i>티켓 등록
 					</a>
 				</li>
 				
 				<!-- 만약 티켓이 있다면 -->
 				<li class="bg_lr">
-					<a href="review_tables.ow"> 
+					<a href=""> 
 					<i class="icon-info-sign"></i>티켓 정보
 					</a>
 				</li>
-				<li class="bg_lr"><a href="review_tables.ow"> <i
-						class="icon-picture"></i>티켓 사진
-				</a></li>
-				<li class="bg_lr"><a href="review_tables.ow"> <i
-						class="icon-comments-alt"></i>티켓 문의
-				</a></li>
+				<li class="bg_lr">
+					<a href=""> 
+					<i class="icon-picture"></i>티켓 사진
+					</a>
+				</li>
+				<li class="bg_lr">
+					<a href=""> 
+					<i class="icon-comments-alt"></i>티켓 문의
+					</a>
+				</li>
 			</ul>
 		</div>
 		<!--End-Action boxes-->
@@ -544,27 +568,6 @@
 </div>
 <!--end-Footer-part-->
 
-<script src="js/excanvas.min.js"></script> 
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/jquery.flot.min.js"></script> 
-<script src="js/jquery.flot.resize.min.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/fullcalendar.min.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/matrix.dashboard.js"></script> 
-<script src="js/jquery.gritter.min.js"></script> 
-<script src="js/matrix.interface.js"></script> 
-<script src="js/matrix.chat.js"></script> 
-<script src="js/jquery.validate.js"></script> 
-<script src="js/matrix.form_validation.js"></script> 
-<script src="js/jquery.wizard.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.popover.js"></script> 
-<script src="js/jquery.dataTables.min.js"></script> 
-<script src="js/matrix.tables.js"></script> 
 
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to

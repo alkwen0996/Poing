@@ -26,7 +26,7 @@
 				<p class="info">${dto.rest_address }</p>
 			</a>
 			<div class="body">
-				<div class="time  loaded" style="display: block;">${dto.rev_wtime }</div>
+				<div class="time " style="display: block;">${dto.rev_wtime }</div>
 				<div class="grade">
 					
 					<c:forEach varStatus = "status" var = "i" begin = "1" end = "10" step = "1">
@@ -42,9 +42,6 @@
 				</div>
 				<div class="text" data-truncated="">${dto.rev_content }</div>
 				
-				<button class="like_list"
-					data-type="poing.reviews.actions.user.showLikers" data-id="${dto.rev_seq }"
-					tabindex="-1">YN님, 투명인간님 외 16명이 좋아합니다.</button>
 				<div class="action">
 					<button class="like ${ dto.amIlike?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.like" data-id="${dto.rev_seq }"
@@ -96,7 +93,7 @@
 							style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : application.getAttribute("baseimg") }')"
 							href="/Poing/timeline.do?id=${ dto.cdto.rc_m_seq }"></a>
 						<div class="author">
-							<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
+							<p class="time " style="display: block;">${ dto.cdto.rc_wtime }</p>
 							<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
 							<p class="text">${ dto.cdto.rc_content }</p>
 							<c:if test="${ dto.cdto.rc_m_seq eq authUser.m_seq }">
@@ -163,7 +160,7 @@
 				<p class="info">${dto.rest_address}</p>
 			</a>
 			<div class="body">
-				<div class="time  loaded" style="display: block;">${dto.rev_wtime}</div>
+				<div class="time " style="display: block;">${dto.rev_wtime}</div>
 				<div class="grade">
 
 					<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
@@ -201,10 +198,6 @@
 					</c:if>
 				</div>
 
-				<button class="like_list"
-					data-type="poing.reviews.actions.user.showLikers"
-					data-id="${dto.rev_seq }" tabindex="-1">김수한님, jwjwjw님 외
-					12명이 좋아합니다.</button>
 				<div class="action">
 					<button class="like ${ dto.amIlike?'on':' '}" type="button"
 						data-type="poing.reviews.actions.user.like"
@@ -249,7 +242,7 @@
 							style="background-image: url('${realPath}${ dto.cdto.m_img ne null ? dto.cdto.m_img : applicationScope.baseprofile }')"
 							href="/Poing/timeline.do?id=${ dto.cdto.rc_m_seq }"></a>
 						<div class="author">
-							<p class="time loaded" style="display: block;">${ dto.cdto.rc_wtime }</p>
+							<p class="time " style="display: block;">${ dto.cdto.rc_wtime }</p>
 							<a class="name" href="/timeline/1517256">${ dto.cdto.m_name }</a>
 							<p class="text">${ dto.cdto.rc_content }</p>
 							<c:if test="${ dto.cdto.rc_m_seq eq authUser.m_seq }">

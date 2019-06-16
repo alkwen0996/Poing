@@ -7,6 +7,17 @@
 <title>배너 이미지</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/bootstrap-colorpicker.js"></script>
+<script src="js/bootstrap-datepicker.js"></script> 
+<script src="js/matrix.form_common.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/matrix.js"></script>
 <style>
 <%@include file="/admin/css/bootstrap.min.css" %>
 <%@include file="/admin/css/bootstrap-responsive.min.css" %>
@@ -123,15 +134,5 @@
 		href="http://themedesigner.in">Themedesigner.in</a>
 </div>
 </div>
-<!--end-Footer-part-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/bootstrap-colorpicker.js"></script>
-<script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/matrix.form_common.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/matrix.js"></script>
 </body>
 </html>

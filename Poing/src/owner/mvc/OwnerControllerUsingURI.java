@@ -84,6 +84,7 @@ public class OwnerControllerUsingURI extends HttpServlet{
 			throw new ServletException(e);
 		}
 		if(viewPage != null) {
+			request.setAttribute("viewPage", viewPage);
 			String prefix = "/WEB-INF/owner/page/";
 			viewPage = prefix+viewPage+".jsp";
 			System.out.println("viewpage: " + viewPage);

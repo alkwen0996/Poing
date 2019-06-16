@@ -12,7 +12,7 @@
 				<div id="nav_shading" class="shading_bg scroll_enable"></div>
 				<!-- logo section -->
 				<a id="nav_logo" href="/Poing/main.do"><img class="logo"
-					src="/Poing/upload/icon/logo.png"></a>
+					src="/Poing/upload/mainpage/logo.png"></a>
 
 				<div id="nav_city">
 					<span>서울 / 수도권</span> <i class="icon"></i>
@@ -584,29 +584,51 @@
 							<li class="item"><i class="icon number3"></i> <span
 								class="area">스테이크</span></li>
 						</ul>
+						
 						<ul class="recent">
 							<li class="title">최근 본 매장
 								<div>
-									<i class="icon arrow xs prev"></i><span class="page">1</span><span>3</span><i
-										class="icon arrow xs next"></i>
+									<i class="icon arrow xs prev"></i>
+									<span class="page">1</span>
+									<span class="totalpage_head"></span>
+									<i class="icon arrow xs next"></i>
 								</div>
 							</li>
-							<li class="item" data-id="30748"><span>와이스타일 (서래마을점)</span>
-							</li>
-							<li class="item" data-id="27920"><span>우미학</span></li>
-							<li class="item" data-id="10639"><span>더 킹스</span></li>
-							<li class="item" data-id="38208"><span>피스트 @ 쉐라톤 그랜드
-									인천호텔</span></li>
-							<li class="item" data-id="6122"><span>63 뷔페 파빌리온</span></li>
-							<li class="item" data-id="36840" style="display: none;"><span>파크루안(역삼점)</span></li>
-							<li class="item" data-id="13291" style="display: none;"><span>도원</span></li>
-							<li class="item" data-id="27845" style="display: none;"><span>맛이차이나</span></li>
-							<li class="item" data-id="1212" style="display: none;"><span>이사벨 더 부처</span></li>
-							<li class="item" data-id="1127" style="display: none;"><span>더 키친 살바토레 쿠오모</span></li>
-							<li class="item" data-id="27726" style="display: none;"><span>빈티지 1988</span></li>
-							<li class="item" data-id="39956" style="display: none;"><span>온다빌레</span></li>
-							<li class="item" data-id="37872" style="display: none;"><span>오프닛</span></li>
+							<!-- <li class="item" data-id="30748"><span>와이스타일 (서래마을점)</span></li> -->
 						</ul>
+						<script>
+							function setCookie(name, value, exdays) {
+								var now = new Date();
+								now.setDate(now.getDate() + exdays);
+								now.setTime(now.getTime() + 1000*10) //10초 유지 추가
+								//Thu, 18 Apr 2019 01:33:39 GMT
+								document.cookie = name + "=" + escape(value) + "; expires=" + now.toUTCString() + "; path=/;";
+								//localhost도메인에안, 모든 웹 어플리케이션에서 사용하겠다면 path=/
+							}
+	
+							function getCookie(name) {
+								var cookies = document.cookie;
+								var carr = cookies.split("; ");
+								var result = "";
+								for (let i = 0; i < carr.length; i++) {
+									var rarr = carr[i].split("=");
+									if (rarr[0] == name) {
+										return unescape( rarr[1] );
+									}
+								}
+								return null;
+							}
+							
+							var restlist = JSON.parse(getCookie("restlist"));
+							var page = Math.ceil(restlist.length/5);
+							$("span.totalpage_head").html(page);
+							$recent_rest_list = $("#nav_recommend > ul.recent");
+							for (var i = 0; i < restlist.length; i++) {
+								$li = $("<li>", {"class":"item", "data-id":restlist[i].rest_seq});
+								$li.append("<span>"+restlist[i].rest_name+"</span>");
+								$recent_rest_list.append($li);
+							}
+						</script>
 					</div>
 					<!-- auto_complete section -->
 					<div id="nav_auto_complete" class="border_radius soft"></div>
@@ -658,7 +680,6 @@
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=reservation">예약</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=coupon">티켓</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=payment">결제</div>
-									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=friends">친구찾기</div>
 									<div class="item" data-link="/Poing/timeline.do?id=${ authUser.m_seq }&tab=setting">설정</div>
 									<div id="nav_logout" class="item">로그아웃</div>
 								</div>
@@ -669,14 +690,6 @@
 			</div>
 		</div>
 		<!-- menu section -->
-		<div class="menu_wrap">
-			<div id="nav_menu">
-				<a href="/seoul/event" class="underline ">이벤트</a> \
-				<a href="/seoul/restaurant" class="underline ">추천 테마</a>
-				<a href="/seoul/review" class="underline ">리뷰</a> 
-				<a href="/magazine" class="underline ">매거진</a>
-			</div>
-		</div>
 	</div>
 	<!-- //navgation -->
 </div>

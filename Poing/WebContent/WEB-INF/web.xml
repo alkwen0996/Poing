@@ -20,6 +20,15 @@
 	</servlet>
 
   
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/view/errorpage/404error.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/view/errorpage/500error.jsp</location>
+  </error-page>
+  
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
@@ -102,6 +111,11 @@
     <url-pattern>/admin/editer_mypage.ad</url-pattern>
     <url-pattern>/admin/editer_image_change.ad</url-pattern>
     <url-pattern>/admin/editer_image_change.ad</url-pattern>
+    <url-pattern>/admin/editer_image_change.ad</url-pattern>
+    <url-pattern>/admin/product_banner.ad</url-pattern>
+    <url-pattern>/admin/move_product_banner.ad</url-pattern>
+    <url-pattern>/admin/add_product_banner.ad</url-pattern>
+    <url-pattern>/admin/modify_product_banner.ad</url-pattern>
   </filter-mapping>
   
   <servlet>
@@ -118,13 +132,5 @@
     <url-pattern>*.ad</url-pattern> 
   </servlet-mapping>
 	
-  <error-page>
-  	<error-code>404</error-code>
-  	<location>/view/errorpage/404error.jsp</location>
-  </error-page>
-  <error-page>
-  	<error-code>500</error-code>
-  	<location>/view/errorpage/500error.jsp</location>
-  </error-page>
   
 </web-app>

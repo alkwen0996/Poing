@@ -23,6 +23,7 @@ url = request.getRequestURI().toString();
 String newurl = "";
 int memberID = Integer.parseInt( request.getParameter("id") );
 %>
+
 <div class="body empty">
 	<div class="filter">
 		<a href="/Poing/timeline.do?id=${ param.id }&tab=restaurant&type=restaurant" class="selected">찜한 매장</a>
@@ -31,22 +32,13 @@ int memberID = Integer.parseInt( request.getParameter("id") );
 
 	<div class="list">
 		<c:forEach items="${pick_rest_list}" var="dto" varStatus="status">
-			<c:if test="${status.index % 3 ne 0 }">
-				<div class="element  medium ">
-			</c:if>
-			<c:if test="${status.index % 3 eq 0 }">
-				<div class="element  medium first">
-			</c:if>
-			<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}" 
-								class="image" 
-								style="display: block; 
-								background-image: url(/Poing${dto.rest_img});">    
+			<div class="element medium ${status.index % 3 eq 0 ? 'first' : ''}">
+			<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}" class="image" style="display: block; background-image: url(${realPath}${dto.rest_img});">    
 				<div class="shading"></div>
-
 				<div class="top">
 					예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
 					&nbsp; 조회수 ${dto.rest_view_cnt} <br>
-					<button class="" data-type="poing.restaurants.favorite"
+					<button class="on" data-type="poing.restaurants.favorite"
 						data-id="${dto.rest_seq }" onclick='return false;'>
 							<i class="icon favorite on"></i>
 					</button>
@@ -56,24 +48,23 @@ int memberID = Integer.parseInt( request.getParameter("id") );
 					<span class="name">${dto.rest_name}</span> <span class="area">${dto.rest_loc}</span>
 				</div>
 			</a>
-
 			<div class="desc">
 				<div class="place_info">
 					<div class="rating">
 						<div class="stars">
 							<c:forEach varStatus="status" var="i" begin="1" end="10" step="1">
-												<c:if test="${i <= ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
-													<c:if test="${i%2 ne 0 }"><span class="star odd active"></span></c:if>
-													<c:if test="${i%2 eq 0 }">
-														<span class="star even active" ></span>
-													</c:if>
-												</c:if>
-												<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
-													<c:if test="${i%2 eq 0 }">
-														<span class="star even "></span>
-													</c:if>
-												</c:if>
-											</c:forEach> 
+								<c:if test="${i <= ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}">
+									<c:if test="${i%2 ne 0 }"><span class="star odd active"></span></c:if>
+									<c:if test="${i%2 eq 0 }">
+										<span class="star even active" ></span>
+									</c:if>
+								</c:if>
+								<c:if test="${i > ((dto.rest_starpoint)+(((dto.rest_starpoint)%1>0.5)?(1-((dto.rest_starpoint)%1))%1:-((dto.rest_starpoint)%1)))}"><c:if test="${i%2 ne 0 }"><span class="star odd "></span></c:if>
+									<c:if test="${i%2 eq 0 }">
+										<span class="star even "></span>
+									</c:if>
+								</c:if>
+							</c:forEach> 
 						</div>
 
 						<div class="grade">${((dto.rest_starpoint/2*10)+(((dto.rest_starpoint/2*10)%1>0.5)?(1-((dto.rest_starpoint/2*10)%1))%1:-((dto.rest_starpoint/2*10)%1)))/10}점점</div>
@@ -87,49 +78,26 @@ int memberID = Integer.parseInt( request.getParameter("id") );
 					</ul>
 				</div>
 			</div>
-
 			<div class="btn">
-				<button type="button" class="reserve"
-					data-type="poing.reservation.addloading" data-id="${dto.rest_seq}">예약하기</button>
-				<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review"
-					class="review ">리뷰 쓰기</a>
+				<button type="button" class="reserve" data-type="poing.reservation.addloading" data-id="${dto.rest_seq}">예약하기</button>
+				<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq}&tab=review" class="review ">리뷰 쓰기</a>
 			</div>
-	</div>
-	</c:forEach>
-	
-
-	<div id="pagination">
-		<div class="page-list">
-			<ul class="pagination" onselectstart="return false;">
-
-				<li class="prevAll"><a
-					href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=1">&lt;&lt;</a></li>
-				<li class="prev"><a
-					href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=<%=prev%>">&lt;</a></li>
-				<c:if test="${pick_rest_list eq null }">
-					<li class="page active" data-page="1"><a
-						style="color: #c91b3c !important"
-						href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=1">${status.index}</a></li>
-				</c:if>
-				<c:if test="${pick_rest_list ne null }">
-					<c:forEach begin="<%=startPage%>" end="<%=endPage%>" step="1"
-						varStatus="status">
-						<c:if test="${status.index ne cpage }">
-							<li class="page" data-page="${status.index}"><a
-								href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=${status.index}">${status.index}</a></li>
-						</c:if>
-						<c:if test="${status.index eq cpage }">
-							<li class="page active" data-page="${status.index}"><a
-								style="color: #c91b3c !important"
-								href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=${status.index}">${status.index}</a></li>
-						</c:if>
-					</c:forEach>
-				</c:if>
-				<li class="next"><a
-					href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=<%=next%>">&gt;</a></li>
-				<li class="nextAll"><a
-					href="/Poing/timeline.do?id=<%=memberID%>&tab=restaurant&page=<%=totalpage%>">&gt;&gt;</a></li>
-			</ul>
-		</div>
+			</div>
+		</c:forEach>
 	</div>
 </div>
+<div id="restaurant_pagination"></div>
+	<script>
+		function restaurantPaging(page)
+		{
+			location.search = "?id=${ param.id }&tab=restaurant&page="+page;
+		}
+	
+		new Pagination({
+			selector:'#restaurant_pagination', 
+			current_page:<%= cpage %>,
+			per_page:10, 
+			total_page:<%= totalpage %>,
+			event:restaurantPaging
+			});
+	</script>

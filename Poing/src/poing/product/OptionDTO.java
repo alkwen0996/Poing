@@ -3,12 +3,21 @@ package poing.product;
 public class OptionDTO {
 	
 	private int tic_option_seq;
+	private int tic_original_price;
 	private int tic_seq;
 	private String tic_op_name;
 	private int tic_dc_price;
 	private int tic_op_min_cnt;
 	private int tic_op_max_cnt;
 	
+	
+	
+	public int getTic_original_price() {
+		return tic_original_price;
+	}
+	public void setTic_original_price(int tic_original_price) {
+		this.tic_original_price = tic_original_price;
+	}
 	public int getTic_option_seq() {
 		return tic_option_seq;
 	}

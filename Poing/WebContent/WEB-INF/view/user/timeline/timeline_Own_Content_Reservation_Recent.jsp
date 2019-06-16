@@ -20,7 +20,7 @@
 			<div class="info">
 				<div class="name">
 					<a href="/Poing/rest/detail.do?rest_seq=${dto.rest_seq }">${dto.rest_name }</a> <span
-						class="label blue border_radius soft">${dto.r_reserve_status}</span>
+						class="label blue border_radius soft"><c:if test="${dto.r_reserve_status eq 1}">예약대기</c:if><c:if test="${dto.r_reserve_status eq 2}">예약확정</c:if><c:if test="${dto.r_reserve_status eq 3}">예약불가통보</c:if></span>
 				</div>
 				<div class="date">예약정보: ${dto.r_reserve_date} ${dto.r_reserve_hour}</div>
 				<div class="party_size">인원: ${dto.r_reserve_numofpeople }</div>

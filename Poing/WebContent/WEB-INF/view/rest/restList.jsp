@@ -84,11 +84,6 @@
 	sb.append("] ");  
 	
 	
-	//MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
-	//int member_num = 0;
-	//if(mdto==null) member_num = 0;
-	//else member_num = mdto.getM_no();
-	
  	ArrayList<RestListDTO> list1 = (ArrayList<RestListDTO>) request.getAttribute("list");
 	int totalcount = 0;
 	int totalpage = 0;
@@ -125,6 +120,10 @@
 		if (ucnt > 0) newurl += "&searchWord=" + request.getParameter("searchWord");
 		else newurl += "searchWord=" + request.getParameter("searchWord");
 	} 
+	if (request.getParameter("food_type") != null) {
+		if (ucnt > 0) newurl += "&food_type=" + request.getParameter("food_type");
+		else newurl += "food_type=" + request.getParameter("food_type");
+	} 
 	
 %>
 <body>
@@ -139,7 +138,6 @@
 				<div class="result">
 					총 <span class="highlight"><%=totalcount%></span>개가 검색되었습니다.
 				</div>
-`
 				<ul class="sort_order_spread">
 					<li class="" data-order="average_grade">별점순</li>
 					<li class="" data-order="reservation">예약순</li>
@@ -156,8 +154,8 @@
 								<span class="shaing"></span>
 								<div class="top">
 									예약 ${dto.rest_reserve_cnt}&nbsp; 리뷰 ${dto.rest_review_cnt} 
-									&nbsp; 조회수 ${dto.rest_view_cnt} <br>
-									<button class="" data-type="poing.restaurants.favorite"
+									&nbsp; 조회수 ${dto.rest_view_cnt-(dto.rest_view_cnt%1)} <br>
+									<button class="${dto.rest_fav ne 0 ? 'on' : '' }" data-type="poing.restaurants.favorite"
 										data-id="${dto.rest_seq }" onclick='return false;'>
 										<i class="icon favorite ${dto.rest_fav ne 0 ? 'on' : '' }"></i>
 									</button>
@@ -388,7 +386,6 @@ url: 'www.google.com'
      }
    }
   --%>
-
 </script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3AEpRuYNo5NnomHPAXXRCyXxgtYzz3g&callback=initMap"></script>

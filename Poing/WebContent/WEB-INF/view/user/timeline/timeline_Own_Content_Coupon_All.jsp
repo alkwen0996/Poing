@@ -57,29 +57,25 @@
 		<tbody>
 			<c:forEach items="${rev_tic_list}" var="dto" varStatus="status">
 				<tr>
-					<td class="info"><a href="/product/detail/5468"> <i
-							class="image" style="background-image:url('${dto.tic_img}');"></i>
+					<td class="info"><a href="/Poing/main.do"> <i
+							class="image" style="background-image:url('/Poing${dto.tic_img}');"></i>
 					</a>
 
 						<div class="option">
 							<a class="title" href="/product/detail/5468"> <span>${dto.rest_name }</span>
 							</a>
-							<p class="valid_date">유효기간: ${dto.tic_validate_content }</p>
+							<p class="valid_date">유효기간: ${dto.tic_reserve_date }</p>
 
-<%-- 							<c:forEach items="${list}" var="list" varStatus="status"> --%>
-<!--                                                                     <li data-id="19044" data-limit="4"> -->
-                                        <div class="name">결제 금액 : </div>
-                                        
-<!--                                     </li> -->
-<%--                                         </c:forEach> --%>
+                                        <div class="name">결제한 티켓 총 금액 : ${dto.tic_totalmoney } </div>
 						</div></td>
 					<td class="reserve">
 						<div class="date">${dto.tic_reserve_date }</div>
+						<div class="date">${dto.tic_request }</div>
 						<div class="count">${dto.tic_num_of_people }명</div>
 					</td>
 					<td class="status"><span class="">결제완료</span>
 						<button class="refund" data1="${dto.tc_purchas_seq}"
-							data2="" style="">환불하기</button></td>
+							data2="${dto.tic_totalmoney }" style="">환불하기</button></td>
 
 				</tr>
 			</c:forEach>
@@ -108,5 +104,3 @@
 	})
 	</script>
 </div>
-
-

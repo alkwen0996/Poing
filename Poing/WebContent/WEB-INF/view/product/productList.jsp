@@ -1,3 +1,5 @@
+<%@page import="poing.product.ProductDAO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -17,6 +19,13 @@
            프로덕트      
    </title>
 </head>
+<%
+ProductDAO dao = new ProductDAO();
+int cpage = request.getParameter("pg") == null ? 1 : Integer.parseInt(request.getParameter("pg"));
+int totalCount = dao.getTotalCount();
+int endPageNo = (int) (Math.ceil(totalCount * 1.0 / 12));
+%>
+
 <body>
    <div id="wrap" class="">
       <jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
@@ -46,7 +55,7 @@
                         <div class="element  small_coupon">
                      </c:if>
                            <a href="/Poing/product/detail.do?tic_seq=${dto.tic_seq}" class="image"
-                              style="display: block; background-image: url(${dto.tic_img});">
+                              style="display: block; background-image: url(/Poing${dto.tic_img});">
                               <div class="shading"></div>
    
                               <div class="bottom">
@@ -69,7 +78,7 @@
                   
                </div><!-- "body" -->
                <div id="coupon_pagination">
-               <div class="page-list">
+               <%-- <div class="page-list">
                   <ul class="pagination" onselectstart="return false;">
                      <li class="prev">
                         <a href="list.do?pg=${paging.prevPageNo}">&lt;</a>
@@ -89,8 +98,18 @@
                         <a href="list.do?pg=${paging.nextPageno}">&gt;</a>
                      </li>
                   </ul>
-               </div>
-            </div>
+               </div> --%>
+            </div> 
+            <script>
+
+            new Pagination({'selector':'#coupon_pagination', 
+            				'current_page':<%=cpage%>,
+            				'per_page':12,
+            				'total_page':<%=endPageNo%>, 
+            				'event':function(page) {
+                                location.search = "?pg=" + page ;
+            				} });
+				</script>
 
          </div><!-- section -->
          </div><!-- content_wrap -->

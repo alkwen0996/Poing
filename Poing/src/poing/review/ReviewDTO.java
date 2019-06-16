@@ -40,7 +40,7 @@ public class ReviewDTO {
 
 	public ReviewDTO(ResultSet rs, int m_seq) throws SQLException {
 		this.rev_seq = rs.getInt("rev_seq");
-		this.rev_wtime = rs.getDate("rev_wtime");
+		this.rev_wtime = rs.getTimestamp("rev_wtime");
 		this.rev_content = rs.getString("rev_content");
 		this.rev_starpoint = rs.getInt("rev_starpoint");
 		this.rev_rest_seq = rs.getInt("rev_rest_seq");

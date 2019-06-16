@@ -1,5 +1,7 @@
 package poing.product;
 
+import java.sql.Date;
+
 public class ProductDTO {
 	
 	private int rest_seq;
@@ -22,63 +24,88 @@ public class ProductDTO {
 	private String tic_request;
 	private String tic_reserve_date;
 	private int tic_option_seq;
+	private String tic_explain_content;
+	private String tic_validate_content;
+	private int tic_img_seq;
+	private int tic_original_price;
+	private int photoRownum;
+	private int menuRownum;
+	private int tic_cart_seq;
+	private int tic_op_min_cnt;
+	private int tic_op_max_cnt;
+	private int Pickrownum;
+	private Date tic_enddate;
+	
+	
+	public Date getTic_enddate() {
+		return tic_enddate;
+	}
+	public void setTic_enddate(Date tic_enddate) {
+		this.tic_enddate = tic_enddate;
+	}
+	public int getPickrownum() {
+		return Pickrownum;
+	}
+	public void setPickrownum(int pickrownum) {
+		Pickrownum = pickrownum;
+	}
+	public String getTic_validate_content() {
+		return tic_validate_content;
+	}
+	public void setTic_validate_content(String tic_validate_content) {
+		this.tic_validate_content = tic_validate_content;
+	}
+	public int getTic_cart_seq() {
+		return tic_cart_seq;
+	}
+	public void setTic_cart_seq(int tic_cart_seq) {
+		this.tic_cart_seq = tic_cart_seq;
+	}
+	public int getTic_op_min_cnt() {
+		return tic_op_min_cnt;
+	}
+	public void setTic_op_min_cnt(int tic_op_min_cnt) {
+		this.tic_op_min_cnt = tic_op_min_cnt;
+	}
+	public int getTic_op_max_cnt() {
+		return tic_op_max_cnt;
+	}
+	public void setTic_op_max_cnt(int tic_op_max_cnt) {
+		this.tic_op_max_cnt = tic_op_max_cnt;
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public int getMenuRownum() {
+		return menuRownum;
+	}
+	public void setMenuRownum(int menuRownum) {
+		this.menuRownum = menuRownum;
+	}
+	public int getPhotoRownum() {
+		return photoRownum;
+	}
+	public void setPhotoRownum(int photoRownum) {
+		this.photoRownum = photoRownum;
+	}
+	public int getTic_original_price() {
+		return tic_original_price;
+	}
+	public void setTic_original_price(int tic_original_price) {
+		this.tic_original_price = tic_original_price;
+	}
+	public int getTic_img_seq() {
+		return tic_img_seq;
+	}
+	public void setTic_img_seq(int tic_img_seq) {
+		this.tic_img_seq = tic_img_seq;
+	}
+	public String getTic_explain_content() {
+		return tic_explain_content;
+	}
+	public void setTic_explain_content(String tic_explain_content) {
+		this.tic_explain_content = tic_explain_content;
+	}
 	public int getTic_option_seq() {
 		return tic_option_seq;
 	}
@@ -255,12 +282,6 @@ public class ProductDTO {
 	}
 	public void setTicg_content(String ticg_content) {
 		this.ticg_content = ticg_content;
-	}
-	public String getTic_validate_content() {
-		return this.tic_validate_title;
-	}
-	public void setTic_validate_content(String tic_validate_content) {
-		this.tic_validate_title = tic_validate_content;
 	}
 	public String getTic_cancel_content() {
 		return tic_cancel_content;

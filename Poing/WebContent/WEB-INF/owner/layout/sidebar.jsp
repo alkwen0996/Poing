@@ -4,52 +4,21 @@
 <!--sidebar-menu-->
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
-    <li class="active"><a href="index.ad"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    <li> <a href="charts.ad"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a> </li>
-    <li> <a href="widgets.ad"><i class="icon icon-inbox"></i> <span>Widgets</span></a> </li>
-    <li><a href="tables.ad"><i class="icon icon-th"></i> <span>Tables</span></a></li>
-    <li><a href="grid.ad"><i class="icon icon-fullscreen"></i> <span>Full width</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Forms</span> <span class="label label-important">3</span></a>
-      <ul>
-        <li><a href="form-common.ad">Basic Form</a></li>
-        <li><a href="form-validation.ad">Form with Validation</a></li>
-        <li><a href="form-wizard.ad">Form with Wizard</a></li>
-      </ul>
-    </li>
-    <li><a href="buttons.ad"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a></li>
-    <li><a href="interface.ad"><i class="icon icon-pencil"></i> <span>Eelements</span></a></li>
-    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>Addons</span> <span class="label label-important">5</span></a>
-      <ul>
-        <li><a href="index2.ad">Dashboard2</a></li>
-        <li><a href="gallery.ad">Gallery</a></li>
-        <li><a href="calendar.ad">Calendar</a></li>
-        <li><a href="invoice.ad">Invoice</a></li>
-        <li><a href="chat.ad">Chat option</a></li>
-      </ul>
-    </li>
-    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>Error</span> <span class="label label-important">4</span></a>
-      <ul>
-        <li><a href="error403.ad">Error 403</a></li>
-        <li><a href="error404.ad">Error 404</a></li>
-        <li><a href="error405.ad">Error 405</a></li>
-        <li><a href="error500.ad">Error 500</a></li>
-      </ul>
-    </li>
-    <li class="content"> <span>Monthly Bandwidth Transfer</span>
-      <div class="progress progress-mini progress-danger active progress-striped">
-        <div style="width: 77%;" class="bar"></div>
-      </div>
-      <span class="percent">77%</span>
-      <div class="stat">21419.94 / 14000 MB</div>
-    </li>
-    <li class="content"> <span>Disk Space Usage</span>
-      <div class="progress progress-mini active progress-striped">
-        <div style="width: 87%;" class="bar"></div>
-      </div>
-      <span class="percent">87%</span>
-      <div class="stat">604.44 / 4000 MB</div>
-    </li>
+    <li class="index"><a href="index.ow"><i class="icon icon-info-sign"></i> <span>메인페이지</span></a> </li>
+	<li class="rest_info"><a href="review_info.ow"><i class="icon icon-signal"></i> <span>레스토랑 정보</span></a> </li>
+	<li class="rest_review_tables rest_review_detail"><a href="review_tables.ow"><i class="icon icon-comment"></i> <span>레스토랑 리뷰</span></a> </li>
+	<li class="rest_image"><a href="rest_image.ow"><i class="icon icon-picture"></i> <span>레스토랑 사진</span></a></li>
+	<li class="rest_menu"><a href="rest_menu.ow"><i class="icon icon-list-alt"></i> <span>레스토랑 메뉴</span></a></li>
+	<li class="rest_calendar"><a href="rest_cal.ow"><i class="icon icon-bookmark"></i> <span>레스토랑 예약관리</span></a></li>
+	
+	<li class=""><a href=""><i class="icon icon-plus"></i> <span>티켓 등록</span></a></li>
+	<li class=""><a href=""><i class="icon icon-list-alt"></i> <span>티켓 정보</span></a></li>
+	<li class=""><a href=""><i class="icon icon-picture"></i> <span>티켓 사진</span></a></li>
+	<li class=""><a href=""><i class="icon icon-comments-alt"></i> <span>티켓 문의</span></a></li>
   </ul>
 </div>
+<script>
+$("li.${ viewPage }").addClass("active");
+</script>
 <!--sidebar-menu-->
     

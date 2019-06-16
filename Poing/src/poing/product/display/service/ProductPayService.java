@@ -12,9 +12,20 @@ import poing.product.RefundTicketDTO;
 import poing.product.PointHistoryDTO;
 
 public class ProductPayService {
-	public List<RefundTicketDTO> selectReserva_tic() {
+	public List<RefundTicketDTO> selectReserva_tic(int m_seq) {
 		try (Connection conn = ConnectionProvider.getConnection()) {
-			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn);
+			List<RefundTicketDTO> list = ProductDetailDAO.selectReserva_tic(conn, m_seq);
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		
+		
+	}
+	public List<RefundTicketDTO> selectUseReserva_tic(int m_seq) {
+		try (Connection conn = ConnectionProvider.getConnection()) {
+			List<RefundTicketDTO> list = ProductDetailDAO.selectUseReserva_tic(conn, m_seq);
 			return list;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -60,9 +71,3 @@ public class ProductPayService {
 
 	}
 }
-/*
- * public MemberDTO selectMemberByID(int memberID) { MemberDTO mdto = null;
- * Connection conn = null; try { conn = ConnectionProvider.getConnection(); mdto
- * = mdao.selectById(conn , memberID); } catch (SQLException e) { // TODO
- * Auto-generated catch block e.printStackTrace(); } return mdto; }
- */

@@ -17,9 +17,8 @@
         System.out.println("ajaxfav.jsp m_num="+m_num+" type="+typecnt);
         String sql = "";
         
-        
-        if (typecnt==1) sql = "insert into  pick values (pick_seq.nextval, ?, null, null,?)  "; 
-        else sql = "delete from pick where rest_no = ? and m_seq= ? "; 
+        if (typecnt==1) sql = "insert into  pick values (pick_seq.nextval, ?, null,null,?)  "; //1,100022, null,null
+        else sql = "delete from pick where m_seq = ? and rest_no= ? "; 
         int cnt = 0;
         
         Connection conn = null;
@@ -41,8 +40,8 @@
 
      		} else {     			
      			pstmt2 = conn.prepareStatement(sql);
-     			pstmt2.setInt(1, rest_seq);
-     			pstmt2.setInt(2, m_num);
+     			pstmt2.setInt(1, m_num);
+     			pstmt2.setInt(2, rest_seq);
 
      			result = pstmt2.executeUpdate();
      			System.out.println("ajax/restPick.jsp: delete result " + result);

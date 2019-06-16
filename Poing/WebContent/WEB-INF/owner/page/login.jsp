@@ -16,13 +16,15 @@
     </style>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/matrix.login.js"></script>
 </head>
 
 <body>
     <div id="loginbox">
         <form id="loginform" class="form-vertical" action="checkLogin.ow" method="post">
             <div class="control-group normal_text">
-                <h3><img src="img/logo.png" alt="Logo" /></h3>
+                <h3><img src="../img/logo_owner.png" alt="Logo" /></h3>
             </div>
             <div class="control-group">
                 <div class="controls">
@@ -49,8 +51,6 @@
             </div>
         </form>
         </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/matrix.login.js"></script>
 </body>
 
 </html>

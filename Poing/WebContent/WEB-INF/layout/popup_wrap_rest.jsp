@@ -39,9 +39,32 @@
 	<i id="loadingBox" class="image"
 		style="display: none; z-index: 10000; position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: url(http://c1.poing.co.kr/original/images/spiffygif_52x52.gif) no-repeat center center black; opacity: 0.6; filter: alpha(opacity = 60);"></i>
 
-
-
-
+<!-- 
+	<div id="photoReviewViewerPopupShading" class="shading_bg"></div>
+	<div id="photoReviewViewerPopup" class="popup ">
+		<div class="section photo side">
+			<div class="slider_wrap">
+				<div class="slider"></div>
+				<span class="prev i_wrap"><i class="icon slider prev"></i></span> <span
+					class="next i_wrap"><i class="icon slider next"></i></span>
+			</div>
+			<div class="origin"></div>
+			<div class="nav_wrap">
+				<div class="nav">
+					<div class="slice"></div>
+				</div>
+				<span class="prev i_wrap"><i class="icon small_slider prev"></i></span>
+				<span class="next i_wrap"><i class="icon small_slider next"></i></span>
+			</div>
+		</div>
+		<div class="section review">
+			<div class="inner"></div>
+		</div>
+		<div class="close">
+			<i class="icon close large"></i>
+		</div>
+	</div>
+ -->
 
 	<div id="reportShading" class="shading_bg"></div>
 	<div id="report_popup">
@@ -61,8 +84,8 @@
 	</div>
 
 
-
 	<div id="reserveShading" class="shading_bg"></div>
+	
 	<div id="pre-reserve" class="reserve-popup">
 		<div class="popup-title">
 			<div class="place-name"></div>
@@ -100,31 +123,9 @@
 		</div>
 
 		<div class="popup-row comment result">
-			<span class="date"></span> <span class="time"></span> <span
-				class="count"></span>
+			<span class="date"></span> <span class="time"></span> 
+			<span class="count"></span>
 		</div>
-
-		<%-- <div class="popup-row confirm">
-			<div class="box">
-				<i class="icon person"></i> <input id="reserve_name" type="text"
-					class="name" placeholder="성함을 입력해주세요.">
-			</div>
-
-			<div class="box">
-				<i class="icon phone"></i> <input id="reserve_phone" type="text"
-					class="phone" placeholder="전화번호 입력해주세요.">
-			</div>
-
-			<button type="button" class="send" tabindex="-1">번호 인증하기</button>
-			<div class="box confirm_code">
-				<input class="code" placeholder="인증번호">
-			</div>
-			<button type="button" class="check" tabindex="-1">확인</button>
-			<div class="resend">
-				인증번호가 도착하지 않으셨나요?&nbsp;&nbsp;<span>재전송</span>
-			</div>
-
-		</div> --%>
 
 		<div class="popup-row comment">
 			<textarea id="reserve_comment" rows="5" placeholder="요청사항을 적어주세요."></textarea>
@@ -139,8 +140,8 @@
 		</div>
 		<div class="confirm-btn">
 			<button type="text" class="reserve" tabindex="-1">예약 접수</button>
-			<button type="text" class="cancel" tabindex="-1">예약 취소</button>
-			<button type="text" class="edit" tabindex="-1">변경</button>
+		<button type="text" class="cancel" tabindex="-1">예약 취소</button>
+		<button type="text" class="edit" tabindex="-1">변경</button>
 		</div>
 	</div>
 

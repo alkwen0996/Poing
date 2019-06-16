@@ -11,9 +11,9 @@
 </div>
 
 <script>
-			$.popup.interval = setTimeout(function(){ 
-			$("#popup").animate({'opacity':0}, 500, function() {
-				$(this).css('opacity', '').find(".accept").click();
-			});
-		}, 2000);
-	</script>
+$.popup.interval = setTimeout(function(){ 
+	$("#popup").animate({'opacity':0}, 500, function() {
+		$(this).css('opacity', '').find(".accept").click();
+	});
+}, 2000);
+</script>

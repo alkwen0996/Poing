@@ -7,6 +7,21 @@
 <title>${ authAdmin.e_name }님 환형합니다.</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/bootstrap-colorpicker.js"></script> 
+<script src="js/bootstrap-datepicker.js"></script> 
+<script src="js/jquery.toggle.buttons.js"></script> 
+<script src="js/masked.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/matrix.form_common.js"></script> 
+<script src="js/wysihtml5-0.3.0.js"></script> 
+<script src="js/jquery.peity.min.js"></script> 
+<script src="js/bootstrap-wysihtml5.js"></script> 
 <style>
 <%@include file="/admin/css/bootstrap.min.css" %>
 <%@include file="/admin/css/bootstrap-responsive.min.css" %>
@@ -92,41 +107,47 @@
 
 	<div class="container-fluid">
 	<div class="row-fluid">
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="icon-align-justify"></i>
-						</span>
-						<h5>에디터 정보</h5>
-					</div>
-					<div class="widget-content nopadding">
-						<form action="editer_info_change.ad" method="get" class="form-horizontal">
-							<div class="control-group">
-								<label class="control-label">닉네임 :</label>
-								<div class="controls">
-									<input name="e_name" type="text" class="span11" value="${ authAdmin.e_name }">
-								</div>
+		<div class="span6">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-align-justify"></i>
+					</span>
+					<h5>에디터 정보</h5>
+				</div>
+				<div class="widget-content nopadding">
+					<form action="editer_info_change.ad" method="get" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label">닉네임 :</label>
+							<div class="controls">
+								<input name="e_name" type="text" class="span11" value="${ authAdmin.e_name }">
 							</div>
-							<div class="control-group">
-								<label class="control-label">아이디</label>
-								<div class="controls">
-									<input type="text" class="span11" value="${ authAdmin.e_id }" disabled="disabled">
-								</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">아이디</label>
+							<div class="controls">
+								<input type="text" class="span11" value="${ authAdmin.e_id }" disabled="disabled">
 							</div>
-							<div class="control-group">
-								<label class="control-label">변경할 비밀번호</label>
-								<div class="controls">
-									<input name="e_pw" value="${ authAdmin.e_pw }" type="password" class="span11" placeholder="Enter Password">
-								</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">변경할 비밀번호</label>
+							<div class="controls">
+								<input name="e_pw" value="${ authAdmin.e_pw }" type="password" class="span11" placeholder="Enter Password">
 							</div>
-							<div class="form-actions">
-								<button type="submit" class="btn btn-success">Save</button>
+						</div>
+						<div class="control-group">
+							<label class="control-label">자기소개</label>
+							<div class="controls">
+								<input name="e_selfintro" type="text" class="span11" value="${ authAdmin.e_selfintro }">
 							</div>
-						</form>
-					</div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-success">Save</button>
+						</div>
+					</form>
 				</div>
 			</div>
-		</div><!-- row-fluid -->
+		</div>
+	</div><!-- row-fluid -->
 </div><!-- container-fluid -->
 </div><!-- content -->
 	<!--Footer-part-->
@@ -136,20 +157,6 @@
 			href="http://themedesigner.in">Themedesigner.in</a>
 	</div>
 </div>
-	<!--end-Footer-part-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-colorpicker.js"></script> 
-<script src="js/bootstrap-datepicker.js"></script> 
-<script src="js/jquery.toggle.buttons.js"></script> 
-<script src="js/masked.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.form_common.js"></script> 
-<script src="js/wysihtml5-0.3.0.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/bootstrap-wysihtml5.js"></script> 
+	
 </body>
 </html>

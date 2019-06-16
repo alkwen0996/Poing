@@ -845,8 +845,7 @@ public class ProductDetailDAO {
 			}
 		}
 		return dto;
-	}*/
-
+	}
 	public ArrayList<ProductDTO> selectdisplay_QnA(Connection conn, int tic_seq) {
 
 		PreparedStatement pstmt_qna = null;

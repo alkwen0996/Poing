@@ -32,7 +32,6 @@ public class DisplayProductDetailHandler implements CommandHandler {
 
 		try {
 			ProductDTO dto = service.select(tic_seq);
-			MemberDTO mdto = (MemberDTO)request.getSession().getAttribute("authUser");
 	
 			
 			int member_num;

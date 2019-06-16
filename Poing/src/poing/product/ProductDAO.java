@@ -138,48 +138,53 @@ public class ProductDAO {
 	
 	public List<ProductDTO> sselectdisplay(Connection conn, int first, int end, int bpage){
 		StringBuffer sql = new StringBuffer();
+		sql.append(" select no, c.tic_seq, rest_name, rest_address, tic_name, tic_type, tic_view_price, rest_foodinfo, rest_line_exp, tic_img ");
+		sql.append(" from ( ");
 		sql.append(" select no, tic_seq, rest_name, rest_address, tic_name, tic_type, tic_view_price, rest_foodinfo, rest_line_exp ");
 		sql.append(" from ( ");
 		sql.append(" select rownum no, tic_seq, tic_name, rest_name, rest_address, tic_type, tic_view_price, rest_foodinfo, rest_line_exp ");
 		sql.append(" from ( ");
-		sql.append("  select tic_seq, tic_name, rest_name, rest_address, tic_type, tic_view_price, rest_foodinfo, rest_line_exp ");
+		sql.append("  select t.tic_seq, tic_name, rest_name, rest_address, tic_type, tic_view_price, rest_foodinfo, rest_line_exp ");
 		sql.append("  from ticket t join restaurant r on r.rest_seq = t.rest_seq  ");
+		if(bpage == 9728) {
+			sql = sql.append( " where rest_foodinfo like '%일식%' and rest_name like '%스시%' ");
+		} else if (bpage == 10860) {
+			sql = sql.append(" where rest_address like '%청담%' or rest_address like '%가로수%' or rest_address like '%압구정%' ");
+		} else if (bpage == 10952) {
+			sql = sql.append( " where rest_name like '%한우%' or rest_line_exp like '%한우%' or rest_foodinfo like '%소고기%' ");
+		} else if (bpage == 9732) {
+			sql = sql.append( " where rest_name like '%스테이크%' or rest_line_exp like '%스테이크%' ");
+		} else if (bpage == 10948) {
+			sql = sql.append( " where tic_type like '%단독%' ");
+		} else if (bpage == 9752) {
+			sql = sql.append( " where rest_foodinfo like '%일식%' and rest_name not like '%스시%' ");
+		} else if (bpage == 9796) {
+			sql = sql.append( " where rest_address like '%호텔%' ");
+		} else if (bpage == 9788) {
+			sql = sql.append( " where rest_foodinfo like '%이탈%' or rest_foodinfo like '%프랑%' or rest_line_exp like '%지중해%' ");
+		} else if (bpage == 9740) {
+			sql = sql.append(" where rest_address like '%이태원%' or rest_address like '%경리단길%' or rest_address like '%용산구%' ");
+		} else if (bpage == 9792) {
+			sql = sql.append(" where rest_foodinfo like '%한식%' ");
+		} else if (bpage == 9760) {
+			sql = sql.append(" where rest_foodinfo like '%프랑%' ");
+		} else if (bpage == 9748) {
+			sql = sql.append(" where rest_foodinfo like '%중식%' ");
+		} else if (bpage == 9776) {
+			sql = sql.append(" where rest_foodinfo like '%뷔페%' ");
+		} else if (bpage == 9768) {
+			sql = sql.append(" where rest_foodinfo like '%카페%' or rest_line_exp like '%브런치%' ");
+		} else if (bpage == 9780) {
+			sql = sql.append(" where rest_foodinfo like '%바%' or rest_foodinfo like '%술집%' ");
+		} else if (bpage == 9764) {
+			sql = sql.append(" where rest_foodinfo like '%컨템퍼%' ");
+		}	
 		sql.append("  ) t ");
 		sql.append(" ) b ");
-		sql.append(" where b.no between ? and ? ");
-		if(bpage == 9728) {
-			sql = sql.append( " and rest_foodinfo like '%일식%' and rest_name like '%스시%' ");
-		} else if (bpage == 10860) {
-			sql = sql.append(" and rest_address like '%청담%' or rest_address like '%가로수%' or rest_address like '%압구정%' ");
-		} else if (bpage == 10952) {
-			sql = sql.append( " and rest_name like '%한우%' or rest_line_exp like '%한우%' or rest_foodinfo like '%소고기%' ");
-		} else if (bpage == 9732) {
-			sql = sql.append( " and rest_name like '%스테이크%' or rest_line_exp like '%스테이크%' ");
-		} else if (bpage == 10948) {
-			sql = sql.append( " and tic_type like '%단독%' ");
-		} else if (bpage == 9752) {
-			sql = sql.append( " and rest_foodinfo like '%일식%' and rest_name not like '%스시%' ");
-		} else if (bpage == 9796) {
-			sql = sql.append( " and rest_address like '%호텔%' ");
-		} else if (bpage == 9788) {
-			sql = sql.append( " and rest_foodinfo like '%이탈%' or rest_foodinfo like '%프랑%' or rest_line_exp like '%지중해%' ");
-		} else if (bpage == 9740) {
-			sql = sql.append(" and rest_address like '%이태원%' or rest_address like '%경리단길%' or rest_address like '%용산구%' ");
-		} else if (bpage == 9792) {
-			sql = sql.append(" and rest_foodinfo like '%한식%' ");
-		} else if (bpage == 9760) {
-			sql = sql.append(" and rest_foodinfo like '%프랑%' ");
-		} else if (bpage == 9748) {
-			sql = sql.append(" and rest_foodinfo like '%중식%' ");
-		} else if (bpage == 9776) {
-			sql = sql.append(" and rest_foodinfo like '%뷔페%' ");
-		} else if (bpage == 9768) {
-			sql = sql.append(" and rest_foodinfo like '%카페%' or rest_line_exp like '%브런치%' ");
-		} else if (bpage == 9780) {
-			sql = sql.append(" and rest_foodinfo like '%바%' or rest_foodinfo like '%술집%' ");
-		} else if (bpage == 9764) {
-			sql = sql.append(" and rest_foodinfo like '%컨템퍼%' ");
-		}
+		sql.append(" ) c ");
+		sql.append(" join tic_img m on m.tic_seq = c.tic_seq ");
+		sql.append(" where tic_img like '%e_1.%' ");
+		sql.append(" and c.no between ? and ? ");
 			   
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -198,6 +203,7 @@ public class ProductDAO {
 				dto.setTic_name(rs.getString("tic_name"));
 				dto.setTic_type(rs.getString("tic_type"));
 				dto.setTic_view_price(rs.getInt("tic_view_price"));
+				dto.setTic_img(rs.getString("tic_img"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -228,42 +234,41 @@ public class ProductDAO {
 			sql.append(" from ( ");
 			sql.append("  select tic_seq, tic_name, rest_name, rest_address, tic_type, tic_view_price, rest_foodinfo, rest_line_exp ");
 			sql.append("  from ticket t join restaurant r on r.rest_seq = t.rest_seq  ");
+			if(bpage == 9728) {
+				sql = sql.append( " where rest_foodinfo like '%일식%' and rest_name like '%스시%' ");
+			} else if (bpage == 10860) {
+				sql = sql.append(" where rest_address like '%청담%' or rest_address like '%가로수%' or rest_address like '%압구정%' ");
+			} else if (bpage == 10952) {
+				sql = sql.append( " where rest_name like '%한우%' or rest_line_exp like '%한우%' or rest_foodinfo like '%소고기%' ");
+			} else if (bpage == 9732) {
+				sql = sql.append( " where rest_name like '%스테이크%' or rest_line_exp like '%스테이크%' ");
+			} else if (bpage == 10948) {
+				sql = sql.append( " where tic_type like '%단독%' ");
+			} else if (bpage == 9752) {
+				sql = sql.append( " where rest_foodinfo like '%일식%' and rest_name not like '%스시%' ");
+			} else if (bpage == 9796) {
+				sql = sql.append( " where rest_address like '%호텔%' ");
+			} else if (bpage == 9788) {
+				sql = sql.append( " where rest_foodinfo like '%이탈%' or rest_foodinfo like '%프랑%' or rest_line_exp like '%지중해%' ");
+			} else if (bpage == 9740) {
+				sql = sql.append(" where rest_address like '%이태원%' or rest_address like '%경리단길%' or rest_address like '%용산구%' ");
+			} else if (bpage == 9792) {
+				sql = sql.append(" where rest_foodinfo like '%한식%' ");
+			} else if (bpage == 9760) {
+				sql = sql.append(" where rest_foodinfo like '%프랑%' ");
+			} else if (bpage == 9748) {
+				sql = sql.append(" where rest_foodinfo like '%중식%' ");
+			} else if (bpage == 9776) {
+				sql = sql.append(" where rest_foodinfo like '%뷔페%' ");
+			} else if (bpage == 9768) {
+				sql = sql.append(" where rest_foodinfo like '%카페%' or rest_line_exp like '%브런치%' ");
+			} else if (bpage == 9780) {
+				sql = sql.append(" where rest_foodinfo like '%바%' or rest_foodinfo like '%술집%' ");
+			} else if (bpage == 9764) {
+				sql = sql.append(" where rest_foodinfo like '%컨템퍼%' ");
+			}
 			sql.append("  ) t ");
 			sql.append(" ) b ");
-			
-			if(bpage == 9728) {
-				sql = sql.append( " and rest_foodinfo like '%일식%' and rest_name like '%스시%' ");
-			} else if (bpage == 10860) {
-				sql = sql.append(" and rest_address like '%청담%' or rest_address like '%가로수%' or rest_address like '%압구정%' ");
-			} else if (bpage == 10952) {
-				sql = sql.append( " and rest_name like '%한우%' or rest_line_exp like '%한우%' or rest_foodinfo like '%소고기%' ");
-			} else if (bpage == 9732) {
-				sql = sql.append( " and rest_name like '%스테이크%' or rest_line_exp like '%스테이크%' ");
-			} else if (bpage == 10948) {
-				sql = sql.append( " and tic_type like '%단독%' ");
-			} else if (bpage == 9752) {
-				sql = sql.append( " and rest_foodinfo like '%일식%' and rest_name not like '%스시%' ");
-			} else if (bpage == 9796) {
-				sql = sql.append( " and rest_address like '%호텔%' ");
-			} else if (bpage == 9788) {
-				sql = sql.append( " and rest_foodinfo like '%이탈%' or rest_foodinfo like '%프랑%' or rest_line_exp like '%지중해%' ");
-			} else if (bpage == 9740) {
-				sql = sql.append(" and rest_address like '%이태원%' or rest_address like '%경리단길%' or rest_address like '%용산구%' ");
-			} else if (bpage == 9792) {
-				sql = sql.append(" and rest_foodinfo like '%한식%' ");
-			} else if (bpage == 9760) {
-				sql = sql.append(" and rest_foodinfo like '%프랑%' ");
-			} else if (bpage == 9748) {
-				sql = sql.append(" and rest_foodinfo like '%중식%' ");
-			} else if (bpage == 9776) {
-				sql = sql.append(" and rest_foodinfo like '%뷔페%' ");
-			} else if (bpage == 9768) {
-				sql = sql.append(" and rest_foodinfo like '%카페%' or rest_line_exp like '%브런치%' ");
-			} else if (bpage == 9780) {
-				sql = sql.append(" and rest_foodinfo like '%바%' or rest_foodinfo like '%술집%' ");
-			} else if (bpage == 9764) {
-				sql = sql.append(" and rest_foodinfo like '%컨템퍼%' ");
-			}
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();

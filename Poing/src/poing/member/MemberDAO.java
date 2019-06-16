@@ -350,7 +350,6 @@ public class MemberDAO {
 	public ArrayList<UserNoticeDTO> getUserNoticeList(Connection conn, int memberID) throws SQLException {
 		System.out.println("MemberDAO getUserNoticeList()");
 		StringBuffer sql = new StringBuffer();
-
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<UserNoticeDTO> unlist = null;

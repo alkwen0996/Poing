@@ -10,60 +10,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	
-%>
 
-<%
-	StringBuffer sql_type = new StringBuffer();
+	StringBuffer sql = new StringBuffer();
 
-	sql_type.append(" select * from notice_type ");
+	sql.append(
+			" select un_seq,UN_CTIME,un.NT_SEQ,NT_PUSHTYPE,nt_typecontent,nt_target,UN_M_SEQ,mem.m_name un_m_name ");
+	sql.append(" ,un_utime,un_img_original,un_img_thumnail,un_is_read,un_is_poing,un_is_count  ");
+	sql.append(" ,rlm.m_seq rl_m_seq,flm.follower_seq,rcm.rc_m_seq,pim.m_seq pick_m_seq,  ");
+	sql.append(" un_is_block_on_user,un_additional  ");
+	sql.append(
+			" ,rcm.rc_rev_seq rc_rev_seq,rlm.rev_seq rl_rev_seq, pim.rev_seq pi_rev_seq, flm.following_seq fl_following_seq  ");
+	sql.append(" ,case nt_pushtype  ");
+	sql.append(" when 'follow' then flm.target_m_name ");
+	sql.append(" when 'review_comment' then rcm.target_m_name ");
+	sql.append(" when 'like_review' then rlm.target_m_name ");
+	sql.append(" when 'selection_review' then pim.target_m_name ");
+	sql.append(" end as target_m_name,   ");
+	sql.append(" case nt_pushtype ");
+	sql.append(" when 'follow' then flm.following_seq ");
+	sql.append(" when 'review_comment' then rcm.rc_rev_seq ");
+	sql.append(" when 'like_review' then rlm.rev_seq ");
+	sql.append(" when 'selection_review' then pim.rev_seq ");
+	sql.append(" end as target_m_id,  ");
+	sql.append("case nt_pushtype                         ");
+	sql.append("when 'follow' then flm.follower_seq      ");
+	sql.append("when 'review_comment' then rcm.rc_m_seq  ");
+	sql.append("when 'like_review' then rlm.m_seq        ");
+	sql.append("when 'selection_review' then pim.m_seq   ");
+	sql.append("end as wuid                              ");
+	sql.append("from userNotice un");
+	sql.append(" left outer join member mem on un.un_m_seq = mem.m_seq ");
+	sql.append(" left outer join notice_type nt on un.nt_seq = nt.nt_seq ");
+	sql.append(" left outer join ( ");
+	sql.append(" select rl.RL_SEQ RL_SEQ,rl.m_seq m_seq,mem.m_name target_m_name,rl.rev_seq rev_seq ");
+	sql.append(" from review_like rl join member mem on rl.m_seq = mem.m_seq ");
+	sql.append(" ) rlm on un.rl_seq=rlm.rl_seq ");
+	sql.append(" left outer join ( ");
+	sql.append(
+			" select rc.rc_SEQ rc_SEQ,rc.rc_m_seq rc_m_seq,mem.m_name target_m_name,rc.rc_rev_seq rc_rev_seq  ");
+	sql.append(" from review_comment rc join member mem on rc.rc_m_seq = mem.m_seq ");
+	sql.append(" ) rcm on un.rc_seq = rcm.rc_seq ");
+	sql.append(" left outer join ( ");
+	sql.append(" select pi.pick_SEQ pick_SEQ,pi.m_seq m_seq,mem.m_name target_m_name,pi.rev_seq rev_seq  ");
+	sql.append(" from pick pi join member mem on pi.m_seq = mem.m_seq ");
+	sql.append(" where pi.rev_seq is not null  ");
+	sql.append(" ) pim on un.pick_seq = pim.pick_seq  ");
+	sql.append(" left outer join ( ");
+	sql.append(
+			" select fl.follow_SEQ follow_SEQ,fl.follower_seq follower_seq,mem.m_name target_m_name,fl.following_seq following_seq ");
+	sql.append(" from follow fl join member mem on fl.follower_seq = mem.m_seq ");
+	sql.append(" ) flm on un.follow_seq = flm.follow_seq ");
 
-	Connection conn_type = null;
-	PreparedStatement pstmt_type = null;
-	ResultSet rs_type = null;
-
-	conn_type = ConnectionProvider.getConnection();
-	pstmt_type = conn_type.prepareStatement(sql_type.toString());
-	rs_type = pstmt_type.executeQuery();
-
-	// 타입별로 검색해오기
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	StringBuffer sql = new StringBuffer();
-	int target_seq = 0;
-	
-	int wuid = 0; 
-	String wuname = ""; 
-
-	if (rs_type.getString("nt_pushtype") == "review") {
-
-		sql.append(" select *  from ");
-		sql.append(" ( select *from userNotice un ");
-		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
-		sql.append(" ) unnt ");
-		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
-		sql.append(" join ( 	select * from review rev ");
-		sql.append(" join member m on rev.rev_m_seq = m.m_seq ) revm ");
-		sql.append(" on unnt.rev_seq = revm.rev_seq ");
-
-		target_seq = rs_type.getInt("rev.rev_seq");
-		wuid = rs_type.getInt("");
-
-	}  
-		else if(rs_type.getString("nt_pushtype") == "user"){
-		
-			sql.append(" select *  from( ");
-			sql.append(" select *from userNotice un ");
-			sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq) unnt ");
-			sql.append(" join member m on unnt.un_m_seq = m.m_seq  ");
-			sql.append(" join ( select * from member m join follow f on follower_seq = m.M_SEQ ) mf ");
-			sql.append(" on unnt.un_m_seq = mf.following_seq ");
-			sql.append(" where unnt.m_seq is not null ");
-			
-			target_seq = rs_type.getInt(" mf.follower_seq ");
-		
-		} 
 
 	JSONObject jsonObject = null;
 	JSONArray jsonArray = null;
@@ -71,40 +71,41 @@
 		conn = ConnectionProvider.getConnection();
 		pstmt = conn.prepareStatement(sql.toString());
 		rs = pstmt.executeQuery();
-
+	
 		jsonObject = new JSONObject();
 		jsonArray = new JSONArray();
-
+		
 		while (rs.next()) {
 
+			int wuid = rs.getInt("wuid");
+			int target_id = rs.getInt("target_m_id");
+			String push_type = rs.getString("nt_pushtype");
+			
 			int id = rs.getInt("un_seq");
-			int user_id = rs.getInt("nt_m_seq");
-			String push_type = rs.getString("nt_push_type");
-			String target_id = rs.getString("target_seq");
+			int user_id = rs.getInt("un_m_seq");
 			String target = rs.getString("nt_target");
 			int is_read = rs.getInt("un_is_read");
 			int is_count = rs.getInt("un_is_count");
 			int is_poing = rs.getInt("un_is_poing");
 			int is_block_on_user = rs.getInt("un_is_block_on_user");
 			int additional = rs.getInt("un_additional");
+			String created_at = rs.getString("un_ctime");
+			String updated_at = rs.getString("un_utime");
 			String contents = rs.getString("nt_typecontent");
-			wuid = rs.getInt("un_m_seq");
-			wuname = rs.getString("m.m_name");
-			String updated_at = rs.getString("pn_updated_at");
-			String created_at = rs.getString("pn_created_at");
+			String wuname = rs.getString("target_m_name");
 
 			JSONObject jsonData = new JSONObject();
 
 			JSONArray image = new JSONArray();
 			JSONObject img_type = new JSONObject();
+			
 			img_type.put("original", null);
 			img_type.put("thumbnail", null);
 			image.add(img_type);
 
-			jsonData.put("image", image);
-
 			jsonData.put("schema", null);
 			jsonData.put("web_schema", null);
+			jsonData.put("image", image);
 
 			jsonData.put("who_update", null);
 			jsonData.put("created_at", created_at);

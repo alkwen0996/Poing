@@ -1,5 +1,7 @@
 package poing.notice;
 
+import java.sql.Date;
+
 public class PoingNoticeDTO {
 	private int pn_seq;
 	private int pn_is_read;
@@ -31,12 +33,49 @@ public class PoingNoticeDTO {
 	private int r_reserve_seq; // 예약 테이블에서 예약 번호.
 	private String rest_name; // 레스토랑 테이블에서 레스토랑 이름.
 	private int tic_purchase_seq; // tic_cart_purchase_detail에서
-	private String tic_purchas_state; // 티켓구매상태(결제완료/환불완료)
+	private int tic_purchas_state; // 티켓구매상태(결제완료/환불완료)
 	private String tic_name; // ticket 테이블에서 
 	private int tic_cart_seq;
 	private int tic_num_of_people;
 	private String tic_reserve_date;
+	private int target_id;
+	private String target_name;
+	private String r_reserve_hour;
+	private int r_reserve_num_of_people;
+	private Date r_reserve_date;
 	
+	
+	
+	public Date getR_reserve_date() {
+		return r_reserve_date;
+	}
+	public void setR_reserve_date(Date r_reserve_date) {
+		this.r_reserve_date = r_reserve_date;
+	}
+	public String getR_reserve_hour() {
+		return r_reserve_hour;
+	}
+	public void setR_reserve_hour(String r_reserve_hour) {
+		this.r_reserve_hour = r_reserve_hour;
+	}
+	public int getR_reserve_num_of_people() {
+		return r_reserve_num_of_people;
+	}
+	public void setR_reserve_num_of_people(int r_reserve_num_of_people) {
+		this.r_reserve_num_of_people = r_reserve_num_of_people;
+	}
+	public int getTarget_id() {
+		return target_id;
+	}
+	public void setTarget_id(int target_id) {
+		this.target_id = target_id;
+	}
+	public String getTarget_name() {
+		return target_name;
+	}
+	public void setTarget_name(String target_name) {
+		this.target_name = target_name;
+	}
 	public String getPn_m_name() {
 		return pn_m_name;
 	}
@@ -217,10 +256,10 @@ public class PoingNoticeDTO {
 	public void setTic_purchase_seq(int tic_purchase_seq) {
 		this.tic_purchase_seq = tic_purchase_seq;
 	}
-	public String getTic_purchas_state() {
+	public int getTic_purchas_state() {
 		return tic_purchas_state;
 	}
-	public void setTic_purchas_state(String tic_purchas_state) {
+	public void setTic_purchas_state(int tic_purchas_state) {
 		this.tic_purchas_state = tic_purchas_state;
 	}
 	public String getTic_name() {

@@ -4,110 +4,119 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
-trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"  %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	StringBuffer sql_type = new StringBuffer();
-	
-	sql_type.append(" select * from notice_type ");
-	
-	Connection conn_type = null;
-	PreparedStatement pstmt_type = null;
-	ResultSet rs_type = null;
-	
-	conn_type = ConnectionProvider.getConnection();
-	pstmt_type = conn_type.prepareStatement(sql_type.toString());
-	rs_type = pstmt_type.executeQuery();
-	
+	StringBuffer sql = new StringBuffer();
+
+	sql.append(
+			" select pn_seq,pN_CTIME,pn.NT_SEQ nt_seq,nT_PUSHTYPE,nt_typecontent,nt_target,pn_m_seq m_seq,mem.m_name pn_m_name   ");
+	sql.append(
+			" ,pn_utime,pn_img_original,pn_img_thumnail,pn_is_read,pn_is_poing,pn_is_count,tqna.reply_seq tqna_reply_seq ");
+	sql.append(
+			" ,tqna.tic_name,restrr.r_reserve_seq,restrr.r_reserve_rest_seq r_reserve_rest_seq,restrr.rest_name,restrr.r_reserve_date r_reserve_date ");
+	sql.append(
+			" ,restrr.r_reserve_hour r_reserve_hour, restrr.R_RESERVE_NUM_OF_PEOPLE r_reserve_num_of_people ");
+	sql.append(
+			" ,tcpd.tc_purchas_seq tcpd_tc_purchas_seq,tcpd.tic_purchas_state tcpd_tic_purchas_state,tcpd.tic_name tcpd_tic_name,tcpd.rest_name tcpd_rest_name ");
+	sql.append(" ,tcpd.TIC_RESERVE_DATE tcpd_TIC_RESERVE_DATE,tcpd.TIC_NUM_OF_PEOPLE tcpd_TIC_NUM_OF_PEOPLE ");
+	sql.append(" ,pn_additional,pn_is_read,pn_is_count,pn_is_poing,pn_is_block_on_user ");
+
+	sql.append(" ,case nt_pushtype when 'level_up' then pn_m_seq                 ");
+	sql.append(" when 'reply_inquiry' then tqna.reply_seq                        ");
+	sql.append(" when 'cancel_reservation' then restrr.r_reserve_rest_seq        ");
+	sql.append(" when 'accept_reservation' then restrr.r_reserve_rest_seq        ");
+	sql.append(" when 'change_reservation' then restrr.r_reserve_rest_seq        ");
+	sql.append(" when 'confirm_reservation' then restrr.r_reserve_rest_seq     ");
+	sql.append(" when 'not_available_reservation' then restrr.r_reserve_rest_seq ");
+	sql.append(" when 'dealing_canceled' then tcpd.tcpd_tic_seq             ");
+	sql.append(" when 'dealing' then tcpd.tcpd_tic_seq end as target_id     ");
+
+	sql.append(" ,case nt_pushtype when 'level_up' then mem.m_name               ");
+	sql.append(" when 'reply_inquiry' then tqna.tic_name                         ");
+	sql.append(" when 'cancel_reservation' then restrr.rest_name                   ");
+	sql.append(" when 'accept_reservation' then restrr.rest_name                   ");
+	sql.append(" when 'change_reservation' then restrr.rest_name                   ");
+	sql.append(" when 'confirm_reservation' then restrr.rest_name                  ");
+	sql.append(" when 'not_available_reservation' then restrr.rest_name            ");
+	sql.append(" when 'dealing_canceled' then tcpd.tic_name                      ");
+	sql.append(" when 'dealing' then tcpd.tic_name                               ");
+	sql.append(" end as target_name                                              ");
+
+	sql.append(" from poingNotice pn                                             ");
+	sql.append(
+			" left join member mem on pn.pn_m_seq = mem.m_seq  left join notice_type nt on pn.nt_seq = nt.nt_seq ");
+	sql.append(
+			" left join ( select reply_seq,reply_ctime,reply_content,tr.q_seq tr_q_seq,                          ");
+	sql.append(
+			" tr.e_seq tr_e_seq,tq.tic_seq tq_tic_seq, tic.tic_name tic_name from tic_reply tr                   ");
+	sql.append(
+			" join tic_question tq on tr.q_seq = tq.q_seq join ticket tic on tq.tic_seq = tic.tic_seq            ");
+	sql.append("  ) tqna on pn.reply_seq = tqna.reply_seq   ");
+	sql.append(
+			" left join( select r_reserve_seq,r_reserve_date,r_reserve_hour,rest_name,R_RESERVE_NUM_OF_PEOPLE,  ");
+	sql.append(
+			" rest.rest_seq r_reserve_rest_seq from rest_reserve rr join restaurant rest on rr.r_reserve_rest_seq=rest.rest_seq ");
+	sql.append(" ) restrr on restrr.r_reserve_seq = pn.r_reserve_seq   ");
+	sql.append(
+			" left join ( select tc_purchas_seq,tcpd.tic_seq tcpd_tic_seq,tic_purchas_state,tcpd.m_seq tcpd_m_seq ");
+	sql.append(
+			"  ,tic.tic_name tic_name,rest_name,rest.rest_seq tcpd_rest_seq,tic_reserve_date,tic_num_of_people from tic_cart_purchase_detail tcpd ");
+	sql.append("  join ticket tic on tcpd.tic_seq = tic.tic_seq            ");
+	sql.append("  join restaurant rest on tic.rest_seq = rest.rest_seq     ");
+	sql.append(" join cart on tcpd.tic_cart_seq = cart.tic_cart_seq        ");
+	sql.append("   ) tcpd on pn.tic_purchase_seq = tcpd.tc_purchas_seq    ");
+
 	// 타입별로 검색해오기
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-	StringBuffer sql = new StringBuffer();
-	int target_seq = 0;
-	
- if(rs_type.getString("nt_pushtype") == "place"){
-		
-		sql.append(" select *  from ");
-		sql.append(" ( select *from userNotice un ");
-		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
-		sql.append(" ) unnt ");
-		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
-		sql.append(" join ( 	select * from restaurant  ) rest ");
-		sql.append(" on unnt.rest_seq = rest.rest_seq ");
-		
-		target_seq = rs_type.getInt("rest.rest_seq");
-		
-	}else if(rs_type.getString("nt_pushtype") == "product"){
-		
-		sql.append(" select *  from ");
-		sql.append(" ( select *from userNotice un ");
-		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
-		sql.append(" ) unnt ");
-		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
-		sql.append(" join ( 	select * from ticket  ) tic ");
-		sql.append(" on unnt.tic_seq = tic.tic_seq ");
-		
-		target_seq = rs_type.getInt("tic.tic_seq");
-		
-	}
-	else if(rs_type.getString("nt_pushtype") == "user"){
-		
-		sql.append(" select *  from ");
-		sql.append(" ( select *from userNotice un ");
-		sql.append(" join notice_type nt on un.nt_seq = nt.nt_seq ");
-		sql.append(" ) unnt ");
-		sql.append(" join member m on unnt.un_m_seq = m.m_seq ");
-		sql.append(" join ( 	select * from review rev ");
-		sql.append(" join member m on rev.rev_m_seq = m.m_seq ) revm ");
-		sql.append(" on unnt.rev_seq = revm.rev_seq; ");
-		
-	} 
-	
+
 	JSONObject jsonObject = null;
-	JSONArray jsonArray=null;
-	try{
+	JSONArray jsonArray = null;
+	try {
 		conn = ConnectionProvider.getConnection();
 		pstmt = conn.prepareStatement(sql.toString());
 		rs = pstmt.executeQuery();
-		
+
 		jsonObject = new JSONObject();
-		 jsonArray = new JSONArray();
-		
-		while(rs.next()){
-			
+		jsonArray = new JSONArray();
+
+		while (rs.next()) {
+
 			int id = rs.getInt("pn_seq");
-			int user_id = rs.getInt("pn_m_seq");
-			String push_type = rs.getString("nt_pushtype");
-			int target_id = target_seq;
-			String target = rs.getString("nt_target"); 
+			int additional = rs.getInt("pn_additional");
+			String created_at = rs.getString("pn_ctime");
+			String updated_at = rs.getString("pn_utime");
 			int is_read = rs.getInt("pn_is_read");
-			int is_count =rs.getInt("pn_is_count");
+			int is_count = rs.getInt("pn_is_count");
 			int is_poing = rs.getInt("pn_is_poing");
 			int is_block_on_user = rs.getInt("pn_is_block_on_user");
-			int additional = rs.getInt("pn_additional");
-			String contents = rs.getString("nt_typecontent");
+			String push_type = rs.getString("nt_pushtype");
+			int user_id = rs.getInt("m_seq");
+			String target = rs.getString("nt_target");
+			int target_id = rs.getInt("target_id");
 			int wuid = rs.getInt("m_seq");
-			String wuname = rs.getString("m_name");
-			String  updated_at = rs.getString("pn_updated_at");
-			String  created_at = rs.getString("pn_created_at");
+			String wuname = rs.getString("pn_m_name");
+			
+			String contents = rs.getString("target_name")+rs.getString("nt_typecontent");
 			
 			
+
 			JSONObject jsonData = new JSONObject();
-			
+
 			JSONArray image = new JSONArray();
 			JSONObject img_type = new JSONObject();
 			img_type.put("original", null);
-			img_type.put("thumbnail",null);
+			img_type.put("thumbnail", null);
 			image.add(img_type);
-			
-			
-			jsonData.put("web_schema", null);		
+
+			jsonData.put("web_schema", null);
 			jsonData.put("schema", null);
 			jsonData.put("image", image);
-			
+
 			jsonData.put("who_update", null);
 			jsonData.put("created_at", created_at);
 			jsonData.put("updated_at", updated_at);
@@ -124,32 +133,29 @@ trimDirectiveWhitespaces="true"%>
 			jsonData.put("mongo_target_id", null);
 			jsonData.put("push_type", push_type);
 			jsonData.put("user_id", user_id);
-			jsonData.put("object_id", null);			
+			jsonData.put("object_id", null);
 			jsonData.put("id", id);
-		
+
 			jsonArray.add(jsonData);
-			
+
 		}
-		
-		
-		
-	}catch(Exception e){
+
+	} catch (Exception e) {
 		e.printStackTrace();
-	}finally{
-		   pstmt.close();
-		   rs.close();
-		   conn.close();
-	   }
-	
+	} finally {
+		pstmt.close();
+		rs.close();
+		conn.close();
+	}
 %>
-<%=jsonArray %>
+<%=jsonArray%>
 
- 
 
-  
- 
- 
- 
+
+
+
+
+
 
 <%--  
 [

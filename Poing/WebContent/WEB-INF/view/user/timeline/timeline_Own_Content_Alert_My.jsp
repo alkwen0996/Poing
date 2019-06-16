@@ -9,18 +9,18 @@
 
 	<ul class="notice_list my">
 	
-	<c:forEach items="${nnlist }" var = "mdto" varStatus="status">
-		<li class="item" data-type="${mdto.un_push_type }" data-target="${mdto.un_target_id }"
-			data-additional="28347">
+	<c:forEach items="${unlist }" var = "unlist" varStatus="status">
+		<li class="item" data-type="${unlist.nt_pushtype }" data-target="${unlist.target_id }"
+			data-additional="${unlist.un_additional }">
 			<div class="i_wrap">
 				<i class="image border_radius circle"
-					style="background-image: url(${mdto.un_img_ori})"></i>
+					style="background-image: url(${unlist.un_img_original})"></i>
 			</div>
 			<div class="info">
-				<div class="text">${mdto.notice_type_content }</div>
+				<div class="text">${unlist.target_m_name} ${unlist.nt_typecontent }</div>
 				<div class="time">
 					<!-- <script>document.write(moment("2019-05-24 10:26:06").locale("ko").fromNow());</script> -->
-					${mdto.un_created_at}
+					${unlist.un_ctime}
 				</div>
 			</div>
 		</li>

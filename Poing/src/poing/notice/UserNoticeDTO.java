@@ -30,15 +30,24 @@ public class UserNoticeDTO {
 	private String rl_name; // 리뷰를 좋아요 한사람 이름
 	private int pick_seq;
 	private String pick_name; // 찜 한사람의 이름.
-	private int r_reserve_seq; // 예약 테이블에서 예약 번호.
-	private String rest_name; // 레스토랑 테이블에서 레스토랑 이름.
-	private int tic_purchase_seq; // tic_cart_purchase_detail에서
-	private String tic_purchas_state; // 티켓구매상태(결제완료/환불완료)
-	private String tic_name; // ticket 테이블에서 
-	private int tic_cart_seq;
-	private int tic_num_of_people;
-	private String tic_reserve_date;
+	private int target_id;
+	private String target_m_name;
 	
+	
+	
+	
+	public String getTarget_m_name() {
+		return target_m_name;
+	}
+	public void setTarget_m_name(String target_m_name) {
+		this.target_m_name = target_m_name;
+	}
+	public int getTarget_id() {
+		return target_id;
+	}
+	public void setTarget_id(int target_id) {
+		this.target_id = target_id;
+	}
 	public int getUn_seq() {
 		return un_seq;
 	}
@@ -183,18 +192,6 @@ public class UserNoticeDTO {
 	public void setPick_seq(int pick_seq) {
 		this.pick_seq = pick_seq;
 	}
-	public int getR_reserve_seq() {
-		return r_reserve_seq;
-	}
-	public void setR_reserve_seq(int r_reserve_seq) {
-		this.r_reserve_seq = r_reserve_seq;
-	}
-	public int getTic_purchase_seq() {
-		return tic_purchase_seq;
-	}
-	public void setTic_purchase_seq(int tic_purchase_seq) {
-		this.tic_purchase_seq = tic_purchase_seq;
-	}
 	public int getFollower_seq() {
 		return follower_seq;
 	}
@@ -219,42 +216,5 @@ public class UserNoticeDTO {
 	public void setPick_name(String pick_name) {
 		this.pick_name = pick_name;
 	}
-	public String getRest_name() {
-		return rest_name;
-	}
-	public void setRest_name(String rest_name) {
-		this.rest_name = rest_name;
-	}
-	public String getTic_purchas_state() {
-		return tic_purchas_state;
-	}
-	public void setTic_purchas_state(String tic_purchas_state) {
-		this.tic_purchas_state = tic_purchas_state;
-	}
-	public String getTic_name() {
-		return tic_name;
-	}
-	public void setTic_name(String tic_name) {
-		this.tic_name = tic_name;
-	}
-	public int getTic_cart_seq() {
-		return tic_cart_seq;
-	}
-	public void setTic_cart_seq(int tic_cart_seq) {
-		this.tic_cart_seq = tic_cart_seq;
-	}
-	public int getTic_num_of_people() {
-		return tic_num_of_people;
-	}
-	public void setTic_num_of_people(int tic_num_of_people) {
-		this.tic_num_of_people = tic_num_of_people;
-	}
-	public String getTic_reserve_date() {
-		return tic_reserve_date;
-	}
-	public void setTic_reserve_date(String tic_reserve_date) {
-		this.tic_reserve_date = tic_reserve_date;
-	}
-
 	
 }

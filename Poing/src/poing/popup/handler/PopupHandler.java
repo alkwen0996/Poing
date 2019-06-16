@@ -95,6 +95,7 @@ public class PopupHandler implements CommandHandler {
 		else if (command.equals("/popup/optionconfirm.do")) {
 			return "popup/optionconfirm";
 		}
+		
 		else if (command.equals("/user/UserNotice.do")) {
 			return "popup/UserNotice_json";
 		}
@@ -103,6 +104,12 @@ public class PopupHandler implements CommandHandler {
 		}
 		else if(command.equals("/user/noticeCheck.do")) {
 			return "popup/noticeCheck_json";
+		}
+		else if (command.equals("/templete/UserNotice.ejs")) {
+			return "popup/UserNoticeejs";
+		}
+		else if (command.equals("/templete/PoingNotice.ejs")) {
+			return "popup/PoingNoticeejs";
 		}
 		else if (command.equals("/popup/checkTicket.do")) {
 			return "popup/checkTicket";

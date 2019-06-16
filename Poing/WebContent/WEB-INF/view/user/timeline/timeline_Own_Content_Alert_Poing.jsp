@@ -11,21 +11,49 @@
 	</div>
 
 	<ul class="notice_list poing">
-		<c:forEach items = "${nlist}" var = "mdto" varStatus = "status" >
-			<li class="item" data-type="level_up" data-target="${mdto.notice_type }"
-				data-additional="">
+		<c:forEach items="${pnlist}" var="pnlist" varStatus="status">
+			<c:set var="type" value="${ pnlist.nt_pushtype }" />
+
+			<li class="item" data-type="${pnlist.nt_pushtype }"
+				data-target="${pnlist.nt_target }" data-additional="">
 				<div class="i_wrap">
 					<i class="image border_radius circle"
-						style="background-image: url(${mdto.notice_img})"></i>
+						style="background-image: url(${pnlist.pn_img_original})"></i>
 				</div>
 				<div class="info">
-					<div class="text">${mdto.notice_content }</div>
+					<c:if test="${type eq 'reply_inquiry' }">
+						<div class="text">${pnlist.target_name}${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'level_up' }">
+						<div class="text">${pnlist.pn_m_name}${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'cancel_reservation' }">
+						<div class="text">[예약취소]${pnlist.target_name}/${r_reserve_date}/${r_reserve_hour}/${r_reserve_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'accept_reservation' }">
+						<div class="text">[예약대기]${pnlist.target_name}/${r_reserve_date}/${r_reserve_hour}/${r_reserve_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'change_reservation' }">
+						<div class="text">[예약변경대기]${pnlist.target_name}/${r_reserve_date}/${r_reserve_hour}/${r_reserve_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'confirm_reservation' }">
+						<div class="text">[예약확정]${pnlist.target_name}/${r_reserve_date}/${r_reserve_hour}/${r_reserve_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'not_available_reservation' }">
+						<div class="text">${pnlist.target_name}/${r_reserve_date}/${r_reserve_hour}/${r_reserve_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'dealing' }">
+						<div class="text">[티켓구매 및 예약확정]${pnlist.target_name} ${tic_reserve_date}/${tic_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
+					<c:if test="${type eq 'dealing_canceled' }">
+						<div class="text">[구매취소 및 예약취소]${pnlist.target_name} ${tic_reserve_date}/${tic_num_of_people} ${pnlist.nt_typecontent }</div>
+					</c:if>
 					<div class="time">
 						<script>
 							document.write(moment("2019-05-17 14:36:35")
 									.locale("ko").fromNow());
 						</script>
-						${mdto.notice_wtime }
+						${pnlist.pn_ctime }
 					</div>
 				</div>
 			</li>

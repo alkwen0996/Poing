@@ -260,12 +260,12 @@ public class MemberDAO {
 	}//updateProfileImage
 
 	public ArrayList<RestTimlineReserveDTO> getReserveRest(Connection conn, int memberID, String type) throws SQLException {
-		
+
 		String sql="";
 		if (type.equals("past")) {
 			sql = "select * from (select * from rest_reserve aa join restaurant bb on aa.r_reserve_rest_seq = bb.rest_seq where aa.r_reserve_m_seq =? and r_reserve_date < sysdate ) a left join rest_img b on a.ri_seq = b.ri_seq "; 
 		}
-				
+
 		else sql = "select * from (select * from rest_reserve aa join restaurant bb on aa.r_reserve_rest_seq = bb.rest_seq where aa.r_reserve_m_seq =? and r_reserve_date >= sysdate ) a left join rest_img b on a.ri_seq = b.ri_seq ";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -351,50 +351,75 @@ public class MemberDAO {
 		System.out.println("MemberDAO getUserNoticeList()");
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select * from ( ");
-		sql.append(" select * from   ");
-		sql.append(" (select m.M_NAME m_name,m.m_seq m_seq, r.REV_NO rev_no ") ;
-		sql.append(" from review r join member m on r.m_seq = m.m_seq ") ;
-		sql.append(" where r.m_seq=m.m_seq) mr ") ;
-		sql.append(" join userNotice u on rev_no = un_target_id ") ;
-		sql.append(" where rev_no = un_target_id ") ;
-		sql.append(" ) ur ") ;
-		sql.append(" join notice_type t on un_push_type = notice_push_type ") ;
-		sql.append(" where un_push_type = 'comment_review' ") ;
-
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<UserNoticeDTO> unlist = null;
 		UserNoticeDTO undto = null;
+
+		sql.append(" select un_seq,UN_CTIME,un.NT_SEQ,NT_PUSHTYPE,nt_typecontent,nt_target,UN_M_SEQ,mem.m_name un_m_name ");  
+		sql.append("	,un_utime,un_img_original,un_img_thumnail,un_additional  "); 
+		sql.append("	,rlm.m_seq rl_m_seq,flm.follower_seq,rcm.rc_m_seq,pim.m_seq pick_m_seq  ");  
+		sql.append("	,rcm.rc_rev_seq rc_rev_seq,rlm.rev_seq rl_rev_seq, pim.rev_seq pi_rev_seq, flm.following_seq fl_following_seq   ");
+		sql.append(" ,case nt_pushtype  ");		
+		sql.append(" when 'follow' then flm.target_m_name ");
+		sql.append(" when 'review_comment' then rcm.target_m_name ");		
+		sql.append(" when 'like_review' then rlm.target_m_name ");
+		sql.append(" when 'selection_review' then pim.target_m_name ");
+		sql.append(" end as target_m_name,   ");
+		sql.append(" case nt_pushtype ");
+		sql.append(" when 'follow' then flm.following_seq ");
+		sql.append(" when 'review_comment' then rcm.rc_rev_seq ");
+		sql.append(" when 'like_review' then rlm.rev_seq ");
+		sql.append(" when 'selection_review' then pim.rev_seq " );
+		sql.append(" end as target_m_id  " );
+		sql.append("from userNotice un");
+		sql.append(" left outer join member mem on un.un_m_seq = mem.m_seq ");
+		sql.append(" left outer join notice_type nt on un.nt_seq = nt.nt_seq "); 
+		sql.append(" left outer join ( ");		
+		sql.append(" select rl.RL_SEQ RL_SEQ,rl.m_seq m_seq,mem.m_name target_m_name,rl.rev_seq rev_seq ");		
+		sql.append(" from review_like rl join member mem on rl.m_seq = mem.m_seq ");		
+		sql.append(" ) rlm on un.rl_seq=rlm.rl_seq ");
+		sql.append(" left outer join ( ");
+		sql.append(" select rc.rc_SEQ rc_SEQ,rc.rc_m_seq rc_m_seq,mem.m_name target_m_name,rc.rc_rev_seq rc_rev_seq  ");
+		sql.append(" from review_comment rc join member mem on rc.rc_m_seq = mem.m_seq ");
+		sql.append(" ) rcm on un.rc_seq = rcm.rc_seq ");
+		sql.append(" left outer join ( ");
+		sql.append(" select pi.pick_SEQ pick_SEQ,pi.m_seq m_seq,mem.m_name target_m_name,pi.rev_seq rev_seq  ");
+		sql.append(" from pick pi join member mem on pi.m_seq = mem.m_seq ");
+		sql.append(" where pi.rev_seq is not null  ");
+		sql.append(" ) pim on un.pick_seq = pim.pick_seq  ");		
+		sql.append(" left outer join ( ");		
+		sql.append(" select fl.follow_SEQ follow_SEQ,fl.follower_seq follower_seq,mem.m_name target_m_name,fl.following_seq following_seq ");		
+		sql.append(" from follow fl join member mem on fl.follower_seq = mem.m_seq ");		
+		sql.append(" ) flm on un.follow_seq = flm.follow_seq ");		
+
+
+
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			//pstmt.setInt(1, memberID);
 			rs = pstmt.executeQuery();
 			unlist = new ArrayList<>();
+
 			while (rs.next()) {
 				undto = new UserNoticeDTO();
+
 				undto.setUn_seq(rs.getInt("un_seq"));
+				undto.setUn_additional(rs.getInt("un_additional"));
+				undto.setUn_ctime(rs.getString("un_ctime"));	
+				undto.setNt_seq(rs.getInt("nt_seq"));
 				undto.setUn_m_seq(rs.getInt("un_m_seq"));
 				undto.setUn_m_name(rs.getString("un_m_name"));
-				undto.setUn_is_read(rs.getInt("un_is_read"));
-				undto.setUn_is_poing(rs.getInt("un_is_poing"));
-				undto.setUn_is_count(rs.getInt("un_is_count"));
-				undto.setUn_is_block_on_user(rs.getInt("un_is_block_on_user"));
-				undto.setUn_additional(rs.getInt("un_additional"));
-				undto.setUn_ctime(rs.getString("un_ctime"));
-				undto.setUn_utime(rs.getString("un_utime"));			
 				undto.setUn_img_original(rs.getString("un_img_original"));
 				undto.setUn_img_thumnail(rs.getString("un_img_thumnail"));
-				undto.setNt_seq(rs.getInt("nt_seq"));
 				undto.setNt_pushtype(rs.getString("nt_pushtype"));
 				undto.setNt_typecontent(rs.getString("nt_typecontent"));
 				undto.setNt_target(rs.getString("nt_target"));
-				undto.setNt_m_seq(rs.getInt("nt_m_seq"));
-				undto.setNt_m_name(rs.getString("nt_m_name"));
-				undto.setNt_tic_seq(rs.getInt("nt_tic_seq"));
+				undto.setTarget_m_name(rs.getString("target_m_name"));
+
 				unlist.add(undto);
 			}// while
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -409,11 +434,57 @@ public class MemberDAO {
 		return unlist;	
 	}// getNewsList
 
+
 	public ArrayList<PoingNoticeDTO> getPoingNoticeList(Connection conn, int memberID){
 		System.out.println("MemberDAO getPoingNoticeList() ");
 		StringBuffer sql = new StringBuffer();
 
-		sql.append(" select * from notice where notice_m_seq = ? ");
+		sql.append(" select pn_seq,pN_CTIME,pn.NT_SEQ nt_seq,nT_PUSHTYPE,nt_typecontent,nt_target,pn_m_seq m_seq,mem.m_name pn_m_name   ");
+		sql.append(" ,pn_utime,pn_img_original,pn_img_thumnail,pn_is_read,pn_is_poing,pn_is_count,tqna.reply_seq tqna_reply_seq ");
+		sql.append(" ,tqna.tic_name,restrr.r_reserve_seq,restrr.r_reserve_rest_seq r_reserve_rest_seq,restrr.rest_name,restrr.r_reserve_date r_reserve_date ");
+		sql.append(" ,restrr.r_reserve_hour r_reserve_hour, restrr.R_RESERVE_NUM_OF_PEOPLE r_reserve_num_of_people ");
+		sql.append(" ,tcpd.tc_purchas_seq tcpd_tc_purchas_seq,tcpd.tic_purchas_state tcpd_tic_purchas_state,tcpd.tic_name tcpd_tic_name,tcpd.rest_name tcpd_rest_name ");
+		sql.append(" ,tcpd.TIC_RESERVE_DATE tcpd_TIC_RESERVE_DATE,tcpd.TIC_NUM_OF_PEOPLE tcpd_TIC_NUM_OF_PEOPLE ");
+		sql.append(" ,pn_additional ");
+		
+		sql.append(" ,case nt_pushtype when 'level_up' then pn_m_seq                 ");
+		sql.append(" when 'reply_inquiry' then tqna.reply_seq                        ");
+		sql.append(" when 'cancel_reservation' then restrr.r_reserve_rest_seq        ");
+		sql.append(" when 'accept_reservation' then restrr.r_reserve_rest_seq        ");
+		sql.append(" when 'change_reservation' then restrr.r_reserve_rest_seq        ");
+		sql.append(" when 'confirm_reservation' then restrr.r_reserve_rest_seq     ");
+		sql.append(" when 'not_available_reservation' then restrr.r_reserve_rest_seq ");
+		sql.append(" when 'dealing_canceled' then tcpd.tcpd_tic_seq             ");
+		sql.append(" when 'dealing' then tcpd.tcpd_tic_seq end as target_id     ");
+		
+		sql.append(" ,case nt_pushtype when 'level_up' then mem.m_name               ");
+		sql.append(" when 'reply_inquiry' then tqna.tic_name                         ");
+		sql.append(" when 'cancel_reservation' then restrr.rest_name                   ");
+		sql.append(" when 'accept_reservation' then restrr.rest_name                   ");
+		sql.append(" when 'change_reservation' then restrr.rest_name                   ");
+		sql.append(" when 'confirm_reservation' then restrr.rest_name                  ");
+		sql.append(" when 'not_available_reservation' then restrr.rest_name            ");
+		sql.append(" when 'dealing_canceled' then tcpd.tic_name                      ");
+		sql.append(" when 'dealing' then tcpd.tic_name                               ");
+		sql.append(" end as target_name                                              ");
+		
+		sql.append(" from poingNotice pn                                             ");
+		sql.append(" left join member mem on pn.pn_m_seq = mem.m_seq  left join notice_type nt on pn.nt_seq = nt.nt_seq "); 
+		sql.append(" left join ( select reply_seq,reply_ctime,reply_content,tr.q_seq tr_q_seq,                          ");
+		sql.append(" tr.e_seq tr_e_seq,tq.tic_seq tq_tic_seq, tic.tic_name tic_name from tic_reply tr                   ");
+		sql.append(" join tic_question tq on tr.q_seq = tq.q_seq join ticket tic on tq.tic_seq = tic.tic_seq            ");
+		sql.append("  ) tqna on pn.reply_seq = tqna.reply_seq   ");
+		sql.append(" left join( select r_reserve_seq,r_reserve_date,r_reserve_hour,rest_name,R_RESERVE_NUM_OF_PEOPLE,  ");
+		sql.append(" rest.rest_seq r_reserve_rest_seq from rest_reserve rr join restaurant rest on rr.r_reserve_rest_seq=rest.rest_seq ");  
+		sql.append(" ) restrr on restrr.r_reserve_seq = pn.r_reserve_seq   ");
+		sql.append(" left join ( select tc_purchas_seq,tcpd.tic_seq tcpd_tic_seq,tic_purchas_state,tcpd.m_seq tcpd_m_seq ");   
+		sql.append("  ,tic.tic_name tic_name,rest_name,rest.rest_seq tcpd_rest_seq,tic_reserve_date,tic_num_of_people from tic_cart_purchase_detail tcpd ");  
+		sql.append("  join ticket tic on tcpd.tic_seq = tic.tic_seq            ");
+		sql.append("  join restaurant rest on tic.rest_seq = rest.rest_seq     ");
+		sql.append(" join cart on tcpd.tic_cart_seq = cart.tic_cart_seq        ");
+		sql.append("   ) tcpd on pn.tic_purchase_seq = tcpd.tc_purchas_seq    ");
+
+
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -422,30 +493,34 @@ public class MemberDAO {
 
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setInt(1, memberID);
 			rs = pstmt.executeQuery();
 			pnlist = new ArrayList<>();
 
 			while(rs.next()) {
 				pndto = new PoingNoticeDTO();
 				pndto.setPn_seq(rs.getInt("pn_seq"));
-				pndto.setPn_m_seq(rs.getInt("pn_m_seq"));
-				pndto.setPn_m_name(rs.getString("pn_m_name"));
-				pndto.setPn_is_read(rs.getInt("pn_is_read"));
-				pndto.setPn_is_poing(rs.getInt("pn_is_poing"));
-				pndto.setPn_is_count(rs.getInt("pn_is_count"));
-				pndto.setPn_is_block_on_user(rs.getInt("pn_is_block_on_user"));
 				pndto.setPn_additional(rs.getInt("pn_additional"));
-				pndto.setPn_ctime(rs.getString("pn_ctime"));
-				pndto.setPn_utime(rs.getString("pn_utime"));			
+				pndto.setPn_ctime(rs.getString("pn_ctime"));			
 				pndto.setPn_img_original(rs.getString("pn_img_original"));
 				pndto.setPn_img_thumnail(rs.getString("pn_img_thumnail"));
 				pndto.setNt_seq(rs.getInt("nt_seq"));
+				pndto.setPn_m_seq(rs.getInt("m_seq"));
+				pndto.setPn_m_name(rs.getString("pn_m_name"));
 				pndto.setNt_pushtype(rs.getString("nt_pushtype"));
 				pndto.setNt_typecontent(rs.getString("nt_typecontent"));
 				pndto.setNt_target(rs.getString("nt_target"));
-				pndto.setNt_m_seq(rs.getInt("nt_m_seq"));
-				pndto.setNt_m_name(rs.getString("nt_m_name"));
+				pndto.setTarget_id(rs.getInt("target_id"));
+				pndto.setTarget_name(rs.getString("target_name"));
+				
+				if(rs.getString("nt_target") == "place") {
+					pndto.setR_reserve_date(rs.getDate("r_reserve_date"));
+					pndto.setR_reserve_hour(rs.getString("r_reserve_hour"));
+					pndto.setR_reserve_num_of_people(rs.getInt("r_reserve_num_of_people"));
+				}else if(rs.getString("nt_target")=="product") {
+					pndto.setTic_reserve_date(rs.getString("tcpd_tic_reserve_date"));
+					pndto.setTic_num_of_people(rs.getInt("tcpd_tic_num_of_people"));
+					pndto.setTic_purchas_state(rs.getInt("tcpd_tic_purchas_state"));
+				}
 				pnlist.add(pndto);
 			}// while
 			rs.close();
@@ -460,7 +535,7 @@ public class MemberDAO {
 	public ArrayList<RestListDTO> PickRestList(Connection conn, int memberID, int current_page) {
 
 		StringBuffer sql = new StringBuffer();
-		
+
 		sql.append("select rownum ynum, x.* from ( ");
 		sql.append(" select distinct a.*, b.rest_img  , c.pop_loc_code,c.gen_loc_code, ");
 		sql.append(		   " c.gen_loc, c.pop_loc, d.food_code, nvl(e.tic_seq,0) tic_yn, nvl(f.review_cnt_p,0) review_cnt, ");
@@ -475,7 +550,7 @@ public class MemberDAO {
 		sql.append(" left join (SELECT rest_seq, rest_menu_img from rest_menu_img where rowid in (select max(rowid) from rest_menu_img group by rest_seq )) h on a.rest_seq = h.rest_seq ");
 		sql.append(" left join (select distinct rest_seq, COUNT(*)OVER(PARTITION BY rest_seq) img_cnt_p from rest_img) i on a.rest_seq = i.rest_seq ");
 		sql.append(" order by starpoint desc nulls last ) x ");		
-		
+
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
@@ -601,7 +676,7 @@ public class MemberDAO {
 		sql.append("     FROM member mem ");
 		sql.append(" ) ");
 		sql.append(" WHERE m_revcnt + m_ercnt > 15 and rownum < 6 ");
-		
+
 		PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 		if (my_no != -1) {
 			pstmt.setInt(1, my_no);

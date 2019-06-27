@@ -24,6 +24,9 @@
 <!-- body wrap -->
 <div id="wrap" class="">
 	<!-- header -->
+	
+	
+	
 	<jsp:include page="/WEB-INF/layout/header.jsp"></jsp:include>
 	
 	<jsp:include page="/WEB-INF/view/main/loc/seoul_container.jsp"></jsp:include>
@@ -31,6 +34,9 @@
 	<jsp:include page="/WEB-INF/layout/popup_wrap.jsp"></jsp:include>
 		
 	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
+	
+	
+	
 	
 
 </div> <!-- wrap end -->

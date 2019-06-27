@@ -37,29 +37,29 @@ public class PayCartInsertHandler implements CommandHandler {
 		
 		boolean result1 = service.insertReserve_tics(tic_seq, m_seq, cart_seq, totalmoney);
 		//System.out.println(result1);
-		boolean result2 = service.selectRp_seq(m_seq, m_point, totalmoney, m_email, point);
-		System.out.println(result2);
+//		boolean result2 = service.selectRp_seq(m_seq, m_point, totalmoney, m_email, point);
+//		System.out.println(result2);
 		
-		if (result2) {
-			// 세션 새로 저장
-			int new_rq_seq = m_point - totalmoney;
-
-			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
-			mdto.setM_point(new_rq_seq);
-			request.getSession().setAttribute("authUser", mdto);
-		}
+//		if (result2) {
+//			// 세션 새로 저장
+//			int new_rq_seq = m_point - totalmoney;
+//
+//			MemberDTO mdto = (MemberDTO) request.getSession().getAttribute("authUser");
+//			mdto.setM_point(new_rq_seq);
+//			request.getSession().setAttribute("authUser", mdto);
+//		}
 
 		
 		
 		JSONObject jsonObject = new JSONObject();
 		
 		jsonObject.put("result1", result1);
-		jsonObject.put("result2", result2);
+//		jsonObject.put("result2", result2);
 		jsonObject.put("totalmoney", totalmoney);
 //		jsonObject.put("rdto", rdto);
 		
 		request.setAttribute("result1",result1);
-		request.setAttribute("result2",result2);
+//		request.setAttribute("result2",result2);
 		request.setAttribute("totalmoney",totalmoney);
 //		request.setAttribute("rdto",rdto);
 		

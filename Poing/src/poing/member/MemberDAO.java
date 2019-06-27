@@ -64,7 +64,8 @@ public class MemberDAO {
 		System.out.println("카트번호"+cart_seq);
 		boolean result1 = false;
 		StringBuffer sql = new StringBuffer();
-		sql.append(" insert into tic_cart_purchase_detail (TC_PURCHAS_SEQ, TIC_SEQ, TIC_CART_SEQ, M_SEQ, TIC_PURCHAS_STATE, tic_totalmoney)values (tic_cart_purchase_detail_seq.nextval, ?, ?, ?,'결제완료',?) ");
+		sql.append(" insert into tic_cart_purchase_detail (TC_PURCHAS_SEQ, TIC_SEQ, TIC_CART_SEQ, M_SEQ,"
+				+ " TIC_PURCHAS_STATE, tic_totalmoney)values (tic_cart_purchase_detail_seq.nextval, ?, ?, ?,'결제완료',?) ");
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
@@ -144,26 +145,21 @@ public class MemberDAO {
 	}
 
 
-	public static boolean selectRp_seq(Connection conn, int m_seq,int m_point, int totalmoney, String m_email, int point){
-		System.out.println("진입성공");
-		System.out.println("rp_seq="+m_point);
-		System.out.println("totalmoney="+totalmoney);
-		System.out.println("m_email="+m_email);
+	public static boolean updateUserPoint(Connection conn, int m_seq,int m_point, int totalmoney, String m_email, int point){
 		boolean result2 = false;
 		StringBuffer sql = new StringBuffer();
 		sql.append(" update member set m_point = ? - ? where m_email = ? ");
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
-		
 		try {
 			pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, m_point);
 			pstmt.setInt(2, totalmoney);
 			pstmt.setString(3, m_email);
-
 			result2 = pstmt.executeUpdate()==0? false:true;
 			if(result2) {
-				String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_seq, eventSysdate, useContent, pointRecord) values (pointUseHistory_seq.nextval,?,sysdate,'결제 포인트를 차감했습니다.',?)";
+				String sql2 ="insert into pointUseHistory (pointUseHistory_seq, m_seq, eventSysdate, useContent,"
+						+ " pointRecord) values (pointUseHistory_seq.nextval,?,sysdate,'결제 포인트를 차감했습니다.',?)";
 				pstmt2 = conn.prepareStatement(sql2);
 				pstmt2.setInt(1, m_seq);
 				pstmt2.setInt(2, totalmoney);

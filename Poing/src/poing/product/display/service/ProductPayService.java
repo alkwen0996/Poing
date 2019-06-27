@@ -49,20 +49,13 @@ public class ProductPayService {
 		
 	}
 
-	public boolean selectRp_seq(int m_seq,int m_point, int totalmoney, String m_email, int point) {
-		System.out.println("selectRp_seq 안으로 들어옴"+m_seq);
-		System.out.println("selectRp_seq 안으로 들어옴"+totalmoney);
-		System.out.println("selectRp_seq 안으로 들어옴"+point);
-		System.out.println("selectRp_seq 안으로 들어옴"+m_email);
-		System.out.println("selectRp_seq 안으로 들어옴"+m_point);
+	public boolean updateUserPoint(int m_seq,int m_point, int totalmoney, String m_email, int point) {
 		boolean updateCheck = false;
 		try {
 			Connection conn = ConnectionProvider.getConnection();
 			if (totalmoney <= m_point && point == totalmoney) {
-				System.out.println("조건만족");
-				updateCheck = MemberDAO.selectRp_seq(conn,m_seq, m_point, totalmoney, m_email, point);
+				updateCheck = MemberDAO.updateUserPoint(conn,m_seq, m_point, totalmoney, m_email, point);
 				System.out.println(updateCheck); //
-
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
